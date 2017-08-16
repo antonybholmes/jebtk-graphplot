@@ -1,0 +1,110 @@
+/**
+ * Copyright 2016 Antony Holmes
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.jebtk.graphplot.figure.heatmap.legacy;
+
+import org.jebtk.core.geom.IntDim;
+import org.jebtk.core.settings.SettingsService;
+import org.jebtk.graphplot.AspectRatio;
+import org.jebtk.graphplot.PlotElement;
+import org.jebtk.math.matrix.AnnotationMatrix;
+
+
+// TODO: Auto-generated Javadoc
+/**
+ * Plot element that handles data from a matrix.
+ * 
+ * @author Antony Holmes Holmes
+ *
+ */
+public abstract class MatrixPlotElement extends PlotElement {
+	
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * The constant BLOCK_SIZE.
+	 */
+	public static final int BLOCK_SIZE = 
+			SettingsService.getInstance().getAsInt("graphplot.plot.block-size");
+	
+	
+	public static IntDim DEFAULT_BLOCK = new IntDim(BLOCK_SIZE, BLOCK_SIZE);
+	
+	protected IntDim mBlockSize = DEFAULT_BLOCK;
+	
+	/**
+	 * The member matrix.
+	 */
+	protected AnnotationMatrix mMatrix;
+
+	//protected Matrix mIM;
+
+	
+	/**
+	 * Instantiates a new matrix plot element.
+	 *
+	 * @param matrix the matrix
+	 * @param aspectRatio the aspect ratio
+	 */
+	public MatrixPlotElement(AnnotationMatrix matrix, IntDim aspectRatio) {
+		mMatrix = matrix;
+		
+		//mIM = matrix.getInnerMatrix();
+		
+		setAspectRatio(aspectRatio);
+	}
+	
+	/**
+	 * Gets the matrix.
+	 *
+	 * @return the matrix
+	 */
+	public AnnotationMatrix getMatrix() {
+		return mMatrix;
+	}
+	
+	/**
+	 * Sets the aspect ratio.
+	 *
+	 * @param aspectRatio the new aspect ratio
+	 */
+	public void setAspectRatio(AspectRatio aspectRatio) {
+		setBlockSize(new IntDim((int)(BLOCK_SIZE * aspectRatio.getX()),
+				(int)(BLOCK_SIZE * aspectRatio.getY())));
+	}
+	
+	public void setAspectRatio(IntDim dim) {
+		setBlockSize(dim);
+	}
+	
+	public void setBlockSize(IntDim dim) {
+		mBlockSize = dim;
+	}
+	
+	
+	
+	
+	/*
+	public void setCanvasSize(Dimension size) {
+		blockSize.width = Math.max(1, (int)(size.width / matrix.getColumnCount()));
+		blockSize.height = Math.max(1, (int)(size.height / matrix.getRowCount()));
+		
+		super.setCanvasSize(size);
+	}
+	*/
+}
