@@ -15,36 +15,22 @@
  */
 package org.jebtk.graphplot.plotbox;
 
-import java.util.Iterator;
-
-import org.jebtk.core.collections.CollectionUtils;
-
+import org.jebtk.core.StringId;
 
 // TODO: Auto-generated Javadoc
 /**
  * The class PlotBox.
  */
-public class PlotBoxPadding extends PlotBox {
+public class PlotBoxRows extends PlotBoxDim {
 
 	/**
 	 * The constant serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	private PlotBox mPlotBox;
-	
-	public PlotBoxPadding(PlotBox plotBox,
-			int t,
-			int l,
-			int b,
-			int r) {
-		super(new PlotBoxPaddingLayout(t, l, b, r));
-		
-		mPlotBox = plotBox;
-	}
-	
-	@Override
-	public Iterator<PlotBox> iterator() {
-		return CollectionUtils.toList(mPlotBox).iterator();
+
+	private static final StringId NEXT_ID = new StringId("Plot Box Rows");
+
+	public PlotBoxRows(int cols) {
+		super(NEXT_ID.getNextId(), new PlotBoxRowsLayout(cols));
 	}
 }

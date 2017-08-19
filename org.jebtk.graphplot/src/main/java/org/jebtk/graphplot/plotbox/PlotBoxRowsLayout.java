@@ -23,12 +23,18 @@ import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.ImageUtils;
 
 
-// TODO: Auto-generated Javadoc
 /**
- * The class PlotBox.
+ * Layout plots in rows with a fixed number of columns.
  */
-public class PlotBoxRowLayout extends PlotBoxLayout {
+public class PlotBoxRowsLayout extends PlotBoxLayout {
 
+	private int mCols;
+	
+	public PlotBoxRowsLayout(int cols) {
+		mCols = cols;
+	}
+	
+	
 	/**
 	 * Gets the plot size recursive.
 	 *
@@ -38,24 +44,19 @@ public class PlotBoxRowLayout extends PlotBoxLayout {
 	 */
 	@Override
 	public void plotSize(PlotBox plotBox, Dimension dim) {
-		int width = 0;
-		int height = 0;
-
-		Dimension tmpDim = new Dimension(0, 0);
+		int rows = plotBox.getChildCount() / mCols + (plotBox.getChildCount() % mCols > 0 ? 1 : 0);
+		int[] heights = new int[rows];
+		int[] widths = new int[mCols];
 		
-		for (PlotBox child : plotBox) {
-			tmpDim.width = 0;
-			tmpDim.height = 0;
+		sizes(plotBox, rows, widths, heights);
 
-			child.plotSize(tmpDim);
-
-			width = Math.max(width, tmpDim.width);
-
-			height += tmpDim.height;
+		for (int w : widths) {
+			dim.width += w;
 		}
-
-		dim.width += width;
-		dim.height += height;
+		
+		for (int h : heights) {
+			dim.height += h;
+		}
 	}
 
 	/**
@@ -73,13 +74,23 @@ public class PlotBoxRowLayout extends PlotBoxLayout {
 			DrawingContext context) {
 		Graphics2D subg2 = ImageUtils.clone(g2);
 
-		//subg2.translate(offset.width, offset.height);
-
-		int width = 0;
-		int height = 0;
+		int rows = plotBox.getChildCount() / mCols + (plotBox.getChildCount() % mCols > 0 ? 1 : 0);
+		int[] heights = new int[rows];
+		int[] widths = new int[mCols];
+		
+		sizes(plotBox, rows, widths, heights);
+		
+		int tw = 0;
+		
+		for (int w : widths) {
+			tw += w;
+		}
 
 		Point tempOffset = new Point(0, 0);
 
+		int r = 0;
+		int c = 0;
+		
 		try {	
 			for (PlotBox child : plotBox) {
 				tempOffset.x = 0;
@@ -87,17 +98,54 @@ public class PlotBoxRowLayout extends PlotBoxLayout {
 
 				child.plot(subg2, tempOffset, context);
 
-				subg2.translate(0, tempOffset.y);
-
-				width = Math.max(width, tempOffset.x);
-
-				height += tempOffset.y;
+				subg2.translate(tempOffset.x, 0);
+				
+				++c;
+				
+				if (c % mCols == 0) {
+					subg2.translate(-tw, heights[r]);
+					c = 0;
+					++r;
+				}
 			}
 		} finally {
 			subg2.dispose();
 		}
 		
-		offset.x += width;
-		offset.y += height;
+		offset.x += tw;
+		
+		for (int h : heights) {
+			offset.y += h;
+		}
+	}
+	
+	private void sizes(PlotBox plotBox, 
+			int rows,
+			int[] widths, 
+			int[] heights) {
+		
+		
+		Dimension tmpDim = new Dimension(0, 0);
+		
+		int r = 0;
+		int c = 0;
+		
+		for (PlotBox child : plotBox) {
+			tmpDim.width = 0;
+			tmpDim.height = 0;
+
+			child.plotSize(tmpDim);
+
+			widths[c] = Math.max(widths[c], tmpDim.width);
+
+			heights[r] += Math.max(heights[r], tmpDim.height);
+			
+			++c;
+			
+			if (c % mCols == 0) {
+				c = 0;
+				++r;
+			}
+		}
 	}
 }

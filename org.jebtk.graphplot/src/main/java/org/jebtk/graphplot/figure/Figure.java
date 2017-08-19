@@ -99,7 +99,7 @@ public class Figure extends ModernPlotCanvas implements ZLayer {
 		private SubFigure getFigure(CanvasMouseEvent e) {
 
 			for (int z : mSubFigureZModel) {
-				SubFigure figure = mSubFigureZModel.getAtZ(z);
+				SubFigure figure = mSubFigureZModel.getChild(z);
 
 				IntRect p = mOffsetMap.get(figure);
 
@@ -384,7 +384,7 @@ public class Figure extends ModernPlotCanvas implements ZLayer {
 	 * @return the axes
 	 */
 	public SubFigure getSubFigure(String name) {
-		return mSubFigureZModel.getLayer(name);
+		return mSubFigureZModel.getChild(name);
 	}
 
 	/**
@@ -470,7 +470,7 @@ public class Figure extends ModernPlotCanvas implements ZLayer {
 	 */
 	public void setStyle(PlotStyle style) {
 		for (int z : mSubFigureZModel) {
-			mSubFigureZModel.getAtZ(z).setStyle(style);	
+			mSubFigureZModel.getChild(z).setStyle(style);	
 		}
 	}
 
@@ -481,7 +481,7 @@ public class Figure extends ModernPlotCanvas implements ZLayer {
 	 */
 	public void addStyle(PlotStyle... styles) {
 		for (int z : mSubFigureZModel) {
-			mSubFigureZModel.getAtZ(z).addStyle(styles);		
+			mSubFigureZModel.getChild(z).addStyle(styles);		
 		}
 	}
 
@@ -493,7 +493,7 @@ public class Figure extends ModernPlotCanvas implements ZLayer {
 	 */
 	public void setStyle(String name, PlotStyle... styles) {
 		for (int z : mSubFigureZModel) {
-			mSubFigureZModel.getAtZ(z).setStyle(name, styles);		
+			mSubFigureZModel.getChild(z).setStyle(name, styles);		
 		}
 	}
 
@@ -505,7 +505,7 @@ public class Figure extends ModernPlotCanvas implements ZLayer {
 	 */
 	public void addStyle(String name, PlotStyle... styles) {
 		for (int z : mSubFigureZModel) {
-			mSubFigureZModel.getAtZ(z).addStyle(name, styles);		
+			mSubFigureZModel.getChild(z).addStyle(name, styles);		
 		}
 	}
 
@@ -516,7 +516,7 @@ public class Figure extends ModernPlotCanvas implements ZLayer {
 	 */
 	public void setColorMap(ColorMap colorMap) {
 		for (int z : getSubFigureZModel()) {
-			SubFigure subFigure = getSubFigureZModel().getAtZ(z);
+			SubFigure subFigure = getSubFigureZModel().getChild(z);
 
 			subFigure.setColorMap(colorMap);
 		}
@@ -552,7 +552,7 @@ public class Figure extends ModernPlotCanvas implements ZLayer {
 	public void setFont(Font font, Color color) {
 		if (mSubFigureZModel != null) {
 			for (int z :mSubFigureZModel) {
-				SubFigure subFigure = getSubFigureZModel().getAtZ(z);
+				SubFigure subFigure = getSubFigureZModel().getChild(z);
 
 				subFigure.setFont(font, color);
 			}
@@ -640,7 +640,7 @@ public class Figure extends ModernPlotCanvas implements ZLayer {
 	 * @see org.graphplot.figure.ZLayer#getType()
 	 */
 	@Override
-	public LayerType getType() {
+	public String getType() {
 		return LayerType.FIGURE;
 	}
 

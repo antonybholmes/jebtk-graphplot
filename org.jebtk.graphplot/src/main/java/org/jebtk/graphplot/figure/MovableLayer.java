@@ -121,7 +121,7 @@ public abstract class MovableLayer extends Layer {
 	 * @return the grid location
 	 */
 	public ZModel<MovableLayer> getGridLocation(GridLocation l) {
-		return mLocations.get(l);
+		return mLocations.getChild(l);
 	}
 	
 	/**
@@ -140,7 +140,7 @@ public abstract class MovableLayer extends Layer {
 	 * @param l the l
 	 */
 	public void putZ(MovableLayer layer, GridLocation l) {
-		mLocations.get(l).putZ(layer);
+		mLocations.getChild(l).putZ(layer);
 	}
 	
 	/**
@@ -159,7 +159,7 @@ public abstract class MovableLayer extends Layer {
 	 * @param l the l
 	 */
 	public void putZ(Collection<MovableLayer> layers, GridLocation l) {
-		mLocations.get(l).putZ(layers);
+		mLocations.getChild(l).putZ(layers);
 	}
 	
 	//
@@ -512,8 +512,8 @@ public abstract class MovableLayer extends Layer {
 	 * @see org.graphplot.figure.Layer#getType()
 	 */
 	@Override
-	public LayerType getType() {
-		return LayerType.MOVABLE;
+	public String getType() {
+		return "moveable";
 	}
 	
 	/**
@@ -588,8 +588,8 @@ public abstract class MovableLayer extends Layer {
 				// Stack all of the child layers in case we can find what
 				// we are looking for there
 				for (GridLocation l : ml.mLocations) {
-					for (int z : ml.mLocations.get(l)) {
-						stack.push(ml.mLocations.get(l).getAtZ(z));
+					for (int z : ml.mLocations.getChild(l)) {
+						stack.push(ml.mLocations.getChild(l).getChild(z));
 					}
 				}
 			}
@@ -627,8 +627,8 @@ public abstract class MovableLayer extends Layer {
 				// Stack all of the child layers in case we can find what
 				// we are looking for there
 				for (GridLocation l : ml.mLocations) {
-					for (int z : ml.mLocations.get(l)) {
-						stack.push(ml.mLocations.get(l).getAtZ(z));
+					for (int z : ml.mLocations.getChild(l)) {
+						stack.push(ml.mLocations.getChild(l).getChild(z));
 					}
 				}
 			}
@@ -761,10 +761,10 @@ public abstract class MovableLayer extends Layer {
 
 		int w = 0;
 
-		ZModel<MovableLayer> m = layerModel.get(l);
+		ZModel<MovableLayer> m = layerModel.getChild(l);
 
 		for (int z : m) {
-			MovableLayer a = m.getAtZ(z);
+			MovableLayer a = m.getChild(z);
 
 			if (a.getVisible()) {
 				w = Math.max(w, a.getCanvasSize().getW());
@@ -785,10 +785,10 @@ public abstract class MovableLayer extends Layer {
 
 		int w = 0;
 
-		ZModel<MovableLayer> m = layerModel.get(l);
+		ZModel<MovableLayer> m = layerModel.getChild(l);
 
 		for (int z : m) {
-			MovableLayer a = m.getAtZ(z);
+			MovableLayer a = m.getChild(z);
 
 			if (a.getVisible()) {
 				w += a.getCanvasSize().getW();
@@ -809,10 +809,10 @@ public abstract class MovableLayer extends Layer {
 
 		int h = 0;
 
-		ZModel<MovableLayer> m = layerModel.get(l);
+		ZModel<MovableLayer> m = layerModel.getChild(l);
 
 		for (int z : m) {
-			MovableLayer a = m.getAtZ(z);
+			MovableLayer a = m.getChild(z);
 
 			if (a.getVisible()) {
 				h = Math.max(h, a.getCanvasSize().getH());
@@ -833,10 +833,10 @@ public abstract class MovableLayer extends Layer {
 
 		int h = 0;
 
-		ZModel<MovableLayer> m = layerModel.get(l);
+		ZModel<MovableLayer> m = layerModel.getChild(l);
 
 		for (int z : m) {
-			MovableLayer a = m.getAtZ(z);
+			MovableLayer a = m.getChild(z);
 
 			if (a.getVisible()) {
 				h += a.getCanvasSize().getH();
@@ -918,7 +918,7 @@ public abstract class MovableLayer extends Layer {
 		int w = 0;
 
 		for (int z : m) {
-			MovableLayer a = m.getAtZ(z);
+			MovableLayer a = m.getChild(z);
 
 			if (a.getVisible()) {
 				w = Math.max(w, a.getCanvasSize().getW());
@@ -939,7 +939,7 @@ public abstract class MovableLayer extends Layer {
 		int h = 0;
 
 		for (int z : layerModel) {
-			MovableLayer a = layerModel.getAtZ(z);
+			MovableLayer a = layerModel.getChild(z);
 
 			if (a.getVisible()) {
 				h += a.getCanvasSize().getH();

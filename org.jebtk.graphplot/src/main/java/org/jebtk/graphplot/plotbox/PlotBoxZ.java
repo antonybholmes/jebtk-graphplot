@@ -19,30 +19,36 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.jebtk.core.StringId;
+
 
 // TODO: Auto-generated Javadoc
 /**
  * The class PlotBox.
  */
-public class PlotBoxOverlay extends PlotBox {
+public class PlotBoxZ extends PlotBox {
 
 	/**
 	 * The constant serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private static final StringId NEXT_ID = new StringId("Plot Box Z");
 
 	private static final Map<Integer, PlotBox> mMap =
 			new TreeMap<Integer, PlotBox>();
 
-	public PlotBoxOverlay() {
-		super(new PlotBoxOverlayLayout());
+	public PlotBoxZ() {
+		super(NEXT_ID.getNextId(), new PlotBoxZLayout());
 	}
 	
-	public void add(PlotBox plot) {
+	@Override
+	public void addChild(PlotBox plot) {
 		add(plot, getUnusedZ());
 	}
 	
-	public void add(PlotBox plot, int z) {
+	@Override
+	public void addChild(PlotBox plot, int z) {
 		putZ(plot, z);
 	}
 	
@@ -52,9 +58,11 @@ public class PlotBoxOverlay extends PlotBox {
 	
 	public void putZ(PlotBox plot, int z) {
 		mMap.put(z, plot);
+		
+		addChildByName(plot);
 	}
 	
-
+	@Override
 	public int getUnusedZ() {
 		for (int i = 1; i < Integer.MAX_VALUE; ++i) {
 			if (!mMap.containsKey(i)) {
@@ -63,6 +71,16 @@ public class PlotBoxOverlay extends PlotBox {
 		}
 		
 		return 1;
+	}
+	
+	@Override
+	public Iterable<Integer> getZ() {
+		return mMap.keySet();
+	}
+	
+	@Override
+	public PlotBox getChild(int z) {
+		return mMap.get(z);
 	}
 	
 	@Override

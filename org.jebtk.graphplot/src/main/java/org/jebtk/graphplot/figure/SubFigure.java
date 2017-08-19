@@ -31,7 +31,7 @@ import org.jebtk.modern.graphics.colormap.ColorMap;
  * A Figure is a collection of axes layered on top of each other. In a 
  * simple plot, there will be typically only be one set of axes.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public class SubFigure extends LayoutLayer implements PlotHashProperty { //LayoutLayer
 
@@ -153,8 +153,8 @@ public class SubFigure extends LayoutLayer implements PlotHashProperty { //Layou
 	 * @see org.graphplot.figure.MovableLayer#getType()
 	 */
 	@Override
-	public LayerType getType() {
-		return LayerType.SUBFIGURE;
+	public String getType() {
+		return "sub-figure";
 	}
 
 	/**
@@ -178,11 +178,11 @@ public class SubFigure extends LayoutLayer implements PlotHashProperty { //Layou
 	public Axes2D getAxes(int id, GridLocation l) {
 		String name = "Axes " + id;
 
-		if (!mLocations.get(l).contains(name)) {
+		if (!mLocations.getChild(l).contains(name)) {
 			putZ(new Axes2D(name), l);
 		}
 
-		return (Axes2D)mLocations.get(l).getLayer(name);
+		return (Axes2D)mLocations.getChild(l).getChild(name);
 	}
 
 	/**
@@ -205,11 +205,11 @@ public class SubFigure extends LayoutLayer implements PlotHashProperty { //Layou
 	public SubFigure getSubFigure(int id, GridLocation l) {
 		String name = "Sub Figure " + id;
 
-		if (!mLocations.get(l).contains(name)) {
-			mLocations.get(l).putZ(new SubFigure(name));
+		if (!mLocations.getChild(l).contains(name)) {
+			mLocations.getChild(l).putZ(new SubFigure(name));
 		}
 
-		return (SubFigure)mLocations.get(l).getLayer(name);
+		return (SubFigure)mLocations.getChild(l).getChild(name);
 	}
 
 	/**
@@ -230,7 +230,7 @@ public class SubFigure extends LayoutLayer implements PlotHashProperty { //Layou
 	 * @return the axes
 	 */
 	public Axes2D getAxes(String name, GridLocation l) {
-		return (Axes2D)mLocations.get(l).getLayer(name);
+		return (Axes2D)mLocations.getChild(l).getChild(name);
 	}
 
 	/**
@@ -252,10 +252,10 @@ public class SubFigure extends LayoutLayer implements PlotHashProperty { //Layou
 	public Axes2D getCurrentAxes(GridLocation l) {
 		Axes2D p = null;
 
-		for (int z : mLocations.get(l)) {
-			MovableLayer layer = mLocations.get(l).getAtZ(z);
+		for (int z : mLocations.getChild(l)) {
+			MovableLayer layer = mLocations.getChild(l).getChild(z);
 
-			if (layer.getType() == LayerType.AXES) {
+			if (layer.getType().equals("axes")) {
 				p = (Axes2D)layer;
 			}
 		}
@@ -285,11 +285,11 @@ public class SubFigure extends LayoutLayer implements PlotHashProperty { //Layou
 	 * @return the current layer
 	 */
 	public MovableLayer getCurrentLayer(GridLocation l) {
-		if (mLocations.get(l).getCurrentLayer() == null) {
+		if (mLocations.getChild(l).getCurrentLayer() == null) {
 			newSubFigure(l);
 		}
 
-		return mLocations.get(l).getCurrentLayer();
+		return mLocations.getChild(l).getCurrentLayer();
 	}
 
 	/* (non-Javadoc)
@@ -389,8 +389,8 @@ public class SubFigure extends LayoutLayer implements PlotHashProperty { //Layou
 		super.setFont(font, color);
 		
 		for (GridLocation l : mLocations) {
-			for (int z : mLocations.get(l)) {
-				Layer layer = mLocations.get(l).getAtZ(z);
+			for (int z : mLocations.getChild(l)) {
+				Layer layer = mLocations.getChild(l).getChild(z);
 
 				layer.setFont(font, color);
 			}
@@ -405,10 +405,10 @@ public class SubFigure extends LayoutLayer implements PlotHashProperty { //Layou
 	 */
 	public void setStyle(PlotStyle style) {
 		for (GridLocation l : mLocations) {
-			for (int z : mLocations.get(l)) {
-				Layer layer = mLocations.get(l).getAtZ(z);
+			for (int z : mLocations.getChild(l)) {
+				Layer layer = mLocations.getChild(l).getChild(z);
 
-				if (layer.getType() == LayerType.AXES) {
+				if (layer.getType().equals("axes")) {
 					Axes axes = (Axes)layer;
 					axes.setStyle(style);	
 				}
@@ -423,10 +423,10 @@ public class SubFigure extends LayoutLayer implements PlotHashProperty { //Layou
 	 */
 	public void addStyle(PlotStyle... styles) {
 		for (GridLocation l : mLocations) {
-			for (int z : mLocations.get(l)) {
-				Layer layer = mLocations.get(l).getAtZ(z);
+			for (int z : mLocations.getChild(l)) {
+				Layer layer = mLocations.getChild(l).getChild(z);
 
-				if (layer.getType() == LayerType.AXES) {
+				if (layer.getType().equals(LayerType.AXES)) {
 					Axes axes = (Axes)layer;
 					axes.addStyle(styles);		
 				}
@@ -442,10 +442,10 @@ public class SubFigure extends LayoutLayer implements PlotHashProperty { //Layou
 	 */
 	public void setStyle(String name, PlotStyle... styles) {
 		for (GridLocation l : mLocations) {
-			for (int z : mLocations.get(l)) {
-				Layer layer = mLocations.get(l).getAtZ(z);
+			for (int z : mLocations.getChild(l)) {
+				Layer layer = mLocations.getChild(l).getChild(z);
 
-				if (layer.getType() == LayerType.AXES) {
+				if (layer.getType().equals(LayerType.AXES)) {
 					Axes axes = (Axes)layer;
 					axes.setStyle(name, styles);		
 				}
@@ -461,10 +461,10 @@ public class SubFigure extends LayoutLayer implements PlotHashProperty { //Layou
 	 */
 	public void addStyle(String name, PlotStyle... styles) {
 		for (GridLocation l : mLocations) {
-			for (int z : mLocations.get(l)) {
-				Layer layer = mLocations.get(l).getAtZ(z);
+			for (int z : mLocations.getChild(l)) {
+				Layer layer = mLocations.getChild(l).getChild(z);
 
-				if (layer.getType() == LayerType.AXES) {
+				if (layer.getType().equals(LayerType.AXES)) {
 					Axes axes = (Axes)layer;
 					axes.addStyle(name, styles);		
 				}
@@ -479,10 +479,10 @@ public class SubFigure extends LayoutLayer implements PlotHashProperty { //Layou
 	 */
 	public void setMatrix(AnnotationMatrix m) {
 		for (GridLocation l : mLocations) {
-			for (int z : mLocations.get(l)) {
-				Layer layer = mLocations.get(l).getAtZ(z);
+			for (int z : mLocations.getChild(l)) {
+				Layer layer = mLocations.getChild(l).getChild(z);
 
-				if (layer.getType() == LayerType.AXES) {
+				if (layer.getType().equals(LayerType.AXES)) {
 					Axes axes = (Axes)layer;
 
 					axes.setMatrix(m);
@@ -498,10 +498,10 @@ public class SubFigure extends LayoutLayer implements PlotHashProperty { //Layou
 	 */
 	public void setColorMap(ColorMap colorMap) {
 		for (GridLocation l : mLocations) {
-			for (int z : mLocations.get(l)) {
-				Layer layer = mLocations.get(l).getAtZ(z);
+			for (int z : mLocations.getChild(l)) {
+				Layer layer = mLocations.getChild(l).getChild(z);
 
-				if (layer.getType() == LayerType.AXES) {
+				if (layer.getType().equals(LayerType.AXES)) {
 					Axes axes = (Axes)layer;
 
 					axes.setColorMap(colorMap);
@@ -525,7 +525,7 @@ public class SubFigure extends LayoutLayer implements PlotHashProperty { //Layou
 	 * @param l the l
 	 */
 	public void clear(GridLocation l) {
-		ZModel<MovableLayer> layers = getGridLocations().get(l);
+		ZModel<MovableLayer> layers = getGridLocations().getChild(l);
 
 		layers.clear();
 	}

@@ -19,26 +19,31 @@ package org.jebtk.graphplot.figure;
 /**
  * The Enum LayerType.
  */
-public enum LayerType {
+public class LayerType {
+	
 	
 	/** The layer. */
-	LAYER,
+	public static final String LAYER = "layer";
 	
 	/** The movable. */
-	MOVABLE, 
+	public static final String MOVABLE = "movable";
 	
 	/** The grid. */
-	GRID,
+	public static final String GRID = "grid";
 	
 	/** The axes. */
-	AXES, 
+	public static final String AXES = "axes";
 	
 	/** The subfigure. */
-	SUBFIGURE,
+	public static final String SUBFIGURE = "sub-figure";
 	
 	/** The plot. */
-	PLOT, 
+	public static final String PLOT = "plot";
 	
 	/** The figure. */
-	FIGURE
+	public static final String FIGURE = "figure";
+	
+	private LayerType() {
+		
+	}
 }

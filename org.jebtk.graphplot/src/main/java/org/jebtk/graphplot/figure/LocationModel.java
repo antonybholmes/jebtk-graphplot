@@ -48,7 +48,7 @@ public class LocationModel<T extends ZLayer> extends LayerCanvasListener impleme
 	 * @param l the l
 	 * @return the at z
 	 */
-	public ZModel<T> get(GridLocation l) {
+	public ZModel<T> getChild(GridLocation l) {
 		if (!mLayoutMap.containsKey(l)) {
 			mLayoutMap.put(l, new ZModel<T>());
 			
@@ -65,7 +65,7 @@ public class LocationModel<T extends ZLayer> extends LayerCanvasListener impleme
 	 * @return the at Z
 	 */
 	public T getAtZ(int z) {
-		return get(GridLocation.CENTER).getAtZ(z);
+		return getChild(GridLocation.CENTER).getChild(z);
 	}
 	
 	/**

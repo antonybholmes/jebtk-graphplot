@@ -103,7 +103,7 @@ public abstract class PlotLayout {
 		MovableLayerZModel layerModel = layer.mLocations;
 
 		for (GridLocation l : GridLocation.LOCATIONS) {
-			plot(g2, context, subFigure, axes, layerModel.get(l));
+			plot(g2, context, subFigure, axes, layerModel.getChild(l));
 		}
 	}
 
@@ -123,7 +123,7 @@ public abstract class PlotLayout {
 			ZModel<MovableLayer> m) {
 
 		for (int z : m) {
-			MovableLayer layer = m.getAtZ(z);
+			MovableLayer layer = m.getChild(z);
 
 			Graphics2D g2Temp = (Graphics2D)g2.create();
 
@@ -131,7 +131,7 @@ public abstract class PlotLayout {
 
 			//System.err.println("plot layout " + z + " " + layer.getName() + " " + layer.getId() + " " + layer.getType() + " " + layer.getLocation());
 
-			if (layer.getType() == LayerType.AXES) {
+			if (layer.getType().equals(LayerType.AXES)) {
 				layer.plot(g2Temp, context, subFigure);
 			} else {
 				layer.plot(g2Temp, context, subFigure, axes);

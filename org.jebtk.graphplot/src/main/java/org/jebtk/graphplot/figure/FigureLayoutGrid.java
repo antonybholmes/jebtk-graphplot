@@ -121,7 +121,7 @@ public class FigureLayoutGrid extends FigureLayout {
 				//w = mPlots.get(p).getGraphProperties().getPlotLayout().getSize().width;
 				//h = mPlots.get(p).getGraphProperties().getPlotLayout().getSize().height;
 
-				SubFigure subFigure = layerModel.getAtZ(zLayers.get(p));
+				SubFigure subFigure = layerModel.getChild(zLayers.get(p));
 				
 				w = subFigure.getCanvasSize().getW();
 				h = subFigure.getCanvasSize().getH();
@@ -163,7 +163,7 @@ public class FigureLayoutGrid extends FigureLayout {
 				//w = mPlots.get(p).getGraphProperties().getPlotLayout().getSize().width;
 				//h = mPlots.get(p).getGraphProperties().getPlotLayout().getSize().height;
 
-				SubFigure subFigure = layerModel.getAtZ(zLayers.get(p));
+				SubFigure subFigure = layerModel.getChild(zLayers.get(p));
 				
 				//System.err.println("ah " + figure.getName() + " " + figure.getPlotSize());
 

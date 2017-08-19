@@ -77,7 +77,7 @@ public abstract class FigureLayout {
 
 		
 		for (int z : figure.mSubFigureZModel) {
-			SubFigure subFigure = figure.mSubFigureZModel.getAtZ(z);
+			SubFigure subFigure = figure.mSubFigureZModel.getChild(z);
 			
 			Graphics2D g2Temp = (Graphics2D)g2.create();
 
@@ -123,7 +123,7 @@ public abstract class FigureLayout {
 		int w = 0;
 
 		for (int z : layerModel) {
-			MovableLayer a = layerModel.getAtZ(z);
+			MovableLayer a = layerModel.getChild(z);
 
 			if (a.getVisible()) {
 				w = Math.max(w, a.getCanvasSize().getW());
@@ -144,7 +144,7 @@ public abstract class FigureLayout {
 		int h = 0;
 
 		for (int z : layerModel) {
-			MovableLayer a = layerModel.getAtZ(z);
+			MovableLayer a = layerModel.getChild(z);
 
 			if (a.getVisible()) {
 				h += a.getCanvasSize().getH();

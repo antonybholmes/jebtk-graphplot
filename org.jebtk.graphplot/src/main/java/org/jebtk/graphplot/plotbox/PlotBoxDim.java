@@ -41,8 +41,8 @@ public abstract class PlotBoxDim extends PlotBox {
 	private List<PlotBox> mChildren = new ArrayList<PlotBox>();
 
 
-	public PlotBoxDim(PlotBoxLayout layout) {
-		super(layout);
+	public PlotBoxDim(String name, PlotBoxLayout layout) {
+		super(name, layout);
 	}
 
 	public void addChild(Collection<PlotBox> plotBoxes) {
@@ -80,10 +80,15 @@ public abstract class PlotBoxDim extends PlotBox {
 	 * @param plotBox the plot box
 	 */
 	@Override
-	public void addChild(PlotBox plotBox) {
-		mChildren.add(plotBox);
+	public void addChild(PlotBox plot) {
+		mChildren.add(plot);
 		
-		fireCanvasResized();
+		addChildByName(plot);
+	}
+	
+	@Override
+	public void addChild(PlotBox plot, int i) {
+		addChild(plot);
 	}
 
 	/**
@@ -92,6 +97,7 @@ public abstract class PlotBoxDim extends PlotBox {
 	 * @param index the index
 	 * @return the child
 	 */
+	@Override
 	public PlotBox getChild(int index) {
 		return mChildren.get(index);
 	}
@@ -108,5 +114,10 @@ public abstract class PlotBoxDim extends PlotBox {
 	@Override
 	public Iterator<PlotBox> iterator() {
 		return mChildren.iterator();
+	}
+	
+	@Override
+	public int getChildCount() {
+		return mChildren.size();
 	}
 }

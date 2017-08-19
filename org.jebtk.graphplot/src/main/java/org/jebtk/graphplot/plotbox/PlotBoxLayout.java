@@ -31,7 +31,7 @@ public abstract class PlotBoxLayout {
 	public IntDim getCanvasSize(PlotBox plotBox) {
 		Dimension dim = new Dimension(0, 0);
 
-		getPlotSizeRecursive(plotBox, dim);
+		plotSize(plotBox, dim);
 
 		return new IntDim(dim);
 	}
@@ -43,13 +43,13 @@ public abstract class PlotBoxLayout {
 	 * @param dim the dim
 	 * @return the plot size recursive
 	 */
-	public abstract void getPlotSizeRecursive(PlotBox plotBox, Dimension dim);
+	public abstract void plotSize(PlotBox plotBox, Dimension dim);
 
 
 	public void plot(Graphics2D g2, 
 			PlotBox plotBox,
 			DrawingContext context) {
-		plotRecursive(g2, plotBox, new Point(0, 0), context);
+		plot(g2, plotBox, new Point(0, 0), context);
 	}
 
 	/**
@@ -60,7 +60,7 @@ public abstract class PlotBoxLayout {
 	 * @param offset the offset
 	 * @param context the context
 	 */
-	public abstract void plotRecursive(Graphics2D g2,
+	public abstract void plot(Graphics2D g2,
 			PlotBox plotBox,
 			Point offset,
 			DrawingContext context);

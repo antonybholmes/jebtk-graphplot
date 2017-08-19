@@ -50,7 +50,7 @@ import org.jebtk.graphplot.figure.PlotBoxH;
 import org.jebtk.graphplot.figure.PlotBoxLayoutH;
 import org.jebtk.graphplot.figure.PlotBoxLayoutV;
 import org.jebtk.graphplot.figure.PlotBoxV;
-import org.jebtk.graphplot.figure.PlotLocationGrid;
+import org.jebtk.graphplot.figure.PlotGrid;
 import org.jebtk.graphplot.figure.PlotStyle;
 import org.jebtk.graphplot.figure.ScatterBestFitPlotLayer;
 import org.jebtk.graphplot.figure.ScatterPlotLayer;
@@ -963,9 +963,9 @@ public class PlotFactory {
 			plot.getPlotLayerZModel().putZ(new RowHierarchicalTreeLayer(rowCluster, Color.BLACK));
 			*/
 			
-			PlotLocationGrid ca = new PlotLocationGrid(new PlotBoxLayoutH());
+			PlotGrid ca = new PlotGrid(new PlotBoxLayoutH());
 			
-			axes.addLayer(ca, GridLocation.W);
+			axes.addChild(ca, GridLocation.W);
 			
 			plot = ca.createNewPlot();
 			plot.setMatrix(m);
@@ -979,9 +979,9 @@ public class PlotFactory {
 		//
 
 		if (columnCluster != null) {
-			PlotLocationGrid ca = new PlotLocationGrid(new PlotBoxLayoutV());
+			PlotGrid ca = new PlotGrid(new PlotBoxLayoutV());
 			
-			axes.addLayer(ca, GridLocation.N);
+			axes.addChild(ca, GridLocation.N);
 			
 			
 			

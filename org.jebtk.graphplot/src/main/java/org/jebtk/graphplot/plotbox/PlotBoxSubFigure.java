@@ -15,6 +15,7 @@
  */
 package org.jebtk.graphplot.plotbox;
 
+import org.jebtk.core.StringId;
 import org.jebtk.graphplot.figure.SubFigure;
 
 
@@ -29,13 +30,16 @@ public class PlotBoxSubFigure extends PlotBox {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private static final StringId NEXT_ID = new StringId("Plot Box Sub Figure");
+
+	
 	/**
 	 * Instantiates a new plot box.
 	 *
 	 * @param renderer the renderer
 	 */
-	public PlotBoxSubFigure(SubFigure renderer) {
-		super(new PlotBoxSubFigureLayout(renderer));
+	public PlotBoxSubFigure(SubFigure subFigure) {
+		super(NEXT_ID.getNextId(), new PlotBoxSubFigureLayout(subFigure));
 	}
 
 	public SubFigure getSubFigure() {

@@ -56,14 +56,14 @@ public class PlotBoxEmptyLayout extends PlotBoxLayout {
 	}
 
 	@Override
-	public void getPlotSizeRecursive(PlotBox plot, Dimension dim) {
+	public void plotSize(PlotBox plot, Dimension dim) {
 		dim.width += mDim.getW();
 		dim.height += mDim.getH();
 	}
 
 
 	@Override
-	public void plotRecursive(Graphics2D g2, 
+	public void plot(Graphics2D g2, 
 			PlotBox plot,
 			Point offset,
 			DrawingContext context) {

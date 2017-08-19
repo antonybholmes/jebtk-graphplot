@@ -20,13 +20,30 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 
 import org.jebtk.modern.graphics.DrawingContext;
+import org.jebtk.modern.graphics.ImageUtils;
 
 
 // TODO: Auto-generated Javadoc
 /**
  * The class PlotBox.
  */
-public class PlotBoxOverlayLayout extends PlotBoxLayout {
+public class PlotPadding extends PlotBoxLayout {
+
+	private int mT;
+	private int mL;
+	private int mB;
+	private int mR;
+
+
+	public PlotPadding(int t,
+			int l,
+			int b,
+			int r) {
+		mT = t;
+		mL = l;
+		mB = b;
+		mR = r;
+	}
 	
 	/**
 	 * Gets the plot size recursive.
@@ -36,22 +53,13 @@ public class PlotBoxOverlayLayout extends PlotBoxLayout {
 	 * @return the plot size recursive
 	 */
 	@Override
-	public void getPlotSizeRecursive(PlotBox plot, Dimension dim) {
-		int width = 0;
-		int height = 0;
+	public void plotSize(PlotBox plot, Dimension dim) {
+		Dimension d = new Dimension(0, 0);
 
-		for (PlotBox child : plot) {
-			Dimension dim1 = new Dimension(0, 0);
+		plot.iterator().next().plotSize(dim);
 
-			child.getPlotSizeRecursive(dim1);
-
-			width = Math.max(width, dim1.width);
-
-			height = Math.max(height, dim1.height);
-		}
-
-		dim.width += width;
-		dim.height += height;
+		dim.width += d.width + mL + mR;
+		dim.height += d.height + mT + mB;
 	}
 
 	/**
@@ -63,31 +71,23 @@ public class PlotBoxOverlayLayout extends PlotBoxLayout {
 	 * @param context the context
 	 */
 	@Override
-	public void plotRecursive(Graphics2D g2,
+	public void plot(Graphics2D g2,
 			PlotBox plot,
 			Point offset,
 			DrawingContext context) {
-		//Graphics2D subg2 = ImageUtils.clone(g2);
-
-		//subg2.translate(offset.width, offset.height);
-
-		int width = 0;
-		int height = 0;
-
 		Point tempOffset = new Point(0, 0);
 
-		for (PlotBox child : plot) {
-			tempOffset.x = 0;
-			tempOffset.y = 0;
-
-			child.plotRecursive(g2, tempOffset, context);
-
-			width = Math.max(width, tempOffset.x);
-
-			height = Math.max(height, tempOffset.y);
+		Graphics2D g2Temp = ImageUtils.clone(g2);
+		
+		try {
+			g2Temp.translate(mL, mT);
+			
+			plot.iterator().next().plot(g2Temp, tempOffset, context);
+		} finally {
+			g2Temp.dispose();
 		}
-
-		offset.x += width;
-		offset.y += height;
+		
+		offset.x += tempOffset.x + mL + mR;
+		offset.y += tempOffset.y + mT + mB;
 	}
 }

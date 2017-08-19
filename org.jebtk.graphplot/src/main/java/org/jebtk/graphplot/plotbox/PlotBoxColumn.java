@@ -15,6 +15,7 @@
  */
 package org.jebtk.graphplot.plotbox;
 
+import org.jebtk.core.StringId;
 import org.jebtk.graphplot.PanelLabel;
 import org.jebtk.modern.graphics.ModernCanvas;
 
@@ -29,10 +30,12 @@ public class PlotBoxColumn extends PlotBoxDim {
 	 * The constant serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private static final StringId NEXT_ID = new StringId("Plot Box Column");
 
 
 	public PlotBoxColumn() {
-		super(new PlotBoxColumnLayout());
+		super(NEXT_ID.getNextId(), new PlotBoxColumnLayout());
 	}
 
 	/**

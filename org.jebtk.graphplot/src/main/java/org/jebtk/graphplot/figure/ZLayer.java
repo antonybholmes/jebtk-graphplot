@@ -33,5 +33,5 @@ public interface ZLayer extends ModernCanvasEventProducer, ModernCanvasMouseList
 	 *
 	 * @return the type
 	 */
-	LayerType getType();
+	String getType();
 }

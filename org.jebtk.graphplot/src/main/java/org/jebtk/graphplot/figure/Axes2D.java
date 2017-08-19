@@ -49,15 +49,15 @@ public class Axes2D extends Axes {
 	public Axes2D(String name) {
 		super(name);
 
-		addLayer(new AxisLayerX1(), 1000);
-		addLayer(new AxisLayerY1(), 2000);
-		addLayer(new AxisLayerY2(), 3000);
+		addChild(new AxisLayerX1(), 1000);
+		addChild(new AxisLayerY1(), 2000);
+		addChild(new AxisLayerY2(), 3000);
 
 		// DO NOT NEED
 		//mAxesLayers.setZ(new LabelPlotLayer(), 4000);
 
-		addLayer(new LegendLayer(), 5000);
-		addLayer(new AxesTitleLayer(), 6000);
+		addChild(new LegendLayer(), 5000);
+		addChild(new AxesTitleLayer(), 6000);
 		
 		// Give the axes a reasonable size
 		setInternalPlotSize(1000, 600);
@@ -72,14 +72,4 @@ public class Axes2D extends Axes {
 
 		return addAxes(axes, l);
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.graphplot.figure.Axes#getType()
-	 */
-	@Override
-	public LayerType getType() {
-		return LayerType.AXES;
-	}
-
-	
 }

@@ -15,6 +15,9 @@
  */
 package org.jebtk.graphplot.figure;
 
+import java.util.Arrays;
+import java.util.List;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Enum GridLocation.
@@ -52,6 +55,9 @@ public enum GridLocation implements Comparable<GridLocation> {
 	 * The order which the locations should be iterated over when searching
 	 * for layers etc.
 	 */
-	public static GridLocation[] LOCATIONS = 
+	public static final GridLocation[] LOCATIONS = 
 		{N, NE, E, SE, S, SW, W, NW, CENTER};
+	
+	public static final List<GridLocation> LOCATIONS_LIST = 
+		Arrays.asList(LOCATIONS);
 }

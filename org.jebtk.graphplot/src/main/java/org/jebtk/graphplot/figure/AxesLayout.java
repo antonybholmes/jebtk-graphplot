@@ -39,10 +39,10 @@ public abstract class AxesLayout extends PlotLayout {
 
 		MovableLayerZModel layerModel = layer.mLocations;
 
-		ZModel<MovableLayer> m = layerModel.get(GridLocation.CENTER);
+		ZModel<MovableLayer> m = layerModel.getChild(GridLocation.CENTER);
 
 		for (int z : m) {
-			MovableLayer l = m.getAtZ(z);
+			MovableLayer l = m.getChild(z);
 
 			Graphics2D g2Temp = (Graphics2D)g2.create();
 	

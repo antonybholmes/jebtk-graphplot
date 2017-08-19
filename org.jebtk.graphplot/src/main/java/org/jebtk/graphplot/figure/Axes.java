@@ -48,7 +48,7 @@ import org.jebtk.modern.graphics.colormap.ColorMap;
  * @author Antony Holmes Holmes
  *
  */
-public class Axes extends PlotLocationGrid implements PlotHashProperty {
+public class Axes extends PlotGrid implements PlotHashProperty {
 
 	/**
 	 * The constant serialVersionUID.
@@ -217,18 +217,13 @@ public class Axes extends PlotLocationGrid implements PlotHashProperty {
 		this();
 	}
 
-
-
-
-
 	/* (non-Javadoc)
 	 * @see org.graphplot.figure.PlotLocationGrid#getType()
 	 */
 	@Override
-	public LayerType getType() {
+	public String getType() {
 		return LayerType.AXES;
 	}
-
 
 	/**
 	 * New axes.
@@ -269,7 +264,7 @@ public class Axes extends PlotLocationGrid implements PlotHashProperty {
 	 * @return the axes
 	 */
 	public Axes addAxes(Axes axes, GridLocation l) {
-		mLocations.get(l).putZ(axes);
+		mLocations.getChild(l).putZ(axes);
 
 		return axes;
 	}
@@ -350,10 +345,10 @@ public class Axes extends PlotLocationGrid implements PlotHashProperty {
 	 */
 	public void setStyle(PlotStyle style) {
 		for (GridLocation l : mLocations) {
-			for (int z : mLocations.get(l)) {
-				Layer layer = mLocations.get(l).getAtZ(z);
+			for (int z : mLocations.getChild(l)) {
+				Layer layer = mLocations.getChild(l).getChild(z);
 
-				if (layer.getType() == LayerType.PLOT) {
+				if (layer.getType().equals(LayerType.PLOT)) {
 					Plot plot = (Plot)layer;
 					plot.setStyle(style);
 				}
@@ -368,10 +363,10 @@ public class Axes extends PlotLocationGrid implements PlotHashProperty {
 	 */
 	public void addStyle(PlotStyle... styles) {
 		for (GridLocation l : mLocations) {
-			for (int z : mLocations.get(l)) {
-				Layer layer = mLocations.get(l).getAtZ(z);
+			for (int z : mLocations.getChild(l)) {
+				Layer layer = mLocations.getChild(l).getChild(z);
 
-				if (layer.getType() == LayerType.PLOT) {
+				if (layer.getType().equals(LayerType.PLOT)) {
 					Plot plot = (Plot)layer;
 					plot.addStyle(styles);		
 				}
@@ -387,10 +382,10 @@ public class Axes extends PlotLocationGrid implements PlotHashProperty {
 	 */
 	public void setStyle(String name, PlotStyle... styles) {
 		for (GridLocation l : mLocations) {
-			for (int z : mLocations.get(l)) {
-				Layer layer = mLocations.get(l).getAtZ(z);
+			for (int z : mLocations.getChild(l)) {
+				Layer layer = mLocations.getChild(l).getChild(z);
 
-				if (layer.getType() == LayerType.PLOT) {
+				if (layer.getType().equals(LayerType.PLOT)) {
 					Plot plot = (Plot)layer;
 					plot.setStyle(name, styles);		
 				}
@@ -406,10 +401,10 @@ public class Axes extends PlotLocationGrid implements PlotHashProperty {
 	 */
 	public void addStyle(String name, PlotStyle... styles) {
 		for (GridLocation l : mLocations) {
-			for (int z : mLocations.get(l)) {
-				Layer layer = mLocations.get(l).getAtZ(z);
+			for (int z : mLocations.getChild(l)) {
+				Layer layer = mLocations.getChild(l).getChild(z);
 
-				if (layer.getType() == LayerType.PLOT) {
+				if (layer.getType().equals(LayerType.PLOT)) {
 					Plot plot = (Plot)layer;
 					plot.addStyle(name, styles);		
 				}
@@ -550,10 +545,10 @@ public class Axes extends PlotLocationGrid implements PlotHashProperty {
 		try {
 			g2Temp.translate(getMargins().getLeft(), getMargins().getTop());
 
-			ZModel<MovableLayer> layers = mLocations.get(GridLocation.CENTER);
+			ZModel<MovableLayer> layers = mLocations.getChild(GridLocation.CENTER);
 
 			for (int z : layers) {
-				MovableLayer c = layers.getAtZ(z);
+				MovableLayer c = layers.getChild(z);
 
 				if (c.getVisible()) {
 					//SysUtils.err().println("axes", getName(), c.getName(), c.getVisible());
@@ -583,10 +578,10 @@ public class Axes extends PlotLocationGrid implements PlotHashProperty {
 	public void setFont(Font font, Color color) {
 		super.setFont(font, color);
 		
-		ZModel<MovableLayer> layers = mLocations.get(GridLocation.CENTER);
+		ZModel<MovableLayer> layers = mLocations.getChild(GridLocation.CENTER);
 
 		for (int z : layers) {
-			MovableLayer c = layers.getAtZ(z);
+			MovableLayer c = layers.getChild(z);
 
 			c.setFont(font, color);
 		}
@@ -652,10 +647,10 @@ public class Axes extends PlotLocationGrid implements PlotHashProperty {
 	 */
 	public void setMatrix(AnnotationMatrix m) {
 		for (GridLocation l : mLocations) {
-			for (int z : mLocations.get(l)) {
-				Layer layer = mLocations.get(l).getAtZ(z);
+			for (int z : mLocations.getChild(l)) {
+				Layer layer = mLocations.getChild(l).getChild(z);
 
-				if (layer.getType() == LayerType.PLOT) {
+				if (layer.getType().equals(LayerType.PLOT)) {
 					Plot plot = (Plot)layer;
 
 					plot.setMatrix(m);
@@ -671,10 +666,10 @@ public class Axes extends PlotLocationGrid implements PlotHashProperty {
 	 */
 	public void setColorMap(ColorMap colorMap) {
 		for (GridLocation l : mLocations) {
-			for (int z : mLocations.get(l)) {
-				Layer layer = mLocations.get(l).getAtZ(z);
+			for (int z : mLocations.getChild(l)) {
+				Layer layer = mLocations.getChild(l).getChild(z);
 
-				if (layer.getType() == LayerType.PLOT) {
+				if (layer.getType().equals(LayerType.PLOT)) {
 					Plot plot = (Plot)layer;
 
 					plot.setColorMap(colorMap);
@@ -831,10 +826,10 @@ public class Axes extends PlotLocationGrid implements PlotHashProperty {
 		double ret = Double.MIN_VALUE;
 
 		for (GridLocation l : axes.mLocations) {
-			for (int z : axes.mLocations.get(l)) {
-				Layer layer = axes.mLocations.get(l).getAtZ(z);
+			for (int z : axes.mLocations.getChild(l)) {
+				Layer layer = axes.mLocations.getChild(l).getChild(z);
 
-				if (layer.getType() == LayerType.PLOT) {
+				if (layer.getType().equals(LayerType.PLOT)) {
 					Plot plot = (Plot)layer;
 
 					double m = Plot.getXMax(plot);
@@ -859,10 +854,10 @@ public class Axes extends PlotLocationGrid implements PlotHashProperty {
 		double ret = Double.MIN_VALUE;
 
 		for (GridLocation l : axes.mLocations) {
-			for (int z : axes.mLocations.get(l)) {
-				Layer layer = axes.mLocations.get(l).getAtZ(z);
+			for (int z : axes.mLocations.getChild(l)) {
+				Layer layer = axes.mLocations.getChild(l).getChild(z);
 
-				if (layer.getType() == LayerType.PLOT) {
+				if (layer.getType().equals(LayerType.PLOT)) {
 					Plot plot = (Plot)layer;
 
 					double m = Plot.getY1Max(plot);
@@ -887,10 +882,10 @@ public class Axes extends PlotLocationGrid implements PlotHashProperty {
 		double ret = Double.MIN_VALUE;
 
 		for (GridLocation l : axes.mLocations) {
-			for (int z : axes.mLocations.get(l)) {
-				Layer layer = axes.mLocations.get(l).getAtZ(z);
+			for (int z : axes.mLocations.getChild(l)) {
+				Layer layer = axes.mLocations.getChild(l).getChild(z);
 
-				if (layer.getType() == LayerType.PLOT) {
+				if (layer.getType().equals(LayerType.PLOT)) {
 					Plot plot = (Plot)layer;
 
 					double m = Plot.getY2Max(plot);
@@ -915,10 +910,10 @@ public class Axes extends PlotLocationGrid implements PlotHashProperty {
 		double ret = Double.MAX_VALUE;
 
 		for (GridLocation l : axes.mLocations) {
-			for (int z : axes.mLocations.get(l)) {
-				Layer layer = axes.mLocations.get(l).getAtZ(z);
+			for (int z : axes.mLocations.getChild(l)) {
+				Layer layer = axes.mLocations.getChild(l).getChild(z);
 
-				if (layer.getType() == LayerType.PLOT) {
+				if (layer.getType().equals(LayerType.PLOT)) {
 					Plot plot = (Plot)layer;
 
 					double m = Plot.getXMin(plot);
@@ -943,10 +938,10 @@ public class Axes extends PlotLocationGrid implements PlotHashProperty {
 		double ret = Double.MAX_VALUE;
 
 		for (GridLocation l : axes.mLocations) {
-			for (int z : axes.mLocations.get(l)) {
-				Layer layer = axes.mLocations.get(l).getAtZ(z);
+			for (int z : axes.mLocations.getChild(l)) {
+				Layer layer = axes.mLocations.getChild(l).getChild(z);
 
-				if (layer.getType() == LayerType.PLOT) {
+				if (layer.getType().equals(LayerType.PLOT)) {
 					Plot plot = (Plot)layer;
 
 					double m = Plot.getY1Min(plot);
@@ -971,10 +966,10 @@ public class Axes extends PlotLocationGrid implements PlotHashProperty {
 		double ret = Double.MAX_VALUE;
 
 		for (GridLocation l : axes.mLocations) {
-			for (int z : axes.mLocations.get(l)) {
-				Layer layer = axes.mLocations.get(l).getAtZ(z);
+			for (int z : axes.mLocations.getChild(l)) {
+				Layer layer = axes.mLocations.getChild(l).getChild(z);
 
-				if (layer.getType() == LayerType.PLOT) {
+				if (layer.getType().equals(LayerType.PLOT)) {
 					Plot plot = (Plot)layer;
 
 					double m = Plot.getY2Min(plot);

@@ -19,6 +19,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.jebtk.core.StringId;
+import org.jebtk.core.geom.GeomUtils;
 import org.jebtk.core.geom.IntPos2D;
 
 
@@ -36,12 +38,22 @@ public class PlotBoxFloating extends PlotBox {
 	private static final Map<IntPos2D, PlotBox> mMap =
 			new HashMap<IntPos2D, PlotBox>();
 
+	private static final StringId NEXT_ID = new StringId("Plot Box Floating");
+	
 	public PlotBoxFloating() {
-		super(new PlotBoxFloatingLayout());
+		super(NEXT_ID.getNextId(), new PlotBoxFloatingLayout());
 	}
 	
-	public void add(PlotBox plot, IntPos2D l) {
-		mMap.put(l, plot);
+	@Override
+	public void addChild(PlotBox plot) {
+		addChild(plot, GeomUtils.INT_POINT_ZERO);
+	}
+	
+	@Override
+	public void addChild(PlotBox plot, IntPos2D p) {
+		mMap.put(p, plot);
+		
+		addChildByName(plot);
 	}
 
 	@Override
@@ -49,11 +61,18 @@ public class PlotBoxFloating extends PlotBox {
 		return mMap.values().iterator();
 	}
 
-	public Iterable<IntPos2D> getLocations() {
+	@Override
+	public Iterable<IntPos2D> getPositions() {
 		return mMap.keySet();
 	}
 
+	@Override
 	public PlotBox getChild(IntPos2D p) {
 		return mMap.get(p);
+	}
+	
+	@Override
+	public int getChildCount() {
+		return mMap.size();
 	}
 }

@@ -37,18 +37,18 @@ public class PlotBoxColumnLayout extends PlotBoxLayout {
 	 * @return the plot size recursive
 	 */
 	@Override
-	public void getPlotSizeRecursive(PlotBox plotBox,
+	public void plotSize(PlotBox plotBox,
 			Dimension dim) {
 		int width = 0;
 		int height = 0;
 
+		Dimension tmpDim = new Dimension(0, 0);
+		
 		for (PlotBox child : plotBox) {
-			Dimension dim1 = new Dimension(0, 0);
+			child.plotSize(tmpDim);
 
-			child.getPlotSizeRecursive(dim1);
-
-			width += dim1.width;
-			height = Math.max(height, dim1.height);
+			width += tmpDim.width;
+			height = Math.max(height, tmpDim.height);
 		}
 
 		dim.width += width;
@@ -64,7 +64,7 @@ public class PlotBoxColumnLayout extends PlotBoxLayout {
 	 * @param context the context
 	 */
 	@Override
-	public void plotRecursive(Graphics2D g2,
+	public void plot(Graphics2D g2,
 			PlotBox plotBox,
 			Point offset,
 			DrawingContext context) {
@@ -86,7 +86,7 @@ public class PlotBoxColumnLayout extends PlotBoxLayout {
 				tempOffset.x = 0;
 				tempOffset.y = 0;
 
-				child.plotRecursive(g2Temp, tempOffset, context);
+				child.plot(g2Temp, tempOffset, context);
 
 				g2Temp.translate(tempOffset.x, 0);
 

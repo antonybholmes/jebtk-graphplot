@@ -44,7 +44,7 @@ public class PlotBoxCanvasLayout extends PlotBoxLayout {
 	 * @return the plot size recursive
 	 */
 	@Override
-	public void getPlotSizeRecursive(PlotBox plot, Dimension dim) {
+	public void plotSize(PlotBox plot, Dimension dim) {
 		IntDim s = mCanvas.getCanvasSize();
 		
 		// Call getRenderer() so that we do not recursively call
@@ -62,7 +62,7 @@ public class PlotBoxCanvasLayout extends PlotBoxLayout {
 	 * @param context the context
 	 */
 	@Override
-	public void plotRecursive(Graphics2D g2,
+	public void plot(Graphics2D g2,
 			PlotBox plot,
 			Point offset,
 			DrawingContext context) {
@@ -73,5 +73,9 @@ public class PlotBoxCanvasLayout extends PlotBoxLayout {
 		
 		offset.x += s.getW();
 		offset.y += s.getH();
+	}
+	
+	public ModernCanvas getCanvas() {
+		return mCanvas;
 	}
 }

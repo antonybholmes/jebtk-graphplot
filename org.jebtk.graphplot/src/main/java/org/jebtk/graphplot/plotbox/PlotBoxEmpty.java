@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import org.jebtk.core.StringId;
 import org.jebtk.core.geom.IntDim;
 
 
@@ -35,6 +36,8 @@ public class PlotBoxEmpty extends PlotBox {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	private static final StringId NEXT_ID = new StringId("Plot Box Empty");
+	
 	private static final List<PlotBox> NO_PLOTS =
 			Collections.emptyList();
 
@@ -44,7 +47,7 @@ public class PlotBoxEmpty extends PlotBox {
 	 * @param dimension the dimension
 	 */
 	public PlotBoxEmpty(IntDim dim) {
-		super(new PlotBoxEmptyLayout(dim));
+		super(NEXT_ID.getNextId(), new PlotBoxEmptyLayout(dim));
 	}
 	
 	public PlotBoxEmpty(Dimension dim) {

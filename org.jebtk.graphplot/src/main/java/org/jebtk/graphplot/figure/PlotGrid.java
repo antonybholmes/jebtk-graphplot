@@ -32,7 +32,7 @@ import org.jebtk.core.geom.IntDim;
  *  
  * @author Antony Holmes Holmes
  */
-public class PlotLocationGrid extends MovableLayer {
+public class PlotGrid extends MovableLayer {
 
 	/**
 	 * The constant serialVersionUID.
@@ -171,7 +171,7 @@ public class PlotLocationGrid extends MovableLayer {
 	/**
 	 * Instantiates a new plot location grid.
 	 */
-	public PlotLocationGrid() {
+	public PlotGrid() {
 		this(NEXT_ID.getNextId());
 	}
 
@@ -180,7 +180,7 @@ public class PlotLocationGrid extends MovableLayer {
 	 *
 	 * @param id the id
 	 */
-	public PlotLocationGrid(String id) {
+	public PlotGrid(String id) {
 		this(id, new SubFigureBorderLayout()); //new AxesBorderLayout());
 	}
 	
@@ -189,7 +189,7 @@ public class PlotLocationGrid extends MovableLayer {
 	 *
 	 * @param layout the layout
 	 */
-	public PlotLocationGrid(PlotLayout layout) {
+	public PlotGrid(PlotLayout layout) {
 		this(NEXT_ID.getNextId(), layout);
 	}
 
@@ -199,7 +199,7 @@ public class PlotLocationGrid extends MovableLayer {
 	 * @param id the id
 	 * @param layout the layout
 	 */
-	public PlotLocationGrid(String id, PlotLayout layout) {
+	public PlotGrid(String id, PlotLayout layout) {
 		super(id); // layout);
 	}
 	
@@ -207,8 +207,8 @@ public class PlotLocationGrid extends MovableLayer {
 	 * @see org.graphplot.figure.MovableLayer#getType()
 	 */
 	@Override
-	public LayerType getType() {
-		return LayerType.GRID;
+	public String getType() {
+		return "grid";
 	}
 
 	/**
@@ -252,7 +252,7 @@ public class PlotLocationGrid extends MovableLayer {
 	public Plot addPlot(Plot plot, GridLocation l) {
 		//mLocations.get(l).putZ(plot);
 		
-		addLayer(plot, l);
+		addChild(plot, l);
 
 		return plot;
 	}
@@ -277,10 +277,10 @@ public class PlotLocationGrid extends MovableLayer {
 	public Plot getCurrentPlot(GridLocation l) {
 		Plot p = null;
 		
-		for (int z : mLocations.get(l)) {
-			MovableLayer layer = mLocations.get(l).getAtZ(z);
+		for (int z : mLocations.getChild(l)) {
+			MovableLayer layer = mLocations.getChild(l).getChild(z);
 			
-			if (layer.getType() == LayerType.PLOT) {
+			if (layer.getType().equals(LayerType.PLOT)) {
 				p = (Plot)layer;
 			}
 		}
@@ -309,14 +309,14 @@ public class PlotLocationGrid extends MovableLayer {
 	 * @return the current plot
 	 */
 	public List<Plot> getPlots(GridLocation l) {
-		ZModel<MovableLayer> zmodel = mLocations.get(l);
+		ZModel<MovableLayer> zmodel = mLocations.getChild(l);
 		
 		List<Plot> ret = new ArrayList<Plot>(zmodel.size());
 		
 		for (int z : zmodel) {
-			MovableLayer layer = mLocations.get(l).getAtZ(z);
+			MovableLayer layer = mLocations.getChild(l).getChild(z);
 			
-			if (layer.getType() == LayerType.PLOT) {
+			if (layer.getType().equals(LayerType.PLOT)) {
 				ret.add((Plot)layer);
 			}
 		}
@@ -342,7 +342,7 @@ public class PlotLocationGrid extends MovableLayer {
 	 * @return the plot
 	 */
 	public Plot getPlot(String name, GridLocation l) {
-		return (Plot)mLocations.get(l).getLayer(name);
+		return (Plot)mLocations.getChild(l).getChild(name);
 	}
 
 	/**
@@ -351,8 +351,8 @@ public class PlotLocationGrid extends MovableLayer {
 	 * @param layer the layer
 	 * @return the movable layer
 	 */
-	public MovableLayer addLayer(MovableLayer layer) {
-		return addLayer(layer, GridLocation.CENTER);
+	public MovableLayer addChild(MovableLayer layer) {
+		return addChild(layer, GridLocation.CENTER);
 	}
 
 	/**
@@ -362,8 +362,8 @@ public class PlotLocationGrid extends MovableLayer {
 	 * @param l the l
 	 * @return the movable layer
 	 */
-	public MovableLayer addLayer(MovableLayer layer, GridLocation l) {
-		mLocations.get(l).putZ(layer);
+	public MovableLayer addChild(MovableLayer layer, GridLocation l) {
+		mLocations.getChild(l).putZ(layer);
 
 		return layer;
 	}
@@ -375,8 +375,8 @@ public class PlotLocationGrid extends MovableLayer {
 	 * @param z the z
 	 * @return the movable layer
 	 */
-	public MovableLayer addLayer(MovableLayer layer, int z) {
-		return addLayer(layer, GridLocation.CENTER, z);
+	public MovableLayer addChild(MovableLayer layer, int z) {
+		return addChild(layer, GridLocation.CENTER, z);
 	}
 	
 	/**
@@ -387,8 +387,8 @@ public class PlotLocationGrid extends MovableLayer {
 	 * @param z the z
 	 * @return the movable layer
 	 */
-	public MovableLayer addLayer(MovableLayer layer, GridLocation l, int z) {
-		mLocations.get(l).putZ(layer, z);
+	public MovableLayer addChild(MovableLayer layer, GridLocation l, int z) {
+		mLocations.getChild(l).putZ(layer, z);
 
 		return layer;
 	}
@@ -536,7 +536,7 @@ public class PlotLocationGrid extends MovableLayer {
 	 * @param l the l
 	 */
 	public void clear(GridLocation l) {
-		ZModel<MovableLayer> layers = mLocations.get(l);
+		ZModel<MovableLayer> layers = mLocations.getChild(l);
 
 		layers.clear();
 	}

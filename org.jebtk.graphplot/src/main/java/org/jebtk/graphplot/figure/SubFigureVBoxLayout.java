@@ -43,12 +43,12 @@ public class SubFigureVBoxLayout extends PlotLayout {
 		
 		//int w = layer.getInternalWidth();
 		
-		ZModel<MovableLayer> m = layerModel.get(GridLocation.CENTER);
+		ZModel<MovableLayer> m = layerModel.getChild(GridLocation.CENTER);
 
 		int y = 0;
 
 		for (int z : m) {
-			MovableLayer a = m.getAtZ(z);
+			MovableLayer a = m.getChild(z);
 
 			if (a.getVisible()) {
 				a.updateLocation(0, y);
@@ -74,10 +74,10 @@ public class SubFigureVBoxLayout extends PlotLayout {
 
 		MovableLayerZModel layerModel = subFigure.mLocations;
 
-		ZModel<MovableLayer> m = layerModel.get(GridLocation.CENTER);
+		ZModel<MovableLayer> m = layerModel.getChild(GridLocation.CENTER);
 		
 		for (int z : m) {
-			MovableLayer a = m.getAtZ(z);
+			MovableLayer a = m.getChild(z);
 
 			Graphics2D g2Temp = (Graphics2D)g2.create();
 

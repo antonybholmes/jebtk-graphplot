@@ -17,6 +17,8 @@ package org.jebtk.graphplot.plotbox;
 
 import java.util.Iterator;
 
+import org.jebtk.core.StringId;
+
 
 // TODO: Auto-generated Javadoc
 /**
@@ -29,16 +31,37 @@ public class PlotBoxGrid extends PlotBox {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private static final StringId NEXT_ID = new StringId("Plot Box Grid");
+	
 	private PlotBox[][] mLocations;
 
+	
+	
 	public PlotBoxGrid(int rows, int columns) {
-		super(new PlotBoxGridLayout(rows, columns));
+		super(NEXT_ID.getNextId(), new PlotBoxGridLayout(rows, columns));
 		
 		mLocations = new PlotBox[rows][columns];
 	}
 
-	public void add(PlotBox plot, int row, int col) {
+	@Override
+	public void addChild(PlotBox plot, int row, int col) {
 		mLocations[row][col] = plot;
+		
+		addChildByName(plot);
+	}
+	
+	public void addChild(PlotBox plot) {
+		addChild(plot, 0, 0);
+	}
+	
+	@Override
+	public PlotBox getChild(int i, int j) {
+		return mLocations[i][j];
+	}
+	
+	@Override
+	public PlotBox getChild(int i) {
+		return getChild(i, 0);
 	}
 
 	@Override
@@ -46,7 +69,9 @@ public class PlotBoxGrid extends PlotBox {
 		return new PlotBoxGridIterator<PlotBox>(mLocations);
 	}
 
-	public PlotBox getChild(int i, int j) {
-		return mLocations[i][j];
+	@Override
+	public int getChildCount() {
+		return mLocations.length * mLocations[0].length;
 	}
+	
 }

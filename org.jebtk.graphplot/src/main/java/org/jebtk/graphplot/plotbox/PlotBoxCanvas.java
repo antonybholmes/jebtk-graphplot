@@ -15,6 +15,7 @@
  */
 package org.jebtk.graphplot.plotbox;
 
+import org.jebtk.core.StringId;
 import org.jebtk.modern.graphics.ModernCanvas;
 
 
@@ -29,12 +30,14 @@ public class PlotBoxCanvas extends PlotBox {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private static final StringId NEXT_ID = new StringId("Plot Box Canvas");
+	
 	/**
 	 * Instantiates a new plot box.
 	 *
 	 * @param renderer the renderer
 	 */
 	public PlotBoxCanvas(ModernCanvas canvas) {
-		super(new PlotBoxCanvasLayout(canvas));
+		super(NEXT_ID.getNextId(), new PlotBoxCanvasLayout(canvas));
 	}
 }

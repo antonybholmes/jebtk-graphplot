@@ -19,7 +19,7 @@ package org.jebtk.graphplot.figure;
 /**
  * The Class PlotBoxV.
  */
-public class PlotBoxV extends PlotLocationGrid {
+public class PlotBoxV extends PlotGrid {
 	
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;

@@ -126,7 +126,7 @@ public class Plot extends MovableLayer implements MatrixEventListener, ChangeLis
 	 * @see org.graphplot.figure.MovableLayer#getType()
 	 */
 	@Override
-	public LayerType getType() {
+	public String getType() {
 		return LayerType.PLOT;
 	}
 
@@ -138,7 +138,7 @@ public class Plot extends MovableLayer implements MatrixEventListener, ChangeLis
 	public void setXYPlotLayersVisible(boolean visible) {
 		for (int z : mLayers) {
 			if (z <= ZModel.LOWER_RESERVED_Z) {
-				mLayers.getAtZ(z).setVisible(visible);
+				mLayers.getChild(z).setVisible(visible);
 			}
 		}
 	}
@@ -330,7 +330,7 @@ public class Plot extends MovableLayer implements MatrixEventListener, ChangeLis
 			Axes axes) {
 		if (mVisible) {
 			for (int z : mLayers) {
-				PlotLayer c = mLayers.getAtZ(z);
+				PlotLayer c = mLayers.getChild(z);
 
 				if (c.getVisible()) {
 					//SysUtils.err().println("plot", c.getName(), getMatrix().getRowCount());
@@ -349,7 +349,7 @@ public class Plot extends MovableLayer implements MatrixEventListener, ChangeLis
 		super.setFont(font, color);
 		
 		for (int z : mLayers) {
-			PlotLayer c = mLayers.getAtZ(z);
+			PlotLayer c = mLayers.getChild(z);
 
 			c.setFont(font, color);
 		}

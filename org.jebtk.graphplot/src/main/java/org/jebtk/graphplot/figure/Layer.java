@@ -82,8 +82,9 @@ public abstract class Layer extends LayerCanvasListener implements ZLayer {
 	 *
 	 * @return the type
 	 */
-	public LayerType getType() {
-		return LayerType.LAYER;
+	@Override
+	public String getType() {
+		return "layer";
 	}
 	
 	/**

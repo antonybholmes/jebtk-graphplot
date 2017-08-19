@@ -155,11 +155,11 @@ public class SubFigureBorderLayout extends PlotLayout {
 			GridLocation l,
 			MovableLayerZModel layerModel,
 			DrawingContext context) {
-		ZModel<MovableLayer> m = layerModel.get(l);
+		ZModel<MovableLayer> m = layerModel.getChild(l);
 
 		if (m.size() > 0) {
 			for (int z : m) {
-				MovableLayer a = m.getAtZ(z);
+				MovableLayer a = m.getChild(z);
 
 				Graphics2D g2Temp = (Graphics2D)g2.create();
 
@@ -189,10 +189,10 @@ public class SubFigureBorderLayout extends PlotLayout {
 			int y, 
 			MovableLayerZModel layerModel) {
 
-		ZModel<MovableLayer> m = layerModel.get(l);
+		ZModel<MovableLayer> m = layerModel.getChild(l);
 
 		for (int z : m) {
-			MovableLayer a = m.getAtZ(z);
+			MovableLayer a = m.getChild(z);
 
 			a.updateLocation(x, y);
 			//a.updatePlotSize(w, h);

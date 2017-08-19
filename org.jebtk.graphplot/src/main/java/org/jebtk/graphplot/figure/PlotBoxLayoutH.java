@@ -41,12 +41,12 @@ public class PlotBoxLayoutH extends AxesLayout {
 
 		//axes.setInternalPlotWidth(maxW);
 
-		ZModel<MovableLayer> m = layerModel.get(GridLocation.CENTER);
+		ZModel<MovableLayer> m = layerModel.getChild(GridLocation.CENTER);
 
 		int x = l.getMargins().getLeft();
 
 		for (int z : m) {
-			MovableLayer a = m.getAtZ(z);
+			MovableLayer a = m.getChild(z);
 
 			if (a.getVisible()) {
 				a.updateLocation(x, 0);

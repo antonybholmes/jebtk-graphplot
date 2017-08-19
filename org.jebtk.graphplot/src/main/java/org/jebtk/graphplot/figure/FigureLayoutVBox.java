@@ -43,7 +43,7 @@ public class FigureLayoutVBox extends FigureLayout {
 		int y = margins.getTop();
 
 		for (int z : layerModel) {
-			MovableLayer a = layerModel.getAtZ(z);
+			MovableLayer a = layerModel.getChild(z);
 
 			if (a.getVisible()) {
 				a.updateLocation(x, y);

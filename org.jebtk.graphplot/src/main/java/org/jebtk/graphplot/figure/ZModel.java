@@ -100,7 +100,7 @@ public class ZModel<T extends ZLayer> extends LayerCanvasListener implements Ite
 	 */
 	public <X extends ZModel<T>> void add(X zModel) {
 		for (int z : zModel) {
-			putZ(zModel.getAtZ(z));
+			putZ(zModel.getChild(z));
 		}
 	}
 	
@@ -139,8 +139,6 @@ public class ZModel<T extends ZLayer> extends LayerCanvasListener implements Ite
 	 * @param name the name
 	 */
 	public void remove(String name) {
-		System.err.println("Remove from z model " + name);
-		
 		for (int z : mLayerMap.keySet()) {
 			if (mLayerMap.get(z).getName().equals(name)) {
 				mNameMap.remove(name);
@@ -190,7 +188,7 @@ public class ZModel<T extends ZLayer> extends LayerCanvasListener implements Ite
 	 * @param z the z
 	 * @return the at z
 	 */
-	public T getAtZ(int z) {
+	public T getChild(int z) {
 		return mLayerMap.get(z);
 	}
 	
@@ -200,7 +198,7 @@ public class ZModel<T extends ZLayer> extends LayerCanvasListener implements Ite
 	 * @param name the name
 	 * @return the layer
 	 */
-	public T getLayer(String name) {
+	public T getChild(String name) {
 		return mNameMap.get(name);
 	}
 	
@@ -443,13 +441,13 @@ public class ZModel<T extends ZLayer> extends LayerCanvasListener implements Ite
 	 * @param type the type
 	 * @return the by type
 	 */
-	public List<T> getByType(LayerType type) {
+	public List<T> getByType(String type) {
 		List<T> ret = new ArrayList<T>();
 		
 		for (int z : this) {
 			T layer = mLayerMap.get(z);
 			
-			if (layer.getType() == type) {
+			if (layer.getType().equals(type)) {
 				ret.add(layer);
 			}
 		}

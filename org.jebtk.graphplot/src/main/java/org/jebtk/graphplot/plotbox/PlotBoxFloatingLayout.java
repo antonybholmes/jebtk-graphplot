@@ -38,19 +38,19 @@ public class PlotBoxFloatingLayout extends PlotBoxLayout {
 	 * @return the plot size recursive
 	 */
 	@Override
-	public void getPlotSizeRecursive(PlotBox plot, Dimension dim) {
+	public void plotSize(PlotBox plot, Dimension dim) {
 
 		PlotBoxFloating fp = (PlotBoxFloating)plot;
 
 		int width = 0;
 		int height = 0;
 
-		for (IntPos2D p : fp.getLocations()) {
+		for (IntPos2D p : fp.getPositions()) {
 			PlotBox child = fp.getChild(p);
 
 			Dimension dim1 = new Dimension(0, 0);
 
-			child.getPlotSizeRecursive(dim1);
+			child.plotSize(dim1);
 
 			width = Math.max(width, p.getX() + dim1.width);
 
@@ -70,7 +70,7 @@ public class PlotBoxFloatingLayout extends PlotBoxLayout {
 	 * @param context the context
 	 */
 	@Override
-	public void plotRecursive(Graphics2D g2,
+	public void plot(Graphics2D g2,
 			PlotBox plot,
 			Point offset,
 			DrawingContext context) {
@@ -79,7 +79,7 @@ public class PlotBoxFloatingLayout extends PlotBoxLayout {
 		int width = 0;
 		int height = 0;
 
-		for (IntPos2D p : fp.getLocations()) {
+		for (IntPos2D p : fp.getPositions()) {
 			PlotBox child = fp.getChild(p);
 
 			Graphics2D g2Temp = ImageUtils.clone(g2);
@@ -89,7 +89,7 @@ public class PlotBoxFloatingLayout extends PlotBoxLayout {
 			try {
 				g2Temp.translate(p.getX(), p.getY());
 
-				child.plotRecursive(g2Temp, tempOffset, context);
+				child.plot(g2Temp, tempOffset, context);
 			} finally {
 				g2Temp.dispose();
 			}

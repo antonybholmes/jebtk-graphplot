@@ -73,8 +73,8 @@ public class LegendLayer extends AxesLayer {
 		//axes.setInternalPlotHeight(100);
 
 		for (GridLocation l : axes.mLocations) {
-			for (int z : axes.mLocations.get(l)) {
-				MovableLayer layer = axes.mLocations.get(l).getAtZ(z);
+			for (int z : axes.mLocations.getChild(l)) {
+				MovableLayer layer = axes.mLocations.getChild(l).getChild(z);
 
 				if (layer instanceof Plot) {
 					Plot plot = (Plot)layer;

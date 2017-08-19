@@ -64,7 +64,7 @@ public class MarginProperties extends ChangeListeners implements Comparable<Marg
 	
 	/** The Constant DEFAULT_MARGIN. */
 	public static final MarginProperties DEFAULT_MARGIN = 
-			new MarginProperties();
+			new MarginProperties(0);
 
 	/**
 	 * Instantiates a new margin properties.
@@ -119,7 +119,7 @@ public class MarginProperties extends ChangeListeners implements Comparable<Marg
 	 * @param margins the new margins
 	 */
 	private void setMargins(MarginProperties margins) {
-		setMargins(margins.getTop(), margins.getLeft(), margins.getBottom(), margins.getRight());
+		setMargins(margins.mTop, margins.mLeft, margins.mBottom, margins.mRight);
 	}
 
 	//private void updateMargins(MarginProperties margins) {
@@ -211,31 +211,24 @@ public class MarginProperties extends ChangeListeners implements Comparable<Marg
 		return mRight;
 	}
 
-	/*
-	public void setBottom(int bottom) {
-		mBottom = bottom;
 
-		fireChanged();
+	/**
+	 * Return the sum of the line margins (left + right).
+	 * 
+	 * @return
+	 */
+	public int getLineMargin() {
+		return mLeft + mRight;
 	}
-
-	public void setTop(int top) {
-		mTop = top;
-
-		fireChanged();
+	
+	/**
+	 * Return the sum of the page margins (top + bottom).
+	 * 
+	 * @return
+	 */
+	public int getPageMargin() {
+		return mTop + mBottom;
 	}
-
-	public void setRight(int right) {
-		mRight = right;
-
-		fireChanged();
-	}
-
-	public void setLeft(int left) {
-		mLeft = left;
-
-		fireChanged();
-	}
-	*/
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -264,4 +257,5 @@ public class MarginProperties extends ChangeListeners implements Comparable<Marg
 	public int compareTo(MarginProperties m) {
 		return (mTop - m.mTop) + (mLeft - m.mLeft) + (mBottom - m.mBottom) + (mRight - m.mRight);
 	}
+
 }

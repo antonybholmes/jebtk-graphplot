@@ -15,6 +15,8 @@
  */
 package org.jebtk.graphplot.plotbox;
 
+import org.jebtk.core.StringId;
+
 // TODO: Auto-generated Javadoc
 /**
  * The class PlotBox.
@@ -26,8 +28,9 @@ public class PlotBoxRow extends PlotBoxDim {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private static final StringId NEXT_ID = new StringId("Plot Box Row");
 
 	public PlotBoxRow() {
-		super(new PlotBoxRowLayout());
+		super(NEXT_ID.getNextId(), new PlotBoxRowLayout());
 	}
 }

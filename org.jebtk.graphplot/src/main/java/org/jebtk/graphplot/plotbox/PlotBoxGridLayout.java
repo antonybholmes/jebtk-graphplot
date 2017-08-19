@@ -46,7 +46,7 @@ public class PlotBoxGridLayout extends PlotBoxLayout {
 	 * @return the plot size recursive
 	 */
 	@Override
-	public void getPlotSizeRecursive(PlotBox plot, Dimension dim) {
+	public void plotSize(PlotBox plot, Dimension dim) {
 		
 		PlotBoxGrid gp = (PlotBoxGrid)plot;
 		
@@ -59,7 +59,7 @@ public class PlotBoxGridLayout extends PlotBoxLayout {
 				if (child != null) {
 					Dimension d = new Dimension(0, 0);
 
-					child.getPlotSizeRecursive(d);
+					child.plotSize(d);
 
 					mHeights[i] = Math.max(mHeights[i], d.height);
 				}
@@ -75,7 +75,7 @@ public class PlotBoxGridLayout extends PlotBoxLayout {
 				if (child != null) {
 					Dimension d = new Dimension(0, 0);
 
-					child.getPlotSizeRecursive(d);
+					child.plotSize(d);
 
 					mWidths[i] = Math.max(mWidths[i], d.width);
 				}
@@ -97,7 +97,7 @@ public class PlotBoxGridLayout extends PlotBoxLayout {
 	 * @param context the context
 	 */
 	@Override
-	public void plotRecursive(Graphics2D g2,
+	public void plot(Graphics2D g2,
 			PlotBox plot,
 			Point offset,
 			DrawingContext context) {
@@ -155,7 +155,7 @@ public class PlotBoxGridLayout extends PlotBoxLayout {
 						PlotBox child = gp.getChild(i, j);
 
 						if (child != null) {
-							child.plotRecursive(g2Temp2, new Point(0, 0), context);
+							child.plot(g2Temp2, new Point(0, 0), context);
 						}
 
 						g2Temp2.translate(mWidths[j], 0);
@@ -175,4 +175,6 @@ public class PlotBoxGridLayout extends PlotBoxLayout {
 			offset.y += mHeights[i];
 		}
 	}
+	
+	
 }

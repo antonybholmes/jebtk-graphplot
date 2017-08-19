@@ -52,7 +52,7 @@ public class PlotBoxSubFigureLayout extends PlotBoxLayout {
 	 * @return the plot size recursive
 	 */
 	@Override
-	public void getPlotSizeRecursive(PlotBox plotBox, Dimension dim) {
+	public void plotSize(PlotBox plotBox, Dimension dim) {
 		// Call getRenderer() so that we do not recursively call
 		// getPlotSizeRecursive through getCanvasSize() in an infinite loop.
 		dim.width += mSubFigure.getCanvasSize().getW();
@@ -68,7 +68,7 @@ public class PlotBoxSubFigureLayout extends PlotBoxLayout {
 	 * @param context the context
 	 */
 	@Override
-	public void plotRecursive(Graphics2D g2,
+	public void plot(Graphics2D g2,
 			PlotBox plotBox,
 			Point offset,
 			DrawingContext context) {
