@@ -15,6 +15,7 @@
  */
 package org.jebtk.graphplot.figure;
 
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
@@ -36,10 +37,10 @@ public abstract class PlotLayer extends Layer {
 	 * The constant serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/** The m buffered image. */
 	private BufferedImage mBufferedImage;
-	
+
 	/** The m cache axes. */
 	private String mCacheAxes = null;
 
@@ -52,6 +53,8 @@ public abstract class PlotLayer extends Layer {
 		super(name);
 	}
 
+	
+
 	/**
 	 * Plot.
 	 *
@@ -61,38 +64,38 @@ public abstract class PlotLayer extends Layer {
 	 * @param axes the axes
 	 * @param plot the plot
 	 */
+	@Override
 	public void plot(Graphics2D g2,
+			Dimension offset,
 			DrawingContext context,
-			SubFigure subFigure,
-			Axes axes,
-			Plot plot) {
-		if (context == DrawingContext.SCREEN) {
-			aaPlot(g2, context, subFigure, axes, plot);
+			Object... params) {
+		//System.err.println("plot layer " + getName());
+		
+		Figure figure = (Figure)params[0];
+		SubFigure subFigure = (SubFigure)params[1];
+		Axes axes = (Axes)params[2];
+		Plot plot = (Plot)params[3];
+
+		AnnotationMatrix m = null;
+
+		if (params.length > 4) {
+			m = (AnnotationMatrix)params[4];
 		} else {
-			drawPlot(g2, context, subFigure, axes, plot);
+			m = plot.getMatrix();
 		}
-	}
-	
-	/**
-	 * Plot.
-	 *
-	 * @param g2 the g 2
-	 * @param context the context
-	 * @param subFigure the sub figure
-	 * @param axes the axes
-	 * @param plot the plot
-	 * @param m the m
-	 */
-	public void plot(Graphics2D g2,
-			DrawingContext context,
-			SubFigure subFigure,
-			Axes axes,
-			Plot plot, 
-			AnnotationMatrix m) {
-		if (context == DrawingContext.SCREEN) {
-			aaPlot(g2, context, subFigure, axes, plot, m);
+
+		if (m != null) {
+			if (context == DrawingContext.SCREEN) {
+				aaPlot(g2, context, figure, subFigure, axes, plot, m);
+			} else {
+				drawPlot(g2, context, figure, subFigure, axes, plot, m);
+			}
 		} else {
-			drawPlot(g2, context, subFigure, axes, plot, m);
+			if (context == DrawingContext.SCREEN) {
+				aaPlot(g2, context, figure, subFigure, axes, plot);
+			} else {
+				drawPlot(g2, context, figure, subFigure, axes, plot);
+			}
 		}
 	}
 
@@ -107,11 +110,12 @@ public abstract class PlotLayer extends Layer {
 	 */
 	public void cachePlot(Graphics2D g2,
 			DrawingContext context,
+			Figure figure,
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot) {
 		if (context == DrawingContext.PRINT) {
-			drawPlot(g2, context, subFigure, axes, plot);
+			drawPlot(g2, context, figure, subFigure, axes, plot);
 		} else {
 			// Create an image version of the canvas and draw that to spped
 			// up operations
@@ -119,12 +123,12 @@ public abstract class PlotLayer extends Layer {
 					mCacheAxes == null || 
 					!axes.hashId().equals(mCacheAxes)) {
 				// The canvas need only be the size of the available display
-				mBufferedImage = ImageUtils.createImage(axes.getCanvasSize());
+				mBufferedImage = ImageUtils.createImage(axes.getPreferredSize());
 
 				Graphics2D g2Temp = ImageUtils.createAAGraphics(mBufferedImage);
 
 				try {
-					drawPlot(g2Temp, context, subFigure, axes, plot);
+					drawPlot(g2Temp, context, figure, subFigure, axes, plot);
 				} finally {
 					g2Temp.dispose();
 				}
@@ -147,6 +151,7 @@ public abstract class PlotLayer extends Layer {
 	 */
 	public void aaPlot(Graphics2D g2,
 			DrawingContext context,
+			Figure figure,
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot) {
@@ -154,12 +159,12 @@ public abstract class PlotLayer extends Layer {
 		Graphics2D g2Temp = ImageUtils.createAAGraphics(g2);
 
 		try {
-			drawPlot(g2Temp, context, subFigure, axes, plot);
+			drawPlot(g2Temp, context, figure, subFigure, axes, plot);
 		} finally {
 			g2Temp.dispose();
 		}
 	}
-	
+
 	/**
 	 * Aa plot.
 	 *
@@ -172,6 +177,7 @@ public abstract class PlotLayer extends Layer {
 	 */
 	public void aaPlot(Graphics2D g2,
 			DrawingContext context,
+			Figure figure,
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
@@ -180,7 +186,7 @@ public abstract class PlotLayer extends Layer {
 		Graphics2D g2Temp = ImageUtils.createAAGraphics(g2);
 
 		try {
-			drawPlot(g2Temp, context, subFigure, axes, plot, m);
+			drawPlot(g2Temp, context, figure, subFigure, axes, plot, m);
 		} finally {
 			g2Temp.dispose();
 		}
@@ -197,13 +203,14 @@ public abstract class PlotLayer extends Layer {
 	 */
 	public void drawPlot(Graphics2D g2,
 			DrawingContext context,
+			Figure figure,
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot) {
-		drawPlot(g2, context, subFigure, axes, plot, plot.getMatrix());
+		drawPlot(g2, context, figure, subFigure, axes, plot, plot.getMatrix());
 	}
 
-	
+
 
 	/**
 	 * Cache plot.
@@ -217,12 +224,13 @@ public abstract class PlotLayer extends Layer {
 	 */
 	public void cachePlot(Graphics2D g2,
 			DrawingContext context,
+			Figure figure,
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot, 
 			AnnotationMatrix m) {
 		if (context == DrawingContext.PRINT) {
-			drawPlot(g2, context, subFigure, axes, plot, m);
+			drawPlot(g2, context, figure, subFigure, axes, plot, m);
 		} else {
 			// Create an image version of the canvas and draw that to spped
 			// up operations
@@ -230,12 +238,12 @@ public abstract class PlotLayer extends Layer {
 					mCacheAxes == null || 
 					!axes.hashId().equals(mCacheAxes)) {
 				// The canvas need only be the size of the available display
-				mBufferedImage = ImageUtils.createImage(axes.getCanvasSize());
+				mBufferedImage = ImageUtils.createImage(axes.getPreferredSize());
 
 				Graphics2D g2Temp = ImageUtils.createAAGraphics(mBufferedImage);
 
 				try {
-					drawPlot(g2Temp, context, subFigure, axes, plot, m);
+					drawPlot(g2Temp, context, figure, subFigure, axes, plot, m);
 				} finally {
 					g2Temp.dispose();
 				}
@@ -259,6 +267,7 @@ public abstract class PlotLayer extends Layer {
 	 */
 	public void drawPlot(Graphics2D g2,
 			DrawingContext context,
+			Figure figure,
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot, 
@@ -279,7 +288,7 @@ public abstract class PlotLayer extends Layer {
 		return TextUtils.join(TextUtils.COLON_DELIMITER, 
 				m.hashCode(),
 				axes.getMargins(),
-				axes.getCanvasSize(),
+				axes.getPreferredSize(),
 				axes.getX1Axis().getMin(),
 				axes.getX1Axis().getMax(),
 				axes.getY1Axis().getMin(),

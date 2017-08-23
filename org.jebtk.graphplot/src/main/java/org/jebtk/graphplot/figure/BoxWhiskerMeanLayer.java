@@ -54,7 +54,9 @@ public class BoxWhiskerMeanLayer extends PlotSeriesLayer {
 	 * @param x the x
 	 * @param visible the visible
 	 */
-	public BoxWhiskerMeanLayer(String name, double x,boolean visible) {
+	public BoxWhiskerMeanLayer(String name, 
+			double x,
+			boolean visible) {
 		super("box and whisker mean", name);
 
 		mX = x;
@@ -68,7 +70,8 @@ public class BoxWhiskerMeanLayer extends PlotSeriesLayer {
 	@Override
 	public void plotClipped(Graphics2D g2,
 			DrawingContext context,
-			SubFigure figure,
+			Figure figure,
+SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m,

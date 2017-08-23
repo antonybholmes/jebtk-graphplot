@@ -18,7 +18,6 @@ package org.jebtk.graphplot.figure;
 import java.awt.Graphics2D;
 
 import org.jebtk.core.collections.UniqueArrayList;
-import org.jebtk.modern.graphics.DrawingContext;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -41,24 +40,6 @@ public class AxisLayerX2 extends AxisLayerX {
 		super("X Axis 2");
 	}
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.AxesLayer#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes)
-	 */
-	@Override
-	public void plot(Graphics2D g2,
-			DrawingContext context,
-			SubFigure subFigure,
-			Axes axes) {
-		Axis axis = axes.getX2Axis();
-		
-		plot(g2,
-				context,
-				subFigure,
-				axes,
-				axis,
-				axes.getMargins().getTop(),
-				!axis.getTicks().getDrawInside());
-	}
 
 	/* (non-Javadoc)
 	 * @see org.graphplot.figure.AxisLayerX#drawAxisLine(java.awt.Graphics2D, org.graphplot.figure.Axes, org.graphplot.figure.Axis, int)

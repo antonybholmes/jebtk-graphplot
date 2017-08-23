@@ -40,7 +40,7 @@ import org.jebtk.modern.graphics.DrawingContext;
  *
  * @author Antony Holmes Holmes
  */
-public class BoxWhiskerScatterLayer2 extends PlotLayer {
+public class BoxWhiskerScatterLayer2 extends PlotClippedLayer {
 
 	/**
 	 * The constant serialVersionUID.
@@ -54,13 +54,13 @@ public class BoxWhiskerScatterLayer2 extends PlotLayer {
 
 	/** The m hash id. */
 	private String mHashId;
-	
+
 	/** The m point map. */
 	private ListMultiMap<XYSeries, IntPos2D> mPointMap;
-	
+
 	/** The m point2 group map. */
 	private Map<IntPos2D, Integer> mPoint2GroupMap;
-	
+
 	/** The m bin size. */
 	private int mBinSize = 0;
 
@@ -69,7 +69,7 @@ public class BoxWhiskerScatterLayer2 extends PlotLayer {
 
 	/** The m gap size. */
 	private int mGapSize;
-	
+
 	/** The m group size map. */
 	private Map<Integer, Integer> mGroupSizeMap;
 
@@ -84,7 +84,7 @@ public class BoxWhiskerScatterLayer2 extends PlotLayer {
 	public BoxWhiskerScatterLayer2(double x) {
 		this(x, 1);
 	}
-	
+
 	/**
 	 * Instantiates a new box whisker scatter layer 2.
 	 *
@@ -102,7 +102,9 @@ public class BoxWhiskerScatterLayer2 extends PlotLayer {
 	 * @param w the w
 	 * @param visible the visible
 	 */
-	public BoxWhiskerScatterLayer2(double x, double w, boolean visible) {
+	public BoxWhiskerScatterLayer2(double x, 
+			double w, 
+			boolean visible) {
 		super("Box and Whisker Scatter");
 
 		mX = x;
@@ -110,26 +112,12 @@ public class BoxWhiskerScatterLayer2 extends PlotLayer {
 
 		setVisible(visible);
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.graphplot.figure.PlotLayer#plot(java.awt.Graphics2D, org.abh.common.ui.graphics.DrawingContext, org.graphplot.figure.SubFigure, org.graphplot.figure.Axes, org.graphplot.figure.Plot)
-	 */
-	@Override
-	public void plot(Graphics2D g2,
-			DrawingContext context,
-			SubFigure figure,
-			Axes axes,
-			Plot plot) {
-		aaPlot(g2, context, figure, axes, plot);
-	}
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotClippedLayer#plotClipped(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.AnnotationMatrix)
-	 */
 	@Override
-	public void drawPlot(Graphics2D g2,
+	public final void plotClipped(Graphics2D g2,
 			DrawingContext context,
-			SubFigure figure,
+			Figure figure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot) {
 
@@ -138,10 +126,10 @@ public class BoxWhiskerScatterLayer2 extends PlotLayer {
 		int x;
 
 		int plotX = axes.toPlotX1(mX);
-		
+
 		int plotW = axes.toPlotX1(mW);
 
-	
+
 		if (mHashId == null || !mHashId.equals(axes.hashId())) {
 
 			SetMultiMap<IntPos2D, Integer> point2YBinMap = 
@@ -236,7 +224,7 @@ public class BoxWhiskerScatterLayer2 extends PlotLayer {
 									mPoint2GroupMap.put(p, g);
 									overlap2PointMap.get(g).add(p);
 								}
-								
+
 								if (!mPoint2GroupMap.containsKey(p2)) {
 									mPoint2GroupMap.put(p2, g);
 									overlap2PointMap.get(g).add(p2);
@@ -264,36 +252,36 @@ public class BoxWhiskerScatterLayer2 extends PlotLayer {
 
 			mHashId = axes.hashId();
 		}
-		
+
 		// We know the max width of the block, so we can determine the 
 		// spread of each group. e.g if there are two points in a group,
 		// evenly spread those points into two groups
-		
+
 		Map<Integer, Integer> groupGapMap = DefaultHashMap.create(0);
-		
+
 		for (int g : mGroupSizeMap.keySet()) {
 			int s = mGroupSizeMap.get(g);
-			
+
 			if (s == 1) {
 				groupGapMap.put(g, 0);
 			} else {
 				groupGapMap.put(g, Math.min(mBinSize + mGapSize, plotW / (s - 1)));
 			}
 		}
-		
+
 		Map<Integer, Integer> groupOffsetMap = DefaultHashMap.create(0);
-		
+
 		for (int g : mGroupSizeMap.keySet()) {
 			int s = mGroupSizeMap.get(g);
-			
+
 			int gap = groupGapMap.get(g);
-			
+
 			// Centre the width required about x
 			int offsetX = plotX - (gap * (s - 1)) / 2;
-			
+
 			groupOffsetMap.put(g, offsetX);
 		}
-		
+
 
 		Map<Integer, Integer> groupIndexMap = DefaultHashMap.create(0);
 

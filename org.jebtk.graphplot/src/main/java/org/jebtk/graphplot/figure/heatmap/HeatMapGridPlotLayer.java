@@ -22,6 +22,7 @@ import java.util.Map;
 
 import org.jebtk.graphplot.Image;
 import org.jebtk.graphplot.figure.Axes;
+import org.jebtk.graphplot.figure.Figure;
 import org.jebtk.graphplot.figure.Plot;
 import org.jebtk.graphplot.figure.PlotClippedLayer;
 import org.jebtk.graphplot.figure.SubFigure;
@@ -68,6 +69,7 @@ public class HeatMapGridPlotLayer extends PlotClippedLayer {
 	@Override
 	public void plotClipped(Graphics2D g2,
 			DrawingContext context,
+Figure figure,
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,

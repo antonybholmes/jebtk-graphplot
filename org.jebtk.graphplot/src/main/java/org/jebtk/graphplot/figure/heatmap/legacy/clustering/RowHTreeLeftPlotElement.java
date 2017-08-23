@@ -16,6 +16,7 @@
 package org.jebtk.graphplot.figure.heatmap.legacy.clustering;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -77,8 +78,10 @@ public class RowHTreeLeftPlotElement extends RowMatrixPlotElement {
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
 	 */
 	@Override
-	public void plot(Graphics2D g2, DrawingContext context) {
+	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Object... params) {
 		drawTree(g2);
+		
+		super.plot(g2, offset, context, params);
 	}
 
 	/**
@@ -128,7 +131,7 @@ public class RowHTreeLeftPlotElement extends RowMatrixPlotElement {
 		// end
 		Collections.reverse(parents);
 		
-		int w = getCanvasSize().getW();
+		int w = getPreferredSize().width;
 		int x1;
 		int x2;
 		int y1;
@@ -187,7 +190,7 @@ public class RowHTreeLeftPlotElement extends RowMatrixPlotElement {
 		stack.push(rootCluster);
 		offsetStack.push(0);
 		
-		int w = getCanvasSize().getW();
+		int w = getPreferredSize().width;
 		
 		while (stack.size() > 0) {
 			Cluster cluster = stack.pop();

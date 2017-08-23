@@ -17,7 +17,6 @@ package org.jebtk.graphplot.plotbox;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Point;
 
 import org.jebtk.core.geom.IntDim;
 import org.jebtk.modern.graphics.DrawingContext;
@@ -64,15 +63,16 @@ public class PlotBoxCanvasLayout extends PlotBoxLayout {
 	@Override
 	public void plot(Graphics2D g2,
 			PlotBox plot,
-			Point offset,
-			DrawingContext context) {
+			Dimension offset,
+			DrawingContext context,
+			Object... params) {
 		
 		IntDim s = mCanvas.getCanvasSize();
 		
 		mCanvas.drawCanvasForeground(g2, context);
 		
-		offset.x += s.getW();
-		offset.y += s.getH();
+		offset.width += s.getW();
+		offset.height += s.getH();
 	}
 	
 	public ModernCanvas getCanvas() {

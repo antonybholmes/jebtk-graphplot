@@ -21,6 +21,7 @@ import java.awt.Graphics2D;
 import org.jebtk.core.text.Formatter;
 import org.jebtk.core.text.Formatter.NumberFormatter;
 import org.jebtk.graphplot.figure.Axes;
+import org.jebtk.graphplot.figure.Figure;
 import org.jebtk.graphplot.figure.Plot;
 import org.jebtk.graphplot.figure.PlotLayer;
 import org.jebtk.graphplot.figure.SubFigure;
@@ -115,9 +116,10 @@ public class ColorBarHLayer extends PlotLayer {
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotLayer#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.AnnotationMatrix)
 	 */
 	@Override
-	public void plot(Graphics2D g2,
+	public void drawPlot(Graphics2D g2,
 			DrawingContext context,
-			SubFigure figure,
+			Figure figure,
+SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m) {
@@ -140,7 +142,7 @@ public class ColorBarHLayer extends PlotLayer {
 	 * @param l the l
 	 */
 	private void drawRangeBar(Graphics2D g2, Axes axes, Plot plot, int l) {
-		int y = axes.getCanvasSize().getH();
+		int y = axes.getPreferredSize().height;
 		
 		int n = mColorMap.getColorCount();
 		
@@ -196,7 +198,7 @@ public class ColorBarHLayer extends PlotLayer {
 	
 		int sx = axes.getMargins().getLeft();
 		
-		int y = axes.getCanvasSize().getH() + height;
+		int y = axes.getPreferredSize().height + height;
 		
 		String t = nf.format(mMin);
 		int x = sx - l1 / 2;

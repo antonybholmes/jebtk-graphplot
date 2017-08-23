@@ -15,6 +15,7 @@
  */
 package org.jebtk.graphplot.figure.heatmap.legacy.expression;
 
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.Map;
 
@@ -64,10 +65,9 @@ public class RowGroupColorBarPlotElement extends RowMatrixPlotElement {
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
 	 */
 	@Override
-	public void plot(Graphics2D g2, DrawingContext context) {
+	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Object... params) {
 		int x = 0;
 		int y = 0;
-
 
 		for (int i : mMap.keySet()) {
 			XYSeriesGroup groups = mMap.get(i);
@@ -76,9 +76,11 @@ public class RowGroupColorBarPlotElement extends RowMatrixPlotElement {
 
 			g2.setColor(groups.get(0).getColor());
 
-			g2.fillRect(x, y, getCanvasSize().getW(), mBlockSize.getH());
+			g2.fillRect(x, y, getPreferredSize().width, mBlockSize.getH());
 
 			//y += blockSize.height;
 		}
+		
+		super.plot(g2, offset, context, params);
 	}
 }

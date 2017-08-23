@@ -17,16 +17,22 @@ package org.jebtk.graphplot.figure;
 
 // TODO: Auto-generated Javadoc
 /**
- * Layer model for graphs.
- *
+ * Translate between graph space and pixel space in the Y axis. Since Java
+ * uses inverted coordinates for y (0 is top right) we must invert and
+ * correct for this since on a 2D cartesian graph y, y increases from
+ * the bottom up.
+ * 
  * @author Antony Holmes Holmes
+ *
  */
-public class AxesLayerZModel extends ZModel<AxesLayer> {
+public class AxisTranslationX2 extends AxisTranslationX {
 	
 	/**
-	 * The constant serialVersionUID.
+	 * Instantiates a new axis translation y.
+	 *
+	 * @param axis the axis
 	 */
-	private static final long serialVersionUID = 1L;
-
-	
+	public AxisTranslationX2(Axes axes) {
+		super(axes, axes.getX2Axis());
+	}
 }

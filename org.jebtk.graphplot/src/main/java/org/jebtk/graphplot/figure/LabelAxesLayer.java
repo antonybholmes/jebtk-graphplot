@@ -84,9 +84,10 @@ public class LabelAxesLayer extends AxesLayer {
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotSeriesLayer#plotClipped(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.AnnotationMatrix, edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries)
 	 */
 	@Override
-	public void plot(Graphics2D g2,
+	public void drawPlot(Graphics2D g2,
 			DrawingContext context,
-			SubFigure figure,
+			Figure figure,
+			SubFigure subFigure,
 			Axes axes) {
 		Point p = axes.toPlotXY1(mX, mY);
 		

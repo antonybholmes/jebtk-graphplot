@@ -16,6 +16,7 @@
 package org.jebtk.graphplot.figure.heatmap.legacy;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.List;
 
@@ -116,8 +117,10 @@ public class MatrixSummaryPlotElement extends RowMatrixPlotElement {
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
 	 */
 	@Override
-	public void plot(Graphics2D g2, DrawingContext context) {
+	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Object... params) {
 		drawLabels(g2);
+		
+		super.plot(g2, offset, context, params);
 	}
 	
 	/**
@@ -152,13 +155,10 @@ public class MatrixSummaryPlotElement extends RowMatrixPlotElement {
 			y += BLOCK_SIZE;
 		}
 	}
-	
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.heatmap.RowMatrixPlotElement#getCanvasSize()
-	 */
+
 	@Override
-	public IntDim getCanvasSize() {
-		// In case the history list is null, take account of that when sizing.
-		return new IntDim(super.getCanvasSize().getW(), ((mHistory != null ? mHistory.size() : 0) + 5) * BLOCK_SIZE);
+	public void plotSize(Dimension d) {
+		d.width += mWidth;
+		d.height += ((mHistory != null ? mHistory.size() : 0) + 5) * BLOCK_SIZE;
 	}
 }

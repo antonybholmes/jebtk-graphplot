@@ -74,7 +74,7 @@ public class ColumnHLabelTopPlotElement extends ColumnHLabelBottomPlotElement {
 			Graphics2D g2Temp = (Graphics2D)g2.create();
 
 			try {
-				g2Temp.translate(x, getCanvasSize().getH());
+				g2Temp.translate(x, getPreferredSize().height);
 				g2Temp.rotate(-Math.PI / 2.0);
 				//g2Temp.translate(0, -xd);
 

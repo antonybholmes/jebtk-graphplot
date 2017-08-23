@@ -70,7 +70,8 @@ public abstract class PathsPlotLayer extends UniqueXYLayer {
 	@Override
 	public final void plotClipped(Graphics2D g2,
 			DrawingContext context,
-			SubFigure figure,
+			Figure figure,
+SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m,
@@ -78,7 +79,7 @@ public abstract class PathsPlotLayer extends UniqueXYLayer {
 			UniqueXY xy) {
 
 
-		updatePath(figure, axes, plot, m, series, xy);
+		updatePath(figure, subFigure, axes, plot, m, series, xy);
 
 		if (mPaths == null) {
 			return;
@@ -87,6 +88,7 @@ public abstract class PathsPlotLayer extends UniqueXYLayer {
 		plotClipped(g2,
 				context,
 				figure,
+				subFigure,
 				axes,
 				plot,
 				m,
@@ -110,7 +112,8 @@ public abstract class PathsPlotLayer extends UniqueXYLayer {
 	 */
 	public abstract void plotClipped(Graphics2D g2,
 			DrawingContext context,
-			SubFigure figure,
+			Figure figure,
+SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m,
@@ -128,14 +131,15 @@ public abstract class PathsPlotLayer extends UniqueXYLayer {
 	 * @param series the series
 	 * @param xy the xy
 	 */
-	private void updatePath(SubFigure figure,
+	private void updatePath(Figure figure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m,
 			XYSeries series,
 			UniqueXY xy) {
 		if (mPaths == null || !mPaths.getKey().equals(xy)) {
-			mPaths = new KeyValuePair<UniqueXY, List<GeneralPath>>(xy, getPaths(figure, axes, plot, m, series, xy));
+			mPaths = new KeyValuePair<UniqueXY, List<GeneralPath>>(xy, getPaths(figure, subFigure, axes, plot, m, series, xy));
 		}
 	}
 
@@ -150,7 +154,8 @@ public abstract class PathsPlotLayer extends UniqueXYLayer {
 	 * @param xy the xy
 	 * @return the path
 	 */
-	protected abstract List<GeneralPath> getPaths(SubFigure figure,
+	protected abstract List<GeneralPath> getPaths(Figure figure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m,

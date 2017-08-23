@@ -63,8 +63,9 @@ public class AxisLayerY1 extends AxisLayerY {
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.AxesLayer#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes)
 	 */
 	@Override
-	public void plot(Graphics2D g2,
+	public void drawPlot(Graphics2D g2,
 			DrawingContext context,
+			Figure figure,
 			SubFigure subFigure,
 			Axes axes) {
 		Axis axis = axes.getY1Axis();
@@ -74,7 +75,7 @@ public class AxisLayerY1 extends AxisLayerY {
 		}
 
 		// Cache positions if not already done so
-		if (mHashId == null || !mHashId.equals(subFigure.hashId())) {
+		if (mHashId == null || !mHashId.equals(axes.hashId())) {
 			mMinorTicks = new UniqueArrayList<Integer>(axis.getTicks().getMinorTicks().getTickCount());
 
 			for (double y : axis.getTicks().getMinorTicks()) {
@@ -93,9 +94,11 @@ public class AxisLayerY1 extends AxisLayerY {
 			//for (double y : axis.getTicks().getMajorTicks()) {
 				double y = axis.getTicks().getMajorTicks().getTick(i);
 				
+				//System.err.println("y1 " + y + " " + axes.toPlotY1(y));
+				
 				//if (y != 0) {
-					mMajorTicks.add(axes.toPlotY1(y));
-					mMajorTickLabels.add(axis.getTicks().getMajorTicks().getLabel(i));
+				mMajorTicks.add(axes.toPlotY1(y));
+				mMajorTickLabels.add(axis.getTicks().getMajorTicks().getLabel(i));
 				//}
 			}
 		}

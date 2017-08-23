@@ -15,64 +15,72 @@
  */
 package org.jebtk.graphplot.plotbox;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Deque;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Map;
+import java.util.List;
+import java.util.Set;
 
+import org.jebtk.core.NameProperty;
+import org.jebtk.core.event.ChangeListeners;
 import org.jebtk.core.geom.IntPos2D;
-import org.jebtk.core.text.Join;
-import org.jebtk.graphplot.ModernPlotCanvas;
+import org.jebtk.core.sys.SysUtils;
 import org.jebtk.graphplot.figure.GridLocation;
 import org.jebtk.graphplot.figure.PlotHashProperty;
+import org.jebtk.graphplot.figure.PlotStyle;
 import org.jebtk.graphplot.figure.properties.MarginProperties;
+import org.jebtk.math.matrix.AnnotationMatrix;
 import org.jebtk.modern.graphics.DrawingContext;
-import org.jebtk.modern.graphics.ImageUtils;
+import org.jebtk.modern.graphics.colormap.ColorMap;
 
 
 // TODO: Auto-generated Javadoc
 /**
  * The class PlotBox.
  */
-public class PlotBox extends ModernPlotCanvas implements Iterable<PlotBox>, PlotHashProperty {
+public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBox>, NameProperty, PlotHashProperty {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
 	private static final long serialVersionUID = 1L;
 
-	private static final Iterable<Integer> SINGLE_Z_LAYER = 
-			Collections.emptyList();
-
-	private static final Iterable<IntPos2D> EMPTY_POSITIONS = 
+	public static final Iterable<PlotBox> NO_CHILDREN = 
 			Collections.emptyList();
 	
-	//private IntPos2D mPos = GeomUtils.INT_POINT_ZERO;
+	private String mName;
 
-	private PlotBoxLayout mLayout = null;
-	
-	private Map<String, PlotBox> mNameMap = new HashMap<String, PlotBox>(10);
-
-	private MarginProperties mMargins = MarginProperties.DEFAULT_MARGIN;
-	
-	
 	public PlotBox(String name) {
-		this(name, new PlotBoxColumnLayout());
+		mName = name;
+	}
+
+	@Override
+	public String getName() {
+		return mName;
 	}
 	
-	public PlotBox(String name, PlotBoxLayout layout) {
-		setName(name);
+	public void setStorage(PlotBoxStorage s) {
 		
-		setLayout(layout);
+	}
+	
+	public PlotBoxStorage getStorage() {
+		return null;
+	}
+	
+	public void setLayout(PlotBoxLayout layout) {
+		
+	}
+	
+	public PlotBoxLayout getPlotBoxLayout() {
+		return null;
 	}
 	
 	public MarginProperties getMargins() {
-		return mMargins;
+		return MarginProperties.DEFAULT_MARGIN;
 	}
 	
 	/**
@@ -81,10 +89,7 @@ public class PlotBox extends ModernPlotCanvas implements Iterable<PlotBox>, Plot
 	 * @param margin the new left margin
 	 */
 	public void setLeftMargin(int margin) {
-		setMargins(mMargins.getTop(), 
-				margin, 
-				mMargins.getBottom(), 
-				mMargins.getRight());
+		
 	}
 	
 	/**
@@ -93,10 +98,7 @@ public class PlotBox extends ModernPlotCanvas implements Iterable<PlotBox>, Plot
 	 * @param margin the new bottom margin
 	 */
 	public void setBottomMargin(int margin) {
-		setMargins(mMargins.getTop(), 
-				mMargins.getLeft(), 
-				margin, 
-				mMargins.getRight());
+		
 	}
 	
 	/**
@@ -128,126 +130,73 @@ public class PlotBox extends ModernPlotCanvas implements Iterable<PlotBox>, Plot
 	public void setMargins(MarginProperties margins) {
 		updateMargins(margins);
 		
-		fireCanvasResized();
+		fireChanged();
 	}
 	
 	/**
 	 * Update margins.
 	 *
 	 * @param margins the margins
+	 * @return 
 	 */
-	public void updateMargins(MarginProperties margins) {
-		mMargins = margins;
-	}
-	
-
-	/* (non-Javadoc)
-	 * @see org.abh.common.ui.ui.graphics.ModernCanvas#getCanvasSize()
-	 */
-	@Override
-	public Dimension getPreferredSize() {
-		Dimension dim = new Dimension(0, 0);
-
-		plotSize(dim);
-		
-		zoom2(dim);
-		
-		// Account for padding
-		//dim.width += getInsets().left + getInsets().right;
-		//dim.height += getInsets().top + getInsets().bottom;
-		
-		dim.width += mMargins.getLineMargin();
-		dim.height += mMargins.getPageMargin();
-
-		return dim; //new IntDim(dim);
-	}
-	
-	/**
-	 * Update parameter dim to the current plot size. This is to allow for
-	 * recursive updating of the size without generating dimension objects.
-	 *
-	 * @param plotBox the plot box
-	 * @param dim the dim
-	 * @return the plot size recursive
-	 */
-	public void plotSize(Dimension dim) {
-		mLayout.plotSize(this, dim);
+	public boolean updateMargins(MarginProperties margins) {
+		return false;
 	}
 
-
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
-	 */
-	@Override
-	public void plot(Graphics2D g2, DrawingContext context) {
-		plot(g2, new Point(0, 0), context);
-	}
-
-	/**
-	 * Draw recursive.
-	 *
-	 * @param g2 the g2
-	 * @param plotBox the plot box
-	 * @param offset the offset
-	 * @param context the context
-	 */
-	public void plot(Graphics2D g2, 
-			Point offset,
-			DrawingContext context) {
-		
-		Graphics2D g2Temp = ImageUtils.clone(g2);
-		
-		try {
-			// Translate to account for padding.
-			g2Temp.translate(mMargins.getLeft(), mMargins.getTop());
-			
-			mLayout.plot(g2Temp, this, offset, context);	
-		} finally {
-			g2Temp.dispose();
+	public final void plot(Graphics2D g2, 
+			DrawingContext context, 
+			Object... params) {
+		if (getVisible()) {
+			plot(g2, new Dimension(0, 0), context, params);
 		}
-		
 	}
 	
-	public void setLayout(PlotBoxLayout layout) {
-		setPlotBoxLayout(layout);
+	public void plot(Graphics2D g2, 
+			Dimension offset,
+			DrawingContext context, 
+			Object... params) {
+
+		plotSize(offset);
 	}
 	
-	public void setPlotBoxLayout(PlotBoxLayout layout) {
-		mLayout = layout;
+	public PlotBox addChildByName(PlotBox plot) {
+		return this;
 	}
 	
-	public PlotBoxLayout getPlotBoxLayout() {
-		return mLayout;
+	public PlotBox addChild(PlotBox plot) {
+		return this;
 	}
 	
-	public void addChildByName(PlotBox plot) {
-		mNameMap.put(plot.getName(), plot);
-		
-		fireCanvasResized();
+	public PlotBox addChild(PlotBox plot, int i) {
+		return this;
 	}
 	
-	public void addChild(PlotBox plot) {
-		addChildByName(plot);
+	public PlotBox addReserved(PlotBox plot, int i) {
+		return addChild(plot, i);
 	}
 	
-	public void addChild(PlotBox plot, int i) {
-		addChild(plot);
+	public PlotBox addChild(PlotBox plot, int i, int j) {
+		return this;
 	}
 	
-	public void addChild(PlotBox plot, int i, int j) {
-		addChild(plot);
+	public PlotBox addChild(PlotBox plot, GridLocation l) {
+		return this;
 	}
 	
-	public void addChild(PlotBox plot, GridLocation l) {
-		addChild(plot);
+	public PlotBox addChild(PlotBox plot, IntPos2D p) {
+		return this;
 	}
 	
-	public void addChild(PlotBox plot, IntPos2D p) {
-		addChild(plot);
+	public PlotBox putZ(PlotBox plot) {
+		return this;
+	}
+	
+	public PlotBox putZ(PlotBox plot, GridLocation l) {
+		return this;
 	}
 	
 	public PlotBox getChild(int i, int j) {
-		return getChild(i);
+		return null;
 	}
 	
 	public PlotBox getChild(int i) {
@@ -255,32 +204,19 @@ public class PlotBox extends ModernPlotCanvas implements Iterable<PlotBox>, Plot
 	}
 	
 	public PlotBox getChild(GridLocation l) {
-		return getChild(0);
+		return null;
 	}
 
-
 	public PlotBox getChild(IntPos2D p) {
-		return getChild(0);
+		return null;
 	}
 	
 	public PlotBox getChild(String name) {
-		return getChild(0);
+		return null;
 	}
-	
-	/*
-	public void setPosition(IntPos2D p) {
-		mPos = p;
-		
-		fireCanvasChanged();
-	}
-	
-	public IntPos2D getPosition() {
-		return mPos;
-	}
-	*/
 	
 	public Iterable<IntPos2D> getPositions() {
-		return EMPTY_POSITIONS;
+		return null;
 	}
 	
 	public Iterable<GridLocation> getLocations() {
@@ -301,16 +237,20 @@ public class PlotBox extends ModernPlotCanvas implements Iterable<PlotBox>, Plot
 	 * @return
 	 */
 	public int getUnusedZ() {
-		return Integer.MIN_VALUE;
+		return -1;
 	}
 	
 	public Iterable<Integer> getZ() {
-		return SINGLE_Z_LAYER;
+		return null;
+	}
+	
+	public void clear() {
+		
 	}
 	
 	@Override
 	public Iterator<PlotBox> iterator() {
-		return null;
+		return NO_CHILDREN.iterator();
 	}
 	
 	/**
@@ -318,11 +258,69 @@ public class PlotBox extends ModernPlotCanvas implements Iterable<PlotBox>, Plot
 	 * @return
 	 */
 	@Override
-	public String hashId() {
-		return Join.onColon().values(getId(),
-				getMargins(),
-				getCanvasSize())
-				.toString();
+	public abstract String hashId();
+	
+
+	public final void setFont(Font font, Color color) {
+		Set<PlotBox> used = new HashSet<PlotBox>();
+		
+		setFont(used, font, color);
+	}
+	
+	public void setFont(Set<PlotBox> used, Font font, Color color) {
+		
+	}
+	
+
+	public void setStyle(String name, PlotStyle style, PlotStyle... styles) {
+		// TODO Auto-generated method stub
+	}
+	
+	/**
+	 * Sets the style.
+	 *
+	 * @param style the new style
+	 */
+	public final void setStyle(PlotStyle style, PlotStyle... styles) {
+		System.err.println("style " + this.getName());
+		
+		Set<PlotBox> used = new HashSet<PlotBox>();
+		
+		setStyle(used, style, styles);
+	}
+	
+	public void setStyle(Set<PlotBox> used, PlotStyle style, PlotStyle... styles) {
+		
+	}
+	
+	public void addStyle(String name, PlotStyle style, PlotStyle... styles) {
+		// TODO Auto-generated method stub
+	}
+
+	public final void addStyle(PlotStyle style, PlotStyle... styles) {
+		Set<PlotBox> used = new HashSet<PlotBox>();
+		
+		addStyle(used, style, styles);
+	}
+	
+	public void addStyle(Set<PlotBox> used, PlotStyle style, PlotStyle... styles) {
+		
+	}
+
+	public void setMatrix(AnnotationMatrix m) {
+		// TODO Auto-generated method stub
+	}
+
+	public void setColorMap(ColorMap colorMap) {
+		// TODO Auto-generated method stub
+	}
+	
+	public void setVisible(boolean visible) {
+		
+	}
+	
+	public boolean getVisible() {
+		return true;
 	}
 	
 	/**
@@ -334,8 +332,6 @@ public class PlotBox extends ModernPlotCanvas implements Iterable<PlotBox>, Plot
 	public PlotBox findByName(String name) {
 		String ls = name.toLowerCase();
 		
-		PlotBox ret = null;
-		
 		Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
 		
 		stack.push(this);
@@ -343,9 +339,10 @@ public class PlotBox extends ModernPlotCanvas implements Iterable<PlotBox>, Plot
 		while (!stack.isEmpty()) {
 			PlotBox p = stack.pop();
 			
+			System.err.println("fbn " + p.getName());
+			
 			if (p.getName().toLowerCase().contains(ls)) {
-				ret = p;
-				break;
+				return p;
 			}
 			
 			for (PlotBox c : p) {
@@ -353,7 +350,7 @@ public class PlotBox extends ModernPlotCanvas implements Iterable<PlotBox>, Plot
 			}
 		}
 		
-		return ret;
+		return null;
 	}
 	
 	public PlotBox findByType(String type) {
@@ -379,5 +376,119 @@ public class PlotBox extends ModernPlotCanvas implements Iterable<PlotBox>, Plot
 		}
 		
 		return ret;
+	}
+	
+	public List<PlotBox> getByType(String type) {
+		String ls = type.toLowerCase();
+		
+		List<PlotBox> ret = new ArrayList<PlotBox>(100);
+		
+		Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
+		
+		stack.push(this);
+		
+		while (!stack.isEmpty()) {
+			PlotBox p = stack.pop();
+			
+			if (p.getType().toLowerCase().contains(ls)) {
+				ret.add(p);
+				break;
+			}
+			
+			for (PlotBox c : p) {
+				stack.push(c);
+			}
+		}
+		
+		return ret;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.abh.common.ui.ui.graphics.ModernCanvas#getCanvasSize()
+	 */
+	public Dimension getPreferredSize() {
+		Dimension dim = new Dimension(0, 0);
+
+		plotSize(dim);
+
+		return dim;
+	}
+	
+	public void plotSize(Dimension d) {
+		// Do nothing
+	}
+	
+	public void removeByName(String name) {
+		
+	}
+	
+	/*
+	@Override
+	public int compareTo(PlotBox plot) {
+		return mName.compareTo(plot.mName);
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof PlotBox) {
+			return compareTo((PlotBox)o) == 0;
+		} else {
+			return false;
+		}
+	}
+	
+	@Override
+	public String toString() {
+		return mName;
+	}
+	*/
+	
+
+	/**
+	 * Produce a stack trace for the plot box.
+	 * 
+	 * @param plot
+	 */
+	public static void toStack(PlotBox plot) {
+		System.err.println("--------");
+		System.err.println(plot.getName());
+		System.err.println("--------");
+		
+		Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
+		Deque<Integer> levelStack = new ArrayDeque<Integer>(100);
+		
+		for (PlotBox c : plot) {
+			stack.push(c);
+			levelStack.push(1);
+		}
+		
+		while (!stack.isEmpty()) {
+			PlotBox p = stack.pop();
+			int level = levelStack.pop();
+			
+			SysUtils.err().println(level, p.getName());
+			
+			int nlevel = level + 1;
+			
+			for (PlotBox c : p) {
+				SysUtils.err().println(c + " my child");
+				stack.push(c);
+				levelStack.push(nlevel);
+			}
+		}
+		
+		System.err.println("========");
+	}
+	
+	public static void childStack(PlotBox plot) {
+		System.err.println("--------");
+		System.err.println(plot.getName() + plot  + " " + plot.getStorage());
+		System.err.println("--------");
+		
+		for (PlotBox c : plot) {
+			SysUtils.err().println(c.getName() + " " + c);
+		}
+		
+		System.err.println("========");
 	}
 }

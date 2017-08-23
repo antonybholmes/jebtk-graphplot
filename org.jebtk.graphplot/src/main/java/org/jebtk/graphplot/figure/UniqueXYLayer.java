@@ -62,7 +62,9 @@ public abstract class UniqueXYLayer extends PlotSeriesLayer {
 	 * @param series the series
 	 * @param zeroEnds the zero ends
 	 */
-	public UniqueXYLayer(String name, String series, boolean zeroEnds) {
+	public UniqueXYLayer(String name, 
+			String series, 
+			boolean zeroEnds) {
 		super(name, series);
 
 		mZeroEnds = zeroEnds;
@@ -74,7 +76,8 @@ public abstract class UniqueXYLayer extends PlotSeriesLayer {
 	@Override
 	public final void plotClipped(Graphics2D g2,
 			DrawingContext context,
-			SubFigure figure,
+			Figure figure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m,
@@ -101,6 +104,7 @@ public abstract class UniqueXYLayer extends PlotSeriesLayer {
 			plotClipped(g2,
 					context,
 					figure,
+					subFigure,
 					axes,
 					plot,
 					m,
@@ -123,7 +127,8 @@ public abstract class UniqueXYLayer extends PlotSeriesLayer {
 	 */
 	public abstract void plotClipped(Graphics2D g2,
 			DrawingContext context,
-			SubFigure figure,
+			Figure figure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m,

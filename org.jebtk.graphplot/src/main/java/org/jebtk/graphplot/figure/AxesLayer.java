@@ -15,6 +15,7 @@
  */
 package org.jebtk.graphplot.figure;
 
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
@@ -28,7 +29,7 @@ import org.jebtk.modern.graphics.ImageUtils;
  * @author Antony Holmes Holmes
  *
  */
-public abstract class AxesLayer extends MovableLayer {
+public abstract class AxesLayer extends Layer {
 	
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -57,11 +58,15 @@ public abstract class AxesLayer extends MovableLayer {
 	 * @param axes the axes
 	 */
 	@Override
-	public void plot(Graphics2D g2, 
-			DrawingContext context, 
-			SubFigure subFigure,
-			Axes axes) {
-		drawPlot(g2, context, subFigure, axes);
+	public void plot(Graphics2D g2,
+			Dimension offset,
+			DrawingContext context,
+			Object... params) {
+		Figure figure = (Figure)params[0];
+		SubFigure subFigure = (SubFigure)params[1];
+		Axes axes = (Axes)params[2];
+		
+		drawPlot(g2, context, figure, subFigure, axes);
 	}
 	
 	/**
@@ -74,13 +79,14 @@ public abstract class AxesLayer extends MovableLayer {
 	 */
 	public void aaPlot(Graphics2D g2,
 			DrawingContext context,
+			Figure figure,
 			SubFigure subFigure,
 			Axes axes) {
 
 		Graphics2D g2Temp = ImageUtils.createAAGraphics(g2);
 
 		try {
-			drawPlot(g2Temp, context, subFigure, axes);
+			drawPlot(g2Temp, context, figure, subFigure, axes);
 		} finally {
 			g2Temp.dispose();
 		}
@@ -96,10 +102,11 @@ public abstract class AxesLayer extends MovableLayer {
 	 */
 	public void cachePlot(Graphics2D g2, 
 			DrawingContext context,
+			Figure figure,
 			SubFigure subFigure, 
 			Axes axes) {
 		if (context == DrawingContext.PRINT) {
-			drawPlot(g2, context, subFigure, axes);
+			drawPlot(g2, context, figure, subFigure, axes);
 		} else {
 			// Create an image version of the canvas and draw that to spped
 			// up operations
@@ -107,12 +114,12 @@ public abstract class AxesLayer extends MovableLayer {
 					mCacheAxes == null || 
 					!axes.hashId().equals(mCacheAxes)) {
 				// The canvas need only be the size of the available display
-				mBufferedImage = ImageUtils.createImage(axes.getCanvasSize());
+				mBufferedImage = ImageUtils.createImage(axes.getPreferredSize());
 				
 				Graphics2D g2Temp = ImageUtils.createAAGraphics(mBufferedImage);
 				
 				try {
-					drawPlot(g2Temp, context, subFigure, axes);
+					drawPlot(g2Temp, context, figure, subFigure, axes);
 				} finally {
 					g2Temp.dispose();
 				}
@@ -134,6 +141,7 @@ public abstract class AxesLayer extends MovableLayer {
 	 */
 	public void drawPlot(Graphics2D g2, 
 			DrawingContext context,
+			Figure figure,
 			SubFigure subFigure, 
 			Axes axes) {
 		// Do nothing

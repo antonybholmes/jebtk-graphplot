@@ -16,6 +16,7 @@
 package org.jebtk.graphplot.figure.heatmap.legacy;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.List;
 import java.util.Map;
@@ -34,17 +35,17 @@ import org.jebtk.modern.graphics.DrawingContext;
  * The class GroupsLegendPlotElement.
  */
 public class GroupsLegendPlotElement extends MatrixPlotElement {
-	
+
 	/**
 	 * The constant serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * The member groups.
 	 */
 	private XYSeriesGroup mGroups;
-	
+
 	/**
 	 * The member block.
 	 */
@@ -54,7 +55,7 @@ public class GroupsLegendPlotElement extends MatrixPlotElement {
 	 * The member height.
 	 */
 	private int mHeight = 0;
-	
+
 	/**
 	 * The member width.
 	 */
@@ -64,7 +65,7 @@ public class GroupsLegendPlotElement extends MatrixPlotElement {
 	 * The member group sizes.
 	 */
 	private Map<XYSeries, List<Integer>> mGroupSizes;
-	
+
 	/**
 	 * Instantiates a new groups legend plot element.
 	 *
@@ -78,43 +79,46 @@ public class GroupsLegendPlotElement extends MatrixPlotElement {
 			int width, 
 			XYSeriesGroup groups) {
 		super(matrix, aspectRatio);
-		
+
 		mWidth = width;
-		
+
 		if (groups == null) {
 			return;
 		}
-		
+
 		mHeight = 0;
-		
+
 		mGroups = XYSeriesGroup.orderGroups(matrix, groups);
-		
+
 		mGroupSizes = CollectionUtils.createMap(CollectionUtils.toList(groups), 
 				XYSeriesGroup.findColumnIndices(matrix, groups));
-		
-		if (mGroups == null) {
-			return;
-		}
-		
-		for (MatrixGroup group : mGroups) {
-			if (mGroupSizes.get(group).size() == 0) {
-				continue;
+
+		if (mGroups != null) {
+			for (MatrixGroup group : mGroups) {
+				if (mGroupSizes.get(group).size() == 0) {
+					continue;
+				}
+
+				mHeight += mBlock + mBlock / 2;
 			}
-			
-			mHeight += mBlock + mBlock / 2;
 		}
-		
+
 		//Collections.sort(this.groups);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
 	 */
 	@Override
-	public void plot(Graphics2D g2, DrawingContext context) {
+	public void plot(Graphics2D g2, 
+			Dimension offset, 
+			DrawingContext context, 
+			Object... params) {
 		drawLabels(g2);
+
+		super.plot(g2, offset, context, params);
 	}
-	
+
 	/**
 	 * Draw labels.
 	 *
@@ -124,7 +128,7 @@ public class GroupsLegendPlotElement extends MatrixPlotElement {
 		if (mGroups == null || mGroups.getCount() == 0) {
 			return;
 		}
-		
+
 		int x = 0;
 		int xt = 2 * mBlock;
 		int y = 0;
@@ -132,33 +136,31 @@ public class GroupsLegendPlotElement extends MatrixPlotElement {
 
 		// try to order groups so they are listed in the order
 		// they are used on the plot
-		
+
 		for (MatrixGroup group : mGroups) {
 			if (mGroupSizes.get(group).size() == 0) {
 				continue;
 			}
 
 			g2.setColor(group.getColor());
-			
+
 			g2.fillRect(x, y, mBlock, mBlock);
-			
+
 			g2.setColor(Color.BLACK);
-			
+
 			g2.drawRect(x, y, mBlock, mBlock);
-			
+
 			g2.drawString(group.getName(), xt, yt);
-			
+
 			// increase with gap between samples
 			y += mBlock + mBlock / 2;
 			yt += mBlock + mBlock / 2;
 		}
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.abh.common.ui.ui.graphics.ModernCanvas#getCanvasSize()
-	 */
+
 	@Override
-	public IntDim getCanvasSize() {
-		return new IntDim(mWidth, mHeight);
+	public void plotSize(Dimension d) {
+		d.width += mWidth;
+		d.height += mHeight;
 	}
 }

@@ -48,7 +48,8 @@ public class BoxWhiskerSummaryLayer extends PlotClippedLayer {
 	@Override
 	public void plotClipped(Graphics2D g2,
 			DrawingContext context,
-			SubFigure figure,
+			Figure figure,
+SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m) {

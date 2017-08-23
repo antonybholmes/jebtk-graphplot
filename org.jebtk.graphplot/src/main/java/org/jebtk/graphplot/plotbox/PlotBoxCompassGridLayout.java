@@ -17,7 +17,6 @@ package org.jebtk.graphplot.plotbox;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Point;
 
 import org.jebtk.graphplot.figure.GridLocation;
 import org.jebtk.modern.graphics.DrawingContext;
@@ -42,16 +41,13 @@ public class PlotBoxCompassGridLayout extends PlotBoxLayout {
 	 */
 	@Override
 	public void plotSize(PlotBox plot, Dimension dim) {
-
-		PlotBoxCompassGrid gp = (PlotBoxCompassGrid)plot;
-
 		for (int i = 0; i < 3; ++i) {
 			mHeights[i] = 0;
 
 			for (int j = 0; j < 3; ++j) {
-				GridLocation l = PlotBoxCompassGrid.ROWS[i][j];
+				GridLocation l = PlotBoxCompassGridStorage.ROWS[i][j];
 
-				PlotBox child = gp.getChild(l);
+				PlotBox child = plot.getChild(l);
 
 				if (child != null) {
 					Dimension d = new Dimension(0, 0);
@@ -67,9 +63,9 @@ public class PlotBoxCompassGridLayout extends PlotBoxLayout {
 			mWidths[i] = 0;
 
 			for (int j = 0; j < 3; ++j) {
-				GridLocation l = PlotBoxCompassGrid.ROWS[j][i];
+				GridLocation l = PlotBoxCompassGridStorage.ROWS[j][i];
 
-				PlotBox child = gp.getChild(l);
+				PlotBox child = plot.getChild(l);
 
 				if (child != null) {
 					Dimension d = new Dimension(0, 0);
@@ -98,13 +94,12 @@ public class PlotBoxCompassGridLayout extends PlotBoxLayout {
 	@Override
 	public void plot(Graphics2D g2,
 			PlotBox plot,
-			Point offset,
-			DrawingContext context) {
+			Dimension offset,
+			DrawingContext context,
+			Object... params) {
 		//
 		// Plot
 		//
-
-		PlotBoxCompassGrid gp = (PlotBoxCompassGrid)plot;
 
 		Graphics2D g2Temp = ImageUtils.clone(g2);
 
@@ -114,12 +109,10 @@ public class PlotBoxCompassGridLayout extends PlotBoxLayout {
 
 				try {
 					for (int j = 0; j < 3; ++j) {
-						GridLocation l = PlotBoxCompassGrid.ROWS[i][j];
-
-						PlotBox child = gp.getChild(l);
+						PlotBox child = plot.getChild(i, j);
 
 						if (child != null) {
-							child.plot(g2Temp2, new Point(0, 0), context);
+							child.plot(g2Temp2, new Dimension(0, 0), context, params);
 						}
 
 						g2Temp2.translate(mWidths[j], 0);
@@ -136,8 +129,8 @@ public class PlotBoxCompassGridLayout extends PlotBoxLayout {
 
 
 		for (int i = 0; i < 3; ++i) {
-			offset.x += mWidths[i];
-			offset.y += mHeights[i];
+			offset.width += mWidths[i];
+			offset.height += mHeights[i];
 		}
 	}
 }

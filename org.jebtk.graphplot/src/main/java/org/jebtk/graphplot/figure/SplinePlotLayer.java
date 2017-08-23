@@ -50,7 +50,8 @@ public abstract class SplinePlotLayer extends PathPlotLayer {
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PathPlotLayer#getPath(java.lang.String, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.AnnotationMatrix, edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries, edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXY)
 	 */
 	@Override
-	protected GeneralPath getPath(SubFigure figure,
+	protected GeneralPath getPath(Figure figure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m,
@@ -70,6 +71,9 @@ public abstract class SplinePlotLayer extends PathPlotLayer {
 		double[] knotsX = new double[n];
 		double[] knotsY = new double[n];
 
+		p = xy.getPoint(0);
+		
+		
 		for (int i = 0; i < n; ++i) {
 			p = xy.getPoint(i);
 

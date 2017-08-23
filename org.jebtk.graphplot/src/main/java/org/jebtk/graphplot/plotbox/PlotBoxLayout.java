@@ -17,9 +17,7 @@ package org.jebtk.graphplot.plotbox;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Point;
 
-import org.jebtk.core.geom.IntDim;
 import org.jebtk.modern.graphics.DrawingContext;
 
 
@@ -28,12 +26,12 @@ import org.jebtk.modern.graphics.DrawingContext;
  * The class PlotBox.
  */
 public abstract class PlotBoxLayout {
-	public IntDim getCanvasSize(PlotBox plotBox) {
+	public Dimension getPreferredSize(PlotBox plotBox) {
 		Dimension dim = new Dimension(0, 0);
 
 		plotSize(plotBox, dim);
 
-		return new IntDim(dim);
+		return dim;
 	}
 	
 	/**
@@ -46,10 +44,11 @@ public abstract class PlotBoxLayout {
 	public abstract void plotSize(PlotBox plotBox, Dimension dim);
 
 
-	public void plot(Graphics2D g2, 
-			PlotBox plotBox,
-			DrawingContext context) {
-		plot(g2, plotBox, new Point(0, 0), context);
+	public final void plot(Graphics2D g2, 
+			PlotBox plot,
+			DrawingContext context,
+			Object... params) {
+		plot(g2, plot, new Dimension(0, 0), context, params);
 	}
 
 	/**
@@ -60,9 +59,12 @@ public abstract class PlotBoxLayout {
 	 * @param offset the offset
 	 * @param context the context
 	 */
-	public abstract void plot(Graphics2D g2,
+	public void plot(Graphics2D g2,
 			PlotBox plotBox,
-			Point offset,
-			DrawingContext context);
+			Dimension offset,
+			DrawingContext context,
+			Object... params) {
+		plotSize(plotBox, offset);
+	}
 
 }

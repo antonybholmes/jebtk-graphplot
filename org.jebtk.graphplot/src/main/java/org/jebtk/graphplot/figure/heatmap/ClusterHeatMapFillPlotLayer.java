@@ -25,6 +25,7 @@ import org.jebtk.core.Mathematics;
 import org.jebtk.core.collections.UniqueArrayList;
 import org.jebtk.graphplot.Image;
 import org.jebtk.graphplot.figure.Axes;
+import org.jebtk.graphplot.figure.Figure;
 import org.jebtk.graphplot.figure.Plot;
 import org.jebtk.graphplot.figure.SubFigure;
 import org.jebtk.math.cluster.Cluster;
@@ -83,6 +84,7 @@ public class ClusterHeatMapFillPlotLayer extends HeatMapFillPlotLayer {
 	 */
 	@Override
 	protected void cache(DrawingContext context,
+Figure figure,
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,

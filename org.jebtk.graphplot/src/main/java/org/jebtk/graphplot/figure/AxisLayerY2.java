@@ -63,8 +63,9 @@ public class AxisLayerY2 extends AxisLayerY {
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.AxesLayer#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes)
 	 */
 	@Override
-	public void plot(Graphics2D g2,
+	public void drawPlot(Graphics2D g2,
 			DrawingContext context,
+			Figure figure,
 			SubFigure subFigure,
 			Axes axes) {
 		Axis axis = axes.getY2Axis();
@@ -74,7 +75,7 @@ public class AxisLayerY2 extends AxisLayerY {
 		}
 
 		// Cache positions if not already done so
-		if (mHashId == null || !mHashId.equals(subFigure.hashId())) {
+		if (mHashId == null || !mHashId.equals(axes.hashId())) {
 			mMinorTicks = new UniqueArrayList<Integer>(axis.getTicks().getMinorTicks().getTickCount());
 
 			for (double t : axis.getTicks().getMinorTicks()) {

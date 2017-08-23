@@ -15,6 +15,8 @@
  */
 package org.jebtk.graphplot.figure.heatmap.legacy;
 
+import java.awt.Dimension;
+
 import org.jebtk.core.geom.IntDim;
 import org.jebtk.math.matrix.AnnotationMatrix;
 
@@ -29,6 +31,7 @@ public abstract class RowMatrixPlotElement extends MatrixPlotElement {
 	 * The constant serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
+	protected int mWidth;
 	
 	/**
 	 * Instantiates a new row matrix plot element.
@@ -51,14 +54,13 @@ public abstract class RowMatrixPlotElement extends MatrixPlotElement {
 	 * @param width the new width
 	 */
 	public void setWidth(int width) {
-		setCanvasSize(width, -1);
+		mWidth = width;
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.abh.common.ui.ui.graphics.ModernCanvas#getCanvasSize()
-	 */
+	
 	@Override
-	public IntDim getCanvasSize() {
-		return new IntDim(super.getCanvasSize().getW(), mMatrix.getRowCount() * mBlockSize.getH());
+	public void plotSize(Dimension d) {
+		d.width += mWidth;
+		d.height += mMatrix.getRowCount() * mBlockSize.getH();
 	}
 }

@@ -15,10 +15,10 @@
  */
 package org.jebtk.graphplot;
 
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import org.jebtk.core.geom.IntDim;
 import org.jebtk.modern.graphics.DrawingContext;
 
 
@@ -51,6 +51,8 @@ public class ImageCachePlotElement extends PlotElement {
 	 * @param element the element
 	 */
 	public ImageCachePlotElement(PlotElement element) {
+		super("image-cache");
+		
 		mElement = element;
 		
 		cache();
@@ -60,8 +62,8 @@ public class ImageCachePlotElement extends PlotElement {
 	 * Cache.
 	 */
 	private void cache() {
-		bi = new BufferedImage(mElement.getCanvasSize().getW(), 
-				mElement.getCanvasSize().getH(), BufferedImage.TYPE_INT_RGB);
+		bi = new BufferedImage(mElement.getPreferredSize().width, 
+				mElement.getPreferredSize().height, BufferedImage.TYPE_INT_RGB);
 		
 		Graphics2D g2 = (Graphics2D)bi.getGraphics();
 		
@@ -72,16 +74,14 @@ public class ImageCachePlotElement extends PlotElement {
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
 	 */
 	@Override
-	public void plot(Graphics2D g2, DrawingContext context) {
+	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Object... params) {
 		g2.drawImage(bi, 0, 0, null);
 	}
 	
 	
-	/* (non-Javadoc)
-	 * @see org.abh.common.ui.ui.graphics.ModernCanvas#getCanvasSize()
-	 */
 	@Override
-	public IntDim getCanvasSize() {
-		return mElement.getCanvasSize();
+	public void plotSize(Dimension d) {
+		d.width += mElement.getPreferredSize().width;
+		d.height += mElement.getPreferredSize().height;
 	}
 }

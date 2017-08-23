@@ -16,6 +16,7 @@
 package org.jebtk.graphplot.figure.heatmap.legacy;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.text.DecimalFormat;
 import java.util.List;
@@ -132,7 +133,7 @@ public class NumericalRowLabelsPlotElement extends RowMatrixPlotElement {
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
 	 */
 	@Override
-	public void plot(Graphics2D g2, DrawingContext context) {
+	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Object... params) {
 		drawLabels(g2);
 	}
 	
@@ -144,7 +145,7 @@ public class NumericalRowLabelsPlotElement extends RowMatrixPlotElement {
 	private void drawLabels(Graphics2D g2) {
 		g2.setColor(mColor);
 	
-		int x = (getCanvasSize().getW() - g2.getFontMetrics().stringWidth(mTitle));
+		int x = (getPreferredSize().width - g2.getFontMetrics().stringWidth(mTitle));
 		
 	
 		if (mTitle != null) {
@@ -157,7 +158,7 @@ public class NumericalRowLabelsPlotElement extends RowMatrixPlotElement {
 		for (double v : mValues) {
 			String s = mFormatter.format(v);
 			
-			x = getCanvasSize().getW() - g2.getFontMetrics().stringWidth(s);
+			x = getPreferredSize().width - g2.getFontMetrics().stringWidth(s);
 			
 			g2.drawString(s, x, y);
 			

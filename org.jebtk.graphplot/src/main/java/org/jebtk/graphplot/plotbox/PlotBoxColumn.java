@@ -16,15 +16,13 @@
 package org.jebtk.graphplot.plotbox;
 
 import org.jebtk.core.StringId;
-import org.jebtk.graphplot.PanelLabel;
-import org.jebtk.modern.graphics.ModernCanvas;
 
 
 // TODO: Auto-generated Javadoc
 /**
  * The class PlotBox.
  */
-public class PlotBoxColumn extends PlotBoxDim {
+public class PlotBoxColumn extends PlotBoxContainer {
 
 	/**
 	 * The constant serialVersionUID.
@@ -35,19 +33,10 @@ public class PlotBoxColumn extends PlotBoxDim {
 
 
 	public PlotBoxColumn() {
-		super(NEXT_ID.getNextId(), new PlotBoxColumnLayout());
+		this(NEXT_ID.getNextId());
 	}
-
-	/**
-	 * Instantiates a new plot box.
-	 *
-	 * @param panel the panel
-	 * @param renderer the renderer
-	 */
-	public PlotBoxColumn(String panel, ModernCanvas renderer) {
-		this();
-		
-		addChild(new PlotBoxCanvas(new PanelLabel(panel)));
-		addChild(new PlotBoxCanvas(renderer));
+	
+	public PlotBoxColumn(String name) {
+		super(name, new PlotBoxDimStorage(), new PlotBoxColumnLayout());
 	}
 }

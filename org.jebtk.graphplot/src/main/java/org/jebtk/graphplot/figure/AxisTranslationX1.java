@@ -17,17 +17,22 @@ package org.jebtk.graphplot.figure;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class PlotBoxH.
+ * Translate between graph space and pixel space in the Y axis. Since Java
+ * uses inverted coordinates for y (0 is top right) we must invert and
+ * correct for this since on a 2D cartesian graph y, y increases from
+ * the bottom up.
+ * 
+ * @author Antony Holmes Holmes
+ *
  */
-public class PlotBoxH extends PlotGrid {
+public class AxisTranslationX1 extends AxisTranslationX {
 	
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
-
 	/**
-	 * Instantiates a new plot box h.
+	 * Instantiates a new axis translation y.
+	 *
+	 * @param axis the axis
 	 */
-	public PlotBoxH() {
-		super(new PlotBoxLayoutH());
+	public AxisTranslationX1(Axes axes) {
+		super(axes, axes.getX1Axis());
 	}
 }

@@ -16,6 +16,7 @@
 package org.jebtk.graphplot.figure.heatmap.legacy.clustering;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -100,8 +101,10 @@ public class ColumnHLabelBottomPlotElement extends ColumnMatrixPlotElement {
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
 	 */
 	@Override
-	public void plot(Graphics2D g2, DrawingContext context) {
+	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Object... params) {
 		drawLabels(g2);
+		
+		super.plot(g2, offset, context, params);
 	}
 
 	/**

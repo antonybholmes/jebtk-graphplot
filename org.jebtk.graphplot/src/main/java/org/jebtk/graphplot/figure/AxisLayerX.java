@@ -77,6 +77,7 @@ public abstract class AxisLayerX extends AxesLayer {
 	 */
 	public void plot(Graphics2D g2,
 			DrawingContext context,
+			Figure figure,
 			SubFigure subFigure,
 			Axes axes,
 			Axis axis,
@@ -208,9 +209,9 @@ public abstract class AxisLayerX extends AxesLayer {
 			g2.setFont(axis.getTitle().getFontStyle().getFont());
 			g2.setColor(axis.getTitle().getFontStyle().getColor());
 
-			x = (axes.getInternalPlotSize().getW() - g2.getFontMetrics().stringWidth(axes.getX1Axis().getTitle().getText())) / 2;
+			x = (axes.getPreferredSize().width - g2.getFontMetrics().stringWidth(axes.getX1Axis().getTitle().getText())) / 2;
 
-			y = axes.getInternalHeight() + axes.getMargins().getBottom() - g2.getFontMetrics().getDescent();
+			y = axes.getInternalPlotSize().getH() + axes.getMargins().getBottom() - g2.getFontMetrics().getDescent();
 
 			g2.drawString(axis.getTitle().getText(), x, y);
 		}

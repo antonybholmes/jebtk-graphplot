@@ -15,9 +15,11 @@
  */
 package org.jebtk.graphplot.figure.heatmap;
 
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 
 import org.jebtk.graphplot.figure.Axes;
+import org.jebtk.graphplot.figure.Figure;
 import org.jebtk.graphplot.figure.Plot;
 import org.jebtk.graphplot.figure.SubFigure;
 import org.jebtk.graphplot.figure.series.XYSeriesGroup;
@@ -43,6 +45,8 @@ public class GroupHierarchicalColorBarLayer extends GroupColorBarLayer {
 	 */
 	private Cluster mRootCluster;
 
+	private int mWidth;
+
 
 	//private Cluster rootCluster;
 	
@@ -51,17 +55,24 @@ public class GroupHierarchicalColorBarLayer extends GroupColorBarLayer {
 	 *
 	 * @param rootCluster the root cluster
 	 */
-	public GroupHierarchicalColorBarLayer(Cluster rootCluster) {
+	public GroupHierarchicalColorBarLayer(Cluster rootCluster, int width) {
 		mRootCluster = rootCluster;
+		mWidth = width;
+	}
+	
+	@Override
+	public void plotSize(Dimension d) {
+		d.height = mWidth;
 	}
 	
 	/* (non-Javadoc)
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotLayer#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.AnnotationMatrix)
 	 */
 	@Override
-	public void plot(Graphics2D g2,
+	public void drawPlot(Graphics2D g2,
 			DrawingContext context,
-			SubFigure figure,
+			Figure figure,
+SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m) {
@@ -69,7 +80,9 @@ public class GroupHierarchicalColorBarLayer extends GroupColorBarLayer {
 		//List<Integer> columns = MatrixGroup.findColumnIndices(m, series);
 		
 		if (mGroupMap == null) {
-			mGroupMap = XYSeriesGroup.arrangeGroupsByCluster(m, plot.getAllSeries(), mRootCluster);
+			mGroupMap = XYSeriesGroup.arrangeGroupsByCluster(m, 
+					plot.getAllSeries(), 
+					mRootCluster);
 			
 			for (int key : mGroupMap.keySet()) {
 				mMaxRows = Math.max(mGroupMap.get(key).getCount(), mMaxRows);
@@ -79,7 +92,7 @@ public class GroupHierarchicalColorBarLayer extends GroupColorBarLayer {
 		int x = 0; //axes.getMargins().getLeft();
 		int y = 0;
 		
-		int h = Math.max(1, plot.getInternalPlotSize().getH() / mMaxRows);
+		int h = Math.max(1, plot.getPreferredSize().height / mMaxRows);
 		
 		int w = axes.toPlotX1(1) - axes.toPlotX1(0);
 		

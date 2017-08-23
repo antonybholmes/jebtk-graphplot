@@ -17,7 +17,6 @@ package org.jebtk.graphplot.plotbox;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Point;
 
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.ImageUtils;
@@ -69,35 +68,27 @@ public class PlotBoxRowLayout extends PlotBoxLayout {
 	@Override
 	public void plot(Graphics2D g2,
 			PlotBox plotBox,
-			Point offset,
-			DrawingContext context) {
-		Graphics2D subg2 = ImageUtils.clone(g2);
+			Dimension offset,
+			DrawingContext context,
+			Object... params) {
+		Graphics2D g2Temp = ImageUtils.clone(g2);
 
-		//subg2.translate(offset.width, offset.height);
-
-		int width = 0;
-		int height = 0;
-
-		Point tempOffset = new Point(0, 0);
+		Dimension tempOffset = new Dimension(0, 0);
 
 		try {	
 			for (PlotBox child : plotBox) {
-				tempOffset.x = 0;
-				tempOffset.y = 0;
+				
+				tempOffset.width = 0;
+				tempOffset.height = 0;
 
-				child.plot(subg2, tempOffset, context);
+				child.plot(g2Temp, tempOffset, context, params);
 
-				subg2.translate(0, tempOffset.y);
-
-				width = Math.max(width, tempOffset.x);
-
-				height += tempOffset.y;
+				g2Temp.translate(0, tempOffset.height);
 			}
 		} finally {
-			subg2.dispose();
+			g2Temp.dispose();
 		}
 		
-		offset.x += width;
-		offset.y += height;
+		super.plot(g2Temp, plotBox, offset, context, params);
 	}
 }

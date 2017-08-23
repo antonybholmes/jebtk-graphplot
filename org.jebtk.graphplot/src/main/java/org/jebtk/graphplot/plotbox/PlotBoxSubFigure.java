@@ -23,14 +23,15 @@ import org.jebtk.graphplot.figure.SubFigure;
 /**
  * The class PlotBox.
  */
-public class PlotBoxSubFigure extends PlotBox {
+public class PlotBoxSubFigure extends PlotBoxContainer {
 
 	/**
 	 * The constant serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static final StringId NEXT_ID = new StringId("Plot Box Sub Figure");
+	private static final StringId NEXT_ID = 
+			new StringId("Plot Box Sub Figure");
 
 	
 	/**
@@ -43,6 +44,6 @@ public class PlotBoxSubFigure extends PlotBox {
 	}
 
 	public SubFigure getSubFigure() {
-		return ((PlotBoxSubFigureLayout)getLayout()).getSubFigure();
+		return ((PlotBoxSubFigureLayout)getPlotBoxLayout()).getSubFigure();
 	}
 }

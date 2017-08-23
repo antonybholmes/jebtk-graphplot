@@ -21,7 +21,7 @@ import org.jebtk.core.StringId;
 /**
  * The class PlotBox.
  */
-public class PlotBoxRow extends PlotBoxDim {
+public class PlotBoxRow extends PlotBoxContainer {
 
 	/**
 	 * The constant serialVersionUID.
@@ -31,6 +31,8 @@ public class PlotBoxRow extends PlotBoxDim {
 	private static final StringId NEXT_ID = new StringId("Plot Box Row");
 
 	public PlotBoxRow() {
-		super(NEXT_ID.getNextId(), new PlotBoxRowLayout());
+		super(NEXT_ID.getNextId(), 
+				new PlotBoxDimStorage(), 
+				new PlotBoxRowLayout());
 	}
 }

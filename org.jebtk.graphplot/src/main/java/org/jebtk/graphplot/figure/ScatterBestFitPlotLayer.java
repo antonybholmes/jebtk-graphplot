@@ -63,13 +63,14 @@ public class ScatterBestFitPlotLayer extends PlotSeriesLayer {
 	@Override
 	public void plotClipped(Graphics2D g2,
 			DrawingContext context,
-			SubFigure figure,
+			Figure figure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m,
 			XYSeries series) {
 		
-		updateSplines(g2, figure, axes, m, series);
+		updateSplines(g2, figure, subFigure, axes, m, series);
 	}
 	
 	/**
@@ -150,7 +151,8 @@ public class ScatterBestFitPlotLayer extends PlotSeriesLayer {
 	 * @param series the series
 	 */
 	public static void updateSplines(Graphics2D g2, 
-			SubFigure figure,
+			Figure figure,
+SubFigure subFigure,
 			Axes axes,
 			AnnotationMatrix m,
 			XYSeries series) {

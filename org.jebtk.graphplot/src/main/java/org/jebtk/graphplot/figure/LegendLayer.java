@@ -17,10 +17,13 @@ package org.jebtk.graphplot.figure;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Map;
 import java.util.TreeMap;
 
 import org.jebtk.graphplot.figure.series.XYSeries;
+import org.jebtk.graphplot.plotbox.PlotBox;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.widget.ModernWidget;
 
@@ -34,13 +37,13 @@ public class LegendLayer extends AxesLayer {
 	 * The constant serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/** The Constant GAP. */
 	private static final int GAP = 5;
-	
+
 	/** The Constant TEXT_OFFSET. */
 	private static final int TEXT_OFFSET = 48;
-	
+
 	/** The Constant LINE_WIDTH. */
 	private static final int LINE_WIDTH = 32;
 
@@ -55,9 +58,10 @@ public class LegendLayer extends AxesLayer {
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.AxesLayer#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes)
 	 */
 	@Override
-	public void plot(Graphics2D g2,
+	public void drawPlot(Graphics2D g2,
 			DrawingContext context,
-			SubFigure figure,
+			Figure figure,
+SubFigure subFigure,
 			Axes axes) {
 		// determine the size of the legend
 
@@ -70,21 +74,25 @@ public class LegendLayer extends AxesLayer {
 
 		Map<String, XYSeries> uniqueSeries = new TreeMap<String, XYSeries>();
 
-		//axes.setInternalPlotHeight(100);
 
-		for (GridLocation l : axes.mLocations) {
-			for (int z : axes.mLocations.getChild(l)) {
-				MovableLayer layer = axes.mLocations.getChild(l).getChild(z);
+		Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
 
-				if (layer instanceof Plot) {
-					Plot plot = (Plot)layer;
+		stack.push(this);
 
-					for (XYSeries series : plot.getAllSeries()) {
-						uniqueSeries.put(series.getName(), series);
+		while (!stack.isEmpty()) {
+			PlotBox p = stack.pop();
 
-						//System.err.println("series " + series.getName()  + " " + series.getMarker() + " " + series.getMarkerStyle().getFillStyle().getColor());
-					}
+			if (p instanceof Plot) {
+				Plot plot = (Plot)p;
+				for (XYSeries series : plot.getAllSeries()) {
+					uniqueSeries.put(series.getName(), series);
+
+					//System.err.println("series " + series.getName()  + " " + series.getMarker() + " " + series.getMarkerStyle().getFillStyle().getColor());
 				}
+			}
+
+			for (PlotBox c : p) {
+				stack.push(c);
 			}
 		}
 
@@ -122,36 +130,36 @@ public class LegendLayer extends AxesLayer {
 			y = 0;
 			break;
 		case TOP_MIDDLE:
-			x = (axes.getInternalPlotSize().getW() - width) / 2;
+			x = (axes.getPreferredSize().width - width) / 2;
 			y = 0;
 			break;
 		case CENTER_RIGHT:
-			x = axes.getInternalPlotSize().getW() - width;
-			y = (axes.getInternalPlotSize().getH() - height) / 2;
+			x = axes.getPreferredSize().width - width;
+			y = (axes.getPreferredSize().height - height) / 2;
 			break;
 		case BOTTOM_RIGHT:
-			x = axes.getInternalPlotSize().getW() - width;
-			y = axes.getInternalPlotSize().getH() - height;
+			x = axes.getPreferredSize().width - width;
+			y = axes.getPreferredSize().height - height;
 			break;
 		case BOTTOM_MIDDLE:
-			x = (axes.getInternalPlotSize().getW() - width) / 2;
-			y = axes.getInternalPlotSize().getH() - height;
+			x = (axes.getPreferredSize().width - width) / 2;
+			y = axes.getPreferredSize().height - height;
 			break;
 		case BOTTOM_LEFT:
 			x = 0;
-			y = axes.getInternalPlotSize().getH() - height;
+			y = axes.getPreferredSize().height - height;
 			break;
 		case CENTER_LEFT:
 			x = 0;
-			y = (axes.getInternalPlotSize().getH() - height) / 2;
+			y = (axes.getPreferredSize().height - height) / 2;
 			break;
 		case CENTER:
-			x = (axes.getInternalPlotSize().getW() - width) / 2;
-			y = (axes.getInternalPlotSize().getH() - height) / 2;
+			x = (axes.getPreferredSize().width - width) / 2;
+			y = (axes.getPreferredSize().height - height) / 2;
 			break;
 		default:
 			//top right
-			x = axes.getInternalPlotSize().getW() - width;
+			x = axes.getPreferredSize().width - width;
 			y = 0;
 			break;
 		}

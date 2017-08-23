@@ -105,5 +105,7 @@ public abstract class ModernPlotCanvas extends ZoomCanvas {
 	 * @param g2 the g2
 	 * @param context the context
 	 */
-	public abstract void plot(Graphics2D g2, DrawingContext context);
+	public abstract void plot(Graphics2D g2, 
+			DrawingContext context, 
+			Object... params);
 }

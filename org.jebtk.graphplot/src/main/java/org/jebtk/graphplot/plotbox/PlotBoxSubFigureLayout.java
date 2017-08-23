@@ -17,7 +17,6 @@ package org.jebtk.graphplot.plotbox;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Point;
 
 import org.jebtk.graphplot.figure.SubFigure;
 import org.jebtk.modern.graphics.DrawingContext;
@@ -55,8 +54,8 @@ public class PlotBoxSubFigureLayout extends PlotBoxLayout {
 	public void plotSize(PlotBox plotBox, Dimension dim) {
 		// Call getRenderer() so that we do not recursively call
 		// getPlotSizeRecursive through getCanvasSize() in an infinite loop.
-		dim.width += mSubFigure.getCanvasSize().getW();
-		dim.height += mSubFigure.getCanvasSize().getH();
+		dim.width += mSubFigure.getPreferredSize().width;
+		dim.height += mSubFigure.getPreferredSize().height;
 	}
 
 	/**
@@ -70,12 +69,13 @@ public class PlotBoxSubFigureLayout extends PlotBoxLayout {
 	@Override
 	public void plot(Graphics2D g2,
 			PlotBox plotBox,
-			Point offset,
-			DrawingContext context) {
+			Dimension offset,
+			DrawingContext context,
+			Object... params) {
 		mSubFigure.plot(g2, context);
 		
-		offset.x += mSubFigure.getCanvasSize().getW();
-		offset.y += mSubFigure.getCanvasSize().getH();
+		offset.width += mSubFigure.getPreferredSize().width;
+		offset.height += mSubFigure.getPreferredSize().height;
 	}
 
 

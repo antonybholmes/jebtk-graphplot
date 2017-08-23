@@ -16,28 +16,37 @@
 package org.jebtk.graphplot.figure;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.jebtk.core.StringId;
+import org.jebtk.core.collections.DefaultHashMap;
+import org.jebtk.core.collections.HashMapCreator;
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
+import org.jebtk.core.geom.IntDim;
 import org.jebtk.core.geom.IntPos2D;
 import org.jebtk.core.geom.Point2DDouble;
+import org.jebtk.core.stream.ListReduceFunction;
+import org.jebtk.core.stream.Stream;
 import org.jebtk.core.text.TextUtils;
 import org.jebtk.graphplot.figure.properties.LegendProperties;
 import org.jebtk.graphplot.figure.properties.StyleProperties;
 import org.jebtk.graphplot.figure.properties.TitleProperties;
 import org.jebtk.graphplot.figure.series.XYPoint;
 import org.jebtk.graphplot.figure.series.XYSeries;
+import org.jebtk.graphplot.plotbox.PlotBox;
+import org.jebtk.graphplot.plotbox.PlotBoxZLayout;
+import org.jebtk.graphplot.plotbox.PlotBoxZStorage;
 import org.jebtk.math.matrix.AnnotationMatrix;
 import org.jebtk.math.matrix.MatrixGroup;
 import org.jebtk.modern.graphics.DrawingContext;
-import org.jebtk.modern.graphics.ImageUtils;
-import org.jebtk.modern.graphics.colormap.ColorMap;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -48,7 +57,7 @@ import org.jebtk.modern.graphics.colormap.ColorMap;
  * @author Antony Holmes Holmes
  *
  */
-public class Axes extends PlotGrid implements PlotHashProperty {
+public class Axes extends PlotBoxGraph {
 
 	/**
 	 * The constant serialVersionUID.
@@ -104,6 +113,8 @@ public class Axes extends PlotGrid implements PlotHashProperty {
 	/** The m next axes id. */
 	protected final StringId mNextAxesId = new StringId("Axes");
 
+	protected final StringId mNextPlotId = new StringId("Plot");
+
 	/** The m x1 axis trans. */
 	private AxisTranslation mX1AxisTrans;
 
@@ -115,6 +126,22 @@ public class Axes extends PlotGrid implements PlotHashProperty {
 
 	/** The m y2 axis trans. */
 	private AxisTranslation mY2AxisTrans;
+
+	protected Map<Double, Map<Double, Point>> mXY1Map =
+			DefaultHashMap.create(new HashMapCreator<Double, Point>());
+
+	/** The m x y2 map. */
+	protected Map<Double, Map<Double, Point>> mXY2Map =
+			DefaultHashMap.create(new HashMapCreator<Double, Point>());
+
+	public static final IntDim DEFAULT_SIZE = new IntDim(800, 400);
+
+	private IntDim mInternalSize = DEFAULT_SIZE;
+
+	/**
+	 * Force axes to have a particular size.
+	 */
+	//private IntDim mInternalSize = new IntDim(1000, 600);
 
 
 	/**
@@ -144,12 +171,12 @@ public class Axes extends PlotGrid implements PlotHashProperty {
 	 * @param name the name
 	 */
 	public Axes(String name) {
-		super(name);
+		super(name, new PlotBoxZStorage(), new PlotBoxZLayout());
 
-		mX1AxisTrans = new AxisTranslation(mX1Axis);
-		mY1AxisTrans = new AxisTranslationY(mY1Axis);
-		mX2AxisTrans = new AxisTranslation(mX2Axis);
-		mY2AxisTrans = new AxisTranslationY(mY2Axis);
+		mX1AxisTrans = new AxisTranslationX1(this);
+		mY1AxisTrans = new AxisTranslationY1(this);
+		mX2AxisTrans = new AxisTranslationX2(this);
+		mY2AxisTrans = new AxisTranslationY2(this);
 
 		GraphEvents ge = new GraphEvents();
 
@@ -208,13 +235,40 @@ public class Axes extends PlotGrid implements PlotHashProperty {
 		mY2Axis.setVisible(false);
 	}
 
-	/**
-	 * Instantiates a new axes.
-	 *
-	 * @param layout the layout
-	 */
-	public Axes(PlotLayout layout) {
-		this();
+	public void setInternalPlotHeight(int h) {
+		setInternalPlotSize(getInternalPlotSize().getW(), h);
+	}
+
+	public void setInternalPlotSize(int w, int h) {
+		setInternalPlotSize(new IntDim(w, h));
+	}
+
+	public void setInternalPlotSize(Dimension d) {
+		setInternalPlotSize(IntDim.create(d));
+	}
+
+	public void setInternalPlotSize(IntDim d) {
+		if (!d.equals(mInternalSize)) {
+			mInternalSize = d;
+			
+			refresh();
+
+			System.err.println("set internal size " + d);
+			
+			fireChanged();
+		}
+	}
+
+	public IntDim getInternalPlotSize() {
+		return mInternalSize;
+	}
+
+	@Override
+	public void plotSize(Dimension dim) {
+		dim.width = mInternalSize.getW();
+		dim.height = mInternalSize.getH();
+
+		addMargin(dim);
 	}
 
 	/* (non-Javadoc)
@@ -228,50 +282,65 @@ public class Axes extends PlotGrid implements PlotHashProperty {
 	/**
 	 * New axes.
 	 *
-	 * @return the axes
-	 */
-	public Axes newAxes() {
-		return newAxes(GridLocation.CENTER);
-	}
-
-	/**
-	 * New axes.
-	 *
 	 * @param l the l
 	 * @return the axes
 	 */
-	public Axes newAxes(GridLocation l) {
-		Axes axes = new Axes(mNextAxesId.getNextId());
+	public Plot newPlot() {
+		Plot plot = new Plot(mNextPlotId.getNextId());
 
-		return addAxes(axes, l);
+		addChild(plot);
+
+		return plot;
+	}
+
+	public Plot newPlot(GridLocation l) {
+		return newPlot();
+	}
+
+	public void addPlot(Plot plot) {
+		addChild(plot);
+	}
+
+	public void addPlot(Plot plot, GridLocation l) {
+		addChild(plot);
 	}
 
 	/**
-	 * Adds the axes.
+	 * Gets the axes.
 	 *
-	 * @param axes the axes
-	 * @return the axes
-	 */
-	public Axes addAxes(Axes axes) {
-		return addAxes(axes, GridLocation.CENTER);
-	}
-
-	/**
-	 * Adds the axes.
-	 *
-	 * @param axes the axes
+	 * @param name the name
 	 * @param l the l
 	 * @return the axes
 	 */
-	public Axes addAxes(Axes axes, GridLocation l) {
-		mLocations.getChild(l).putZ(axes);
+	public Plot getPlot(String name) {
+		PlotBox c = getChild(name);
 
-		return axes;
+		if (c == null || !c.getName().equals(name)) {
+			c = new Plot(name);
+
+			addChild(c);
+		}
+
+		return (Plot)c;
 	}
 
+	/**
+	 * Gets the current axes.
+	 *
+	 * @param l the l
+	 * @return the current axes
+	 */
+	public Plot getCurrentPlot() {
+		PlotBox c = getChild(getChildCount() - 1);
 
+		if (c == null || !c.getType().equals(LayerType.PLOT)) {
+			c = newPlot();
 
+			addChild(c);
+		}
 
+		return (Plot)c;
+	}
 
 	/**
 	 * Returns the layer model to control what is displayed on the plot
@@ -336,80 +405,6 @@ public class Axes extends PlotGrid implements PlotHashProperty {
 		double max = getY2Max(this);
 
 		mY2Axis.setLimitsAutoRound(min, max);
-	}
-
-	/**
-	 * Sets the style.
-	 *
-	 * @param style the new style
-	 */
-	public void setStyle(PlotStyle style) {
-		for (GridLocation l : mLocations) {
-			for (int z : mLocations.getChild(l)) {
-				Layer layer = mLocations.getChild(l).getChild(z);
-
-				if (layer.getType().equals(LayerType.PLOT)) {
-					Plot plot = (Plot)layer;
-					plot.setStyle(style);
-				}
-			}
-		}
-	}
-
-	/**
-	 * Adds the style.
-	 *
-	 * @param styles the styles
-	 */
-	public void addStyle(PlotStyle... styles) {
-		for (GridLocation l : mLocations) {
-			for (int z : mLocations.getChild(l)) {
-				Layer layer = mLocations.getChild(l).getChild(z);
-
-				if (layer.getType().equals(LayerType.PLOT)) {
-					Plot plot = (Plot)layer;
-					plot.addStyle(styles);		
-				}
-			}
-		}
-	}
-
-	/**
-	 * Sets the style.
-	 *
-	 * @param name the name
-	 * @param styles the styles
-	 */
-	public void setStyle(String name, PlotStyle... styles) {
-		for (GridLocation l : mLocations) {
-			for (int z : mLocations.getChild(l)) {
-				Layer layer = mLocations.getChild(l).getChild(z);
-
-				if (layer.getType().equals(LayerType.PLOT)) {
-					Plot plot = (Plot)layer;
-					plot.setStyle(name, styles);		
-				}
-			}
-		}
-	}
-
-	/**
-	 * Adds the style.
-	 *
-	 * @param name the name
-	 * @param styles the styles
-	 */
-	public void addStyle(String name, PlotStyle... styles) {
-		for (GridLocation l : mLocations) {
-			for (int z : mLocations.getChild(l)) {
-				Layer layer = mLocations.getChild(l).getChild(z);
-
-				if (layer.getType().equals(LayerType.PLOT)) {
-					Plot plot = (Plot)layer;
-					plot.addStyle(name, styles);		
-				}
-			}
-		}
 	}
 
 	/**
@@ -529,13 +524,7 @@ public class Axes extends PlotGrid implements PlotHashProperty {
 				mY1Axis.withinBounds(point.getY());
 	}
 
-	/**
-	 * Plot.
-	 *
-	 * @param g2 the g2
-	 * @param context the context
-	 * @param subFigure the figure
-	 */
+	/*
 	@Override
 	public void plot(Graphics2D g2, 
 			DrawingContext context, 
@@ -552,63 +541,43 @@ public class Axes extends PlotGrid implements PlotHashProperty {
 
 				if (c.getVisible()) {
 					//SysUtils.err().println("axes", getName(), c.getName(), c.getVisible());
-					
+
 					c.plot(g2Temp, context, subFigure, this);
 				}
 			}
 		} finally {
 			g2Temp.dispose();
 		}
-
-		/*
-		Graphics2D g2Temp = (Graphics2D)g2.create();
-
-		g2Temp.translate(getMargins().getLeft(), getMargins().getTop());
-
-		mLayout.plot(g2, context, subFigure, this);
-
-		g2Temp.dispose();
-		 */
 	}
-	
+	 */
+
 	/* (non-Javadoc)
 	 * @see org.graphplot.figure.Layer#setFont(java.awt.Font, java.awt.Color)
 	 */
 	@Override
-	public void setFont(Font font, Color color) {
-		super.setFont(font, color);
-		
-		ZModel<MovableLayer> layers = mLocations.getChild(GridLocation.CENTER);
-
-		for (int z : layers) {
-			MovableLayer c = layers.getChild(z);
-
-			c.setFont(font, color);
-		}
-		
+	public void setFont(Set<PlotBox> used, Font font, Color color) {
 		mX1Axis.setFont(font, color);
 		mX2Axis.setFont(font, color);
 		mY1Axis.setFont(font, color);
 		mY2Axis.setFont(font, color);
-		
+
 		getTitle().getFontStyle().setFont(font, color);
-		
+
 		//mZ1Axis.setFont(font, color);
 		//mZ1Axis.setFont(font, color);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.graphplot.figure.PlotLocationGrid#refresh()
-	 */
 	public void refresh() {
-		super.refresh();
-
-		mX1AxisTrans.update(mXOffset, mWidth);
-		mX2AxisTrans.update(mXOffset, mWidth);
-		mY1AxisTrans.update(mYOffset, mHeight);
-		mY2AxisTrans.update(mYOffset, mHeight);
+		//Dimension s = getPreferredSize();
+		//mX1AxisTrans.update(mXOffset, s.width);
+		//mX2AxisTrans.update(mXOffset, s.width);
+		//mY1AxisTrans.update(mYOffset, s.height);
+		//mY2AxisTrans.update(mYOffset, s.height);
 		
-		fireCanvasRedraw();
+		mXY1Map.clear();
+		mXY2Map.clear();
+
+		//fireCanvasRedraw();
 	}
 
 
@@ -621,7 +590,7 @@ public class Axes extends PlotGrid implements PlotHashProperty {
 	public String hashId() {
 		return TextUtils.join(TextUtils.COLON_DELIMITER,
 				getMargins(),
-				getCanvasSize(),
+				getPreferredSize(),
 				getX1Axis().getMin(),
 				getX1Axis().getMax(),
 				getY1Axis().getMin(),
@@ -639,46 +608,6 @@ public class Axes extends PlotGrid implements PlotHashProperty {
 			return false;
 		}
 	}
-
-	/**
-	 * Sets the matrix.
-	 *
-	 * @param m the new matrix
-	 */
-	public void setMatrix(AnnotationMatrix m) {
-		for (GridLocation l : mLocations) {
-			for (int z : mLocations.getChild(l)) {
-				Layer layer = mLocations.getChild(l).getChild(z);
-
-				if (layer.getType().equals(LayerType.PLOT)) {
-					Plot plot = (Plot)layer;
-
-					plot.setMatrix(m);
-				}
-			}
-		}
-	}
-
-	/**
-	 * Sets the color map.
-	 *
-	 * @param colorMap the new color map
-	 */
-	public void setColorMap(ColorMap colorMap) {
-		for (GridLocation l : mLocations) {
-			for (int z : mLocations.getChild(l)) {
-				Layer layer = mLocations.getChild(l).getChild(z);
-
-				if (layer.getType().equals(LayerType.PLOT)) {
-					Plot plot = (Plot)layer;
-
-					plot.setColorMap(colorMap);
-				}
-			}
-		}
-	}
-
-
 
 	/**
 	 * To plot x1.
@@ -825,18 +754,14 @@ public class Axes extends PlotGrid implements PlotHashProperty {
 	public static double getXMax(Axes axes) {
 		double ret = Double.MIN_VALUE;
 
-		for (GridLocation l : axes.mLocations) {
-			for (int z : axes.mLocations.getChild(l)) {
-				Layer layer = axes.mLocations.getChild(l).getChild(z);
+		for (PlotBox c : axes) {
+			if (c.getType().equals(LayerType.PLOT)) {
+				Plot plot = (Plot)c;
 
-				if (layer.getType().equals(LayerType.PLOT)) {
-					Plot plot = (Plot)layer;
+				double m = Plot.getXMax(plot);
 
-					double m = Plot.getXMax(plot);
-
-					if (m > ret) {
-						ret = m;
-					}
+				if (m > ret) {
+					ret = m;
 				}
 			}
 		}
@@ -853,18 +778,14 @@ public class Axes extends PlotGrid implements PlotHashProperty {
 	public static double getY1Max(Axes axes) {
 		double ret = Double.MIN_VALUE;
 
-		for (GridLocation l : axes.mLocations) {
-			for (int z : axes.mLocations.getChild(l)) {
-				Layer layer = axes.mLocations.getChild(l).getChild(z);
+		for (PlotBox c : axes) {
+			if (c.getType().equals(LayerType.PLOT)) {
+				Plot plot = (Plot)c;
 
-				if (layer.getType().equals(LayerType.PLOT)) {
-					Plot plot = (Plot)layer;
+				double m = Plot.getY1Max(plot);
 
-					double m = Plot.getY1Max(plot);
-
-					if (m > ret) {
-						ret = m;
-					}
+				if (m > ret) {
+					ret = m;
 				}
 			}
 		}
@@ -881,18 +802,14 @@ public class Axes extends PlotGrid implements PlotHashProperty {
 	public static double getY2Max(Axes axes) {
 		double ret = Double.MIN_VALUE;
 
-		for (GridLocation l : axes.mLocations) {
-			for (int z : axes.mLocations.getChild(l)) {
-				Layer layer = axes.mLocations.getChild(l).getChild(z);
+		for (PlotBox c : axes) {
+			if (c.getType().equals(LayerType.PLOT)) {
+				Plot plot = (Plot)c;
 
-				if (layer.getType().equals(LayerType.PLOT)) {
-					Plot plot = (Plot)layer;
+				double m = Plot.getY2Max(plot);
 
-					double m = Plot.getY2Max(plot);
-
-					if (m > ret) {
-						ret = m;
-					}
+				if (m > ret) {
+					ret = m;
 				}
 			}
 		}
@@ -909,18 +826,14 @@ public class Axes extends PlotGrid implements PlotHashProperty {
 	public static double getXMin(Axes axes) {
 		double ret = Double.MAX_VALUE;
 
-		for (GridLocation l : axes.mLocations) {
-			for (int z : axes.mLocations.getChild(l)) {
-				Layer layer = axes.mLocations.getChild(l).getChild(z);
+		for (PlotBox c : axes) {
+			if (c.getType().equals(LayerType.PLOT)) {
+				Plot plot = (Plot)c;
 
-				if (layer.getType().equals(LayerType.PLOT)) {
-					Plot plot = (Plot)layer;
+				double m = Plot.getXMin(plot);
 
-					double m = Plot.getXMin(plot);
-
-					if (m < ret) {
-						ret = m;
-					}
+				if (m < ret) {
+					ret = m;
 				}
 			}
 		}
@@ -937,18 +850,14 @@ public class Axes extends PlotGrid implements PlotHashProperty {
 	public static double getY1Min(Axes axes) {
 		double ret = Double.MAX_VALUE;
 
-		for (GridLocation l : axes.mLocations) {
-			for (int z : axes.mLocations.getChild(l)) {
-				Layer layer = axes.mLocations.getChild(l).getChild(z);
+		for (PlotBox c : axes) {
+			if (c.getType().equals(LayerType.PLOT)) {
+				Plot plot = (Plot)c;
 
-				if (layer.getType().equals(LayerType.PLOT)) {
-					Plot plot = (Plot)layer;
+				double m = Plot.getY1Min(plot);
 
-					double m = Plot.getY1Min(plot);
-
-					if (m < ret) {
-						ret = m;
-					}
+				if (m < ret) {
+					ret = m;
 				}
 			}
 		}
@@ -965,18 +874,14 @@ public class Axes extends PlotGrid implements PlotHashProperty {
 	public static double getY2Min(Axes axes) {
 		double ret = Double.MAX_VALUE;
 
-		for (GridLocation l : axes.mLocations) {
-			for (int z : axes.mLocations.getChild(l)) {
-				Layer layer = axes.mLocations.getChild(l).getChild(z);
+		for (PlotBox c : axes) {
+			if (c.getType().equals(LayerType.PLOT)) {
+				Plot plot = (Plot)c;
 
-				if (layer.getType().equals(LayerType.PLOT)) {
-					Plot plot = (Plot)layer;
+				double m = Plot.getY2Min(plot);
 
-					double m = Plot.getY2Min(plot);
-
-					if (m < ret) {
-						ret = m;
-					}
+				if (m < ret) {
+					ret = m;
 				}
 			}
 		}
@@ -1019,16 +924,26 @@ public class Axes extends PlotGrid implements PlotHashProperty {
 		//Axis.enableAllFeatures(axes.getZAxis(), enable);
 	}
 
-	/**
-	 * Gets the layer Z model.
-	 *
-	 * @return the layer Z model
-	 */
-	public ZModel<MovableLayer> getLayerZModel() {
-		return getGridLocation(GridLocation.CENTER);
+	public Iterable<Plot> getPlots() {
+		return Stream.stream(this).reduce(new ListReduceFunction<PlotBox, Plot>() {
+
+			@Override
+			public void apply(PlotBox plot, List<Plot> values) {
+				if (plot instanceof Plot) {
+					values.add((Plot)plot);
+				}
+			}});
 	}
 
-	
 
+	@Override
+	public void plot(Graphics2D g2, 
+			Dimension offset,
+			DrawingContext context,
+			Object... params) {
+		Figure figure = (Figure)params[0];
+		SubFigure subFigure = (SubFigure)params[1];
 
+		super.plot(g2, offset, context, figure, subFigure, this);
+	}
 }

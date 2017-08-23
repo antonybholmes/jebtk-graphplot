@@ -45,17 +45,19 @@ public class AxesTitleLayer extends AxesLayer {
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.AxesLayer#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes)
 	 */
 	@Override
-	public void plot(Graphics2D g2,
+	public void drawPlot(Graphics2D g2,
 			DrawingContext context,
-			SubFigure figure,
+			Figure figure,
+			SubFigure subFigure,
 			Axes axes) {
-
 		String title = axes.getTitle().getText();
-		Color color = axes.getTitle().getFontStyle().getColor();
 		
 		if (!axes.getTitle().getFontStyle().getVisible() || title.length() == 0) {
 			return;
 		}
+		
+		Color color = axes.getTitle().getFontStyle().getColor();
+		
 		
 		g2.setColor(color);
 		g2.setFont(axes.getTitle().getFontStyle().getFont());

@@ -15,64 +15,52 @@
  */
 package org.jebtk.graphplot.plotbox;
 
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
-
-import org.jebtk.core.StringId;
-import org.jebtk.core.geom.GeomUtils;
-import org.jebtk.core.geom.IntPos2D;
 
 
 // TODO: Auto-generated Javadoc
 /**
  * The class PlotBox.
  */
-public class PlotBoxFloating extends PlotBox {
+public class PlotBoxGridStorage extends PlotBoxStorage {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
 	private static final long serialVersionUID = 1L;
-
-	private static final Map<IntPos2D, PlotBox> mMap =
-			new HashMap<IntPos2D, PlotBox>();
-
-	private static final StringId NEXT_ID = new StringId("Plot Box Floating");
 	
-	public PlotBoxFloating() {
-		super(NEXT_ID.getNextId(), new PlotBoxFloatingLayout());
+	private PlotBox[][] mLocations;
+
+	
+	public PlotBoxGridStorage(int rows, int columns) {
+		mLocations = new PlotBox[rows][columns];
+	}
+
+	@Override
+	public void addChild(PlotBox plot, int row, int col) {
+		mLocations[row][col] = plot;
+		plot.addChangeListener(this);
 	}
 	
-	@Override
 	public void addChild(PlotBox plot) {
-		addChild(plot, GeomUtils.INT_POINT_ZERO);
+		addChild(plot, 0, 0);
 	}
 	
 	@Override
-	public void addChild(PlotBox plot, IntPos2D p) {
-		mMap.put(p, plot);
-		
-		addChildByName(plot);
+	public PlotBox getChild(int i, int j) {
+		return mLocations[i][j];
+	}
+	
+	@Override
+	public PlotBox getChild(int i) {
+		return getChild(i, 0);
 	}
 
 	@Override
 	public Iterator<PlotBox> iterator() {
-		return mMap.values().iterator();
+		return new PlotBoxGridIterator<PlotBox>(mLocations);
 	}
 
-	@Override
-	public Iterable<IntPos2D> getPositions() {
-		return mMap.keySet();
-	}
-
-	@Override
-	public PlotBox getChild(IntPos2D p) {
-		return mMap.get(p);
-	}
-	
 	@Override
 	public int getChildCount() {
-		return mMap.size();
+		return mLocations.length * mLocations[0].length;
 	}
+	
 }

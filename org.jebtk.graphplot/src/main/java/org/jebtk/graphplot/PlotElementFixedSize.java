@@ -13,31 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jebtk.graphplot.plotbox;
+package org.jebtk.graphplot;
 
-import org.jebtk.core.StringId;
-import org.jebtk.modern.graphics.ModernCanvas;
+import java.awt.Dimension;
 
+import org.jebtk.core.geom.IntDim;
 
 // TODO: Auto-generated Javadoc
 /**
- * The class PlotBox.
+ * Draws a gradient color bar to represent the range
+ * of a color map.
+ * 
+ * @author Antony Holmes Holmes
+ *
  */
-public class PlotBoxCanvas extends PlotBoxContainer {
-
+public class PlotElementFixedSize extends PlotElement {
+	
 	/**
 	 * The constant serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
+	private IntDim mSize;
 
-	private static final StringId NEXT_ID = new StringId("Plot Box Canvas");
-	
-	/**
-	 * Instantiates a new plot box.
-	 *
-	 * @param renderer the renderer
-	 */
-	public PlotBoxCanvas(ModernCanvas canvas) {
-		super(NEXT_ID.getNextId(), new PlotBoxCanvasLayout(canvas));
+	public PlotElementFixedSize(String name, IntDim size) {
+		super(name);
+		
+		mSize = size;
+	}
+
+	@Override
+	public void plotSize(Dimension d) {
+		d.width += mSize.getW();
+		d.height += mSize.getH();
 	}
 }

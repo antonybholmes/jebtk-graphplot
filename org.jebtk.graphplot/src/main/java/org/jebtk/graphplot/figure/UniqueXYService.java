@@ -67,12 +67,14 @@ public class UniqueXYService {
 	 * @param zeroEnds the zero ends
 	 * @return the unique xy
 	 */
-	public UniqueXY get(SubFigure figure, 
+	public UniqueXY get(Figure figure,
+			SubFigure subFigure, 
 			Axes axes, 
 			AnnotationMatrix m,
 			XYSeries series,
 			boolean zeroEnds) {
-		String id = getId(figure, 
+		String id = getId(figure,
+				subFigure,
 				axes, 
 				m,
 				series,
@@ -97,7 +99,8 @@ public class UniqueXYService {
 	 * @param zeroEnds the zero ends
 	 * @return the id
 	 */
-	private static String getId(SubFigure figure, 
+	private static String getId(Figure figure,
+			SubFigure subFigure, 
 			Axes axes, 
 			AnnotationMatrix m,
 			XYSeries series,

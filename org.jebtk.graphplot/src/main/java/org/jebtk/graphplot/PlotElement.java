@@ -15,6 +15,8 @@
  */
 package org.jebtk.graphplot;
 
+import org.jebtk.graphplot.plotbox.PlotBox;
+
 // TODO: Auto-generated Javadoc
 /**
  * Plot element that handles data from a matrix.
@@ -22,10 +24,16 @@ package org.jebtk.graphplot;
  * @author Antony Holmes Holmes
  *
  */
-public abstract class PlotElement extends ModernPlotCanvas {
+public abstract class PlotElement extends PlotBox {
 	
-	/**
-	 * The constant serialVersionUID.
-	 */
 	private static final long serialVersionUID = 1L;
+
+	public PlotElement(String name) {
+		super(name);
+	}
+	
+	@Override
+	public String hashId() {
+		return getName();
+	}
 }

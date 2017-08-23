@@ -19,7 +19,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.jebtk.core.StringId;
 import org.jebtk.graphplot.figure.GridLocation;
 
 
@@ -27,15 +26,11 @@ import org.jebtk.graphplot.figure.GridLocation;
 /**
  * The class PlotBox.
  */
-public class PlotBoxCompassGrid extends PlotBox {
+public class PlotBoxCompassGridStorage extends PlotBoxStorage {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
 	private static final long serialVersionUID = 1L;
 
-	private static final StringId NEXT_ID = new StringId("Plot Box Compass Grid");
-	
+
 	public static final GridLocation[][] ROWS =
 		{{GridLocation.NW, GridLocation.N, GridLocation.NE}, 
 				{GridLocation.W, GridLocation.CENTER, GridLocation.E}, 
@@ -45,19 +40,12 @@ public class PlotBoxCompassGrid extends PlotBox {
 	private Map<GridLocation, PlotBox> mMap =
 			new TreeMap<GridLocation, PlotBox>();
 
-	public PlotBoxCompassGrid() {
-		this(NEXT_ID.getNextId());
-	}
-
-	public PlotBoxCompassGrid(String name) {
-		super(name, new PlotBoxCompassGridLayout());
-	}
-
 	@Override
 	public void addChild(PlotBox plot, GridLocation l) {
 		mMap.put(l, plot);
+		plot.addChangeListener(this);
 		
-		addChildByName(plot);
+		fireChanged();
 	}
 	
 	@Override
@@ -68,6 +56,16 @@ public class PlotBoxCompassGrid extends PlotBox {
 	@Override
 	public PlotBox getChild(int i) {
 		return getChild(GridLocation.CENTER);
+	}
+	
+	@Override
+	public PlotBox getChild(int i, int j) {
+		return getChild(ROWS[i][j]);
+	}
+	
+	@Override
+	public PlotBox getChild(GridLocation l) {
+		return mMap.get(l);
 	}
 	
 	@Override

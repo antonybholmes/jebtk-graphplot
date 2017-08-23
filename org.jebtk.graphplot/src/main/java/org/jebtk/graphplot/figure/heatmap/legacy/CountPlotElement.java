@@ -16,6 +16,7 @@
 package org.jebtk.graphplot.figure.heatmap.legacy;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 
 import org.jebtk.core.geom.IntDim;
@@ -69,33 +70,23 @@ public class CountPlotElement extends RowMatrixPlotElement {
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
 	 */
 	@Override
-	public void plot(Graphics2D g2, DrawingContext context) {
+	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Object... params) {
 		g2.setColor(mColor);
 
 		int y1 = 0;
 		int y2;
 
-		int offset = (g2.getFontMetrics().getAscent() - g2.getFontMetrics().getDescent()) / 2;
+		int o = (g2.getFontMetrics().getAscent() - g2.getFontMetrics().getDescent()) / 2;
 
 		for (CountGroup countGroup : mCountGroups) {
 			if (countGroup.size() > 0) {
 				y1 = countGroup.getStart() * mBlockSize.getH();
 				y2 = (countGroup.getEnd() + 1) * mBlockSize.getH();
 
-				g2.drawString(countGroup.toString(), 0, (y1 + y2) / 2 + offset);
+				g2.drawString(countGroup.toString(), 0, (y1 + y2) / 2 + o);
 			}
 		}
 
-		/*
-		int y;
-
-		if (count > 0) {
-			y = (count * mBlockSize.getH() + g2.getFontMetrics().getAscent() - g2.getFontMetrics().getDescent()) / 2;
-
-			String t = Integer.toString(count); // + " features";
-
-			g2.drawString(t, 0, y);
-		}
-		 */
+		super.plot(g2, offset, context, params);
 	}
 }

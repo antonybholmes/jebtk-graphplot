@@ -17,7 +17,6 @@ package org.jebtk.graphplot.plotbox;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Point;
 
 import org.jebtk.core.geom.IntDim;
 import org.jebtk.modern.graphics.DrawingContext;
@@ -65,9 +64,10 @@ public class PlotBoxEmptyLayout extends PlotBoxLayout {
 	@Override
 	public void plot(Graphics2D g2, 
 			PlotBox plot,
-			Point offset,
-			DrawingContext context) {
-		offset.x += mDim.getW();
-		offset.y += mDim.getH();
+			Dimension offset,
+			DrawingContext context,
+			Object... params) {
+		offset.width += mDim.getW();
+		offset.height += mDim.getH();
 	}
 }

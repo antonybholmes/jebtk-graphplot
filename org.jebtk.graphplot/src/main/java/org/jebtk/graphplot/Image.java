@@ -16,6 +16,7 @@
 package org.jebtk.graphplot;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -39,10 +40,12 @@ import org.jebtk.core.geom.IntDim;
 import org.jebtk.core.io.FileUtils;
 import org.jebtk.core.io.PathUtils;
 import org.jebtk.core.io.Temp;
+import org.jebtk.graphplot.plotbox.PlotBox;
 import org.jebtk.modern.dialog.ModernDialogStatus;
 import org.jebtk.modern.dialog.ModernMessageDialog;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.ImageUtils;
+import org.jebtk.modern.graphics.ModernCanvas;
 import org.jebtk.modern.window.ModernWindow;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.svg.SVGDocument;
@@ -79,7 +82,7 @@ public class Image {
 	 * @param file the file
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public static void translateSvg(ModernPlotCanvas canvas, Path file) throws IOException {
+	public static void translateSvg(ModernCanvas canvas, Path file) throws IOException {
 
 		DOMImplementation impl = SVGDOMImplementation.getDOMImplementation();
 		String svgNS = SVGDOMImplementation.SVG_NAMESPACE_URI;
@@ -109,10 +112,48 @@ public class Image {
 			// Create the drawing
 			canvas.drawCanvasForeground(g2, DrawingContext.PRINT);
 
-			// Restore the viewing rectangle
-			//canvas.updateViewRectangle(tempRect);
+			//Writer out = new PathWriter(file);
+			Writer out = FileUtils.newBufferedWriter(file); //new OutputStreamWriter(new PathOutputStream(file), "UTF-8");
 
-			//System.err.println("Writing " + file + " " + canvas.getCanvasSize() + " " + g2.getDeviceConfiguration() + "...");
+			try {
+				g2.stream(out, true);
+			} finally {
+				out.close();
+			}
+		} finally {
+			g2.dispose();
+		}
+	}
+	
+	public static void translateSvg(PlotBox canvas, Path file) throws IOException {
+
+		DOMImplementation impl = SVGDOMImplementation.getDOMImplementation();
+		String svgNS = SVGDOMImplementation.SVG_NAMESPACE_URI;
+		SVGDocument doc = (SVGDocument)impl.createDocument(svgNS, "svg", null);
+
+		SVGGraphics2D g2 = new SVGGraphics2D(doc);
+
+		Dimension d = canvas.getPreferredSize();
+		
+		try {
+			g2.setFont(ModernPlotCanvas.PLOT_FONT);
+			g2.setSVGCanvasSize(d);
+
+			System.err.println("Image size " + g2.getSVGCanvasSize());
+
+			// Canvases should be using this method for correctly off setting
+			// images. Since we don't want to do that for saving the SVG,
+			// we call the method directory so that drawCanvasForeground is
+			// bypassed to prevent the canvas
+
+			// temp store the current view rectangle
+			//IntRect tempRect = canvas.getViewRect();
+
+			// Create a view rect big enough for the whole canvas
+			//canvas.updateViewRectangle(canvas.getCanvasSize());
+
+			// Create the drawing
+			canvas.plot(g2, DrawingContext.PRINT);
 
 			//Writer out = new PathWriter(file);
 			Writer out = FileUtils.newBufferedWriter(file); //new OutputStreamWriter(new PathOutputStream(file), "UTF-8");
@@ -125,20 +166,6 @@ public class Image {
 		} finally {
 			g2.dispose();
 		}
-
-		/*
-		SVGGraphics2D g2 = new SVGGraphics2D(canvas.getCanvasSize().getW(), canvas.getCanvasSize().getH());
-
-		g2.setFont(ModernCanvas.PLOT_FONT);
-		canvas.drawCanvasForeground(g2, context);
-		//g2.setPaint(Color.RED);
-	    //g2.draw(new Rectangle(10, 10, 280, 180));
-		BufferedWriter writer = new BufferedWriter(new PathWriter(file));
-
-		writer.write(g2.getSVGDocument());
-
-		writer.close();
-		 */
 	}
 
 	/**
@@ -149,7 +176,7 @@ public class Image {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @throws TranscoderException the transcoder exception
 	 */
-	public static void translatePng(ModernPlotCanvas canvas, Path file) throws IOException, TranscoderException {
+	public static void translatePng(ModernCanvas canvas, Path file) throws IOException, TranscoderException {
 
 		PNGTranscoder trans = new PNGTranscoder();
 
@@ -167,7 +194,16 @@ public class Image {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @throws TranscoderException the transcoder exception
 	 */
-	public static void translatePdf(ModernPlotCanvas canvas, Path file) throws IOException, TranscoderException {
+	public static void translatePdf(ModernCanvas canvas, Path file) throws IOException, TranscoderException {
+		Transcoder trans = new PDFTranscoder();
+
+		trans.addTranscodingHint(ImageTranscoder.KEY_PIXEL_UNIT_TO_MILLIMETER, 
+				DPI_600_CONVERSION);
+
+		translate(canvas, trans, file);
+	}
+	
+	public static void translatePdf(PlotBox canvas, Path file) throws IOException, TranscoderException {
 		Transcoder trans = new PDFTranscoder();
 
 		trans.addTranscodingHint(ImageTranscoder.KEY_PIXEL_UNIT_TO_MILLIMETER, 
@@ -185,7 +221,33 @@ public class Image {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @throws TranscoderException the transcoder exception
 	 */
-	public static void translate(ModernPlotCanvas canvas, Transcoder transcoder, Path file) throws IOException, TranscoderException {
+	public static void translate(ModernCanvas canvas, 
+			Transcoder transcoder, 
+			Path file) throws IOException, TranscoderException {
+
+		Path svgPath = Temp.createTempFile("svg");
+
+		translateSvg(canvas, svgPath);
+
+		// Transcode the file.
+		String svgURI = svgPath.toUri().toURL().toString();
+
+		TranscoderInput input = new TranscoderInput(svgURI);
+		OutputStream ostream = FileUtils.newOutputStream(file); //new PathOutputStream(file);
+		TranscoderOutput output = new TranscoderOutput(ostream);
+
+		try {
+			transcoder.transcode(input, output);
+		} finally {
+			// Flush and close the output.
+			ostream.flush();
+			ostream.close();
+		}
+	}
+	
+	public static void translate(PlotBox canvas, 
+			Transcoder transcoder, 
+			Path file) throws IOException, TranscoderException {
 
 		Path svgPath = Temp.createTempFile("svg");
 
@@ -214,7 +276,11 @@ public class Image {
 	 * @param file the file
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public static void writePng(ModernPlotCanvas canvas, Path file) throws IOException {
+	public static void writePng(ModernCanvas canvas, Path file) throws IOException {
+		write(canvas, file, "png");
+	}
+	
+	public static void writePng(PlotBox canvas, Path file) throws IOException {
 		write(canvas, file, "png");
 	}
 
@@ -225,7 +291,11 @@ public class Image {
 	 * @param file the file
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public static void writeJpg(ModernPlotCanvas canvas, Path file) throws IOException {
+	public static void writeJpg(ModernCanvas canvas, Path file) throws IOException {
+		write(canvas, file, "jpg");
+	}
+	
+	public static void writeJpg(PlotBox canvas, Path file) throws IOException {
 		write(canvas, file, "jpg");
 	}
 
@@ -237,7 +307,7 @@ public class Image {
 	 * @param type the type
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public static void write(ModernPlotCanvas canvas, Path file, String type) throws IOException {
+	public static void write(ModernCanvas canvas, Path file, String type) throws IOException {
 		IntDim d = canvas.getAbsPreferredSize();
 
 		BufferedImage bufferedImage;
@@ -282,6 +352,50 @@ public class Image {
 
 		ImageIO.write(bufferedImage, type, file.toFile());
 	}
+	
+	public static void write(PlotBox canvas, Path file, String type) throws IOException {
+		Dimension d = canvas.getPreferredSize();
+
+		BufferedImage bufferedImage;
+
+		if (type.equals("png")) {
+			bufferedImage = new BufferedImage(d.width, 
+					d.height,
+					BufferedImage.TYPE_INT_ARGB);
+		} else {
+			bufferedImage = new BufferedImage(d.width, 
+					d.height,
+					BufferedImage.TYPE_INT_RGB);
+		}
+
+		Graphics2D g2 = 
+				ImageUtils.createAAGraphics(bufferedImage.createGraphics());
+
+		// temp store the current view rectangle
+		//IntRect tempRect = canvas.getViewRect();
+
+		try {
+			g2.setFont(ModernPlotCanvas.PLOT_FONT);
+			
+			
+			if (!type.equals("png")) {
+				g2.setBackground(Color.WHITE);
+				g2.setColor(g2.getBackground());
+				g2.fillRect(0, 0, bufferedImage.getWidth(), bufferedImage.getHeight());
+			}
+			
+			// Create a view rect big enough for the whole canvas
+			//canvas.updateViewRectangle(canvas.getCanvasSize());
+
+			canvas.plot(g2, DrawingContext.PRINT);
+		} finally {
+			g2.dispose();
+		}
+
+		//canvas.updateViewRectangle(tempRect);
+
+		ImageIO.write(bufferedImage, type, file.toFile());
+	}
 
 	/**
 	 * Export a plot to disk using a GUI.
@@ -293,7 +407,7 @@ public class Image {
 	 * @throws TranscoderException the transcoder exception
 	 */
 	public static void export(ModernWindow parent,
-			ModernPlotCanvas canvas,
+			ModernCanvas canvas,
 			Path pwd) throws IOException, TranscoderException {
 		Path file = saveFile(parent, pwd);
 
@@ -338,7 +452,7 @@ public class Image {
 	 * @throws TranscoderException the transcoder exception
 	 */
 	public static void write(ModernWindow parent,
-			ModernPlotCanvas canvas,
+			ModernCanvas canvas,
 			Path file) throws IOException, TranscoderException {
 		write(canvas, file);
 
@@ -355,7 +469,21 @@ public class Image {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @throws TranscoderException the transcoder exception
 	 */
-	public static void write(ModernPlotCanvas canvas, Path file) throws IOException, TranscoderException {
+	public static void write(ModernCanvas canvas, Path file) throws IOException, TranscoderException {
+		String ext = PathUtils.getFileExt(file);
+
+		if (ext.equals("pdf")) {
+			translatePdf(canvas, file);
+		} else if (ext.equals("png")) {
+			writePng(canvas, file);
+		} else if (ext.equals("jpg")) {
+			writeJpg(canvas, file);
+		} else {
+			translateSvg(canvas, file);
+		}
+	}
+	
+	public static void write(PlotBox canvas, Path file) throws IOException, TranscoderException {
 		String ext = PathUtils.getFileExt(file);
 
 		if (ext.equals("pdf")) {
@@ -376,14 +504,14 @@ public class Image {
 	 * @param file the file
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public static void writeEps(ModernPlotCanvas canvas, Path file) throws IOException {
+	public static void writeEps(ModernCanvas canvas, Path file) throws IOException {
 		OutputStream out = FileUtils.newOutputStream(file);
 
 		EPSDocumentGraphics2D g2 = new EPSDocumentGraphics2D(false);
 		g2.setGraphicContext(new org.apache.xmlgraphics.java2d.GraphicContext());
 
 		try {
-			g2.setupDocument(out, canvas.getCanvasSize().getW(), canvas.getCanvasSize().getH());
+			g2.setupDocument(out, canvas.getPreferredSize().width, canvas.getPreferredSize().height);
 
 			g2.setFont(ModernPlotCanvas.PLOT_FONT);
 

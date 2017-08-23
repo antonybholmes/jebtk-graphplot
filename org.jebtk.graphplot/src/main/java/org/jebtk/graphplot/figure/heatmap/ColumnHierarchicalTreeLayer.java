@@ -16,10 +16,12 @@
 package org.jebtk.graphplot.figure.heatmap;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.Map;
 
 import org.jebtk.graphplot.figure.Axes;
+import org.jebtk.graphplot.figure.Figure;
 import org.jebtk.graphplot.figure.Plot;
 import org.jebtk.graphplot.figure.SubFigure;
 import org.jebtk.graphplot.figure.series.XYSeriesGroup;
@@ -48,6 +50,8 @@ public class ColumnHierarchicalTreeLayer extends HierarchicalTreeLayer {
 	 * The member group map.
 	 */
 	protected Map<Integer, XYSeriesGroup> mGroupMap = null;
+
+	private int mWidth;
 	
 	
 	/**
@@ -57,20 +61,38 @@ public class ColumnHierarchicalTreeLayer extends HierarchicalTreeLayer {
 	 * @param color the color
 	 */
 	public ColumnHierarchicalTreeLayer(Cluster rootCluster,
-			Color color) {
+			Color color,
+			int width) {
 		super("Column Tree", rootCluster, color);
+		
+		mWidth = width;
+	}
+	
+	@Override
+	public void plotSize(Dimension d) {
+		d.height += mWidth;
 	}
 
 	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotLayer#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.AnnotationMatrix)
+	 * @see edu.columbia.rdf.lib.bioinformatics.plot.subFigure.PlotLayer#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.subFigure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.subFigure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.subFigure.Plot, org.abh.lib.math.matrix.AnnotationMatrix)
 	 */
 	@Override
 	public void plot(Graphics2D g2,
+			Dimension offset,
 			DrawingContext context,
-			SubFigure figure,
-			Axes axes,
-			Plot plot,
-			AnnotationMatrix m) {
+			Object... params) {
+		Figure figure = (Figure)params[0];
+		SubFigure subFigure = (SubFigure)params[1];
+		Axes axes = (Axes)params[2];
+		Plot plot = (Plot)params[3];
+
+		AnnotationMatrix m = null;
+
+		if (params.length > 3) {
+			m = (AnnotationMatrix)params[3];
+		} else {
+			m = plot.getMatrix();
+		}
 		
 		if (m == null) {
 			return;
@@ -91,9 +113,12 @@ public class ColumnHierarchicalTreeLayer extends HierarchicalTreeLayer {
 		plotTree(g2,
 				context,
 				figure,
+				subFigure,
 				axes,
 				plot,
 				m);
+		
+		offset.height += mWidth;
 	}
 	
 	/**
@@ -101,14 +126,15 @@ public class ColumnHierarchicalTreeLayer extends HierarchicalTreeLayer {
 	 *
 	 * @param g2 the g 2
 	 * @param context the context
-	 * @param figure the figure
+	 * @param subFigure the subFigure
 	 * @param axes the axes
 	 * @param plot the plot
 	 * @param m the m
 	 */
 	public void plotTree(Graphics2D g2,
 			DrawingContext context,
-			SubFigure figure,
+Figure figure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m) {
@@ -117,7 +143,7 @@ public class ColumnHierarchicalTreeLayer extends HierarchicalTreeLayer {
 
 		int w = axes.toPlotX1(1) - axes.toPlotX1(0);
 		
-		int h = plot.getInternalPlotSize().getH() - 
+		int h = plot.getPreferredSize().height - 
 				GAP - 
 				mMaxRows * GroupColorBarLayer.HEIGHT -
 				GROUP_GAP;

@@ -15,6 +15,7 @@
  */
 package org.jebtk.graphplot.figure.heatmap.legacy;
 
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -284,8 +285,10 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
 	 */
 	@Override
-	public void plot(Graphics2D g2, DrawingContext context) {
+	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Object... params) {
 		drawLabels(g2);
+		
+		super.plot(g2, offset, context, params);
 	}
 
 	/**
@@ -312,7 +315,7 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
 		}
 		
 		//if (mTitle != null) {
-		//	g2.drawString(mTitle, (getCanvasSize().getW() - g2.getFontMetrics().stringWidth(mTitle)), -mBlockSize.getH());
+		//	g2.drawString(mTitle, (getPreferredSize().width - g2.getFontMetrics().stringWidth(mTitle)), -mBlockSize.getH());
 		//}
 
 		y = (mBlockSize.getH() + g2.getFontMetrics().getAscent() - g2.getFontMetrics().getDescent()) / 2;

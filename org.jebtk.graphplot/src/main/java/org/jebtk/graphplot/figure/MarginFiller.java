@@ -15,7 +15,10 @@
  */
 package org.jebtk.graphplot.figure;
 
+import java.awt.Dimension;
+
 import org.jebtk.core.StringId;
+import org.jebtk.core.geom.IntDim;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -26,7 +29,7 @@ import org.jebtk.core.StringId;
  * @author Antony Holmes Holmes
  *
  */
-public class MarginFiller extends MovableLayer {
+public class MarginFiller extends Layer {
 		
 	/**
 	 * The constant serialVersionUID.
@@ -38,6 +41,8 @@ public class MarginFiller extends MovableLayer {
 	 */
 	private static final StringId NEXT_ID = new StringId("Filler");
 
+	private IntDim mSize;
+
 	
 	/**
 	 * Instantiates a new margin filler.
@@ -48,6 +53,12 @@ public class MarginFiller extends MovableLayer {
 	public MarginFiller(int w, int h) {
 		super(NEXT_ID.getNextId());
 		
-		setInternalPlotSize(w, h);
+		mSize = new IntDim(w, h);
+	}
+	
+	@Override
+	public void plotSize(Dimension dim) {
+		dim.width = mSize.getW();
+		dim.height = mSize.getH();
 	}
 }

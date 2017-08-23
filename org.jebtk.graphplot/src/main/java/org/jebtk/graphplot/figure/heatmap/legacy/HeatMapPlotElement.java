@@ -16,6 +16,7 @@
 package org.jebtk.graphplot.figure.heatmap.legacy;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -129,7 +130,10 @@ public class HeatMapPlotElement extends MatrixPlotElement {
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
 	 */
 	@Override
-	public void plot(Graphics2D g2, DrawingContext context) {
+	public void plot(Graphics2D g2, 
+			Dimension offset,
+			DrawingContext context, 
+			Object... params) {
 
 		drawMatrix(g2, context);
 
@@ -146,6 +150,8 @@ public class HeatMapPlotElement extends MatrixPlotElement {
 
 		g2.drawImage(image, 0, 0, null);
 		 */
+		
+		plotSize(offset);
 	}
 
 	/**
@@ -252,8 +258,8 @@ public class HeatMapPlotElement extends MatrixPlotElement {
 
 		g2.setColor(mGridColor);
 
-		int w = getCanvasSize().getW() - 1;
-		int h = getCanvasSize().getH() - 1;
+		int w = getPreferredSize().width - 1;
+		int h = getPreferredSize().height - 1;
 
 		int y = 0;
 
@@ -313,8 +319,8 @@ public class HeatMapPlotElement extends MatrixPlotElement {
 		g2.setColor(mBorder);
 
 
-		int w = getCanvasSize().getW();
-		int h = getCanvasSize().getH();
+		int w = getPreferredSize().width;
+		int h = getPreferredSize().height;
 
 		g2.drawRect(0, 0, w, h);
 	}
@@ -323,10 +329,8 @@ public class HeatMapPlotElement extends MatrixPlotElement {
 	 * @see org.abh.common.ui.ui.graphics.ModernCanvas#getCanvasSize()
 	 */
 	@Override
-	public IntDim getCanvasSize() {
-		return new IntDim(mMatrix.getColumnCount() * mBlockSize.getW(), 
-				mMatrix.getRowCount() * mBlockSize.getH());
+	public void plotSize(Dimension d) {
+		d.width += mMatrix.getColumnCount() * mBlockSize.getW();
+		d.height += mMatrix.getRowCount() * mBlockSize.getH();
 	}
-
-
 }

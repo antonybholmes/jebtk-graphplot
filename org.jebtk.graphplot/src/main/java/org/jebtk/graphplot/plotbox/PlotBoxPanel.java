@@ -15,29 +15,59 @@
  */
 package org.jebtk.graphplot.plotbox;
 
-import org.jebtk.core.StringId;
-import org.jebtk.modern.graphics.ModernCanvas;
+import java.awt.Graphics2D;
+
+import org.jebtk.core.event.ChangeEvent;
+import org.jebtk.core.event.ChangeListener;
+import org.jebtk.graphplot.ModernPlotCanvas;
+import org.jebtk.modern.graphics.DrawingContext;
 
 
 // TODO: Auto-generated Javadoc
 /**
  * The class PlotBox.
  */
-public class PlotBoxCanvas extends PlotBoxContainer {
+public class PlotBoxPanel extends ModernPlotCanvas implements ChangeListener {
 
 	/**
 	 * The constant serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static final StringId NEXT_ID = new StringId("Plot Box Canvas");
+	private PlotBoxContainer mPlot;
 	
 	/**
 	 * Instantiates a new plot box.
 	 *
 	 * @param renderer the renderer
 	 */
-	public PlotBoxCanvas(ModernCanvas canvas) {
-		super(NEXT_ID.getNextId(), new PlotBoxCanvasLayout(canvas));
+	public PlotBoxPanel(PlotBoxContainer plot) {
+		mPlot = plot;
+		mPlot.addChangeListener(this);
+		
+		resize();
+	}
+
+	@Override
+	public void plot(Graphics2D g2, DrawingContext context, Object... params) {
+		mPlot.plot(g2, context, params);
+	}
+	
+	//@Override
+	//public Dimension getPreferredSize() {
+	//	return mPlot.getPreferredSize();
+	//}
+	
+	public PlotBoxStorage getStorage() {
+		return mPlot.getStorage();
+	}
+	
+	private void resize() {
+		setCanvasSize(mPlot.getPreferredSize());
+	}
+
+	@Override
+	public void changed(ChangeEvent e) {
+		resize();
 	}
 }

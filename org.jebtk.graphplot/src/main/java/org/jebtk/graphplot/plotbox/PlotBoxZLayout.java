@@ -17,7 +17,6 @@ package org.jebtk.graphplot.plotbox;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Point;
 
 import org.jebtk.modern.graphics.DrawingContext;
 
@@ -65,16 +64,20 @@ public class PlotBoxZLayout extends PlotBoxLayout {
 	@Override
 	public void plot(Graphics2D g2,
 			PlotBox plot,
-			Point offset,
-			DrawingContext context) {
-		Point tempOffset = new Point(0, 0);
+			Dimension offset,
+			DrawingContext context,
+			Object... params) {
+		Dimension tempOffset = new Dimension(0, 0);
 
 		for (int z : plot.getZ()) {
-			tempOffset.x = 0;
-			tempOffset.y = 0;
+			tempOffset.width = 0;
+			tempOffset.height = 0;
 			
-			PlotBox child =  plot.getChild(z);
-			child.plot(g2, tempOffset, context);
+			PlotBox child = plot.getChild(z);
+			
+			child.plot(g2, tempOffset, context, params);
 		}
+		
+		super.plot(g2, plot, offset, context, params); 
 	}
 }

@@ -15,10 +15,10 @@
  */
 package org.jebtk.graphplot.figure;
 
-import java.awt.Color;
-import java.awt.Font;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.Set;
 
 import org.jebtk.core.Mathematics;
 import org.jebtk.core.StringId;
@@ -27,6 +27,9 @@ import org.jebtk.core.event.ChangeListener;
 import org.jebtk.graphplot.figure.heatmap.HeatMapFillPlotLayer;
 import org.jebtk.graphplot.figure.series.XYSeries;
 import org.jebtk.graphplot.figure.series.XYSeriesGroup;
+import org.jebtk.graphplot.plotbox.PlotBox;
+import org.jebtk.graphplot.plotbox.PlotBoxZLayout;
+import org.jebtk.graphplot.plotbox.PlotBoxZStorage;
 import org.jebtk.math.matrix.AnnotationMatrix;
 import org.jebtk.math.matrix.MatrixEventListener;
 import org.jebtk.modern.graphics.DrawingContext;
@@ -42,7 +45,7 @@ import org.jebtk.modern.graphics.colormap.ColorMap;
  * @author Antony Holmes Holmes
  *
  */
-public class Plot extends MovableLayer implements MatrixEventListener, ChangeListener {
+public class Plot extends PlotBoxGraph implements MatrixEventListener, ChangeListener {
 
 	/**
 	 * The constant serialVersionUID.
@@ -67,7 +70,7 @@ public class Plot extends MovableLayer implements MatrixEventListener, ChangeLis
 	/**
 	 * The layers within a plot.
 	 */
-	protected PlotLayerZModel mLayers = new PlotLayerZModel();
+	//protected PlotLayerZModel mLayers = new PlotLayerZModel();
 
 	/**
 	 * The member m.
@@ -102,11 +105,11 @@ public class Plot extends MovableLayer implements MatrixEventListener, ChangeLis
 	 * @param name the name
 	 */
 	public Plot(String name) {
-		super(name);
+		super(name, new PlotBoxZStorage(), new PlotBoxZLayout());
 
-		mLayers.addCanvasListener(this);
+		//mLayers.addCanvasListener(this);
 
-		addCanvasMouseListener(mLayers);
+		//addCanvasMouseListener(mLayers);
 
 		mColumnSeries.addChangeListener(this);
 
@@ -136,9 +139,9 @@ public class Plot extends MovableLayer implements MatrixEventListener, ChangeLis
 	 * @param visible the new XY plot layers visible
 	 */
 	public void setXYPlotLayersVisible(boolean visible) {
-		for (int z : mLayers) {
+		for (int z : this.getZ()) {
 			if (z <= ZModel.LOWER_RESERVED_Z) {
-				mLayers.getChild(z).setVisible(visible);
+				getChild(z).setVisible(visible);
 			}
 		}
 	}
@@ -167,13 +170,14 @@ public class Plot extends MovableLayer implements MatrixEventListener, ChangeLis
 	 *
 	 * @param m the new matrix
 	 */
+	@Override
 	public void setMatrix(AnnotationMatrix m) {
 		if (m != null) {
 			mM = m;
 
 			mM.addMatrixListener(this);
 
-			fireCanvasRedraw();
+			fireChanged();
 		}
 	}
 
@@ -182,11 +186,12 @@ public class Plot extends MovableLayer implements MatrixEventListener, ChangeLis
 	 *
 	 * @param colorMap the new color map
 	 */
+	@Override
 	public void setColorMap(ColorMap colorMap) {
 		if (colorMap != null) {
 			mColorMap = colorMap;
 
-			fireCanvasRedraw();
+			fireChanged();
 		}
 	}
 
@@ -199,7 +204,7 @@ public class Plot extends MovableLayer implements MatrixEventListener, ChangeLis
 	public void setBarWidth(double barWidth) {
 		mBarWidth = Mathematics.bound(barWidth, 0, 1);
 
-		fireCanvasRedraw();
+		fireChanged();
 	}
 
 	/**
@@ -209,16 +214,6 @@ public class Plot extends MovableLayer implements MatrixEventListener, ChangeLis
 	 */
 	public double getBarWidth() {
 		return mBarWidth;
-	}
-
-	/**
-	 * Returns the layer model to control what is displayed on the plot
-	 * and in what order.
-	 *
-	 * @return the plot layer z model
-	 */
-	public PlotLayerZModel getPlotLayers() {
-		return mLayers;
 	}
 
 	/**
@@ -236,26 +231,43 @@ public class Plot extends MovableLayer implements MatrixEventListener, ChangeLis
 	 * @param layer the new z
 	 */
 	public void setZ(PlotLayer layer) {
-		mLayers.putZ(layer);
+		addChild(layer);
 	}
 
-	/**
-	 * Plot.
-	 *
-	 * @param g2 the g2
-	 * @param context the context
-	 * @param figure the figure
-	 * @param axes the axes
-	 */
+
 	@Override
-	public void plot(Graphics2D g2, 
+	public void plot(Graphics2D g2,
+			Dimension offset,
 			DrawingContext context,
-			SubFigure figure, 
-			Axes axes) {
-		//cachePlot(g2, context, figure, axes);
-		drawPlot(g2, context, figure, axes);
+			Object... params) {
+		//SubFigure figure = (SubFigure)params[0];
+		//Axes axes = (Axes)params[1];
+		
+		Figure figure = (Figure)params[0];
+		SubFigure subFigure = (SubFigure)params[1];
+		Axes axes = (Axes)params[2];
+		
+		super.plot(g2, offset, context, figure, subFigure, axes, this);
 	}
-	
+
+	public void drawPlot(Graphics2D g2,
+			DrawingContext context,
+			Figure figure, 
+			SubFigure subFigure, 
+			Axes axes) {
+		if (getVisible()) {
+			for (int z : getZ()) {
+				PlotLayer c = (PlotLayer)getChild(z);
+
+				if (c.getVisible()) {
+					//SysUtils.err().println("plot", c.getName(), getMatrix().getRowCount());
+
+					c.drawPlot(g2, context, figure, subFigure, axes, this);
+				}
+			}
+		}
+	}
+
 	/**
 	 * Aa plot.
 	 *
@@ -266,18 +278,19 @@ public class Plot extends MovableLayer implements MatrixEventListener, ChangeLis
 	 */
 	public void aaPlot(Graphics2D g2,
 			DrawingContext context,
+			Figure figure,
 			SubFigure subFigure,
 			Axes axes) {
 
 		Graphics2D g2Temp = ImageUtils.createAAGraphics(g2);
 
 		try {
-			drawPlot(g2Temp, context, subFigure, axes);
+			drawPlot(g2Temp, context, figure, subFigure, axes);
 		} finally {
 			g2Temp.dispose();
 		}
 	}
-	
+
 	/**
 	 * Cache plot.
 	 *
@@ -288,10 +301,11 @@ public class Plot extends MovableLayer implements MatrixEventListener, ChangeLis
 	 */
 	public void cachePlot(Graphics2D g2, 
 			DrawingContext context,
-			SubFigure figure, 
+			Figure figure,
+			SubFigure subFigure, 
 			Axes axes) {
 		if (context == DrawingContext.PRINT) {
-			drawPlot(g2, context, figure, axes);
+			drawPlot(g2, context, figure, subFigure, axes);
 		} else {
 			// Create an image version of the canvas and draw that to spped
 			// up operations
@@ -299,61 +313,25 @@ public class Plot extends MovableLayer implements MatrixEventListener, ChangeLis
 					mCacheAxes == null || 
 					!axes.hashId().equals(mCacheAxes)) {
 				// The canvas need only be the size of the available display
-				mBufferedImage = ImageUtils.createImage(axes.getCanvasSize());
-				
+				mBufferedImage = ImageUtils.createImage(axes.getPreferredSize());
+
 				Graphics2D g2Temp = ImageUtils.createAAGraphics(mBufferedImage);
-				
+
 				try {
-					drawPlot(g2Temp, context, figure, axes);
+					drawPlot(g2Temp, context, figure, subFigure, axes);
 				} finally {
 					g2Temp.dispose();
 				}
-				
+
 				mCacheAxes = axes.hashId();
 			}
-			
+
 			g2.drawImage(mBufferedImage, 0, 0, null);
 		}
 	}
-	
-	/**
-	 * Draw plot.
-	 *
-	 * @param g2 the g 2
-	 * @param context the context
-	 * @param figure the figure
-	 * @param axes the axes
-	 */
-	public void drawPlot(Graphics2D g2, 
-			DrawingContext context,
-			SubFigure figure, 
-			Axes axes) {
-		if (mVisible) {
-			for (int z : mLayers) {
-				PlotLayer c = mLayers.getChild(z);
 
-				if (c.getVisible()) {
-					//SysUtils.err().println("plot", c.getName(), getMatrix().getRowCount());
-					
-					c.plot(g2, context, figure, axes, this);
-				}
-			}
-		}
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.graphplot.figure.Layer#setFont(java.awt.Font, java.awt.Color)
-	 */
-	@Override
-	public void setFont(Font font, Color color) {
-		super.setFont(font, color);
-		
-		for (int z : mLayers) {
-			PlotLayer c = mLayers.getChild(z);
 
-			c.setFont(font, color);
-		}
-	}
+
 
 	/**
 	 * Gets the column series group.
@@ -363,7 +341,7 @@ public class Plot extends MovableLayer implements MatrixEventListener, ChangeLis
 	public XYSeriesGroup getAllSeries() {
 		return mColumnSeries;
 	}
-	
+
 	/**
 	 * Returns the current series. If there is no series, a new one will be
 	 * automatically created. Equivalent to {@code getAllSeries().getCurrent()).
@@ -384,19 +362,13 @@ public class Plot extends MovableLayer implements MatrixEventListener, ChangeLis
 	}
 
 	/**
-	 * Remove all non-reserved layers.
-	 */
-	public void clear() {
-		mLayers.clearUnreservedLayers();
-	}
-
-	/**
 	 * Sets the style.
 	 *
 	 * @param styles the new style
 	 */
-	public void setStyle(PlotStyle... styles) {
-		setStyle(getAllSeries().getCurrent().getName(), styles);
+	@Override
+	public void setStyle(Set<PlotBox> used, PlotStyle style, PlotStyle... styles) {
+		setStyle(getAllSeries().getCurrent().getName(), style, styles);
 	}
 
 	/**
@@ -404,8 +376,9 @@ public class Plot extends MovableLayer implements MatrixEventListener, ChangeLis
 	 *
 	 * @param styles the styles
 	 */
-	public void addStyle(PlotStyle... styles) {
-		addStyle(getAllSeries().getCurrent().getName(), styles);
+	@Override
+	public void addStyle(Set<PlotBox> used, PlotStyle style, PlotStyle... styles) {
+		addStyle(getAllSeries().getCurrent().getName(), style, styles);
 	}
 
 	/**
@@ -414,8 +387,8 @@ public class Plot extends MovableLayer implements MatrixEventListener, ChangeLis
 	 * @param name the name
 	 * @param styles the styles
 	 */
-	public void setStyle(String name, PlotStyle... styles) {
-		setStyle(this, name, styles);
+	public void setStyle(String name, PlotStyle style, PlotStyle... styles) {
+		setStyle(this, name, style, styles);
 	}
 
 	/**
@@ -424,8 +397,10 @@ public class Plot extends MovableLayer implements MatrixEventListener, ChangeLis
 	 * @param name the name
 	 * @param styles the styles
 	 */
-	public void addStyle(String name, PlotStyle... styles) {
-		addStyle(this, name, styles);
+	public void addStyle(String name, 
+			PlotStyle style, 
+			PlotStyle... styles) {
+		addStyle(this, name, style, styles);
 	}
 
 	/**
@@ -437,13 +412,14 @@ public class Plot extends MovableLayer implements MatrixEventListener, ChangeLis
 	 */
 	public static void setStyle(Plot plot,
 			String series,
+			PlotStyle style,
 			PlotStyle... styles) {
 
 		//System.err.println("clearing plot " + plot.getName() + " " + plot.getId());
 
 		plot.clear();
 
-		addStyle(plot, series, styles);
+		addStyle(plot, series, style, styles);
 	}
 
 	/**
@@ -455,98 +431,94 @@ public class Plot extends MovableLayer implements MatrixEventListener, ChangeLis
 	 */
 	public static void addStyle(Plot plot,
 			String series,
+			PlotStyle style,
 			PlotStyle... styles) {
+		addStyle(plot, series, style);
 
-		for (PlotStyle style : styles) {
-			//System.err.println("add style " + style);
-
-			switch(style) {
-			case FILLED:
-				plot.mLayers.putZ(new FillPlotLayer(series));
-				//plot.getPlotLayerZModel().setZ(new LinePlotLayer(series));
-				break;
-			case JOINED_SMOOTH_ZERO_ENDS:
-				plot.mLayers.putZ(new SplineLinePlotLayer(series, true));
-				break;
-			case FILLED_SMOOTH:
-				plot.mLayers.putZ(new SplineFillPlotLayer(series));
-				//plot.getPlotLayerZModel().setZ(new SplineLinePlotLayer(series));
-				//break;
-			case JOINED_SMOOTH:
-				plot.mLayers.putZ(new SplineLinePlotLayer(series, false));
-				break;
-			case LINES:
-				plot.mLayers.putZ(new LinesPlotLayer(series));
-				break;
-			case BARS:
-				plot.mLayers.putZ(new BarsLayer(series));
-				break;
-			case JOINED_BARS:
-				plot.mLayers.putZ(new JoinedBarsLayer(series));
-				break;
-			case BAR_PLOT:
-				plot.mLayers.putZ(new BarChartLayer(series));
-				//plot.mLayers.putZ(new JoinedBarsLayer(series));
-				break;
-			case SCATTER:
-				plot.mLayers.putZ(new ScatterPlotLayer(series));
-				break;
-			case FILLED_TRAPEZOID:
-				plot.mLayers.putZ(new FillTrapezoidPlotLayer(series));
-				break;
-			case SEGMENTS:
-				plot.mLayers.putZ(new SegmentsPlotLayer(series));
-				break;
-			case HEATMAP:
-				plot.mLayers.putZ(new HeatMapFillPlotLayer());
-				plot.mLayers.putZ(new OutlinePlotLayer());
-				break;
-			default:
-				// Joined
-				plot.mLayers.putZ(new LinePlotLayer(series));
-				break;
-			}
+		for (PlotStyle s : styles) {
+			addStyle(plot, series, s);
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.LayerCanvasListener#canvasChanged(org.abh.lib.event.ChangeEvent)
-	 */
+	public static void addStyle(Plot plot,
+			String series,
+			PlotStyle style) {
+
+		System.err.println("add style " + style + " " + plot.getName());
+
+		switch(style) {
+		case FILLED:
+			plot.putZ(new FillPlotLayer(series));
+			//plot.getPlotLayerZModel().setZ(new LinePlotLayer(series));
+			break;
+		case JOINED_SMOOTH_ZERO_ENDS:
+			plot.putZ(new SplineLinePlotLayer(series, true));
+			break;
+		case FILLED_SMOOTH:
+			plot.putZ(new SplineFillPlotLayer(series));
+			//plot.getPlotLayerZModel().setZ(new SplineLinePlotLayer(series));
+			//break;
+		case JOINED_SMOOTH:
+			plot.putZ(new SplineLinePlotLayer(series, false));
+			break;
+		case LINES:
+			plot.putZ(new LinesPlotLayer(series));
+			break;
+		case BARS:
+			plot.putZ(new BarsLayer(series));
+			break;
+		case JOINED_BARS:
+			plot.putZ(new JoinedBarsLayer(series));
+			break;
+		case BAR_PLOT:
+			plot.putZ(new BarChartLayer(series));
+			//plot.mLayers.putZ(new JoinedBarsLayer(series));
+			break;
+		case SCATTER:
+			plot.putZ(new ScatterPlotLayer(series));
+			break;
+		case FILLED_TRAPEZOID:
+			plot.putZ(new FillTrapezoidPlotLayer(series));
+			break;
+		case SEGMENTS:
+			plot.putZ(new SegmentsPlotLayer(series));
+			break;
+		case HEATMAP:
+			plot.putZ(new HeatMapFillPlotLayer());
+			plot.putZ(new OutlinePlotLayer());
+			break;
+		default:
+			// Joined
+			plot.putZ(new LinePlotLayer(series));
+			break;
+		}
+	}
+
+	/*
 	@Override
 	public void canvasChanged(ChangeEvent e) {
 		fireCanvasChanged();
 	}
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.LayerCanvasListener#redrawCanvas(org.abh.lib.event.ChangeEvent)
-	 */
 	@Override
 	public void redrawCanvas(ChangeEvent e) {
-		fireCanvasRedraw();
+		fireChanged();
 	}
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.LayerCanvasListener#canvasScrolled(org.abh.lib.event.ChangeEvent)
-	 */
 	@Override
 	public void canvasScrolled(ChangeEvent e) {
 		fireCanvasScrolled();
 	}
+	*/
 
-	/* (non-Javadoc)
-	 * @see org.abh.lib.math.matrix.MatrixEventListener#matrixChanged(org.abh.lib.event.ChangeEvent)
-	 */
 	@Override
 	public void matrixChanged(ChangeEvent e) {
-		fireCanvasRedraw();
+		fireChanged();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.abh.lib.event.ChangeListener#changed(org.abh.lib.event.ChangeEvent)
-	 */
 	@Override
 	public void changed(ChangeEvent e) {
-		fireCanvasRedraw();
+		fireChanged();
 	}
 
 	/**

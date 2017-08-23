@@ -16,6 +16,7 @@
 package org.jebtk.graphplot.figure.heatmap.legacy;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 
 import org.jebtk.core.geom.IntDim;
@@ -65,11 +66,11 @@ public class CountBracketLeftPlotElement extends RowMatrixPlotElement {
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
 	 */
 	@Override
-	public void plot(Graphics2D g2, DrawingContext context) {
+	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Object... params) {
 		g2.setColor(mColor);
 		
 		int y = 0;
-		int w = getCanvasSize().getW();
+		int w = getPreferredSize().width;
 		
 		g2.drawLine(0, y, w, y);
 		
@@ -82,5 +83,7 @@ public class CountBracketLeftPlotElement extends RowMatrixPlotElement {
 		g2.drawLine(0, y, w, y);
 		
 		g2.drawLine(0, 0, 0, y);
+		
+		super.plot(g2, offset, context, params);
 	}
 }

@@ -46,11 +46,6 @@ import org.jebtk.graphplot.figure.MarginFillerV;
 import org.jebtk.graphplot.figure.OutlinePlotLayer;
 import org.jebtk.graphplot.figure.PieChartLayer;
 import org.jebtk.graphplot.figure.Plot;
-import org.jebtk.graphplot.figure.PlotBoxH;
-import org.jebtk.graphplot.figure.PlotBoxLayoutH;
-import org.jebtk.graphplot.figure.PlotBoxLayoutV;
-import org.jebtk.graphplot.figure.PlotBoxV;
-import org.jebtk.graphplot.figure.PlotGrid;
 import org.jebtk.graphplot.figure.PlotStyle;
 import org.jebtk.graphplot.figure.ScatterBestFitPlotLayer;
 import org.jebtk.graphplot.figure.ScatterPlotLayer;
@@ -67,6 +62,7 @@ import org.jebtk.graphplot.figure.heatmap.RowHierarchicalTreeLayer;
 import org.jebtk.graphplot.figure.properties.MarginProperties;
 import org.jebtk.graphplot.figure.series.XYSeries;
 import org.jebtk.graphplot.figure.series.XYSeriesGroup;
+import org.jebtk.graphplot.plotbox.PlotBoxColumnLayout;
 import org.jebtk.math.Linspace;
 import org.jebtk.math.cluster.Cluster;
 import org.jebtk.math.matrix.AnnotationMatrix;
@@ -88,11 +84,11 @@ public class PlotFactory {
 
 	/** The Constant DEFAULT_HEATMAP_SIZE. */
 	public static final int DEFAULT_HEATMAP_SIZE = 
-			SettingsService.getInstance().getAsInt("graphplot.heatmap.width");
+			SettingsService.getInstance().getAsInt("graphplot.heatmap.getW()");
 
 	/** The Constant BOX_WHISKER_WIDTH. */
 	private static final int BOX_WHISKER_WIDTH = 
-			SettingsService.getInstance().getAsInt("graphplot.boxwhiskers.width");
+			SettingsService.getInstance().getAsInt("graphplot.boxwhiskers.getW()");
 
 	/** The Constant COLOR_BAR_WIDTH. */
 	private static final int COLOR_BAR_WIDTH = 30;
@@ -116,7 +112,7 @@ public class PlotFactory {
 			XYSeries series) {
 		// First summarize each series
 
-		Plot plot = axes.createNewPlot();
+		Plot plot = axes.newPlot();
 
 		plot.setMatrix(m);
 
@@ -141,7 +137,7 @@ public class PlotFactory {
 			XYSeries series) {
 		// First summarize each series
 
-		Plot plot = axes.createNewPlot();
+		Plot plot = axes.newPlot();
 
 		plot.setMatrix(m);
 
@@ -166,7 +162,7 @@ public class PlotFactory {
 			XYSeries series) {
 		// First summarize each series
 
-		Plot plot = axes.createNewPlot();
+		Plot plot = axes.newPlot();
 
 		plot.setMatrix(m);
 
@@ -191,7 +187,7 @@ public class PlotFactory {
 			XYSeries series) {
 		// First summarize each series
 
-		Plot plot = axes.createNewPlot();
+		Plot plot = axes.newPlot();
 
 		plot.setMatrix(m);
 
@@ -216,7 +212,7 @@ public class PlotFactory {
 	public static void createFilledLinePlot(AnnotationMatrix m,
 			Axes axes,
 			XYSeries series) {
-		Plot plot = axes.createNewPlot();
+		Plot plot = axes.newPlot();
 
 		plot.setMatrix(m);
 
@@ -243,7 +239,7 @@ public class PlotFactory {
 	public static void createFilledPlot(AnnotationMatrix m,
 			Axes axes,
 			XYSeries series) {
-		Plot plot = axes.createNewPlot();
+		Plot plot = axes.newPlot();
 
 		plot.setMatrix(m);
 
@@ -264,7 +260,7 @@ public class PlotFactory {
 	public static void createFilledTrapezoidPlot(AnnotationMatrix m,
 			Axes axes,
 			XYSeries series) {
-		Plot plot = axes.createNewPlot();
+		Plot plot = axes.newPlot();
 
 		plot.setMatrix(m);
 
@@ -286,7 +282,7 @@ public class PlotFactory {
 	public static void createFilledTrapezoidLinePlot(AnnotationMatrix m,
 			Axes axes,
 			XYSeries series) {
-		Plot plot = axes.createNewPlot();
+		Plot plot = axes.newPlot();
 
 		plot.setMatrix(m);
 
@@ -309,7 +305,7 @@ public class PlotFactory {
 	public static void createSplineFilledLinePlot(AnnotationMatrix m,
 			Axes axes,
 			XYSeries series) {
-		Plot plot = axes.createNewPlot();
+		Plot plot = axes.newPlot();
 
 		plot.setMatrix(m);
 
@@ -336,7 +332,7 @@ public class PlotFactory {
 	public static void createScatterPlot(AnnotationMatrix m,
 			Axes axes, 
 			XYSeries series) {
-		Plot plot = axes.createNewPlot();
+		Plot plot = axes.newPlot();
 
 		plot.setMatrix(m);
 		
@@ -346,7 +342,7 @@ public class PlotFactory {
 
 		plot.setStyle(series.getName(), PlotStyle.SCATTER);
 		
-		//plot.getPlotLayers().putZ(new ScatterPlotLayer(series.getName()));
+		//plot.putZ(new ScatterPlotLayer(series.getName()));
 		//plot.getPlotLayerZModel().putZ(new ScatterBestFitPlotLayer(series.getName()));
 
 
@@ -370,7 +366,7 @@ public class PlotFactory {
 			XYSeries series) {
 		Plot plot = axes.getCurrentPlot();
 
-		plot.getPlotLayers().putZ(new ScatterBestFitPlotLayer(series.getName()));
+		plot.putZ(new ScatterBestFitPlotLayer(series.getName()));
 	}
 
 	/**
@@ -383,14 +379,14 @@ public class PlotFactory {
 	public static void createScatterLinePlot(AnnotationMatrix m,
 			Axes axes,
 			XYSeries series) {
-		Plot plot = axes.createNewPlot();
+		Plot plot = axes.newPlot();
 
 		plot.setMatrix(m);
 
 		plot.getAllSeries().add(series);
 
-		plot.getPlotLayers().putZ(new LinePlotLayer(series.getName()));
-		plot.getPlotLayers().putZ(new ScatterPlotLayer(series.getName()));
+		plot.putZ(new LinePlotLayer(series.getName()));
+		plot.putZ(new ScatterPlotLayer(series.getName()));
 
 		axes.setAxisLimitsAutoRound();
 
@@ -412,7 +408,7 @@ public class PlotFactory {
 	public static void createBarPlot(AnnotationMatrix m,
 			Axes axes,
 			XYSeriesGroup series) {
-		Plot plot = axes.createNewPlot();
+		Plot plot = axes.newPlot();
 
 		plot.setMatrix(m);
 
@@ -420,7 +416,7 @@ public class PlotFactory {
 
 		// We add error bars if there are multiple values per column
 		if (m.getRowCount() > 1) {
-			plot.getPlotLayers().putZ(new BarChartErrorBarsLayer());
+			plot.putZ(new BarChartErrorBarsLayer());
 		}
 		
 		plot.addStyle(PlotStyle.BAR_PLOT);
@@ -483,14 +479,14 @@ public class PlotFactory {
 	public static void createBarPlotH(AnnotationMatrix m,
 			Axes axes,
 			XYSeriesGroup series) {
-		Plot plot = axes.createNewPlot();
+		Plot plot = axes.newPlot();
 
 		plot.setMatrix(m);
 
 		plot.getAllSeries().add(series);
 
-		//plot.getPlotLayers().putZ(new BarChartErrorBarsHLayer());
-		plot.getPlotLayers().putZ(new BarChartHLayer());
+		//plot.putZ(new BarChartErrorBarsHLayer());
+		plot.putZ(new BarChartHLayer());
 
 
 		int xs = series.getCount();
@@ -550,13 +546,13 @@ public class PlotFactory {
 	public static void createStackedBarPlot(AnnotationMatrix m,
 			Axes axes,
 			XYSeriesGroup series) {
-		Plot plot = axes.createNewPlot();
+		Plot plot = axes.newPlot();
 
 		plot.setMatrix(m);
 
 		plot.getAllSeries().add(series);
 
-		plot.getPlotLayers().putZ(new BarChartStackedLayer());
+		plot.putZ(new BarChartStackedLayer());
 
 		int n = m.getColumnCount();
 
@@ -594,13 +590,13 @@ public class PlotFactory {
 			XYSeries series,
 			List<HistBin> hist) {
 
-		Plot plot = axes.createNewPlot();
+		Plot plot = axes.newPlot();
 
 		plot.setMatrix(m);
 
 		plot.getAllSeries().add(series);
 
-		plot.getPlotLayers().putZ(new HistogramLayer(series.getName()));
+		plot.putZ(new HistogramLayer(series.getName()));
 
 		axes.getY1Axis().setLimitsAutoRound(0, NumericalMatrix.max(m));
 
@@ -613,13 +609,13 @@ public class PlotFactory {
 			XYSeries series,
 			HistBin[] hist) {
 
-		Plot plot = axes.createNewPlot();
+		Plot plot = axes.newPlot();
 
 		plot.setMatrix(m);
 
 		plot.getAllSeries().add(series);
 
-		plot.getPlotLayers().putZ(new HistogramLayer(series.getName(), hist));
+		plot.putZ(new HistogramLayer(series.getName(), hist));
 
 		int max = 0;
 		
@@ -646,14 +642,14 @@ public class PlotFactory {
 	public static void createPiePlot(AnnotationMatrix m,
 			Axes axes,
 			XYSeriesGroup series) {
-		Plot plot = axes.createNewPlot();
+		Plot plot = axes.newPlot();
 
 		plot.setMatrix(m);
 
 		plot.getAllSeries().add(series);
 
 
-		plot.getPlotLayers().putZ(new PieChartLayer());
+		plot.putZ(new PieChartLayer());
 
 		axes.getY1Axis().setLimits(0, 1.5);
 		axes.getX1Axis().setLimits(0, 1.5);
@@ -690,13 +686,13 @@ public class PlotFactory {
 	public static void createBoxWhiskerSummaryPlot(AnnotationMatrix m,
 			Axes axes,
 			XYSeriesGroup series) {
-		Plot plot = axes.createNewPlot();
+		Plot plot = axes.newPlot();
 
 		plot.getAllSeries().add(series);
 
 		plot.setMatrix(m);
 
-		plot.getPlotLayers().putZ(new BoxWhiskerSummaryLayer());
+		plot.putZ(new BoxWhiskerSummaryLayer());
 
 		axes.getX1Axis().setLimits(0, series.getCount());
 
@@ -780,7 +776,7 @@ public class PlotFactory {
 			boolean showMean,
 			boolean showBox,
 			boolean showScatter) { 
-		Plot plot = axes.createNewPlot();
+		Plot plot = axes.newPlot();
 
 		plot.setMatrix(m);
 
@@ -795,10 +791,10 @@ public class PlotFactory {
 
 			plot.getAllSeries().add(summary);
 
-			plot.getPlotLayers().putZ(new BoxWhiskerLayer(summary.getName(), x, showWhiskers));
-			plot.getPlotLayers().putZ(new BoxWhiskerMeanLayer(summary.getName(), x, showMean));
-			plot.getPlotLayers().putZ(new BoxWhiskerBoxLayer(summary.getName(), x, showBox));
-			plot.getPlotLayers().putZ(new BoxWhiskerScatterLayer(summary.getName(), x, showScatter));
+			plot.putZ(new BoxWhiskerLayer(summary.getName(), x, showWhiskers));
+			plot.putZ(new BoxWhiskerMeanLayer(summary.getName(), x, showMean));
+			plot.putZ(new BoxWhiskerBoxLayer(summary.getName(), x, showBox));
+			plot.putZ(new BoxWhiskerScatterLayer(summary.getName(), x, showScatter));
 
 			x++;
 		}
@@ -909,15 +905,15 @@ public class PlotFactory {
 			Axes axes,
 			XYSeriesGroup seriesGroup,
 			ColorMap colorMap) {
-		Plot plot = axes.createNewPlot();
+		Plot plot = axes.newPlot();
 
 		plot.setMatrix(m);
 		plot.setColorMap(colorMap);
 		plot.getAllSeries().add(seriesGroup);
 
-		plot.getPlotLayers().putZ(new HeatMapFillPlotLayer());
-		plot.getPlotLayers().putZ(new OutlinePlotLayer());
-		plot.getPlotLayers().putZ(new GroupColorBarLayer());
+		plot.putZ(new HeatMapFillPlotLayer());
+		plot.putZ(new OutlinePlotLayer());
+		plot.putZ(new GroupColorBarLayer());
 
 		createHeatMapCommon(m, subFigure, plot, axes, 1600, 1600);
 	}
@@ -940,14 +936,14 @@ public class PlotFactory {
 
 		Axes axes = subFigure.getCurrentAxes();
 
-		Plot plot = axes.createNewPlot();
+		Plot plot = axes.newPlot();
 
 		plot.setMatrix(m);
 
 		plot.getAllSeries().add(seriesGroup);
 
-		plot.getPlotLayers().putZ(new ClusterHeatMapFillPlotLayer(rowCluster, columnCluster));
-		plot.getPlotLayers().putZ(new OutlinePlotLayer());
+		plot.putZ(new ClusterHeatMapFillPlotLayer(rowCluster, columnCluster));
+		plot.putZ(new OutlinePlotLayer());
 		
 		createHeatMapCommon(m, subFigure, plot, axes, 1600, 1600);
 
@@ -957,20 +953,15 @@ public class PlotFactory {
 
 		if (rowCluster != null) {
 			/*
-			plot = axes.createNewPlot(BorderLocation.W);
+			plot = axes.newPlot(BorderLocation.W);
 			plot.setMatrix(m);
 			plot.setInternalPlotWidth(100);
 			plot.getPlotLayerZModel().putZ(new RowHierarchicalTreeLayer(rowCluster, Color.BLACK));
 			*/
 			
-			PlotGrid ca = new PlotGrid(new PlotBoxLayoutH());
-			
-			axes.addChild(ca, GridLocation.W);
-			
-			plot = ca.createNewPlot();
+			plot = subFigure.newPlot(GridLocation.W);
 			plot.setMatrix(m);
-			plot.setInternalPlotWidth(100);
-			plot.getPlotLayers().putZ(new RowHierarchicalTreeLayer(rowCluster, Color.BLACK));
+			plot.putZ(new RowHierarchicalTreeLayer(rowCluster, Color.BLACK, 100));
 			
 		}
 
@@ -979,21 +970,16 @@ public class PlotFactory {
 		//
 
 		if (columnCluster != null) {
-			PlotGrid ca = new PlotGrid(new PlotBoxLayoutV());
+			SubFigure sf = subFigure.newSubFigure(GridLocation.N);
+			sf.setLayout(new PlotBoxColumnLayout());
 			
-			axes.addChild(ca, GridLocation.N);
-			
-			
-			
-			plot = ca.createNewPlot();
+			plot = sf.newPlot();
 			plot.setMatrix(m);
-			plot.setInternalPlotHeight(100);
-			plot.getPlotLayers().putZ(new ColumnHierarchicalTreeLayer(columnCluster, Color.BLACK));
+			plot.putZ(new ColumnHierarchicalTreeLayer(columnCluster, Color.BLACK, 100));
 			
-			plot = ca.createNewPlot();
+			plot = sf.newPlot();
 			plot.setMatrix(m);
-			plot.setInternalPlotHeight(100);
-			plot.getPlotLayers().putZ(new GroupHierarchicalColorBarLayer(columnCluster));
+			plot.putZ(new GroupHierarchicalColorBarLayer(columnCluster, 100));
 			
 			// Color bar
 			
@@ -1005,7 +991,7 @@ public class PlotFactory {
 			//axes.getY1Axis().setLimits(0, 1);
 			//axes.setMargins(0);
 			//axes.setInternalPlotHeight(100);
-			//plot = axes.createNewPlot();
+			//plot = axes.newPlot();
 			//plot.getPlotLayerZModel().putZ(new ColumnHierarchicalTreeLayer(columnCluster, Color.BLACK));
 		}
 
@@ -1052,8 +1038,8 @@ public class PlotFactory {
 		axes.getX1Axis().getGrid().setVisible(fullView);
 		axes.getX1Axis().setVisible(fullView);
 
-		axes.getGridLocation(GridLocation.S).putZ(new PlotBoxV());
-		axes.getGridLocation(GridLocation.S).getCurrentLayer().putZ(new AxisPlotX1("Axis X1 Label Plot", axes.getX1Axis()));
+		//axes.getChild(GridLocation.S).putZ(new PlotBoxV());
+		axes.getChild(GridLocation.S).putZ(new AxisPlotX1("Axis X1 Label Plot", axes.getX1Axis()));
 		
 		
 		// If the height of the heatmap is less than the ideal height,
@@ -1092,13 +1078,13 @@ public class PlotFactory {
 		axes.getY2Axis().setVisible(fullView);
 		
 		// Lets make room for the v color bar
-		axes.getGridLocation(GridLocation.E).putZ(new PlotBoxH());
-		axes.getGridLocation(GridLocation.E).getCurrentLayer().putZ(new AxisPlotY2("Axis Y2 Label Plot", axes.getY2Axis()));
+		//axes.getChild(GridLocation.E).putZ(new PlotBoxH());
+		axes.getChild(GridLocation.E).putZ(new AxisPlotY2("Axis Y2 Label Plot", axes.getY2Axis()));
 		
 		//axes.getY1Axis().getLineStyle().setVisible(false);
 
 		if (fullView) {
-			plot.getPlotLayers().putZ(new HeatMapGridPlotLayer());
+			plot.putZ(new HeatMapGridPlotLayer());
 		}
 
 		// Add some space around the plot
@@ -1146,7 +1132,7 @@ public class PlotFactory {
 
 		plot.setColorMap(colorMap);
 
-		plot.getPlotLayers().putZ(new ColorMapFillPlotLayer());
+		plot.putZ(new ColorMapFillPlotLayer(COLOR_BAR_WIDTH));
 		//plot.getPlotLayerZModel().putZ(new OutlinePlotLayer());
 
 		Axis axis = axes.getX1Axis();
@@ -1164,10 +1150,7 @@ public class PlotFactory {
 		axis.setLimits(0, 1);
 		axis.setVisible(false);
 
-		// Default to no margin to expand fully left and right
-		plot.setInternalPlotSize(200, COLOR_BAR_WIDTH);
-
-		axes.getGridLocation(GridLocation.N).putZ(new MarginFillerV(10));
+		axes.getChild(GridLocation.N).putZ(new MarginFillerV(10));
 		axes.setMargins(100);
 		axes.setBottomMargin(autoSetX1LabelMargin(axes));	
 	}
@@ -1198,19 +1181,20 @@ public class PlotFactory {
 
 		String name = "Vertical Color Bar Axes";
 		
-		subFigure.removeByName(name);
+		//subFigure.removeByName(name);
 		
 		Axes2D colorBarAxes = new Axes2D(name);
 		
-		axes.getGridLocation(GridLocation.E).getCurrentLayer().putZ(colorBarAxes);
+		axes.getChild(GridLocation.E).putZ(colorBarAxes);
 		
 		Plot plot = new Plot("Color Bar Plot");
 		plot.setColorMap(colorMap);
-		plot.getPlotLayers().putZ(new ColorMapVFillPlotLayer());
-		plot.getPlotLayers().putZ(new OutlinePlotLayer());
+		plot.putZ(new ColorMapVFillPlotLayer());
+		plot.putZ(new OutlinePlotLayer());
 		colorBarAxes.addPlot(plot);
 		
-		colorBarAxes.addPlot(new AxisPlotY2("Color Bar Y2 Axis Label Plot", axes.getY2Axis()), 
+		colorBarAxes.addPlot(new AxisPlotY2("Color Bar Y2 Axis Label Plot", 
+				axes.getY2Axis()), 
 				GridLocation.E);
 		
 		
@@ -1237,7 +1221,7 @@ public class PlotFactory {
 
 		colorBarAxes.setInternalPlotSize(COLOR_BAR_WIDTH, 200);
 	
-		colorBarAxes.getGridLocation(GridLocation.W).putZ(new MarginFillerH(20));
+		colorBarAxes.getChild(GridLocation.W).putZ(new MarginFillerH(20));
 	}
 
 
@@ -1351,6 +1335,6 @@ public class PlotFactory {
 	 * @param y the y
 	 */
 	public static void createLabel(Axes axes, String label, double x, double y) {
-		axes.getCurrentPlot().getPlotLayers().putZ(new LabelPlotLayer(label, x, y));
+		axes.getCurrentPlot().putZ(new LabelPlotLayer(label, x, y));
 	}
 }

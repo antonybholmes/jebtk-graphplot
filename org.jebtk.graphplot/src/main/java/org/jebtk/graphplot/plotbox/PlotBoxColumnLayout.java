@@ -17,7 +17,6 @@ package org.jebtk.graphplot.plotbox;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Point;
 
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.ImageUtils;
@@ -66,8 +65,9 @@ public class PlotBoxColumnLayout extends PlotBoxLayout {
 	@Override
 	public void plot(Graphics2D g2,
 			PlotBox plotBox,
-			Point offset,
-			DrawingContext context) {
+			Dimension offset,
+			DrawingContext context,
+			Object... params) {
 		Graphics2D g2Temp = ImageUtils.clone(g2);
 
 		//subg2.translate(offset.width, offset.height);
@@ -75,31 +75,25 @@ public class PlotBoxColumnLayout extends PlotBoxLayout {
 		int width = 0;
 		int height = 0;
 
-		Point tempOffset = new Point(0, 0);
+		Dimension tempOffset = new Dimension(0, 0);
 
 		try {
-			int c = 0;
-			
 			for (PlotBox child : plotBox) {
-				System.err.println("hmm " + c + " " + child);
-				
-				tempOffset.x = 0;
-				tempOffset.y = 0;
+				tempOffset.width = 0;
+				tempOffset.height = 0;
 
-				child.plot(g2Temp, tempOffset, context);
+				child.plot(g2Temp, tempOffset, context, params);
 
-				g2Temp.translate(tempOffset.x, 0);
+				g2Temp.translate(tempOffset.width, 0);
 
-				width += tempOffset.x;
-				height = Math.max(height, tempOffset.y);
-				
-				++c;
+				width += tempOffset.width;
+				height = Math.max(height, tempOffset.height);
 			}
 		} finally {
 			g2Temp.dispose();
 		}
 		
-		offset.x += width;
-		offset.y += height;
+		offset.width += width;
+		offset.height += height;
 	}
 }

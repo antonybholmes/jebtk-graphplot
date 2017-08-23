@@ -96,8 +96,10 @@ public class UniqueXY implements Iterable<Point>, Comparable<UniqueXY> {
 
 				Point p = axes.toPlotXY1(point);
 
-				//System.err.println("unique " + point + " " + p);
-
+				//if (i < 10) {
+				//	System.err.println("unique " + point + " " + p);
+				//}
+				
 				mAllList.add(p);
 
 				if (axes.getX1Axis().withinBounds(point.getX())) {

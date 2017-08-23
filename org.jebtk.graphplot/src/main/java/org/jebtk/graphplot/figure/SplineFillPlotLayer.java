@@ -51,7 +51,8 @@ public class SplineFillPlotLayer extends SplinePlotLayer {
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PathPlotLayer#getPath(java.lang.String, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.AnnotationMatrix, edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries, edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXY)
 	 */
 	@Override
-	protected GeneralPath getPath(SubFigure figure,
+	protected GeneralPath getPath(Figure figure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m,
@@ -122,7 +123,8 @@ public class SplineFillPlotLayer extends SplinePlotLayer {
 	@Override
 	public void plotClipped(Graphics2D g2,
 			DrawingContext context,
-			SubFigure figure,
+			Figure figure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m,

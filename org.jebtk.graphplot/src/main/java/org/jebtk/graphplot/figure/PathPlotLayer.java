@@ -70,20 +70,21 @@ public abstract class PathPlotLayer extends UniqueXYLayer {
 	@Override
 	public final void plotClipped(Graphics2D g2,
 			DrawingContext context,
-			SubFigure figure,
+			Figure figure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m,
 			XYSeries series,
 			UniqueXY xy) {
 
-		
 
-		updatePath(figure, axes, plot, m, series, xy);
+
+		updatePath(figure, subFigure, axes, plot, m, series, xy);
 
 		//System.err.println("path plot " + plot.getName() + " " + plot.getId() + " " + axes.getInternalPlotSize() + " " + (mPath == null || mPath.getValue() == null));
-		
-		
+
+
 		// If the path was not cached, there is nothing to draw.
 		if (mPath == null || mPath.getValue() == null) {
 			return;
@@ -92,6 +93,7 @@ public abstract class PathPlotLayer extends UniqueXYLayer {
 		plotClipped(g2,
 				context,
 				figure,
+				subFigure,
 				axes,
 				plot,
 				m,
@@ -123,7 +125,8 @@ public abstract class PathPlotLayer extends UniqueXYLayer {
 	 */
 	public abstract void plotClipped(Graphics2D g2,
 			DrawingContext context,
-			SubFigure figure,
+			Figure figure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m,
@@ -141,14 +144,15 @@ public abstract class PathPlotLayer extends UniqueXYLayer {
 	 * @param series the series
 	 * @param xy the xy
 	 */
-	private void updatePath(SubFigure figure,
+	private void updatePath(Figure figure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m,
 			XYSeries series,
 			UniqueXY xy) {
 		if (mPath == null || !mPath.getKey().equals(xy)) {
-			mPath = new KeyValuePair<UniqueXY, GeneralPath>(xy, getPath(figure, axes, plot, m, series, xy));
+			mPath = new KeyValuePair<UniqueXY, GeneralPath>(xy, getPath(figure, subFigure, axes, plot, m, series, xy));
 		}
 	}
 
@@ -163,7 +167,8 @@ public abstract class PathPlotLayer extends UniqueXYLayer {
 	 * @param xy the xy
 	 * @return the path
 	 */
-	protected abstract GeneralPath getPath(SubFigure figure,
+	protected abstract GeneralPath getPath(Figure figure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m,

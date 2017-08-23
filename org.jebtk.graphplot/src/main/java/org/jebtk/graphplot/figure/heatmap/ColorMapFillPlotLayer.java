@@ -16,6 +16,7 @@
 package org.jebtk.graphplot.figure.heatmap;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +24,7 @@ import java.util.Map;
 
 import org.jebtk.core.collections.UniqueArrayList;
 import org.jebtk.graphplot.figure.Axes;
+import org.jebtk.graphplot.figure.Figure;
 import org.jebtk.graphplot.figure.Plot;
 import org.jebtk.graphplot.figure.PlotClippedLayer;
 import org.jebtk.graphplot.figure.SubFigure;
@@ -52,14 +54,14 @@ public class ColorMapFillPlotLayer extends PlotClippedLayer {
 	/** The m color map. */
 	private ColorMap mColorMap = null;
 
-	/** The m hash id. */
-	private String mHashId;
+	private int mWidth;
+
 
 	/**
 	 * Instantiates a new heat map fill plot layer.
 	 */
-	public ColorMapFillPlotLayer() {
-		this("Color Map");
+	public ColorMapFillPlotLayer(int height) {
+		this("Color Map", height);
 	}
 
 	/**
@@ -67,8 +69,15 @@ public class ColorMapFillPlotLayer extends PlotClippedLayer {
 	 *
 	 * @param name the name
 	 */
-	public ColorMapFillPlotLayer(String name) {
+	public ColorMapFillPlotLayer(String name, int height) {
 		super(name);
+		
+		mWidth = height;
+	}
+	
+	@Override
+	public void plotSize(Dimension d) {
+		d.height = mWidth;
 	}
 
 	/* (non-Javadoc)
@@ -77,6 +86,7 @@ public class ColorMapFillPlotLayer extends PlotClippedLayer {
 	@Override
 	public void plotClipped(Graphics2D g2,
 			DrawingContext context,
+Figure figure,
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
@@ -87,6 +97,7 @@ public class ColorMapFillPlotLayer extends PlotClippedLayer {
 		int h = axes.getInternalPlotSize().getH();
 	
 		int s = cache(context,
+				figure,
 				subFigure,
 				axes,
 				plot,
@@ -110,6 +121,7 @@ public class ColorMapFillPlotLayer extends PlotClippedLayer {
 	 * @return the int
 	 */
 	protected int cache(DrawingContext context,
+			Figure figure,
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
@@ -141,8 +153,7 @@ public class ColorMapFillPlotLayer extends PlotClippedLayer {
 		}
 
 		mColorMap = plot.getColorMap();
-		mHashId = subFigure.hashId();
-		
+
 		return (int)Math.round(s);
 	}
 }

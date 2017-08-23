@@ -16,6 +16,7 @@
 package org.jebtk.graphplot.figure.heatmap.legacy;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 
 import org.jebtk.core.geom.IntDim;
@@ -67,19 +68,22 @@ public class RowLabelHeaderPlotElement extends MatrixPlotElement {
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
 	 */
 	@Override
-	public void plot(Graphics2D g2, DrawingContext context) {
+	public void plot(Graphics2D g2, 
+			Dimension offset, 
+			DrawingContext context, 
+			Object... params) {
 		g2.setColor(Color.BLACK);
 		
 		int y = (mHeight + g2.getFontMetrics().getAscent() - g2.getFontMetrics().getDescent()) / 2;
 		
 		g2.drawString(getName(), 0, y);
+		
+		super.plot(g2, offset, context, params);
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.abh.common.ui.ui.graphics.ModernCanvas#getCanvasSize()
-	 */
 	@Override
-	public IntDim getCanvasSize() {
-		return new IntDim(mWidth, mHeight);
+	public void plotSize(Dimension d) {
+		d.width += mWidth;
+		d.height += mHeight;
 	}
 }

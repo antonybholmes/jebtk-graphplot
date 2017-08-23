@@ -15,62 +15,57 @@
  */
 package org.jebtk.graphplot.plotbox;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
-
-import org.jebtk.core.StringId;
 
 
 // TODO: Auto-generated Javadoc
 /**
  * The class PlotBox.
  */
-public class PlotBoxZ extends PlotBox {
+public class PlotBoxZStorage extends PlotBoxStorage {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
 	private static final long serialVersionUID = 1L;
 	
-	private static final StringId NEXT_ID = new StringId("Plot Box Z");
-
-	private static final Map<Integer, PlotBox> mMap =
+	private Map<Integer, PlotBox> mMap =
 			new TreeMap<Integer, PlotBox>();
-
-	public PlotBoxZ() {
-		super(NEXT_ID.getNextId(), new PlotBoxZLayout());
-	}
+	
+	private Map<PlotBox, Integer> mKeyMap =
+			new HashMap<PlotBox, Integer>();
+	
+	private int mUnused = 0;
 	
 	@Override
 	public void addChild(PlotBox plot) {
-		add(plot, getUnusedZ());
+		addChild(plot, getUnusedZ());
 	}
 	
 	@Override
 	public void addChild(PlotBox plot, int z) {
-		putZ(plot, z);
-	}
-	
-	public void putZ(PlotBox plot) {
-		putZ(plot, getUnusedZ());
-	}
-	
-	public void putZ(PlotBox plot, int z) {
-		mMap.put(z, plot);
+		addReserved(plot, z);
 		
-		addChildByName(plot);
+		// keep track of where we can likely search from to find the next
+		// unused z
+		mUnused = z + 1;
+	}
+	
+	public void addReserved(PlotBox plot, int z) {
+		mMap.put(z, plot);
+		mKeyMap.put(plot, z);
 	}
 	
 	@Override
 	public int getUnusedZ() {
-		for (int i = 1; i < Integer.MAX_VALUE; ++i) {
+		for (int i = mUnused; i < Integer.MAX_VALUE; ++i) {
 			if (!mMap.containsKey(i)) {
+				
 				return i;
 			}
 		}
 		
-		return 1;
+		return 0;
 	}
 	
 	@Override
@@ -86,5 +81,20 @@ public class PlotBoxZ extends PlotBox {
 	@Override
 	public Iterator<PlotBox> iterator() {
 		return mMap.values().iterator();
+	}
+	
+	@Override
+	public void clear() {
+		mMap.clear();
+		
+		super.clear();
+	}
+	
+	@Override
+	public void remove(PlotBox plot) {
+		if (mKeyMap.containsKey(plot)) {
+			mMap.remove(mKeyMap.get(plot));
+			mKeyMap.remove(plot);
+		}
 	}
 }

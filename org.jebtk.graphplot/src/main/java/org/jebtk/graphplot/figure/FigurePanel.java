@@ -15,20 +15,25 @@
  */
 package org.jebtk.graphplot.figure;
 
+import org.jebtk.graphplot.plotbox.PlotBoxPanel;
+
 // TODO: Auto-generated Javadoc
 /**
- * Layer model for graphs.
+ * Allows multiple plots to be placed on a grid and drawn together.
  *
  * @author Antony Holmes Holmes
  */
-public class SubFigureZModel extends ZModel<SubFigure> {
-	
+public class FigurePanel extends PlotBoxPanel {
+
 	/**
 	 * The constant serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
 
-	
-
-	
+	/**
+	 * Instantiates a new figure.
+	 */
+	public FigurePanel(Figure figure) {
+		super(figure);
+	}
 }

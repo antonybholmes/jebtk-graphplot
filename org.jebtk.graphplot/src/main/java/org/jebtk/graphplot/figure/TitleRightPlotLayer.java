@@ -44,9 +44,10 @@ public class TitleRightPlotLayer extends AxesTitleLayer {
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.AxesTitleLayer#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes)
 	 */
 	@Override
-	public void plot(Graphics2D g2,
+	public void drawPlot(Graphics2D g2,
 			DrawingContext context,
-			SubFigure figure,
+			Figure figure,
+			SubFigure subFigure,
 			Axes axes) {
 		
 		String title = axes.getTitle().getText();
@@ -58,7 +59,7 @@ public class TitleRightPlotLayer extends AxesTitleLayer {
 
 		
 		int x = OFFSET + axes.getInternalPlotSize().getW();
-		int y = ModernWidget.getTextYPosCenter(g2, axes.getCanvasSize().getH());
+		int y = ModernWidget.getTextYPosCenter(g2, axes.getPreferredSize().height);
 		
 		g2.setColor(color);
 		g2.drawString(title, x, y);

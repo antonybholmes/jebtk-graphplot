@@ -34,6 +34,7 @@ public abstract class ColumnMatrixPlotElement extends MatrixPlotElement {
 	 * The constant serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
+	private int mHeight;
 	
 	/**
 	 * Instantiates a new column matrix plot element.
@@ -56,14 +57,12 @@ public abstract class ColumnMatrixPlotElement extends MatrixPlotElement {
 	 * @param height the new height
 	 */
 	public void setHeight(int height) {
-		setCanvasSize(new Dimension(-1, height));
+		mHeight = height;
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.abh.common.ui.ui.graphics.ModernCanvas#getCanvasSize()
-	 */
 	@Override
-	public IntDim getCanvasSize() {
-		return new IntDim(mMatrix.getColumnCount() * mBlockSize.getW(), super.getCanvasSize().getH());
+	public void plotSize(Dimension d) {
+		d.width += mMatrix.getColumnCount() * mBlockSize.getW();
+		d.height += mHeight;
 	}
 }

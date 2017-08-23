@@ -15,6 +15,7 @@
  */
 package org.jebtk.graphplot.figure;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 import org.jebtk.math.matrix.AnnotationMatrix;
@@ -50,12 +51,10 @@ public abstract class PlotClippedLayer extends PlotLayer  {
 	@Override
 	public final void drawPlot(Graphics2D g2,
 			DrawingContext context,
-			SubFigure figure,
+			Figure figure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot) {
-
-		//System.err.println("plot clipped " + plot.getName() + " " + plot.getId() + " " + axes.getInternalPlotSize());
-
 
 		Graphics2D g2Temp = ImageUtils.clone(g2);
 
@@ -65,10 +64,15 @@ public abstract class PlotClippedLayer extends PlotLayer  {
 					axes.getInternalPlotSize().getW(), 
 					axes.getInternalPlotSize().getH());
 
-			plotClipped(g2Temp, context, figure, axes, plot);
+			plotClipped(g2Temp, context, figure, subFigure, axes, plot);
 		} finally {
 			g2Temp.dispose();
 		}
+
+		//test
+		//g2.setColor(Color.RED);
+		//g2.drawRect(0, 0, axes.getInternalPlotSize().getW(), axes.getInternalPlotSize().getH());
+
 	}
 
 	/* (non-Javadoc)
@@ -77,7 +81,8 @@ public abstract class PlotClippedLayer extends PlotLayer  {
 	@Override
 	public final void drawPlot(Graphics2D g2,
 			DrawingContext context,
-			SubFigure figure,
+			Figure figure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m) {
@@ -89,10 +94,14 @@ public abstract class PlotClippedLayer extends PlotLayer  {
 					axes.getInternalPlotSize().getW(), 
 					axes.getInternalPlotSize().getH());
 
-			plotClipped(g2Temp, context, figure, axes, plot, m);
+			plotClipped(g2Temp, context, figure, subFigure, axes, plot, m);
 		} finally {
 			g2Temp.dispose();
 		}
+
+		//test
+		//g2.setColor(Color.RED);
+		//g2.drawRect(0, 0, axes.getInternalPlotSize().getW(), axes.getInternalPlotSize().getH());
 	}
 
 	/**
@@ -106,10 +115,11 @@ public abstract class PlotClippedLayer extends PlotLayer  {
 	 */
 	public void plotClipped(Graphics2D g2,
 			DrawingContext context,
-			SubFigure figure,
+			Figure figure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot) {
-		plotClipped(g2, context, figure, axes, plot, plot.getMatrix());
+		plotClipped(g2, context, figure, subFigure, axes, plot, plot.getMatrix());
 	}
 
 	/**
@@ -124,20 +134,21 @@ public abstract class PlotClippedLayer extends PlotLayer  {
 	 */
 	public void plotClipped(Graphics2D g2,
 			DrawingContext context,
-			SubFigure figure,
+			Figure figure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m) {
 		if (context == DrawingContext.SCREEN) {
 			Graphics2D g2Temp = ImageUtils.createAAGraphics(g2);
-			
+
 			try {
-				drawClipped(g2Temp, context, figure, axes, plot, m);
+				drawClipped(g2Temp, context, figure, subFigure, axes, plot, m);
 			} finally {
 				g2Temp.dispose();
 			}
 		} else {
-			drawClipped(g2, context, figure, axes, plot, m);
+			drawClipped(g2, context, figure, subFigure, axes, plot, m);
 		}
 	}
 
@@ -152,12 +163,13 @@ public abstract class PlotClippedLayer extends PlotLayer  {
 	 * @param m the m
 	 */
 	public void drawClipped(Graphics2D g2,
-			DrawingContext context, 
-			SubFigure figure, 
+			DrawingContext context,
+			Figure figure,
+			SubFigure subFigure, 
 			Axes axes, 
 			Plot plot,
 			AnnotationMatrix m) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

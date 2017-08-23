@@ -48,28 +48,15 @@ public class Axes2D extends Axes {
 	 */
 	public Axes2D(String name) {
 		super(name);
-
-		addChild(new AxisLayerX1(), 1000);
-		addChild(new AxisLayerY1(), 2000);
-		addChild(new AxisLayerY2(), 3000);
+		
+		addReserved(new AxisLayerX1(), 1000);
+		addReserved(new AxisLayerY1(), 2000);
+		addReserved(new AxisLayerY2(), 3000);
 
 		// DO NOT NEED
 		//mAxesLayers.setZ(new LabelPlotLayer(), 4000);
 
-		addChild(new LegendLayer(), 5000);
-		addChild(new AxesTitleLayer(), 6000);
-		
-		// Give the axes a reasonable size
-		setInternalPlotSize(1000, 600);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.graphplot.figure.Axes#newAxes(org.graphplot.figure.GridLocation)
-	 */
-	@Override
-	public Axes newAxes(GridLocation l) {
-		Axes2D axes = new Axes2D(mNextAxesId.getNextId());
-
-		return addAxes(axes, l);
+		addReserved(new LegendLayer(), 5000);
+		addReserved(new AxesTitleLayer(), 6000);
 	}
 }

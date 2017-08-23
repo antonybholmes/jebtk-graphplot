@@ -47,9 +47,10 @@ public abstract class AxesClippedLayer extends AxesLayer  {
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.AxesLayer#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes)
 	 */
 	@Override
-	public final void plot(Graphics2D g2,
+	public final void drawPlot(Graphics2D g2,
 			DrawingContext context,
-			SubFigure figure,
+			Figure figure,
+			SubFigure subFigure,
 			Axes axes) {
 		Graphics2D g2Temp = ImageUtils.clone(g2);
 
@@ -59,7 +60,7 @@ public abstract class AxesClippedLayer extends AxesLayer  {
 					axes.getInternalPlotSize().getW(), 
 					axes.getInternalPlotSize().getH());
 
-			plotClipped(g2Temp, context, figure, axes);
+			plotClipped(g2Temp, context, figure, subFigure, axes);
 		}  finally {
 			g2Temp.dispose();
 		}
@@ -75,6 +76,7 @@ public abstract class AxesClippedLayer extends AxesLayer  {
 	 */
 	public abstract void plotClipped(Graphics2D g2,
 			DrawingContext context,
-			SubFigure figure,
+			Figure figure,
+SubFigure subFigure,
 			Axes axes);
 }

@@ -31,44 +31,52 @@ import org.jebtk.core.geom.IntDim;
  */
 public class PlotBoxEmpty extends PlotBox {
 	
+	private static final StringId NEXT_ID = new StringId("Plot Box Empty");
+
+	private IntDim mSize;
+
+	
+	public PlotBoxEmpty(int w, int h) {
+		this(new IntDim(w, h));
+	}
+	
+	public PlotBoxEmpty(Dimension d) {
+		this(IntDim.create(d));
+	}
+	
+	public PlotBoxEmpty(IntDim size) {
+		super(NEXT_ID.getNextId());
+		
+		mSize = size;
+	}
+	
+	
+
+	@Override
+	public void plotSize(Dimension d) {
+		d.width = mSize.getW();
+		d.height = mSize.getH();
+	}
+
 	/**
-	 * The constant serialVersionUID.
+	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	private static final StringId NEXT_ID = new StringId("Plot Box Empty");
 	
 	private static final List<PlotBox> NO_PLOTS =
 			Collections.emptyList();
 
-	/**
-	 * Instantiates a new empty plot box.
-	 *
-	 * @param dimension the dimension
-	 */
-	public PlotBoxEmpty(IntDim dim) {
-		super(NEXT_ID.getNextId(), new PlotBoxEmptyLayout(dim));
-	}
-	
-	public PlotBoxEmpty(Dimension dim) {
-		this(IntDim.create(dim));
-	}
-
-	/**
-	 * Instantiates a new empty plot box.
-	 *
-	 * @param width the width
-	 * @param height the height
-	 */
-	public PlotBoxEmpty(int width, int height) {
-		this(new IntDim(width, height));
-	}
-	
 	/* (non-Javadoc)
 	 * @see java.lang.Iterable#iterator()
 	 */
 	@Override
 	public Iterator<PlotBox> iterator() {
 		return NO_PLOTS.iterator();
+	}
+
+	@Override
+	public String hashId() {
+		// TODO Auto-generated method stub
+		return getName() + mSize;
 	}
 }

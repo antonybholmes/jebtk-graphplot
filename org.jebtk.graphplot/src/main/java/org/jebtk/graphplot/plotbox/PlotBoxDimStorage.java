@@ -20,52 +20,24 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import org.jebtk.graphplot.figure.SubFigure;
-import org.jebtk.modern.graphics.ModernCanvas;
+import org.jebtk.core.collections.CollectionUtils;
 
 
 // TODO: Auto-generated Javadoc
 /**
  * The class PlotBox.
  */
-public abstract class PlotBoxDim extends PlotBox {
-
-	/**
-	 * The constant serialVersionUID.
-	 */
+public class PlotBoxDimStorage extends PlotBoxStorage {
 	private static final long serialVersionUID = 1L;
-
+	
 	/**
 	 * The member children.
 	 */
-	private List<PlotBox> mChildren = new ArrayList<PlotBox>();
+	private List<PlotBox> mChildren = new ArrayList<PlotBox>(100);
 
-
-	public PlotBoxDim(String name, PlotBoxLayout layout) {
-		super(name, layout);
-	}
 
 	public void addChild(Collection<PlotBox> plotBoxes) {
 		addChildren(plotBoxes);
-	}
-	
-	public <T extends ModernCanvas> void addCanvases(Collection<T> canvases) {
-		for (T canvas : canvases) {
-			addChild(new PlotBoxCanvas(canvas));
-		}
-	}
-	
-	public <T extends SubFigure> void setSubFigures(Collection<T> subFigures) {
-		clear();
-		
-		addSubFigures(subFigures);
-	}
-	
-	
-	public <T extends SubFigure> void addSubFigures(Collection<T> subFigures) {
-		for (T f : subFigures) {
-			addChild(new PlotBoxSubFigure(f));
-		}
 	}
 	
 	public void addChildren(Collection<PlotBox> plotBoxes) {
@@ -82,8 +54,9 @@ public abstract class PlotBoxDim extends PlotBox {
 	@Override
 	public void addChild(PlotBox plot) {
 		mChildren.add(plot);
+		plot.addChangeListener(this);
 		
-		addChildByName(plot);
+		fireChanged();
 	}
 	
 	@Override
@@ -99,16 +72,21 @@ public abstract class PlotBoxDim extends PlotBox {
 	 */
 	@Override
 	public PlotBox getChild(int index) {
-		return mChildren.get(index);
+		if (CollectionUtils.inBounds(index, mChildren)) {
+			return mChildren.get(index);
+		} else {
+			return null;
+		}
 	}
 	
 	/**
 	 * Remove all plot children.
 	 */
+	@Override
 	public void clear() {
 		mChildren.clear();
 		
-		fireCanvasResized();
+		super.clear();
 	}
 
 	@Override
@@ -119,5 +97,10 @@ public abstract class PlotBoxDim extends PlotBox {
 	@Override
 	public int getChildCount() {
 		return mChildren.size();
+	}
+	
+	@Override
+	public void remove(PlotBox plot) {
+		mChildren.remove(plot);
 	}
 }

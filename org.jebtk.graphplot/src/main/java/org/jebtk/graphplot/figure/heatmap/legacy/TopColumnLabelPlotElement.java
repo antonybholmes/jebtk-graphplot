@@ -16,6 +16,7 @@
 package org.jebtk.graphplot.figure.heatmap.legacy;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.Map;
 
@@ -98,8 +99,10 @@ public class TopColumnLabelPlotElement extends ColumnMatrixPlotElement {
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
 	 */
 	@Override
-	public void plot(Graphics2D g2, DrawingContext context) {
+	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Object... params) {
 		drawLabels(g2);
+		
+		super.plot(g2, offset, context, params);
 	}
 
 	/**
@@ -125,11 +128,11 @@ public class TopColumnLabelPlotElement extends ColumnMatrixPlotElement {
 					g2Temp.setColor(mColor);
 				}
 				
-				g2Temp.translate(x, getCanvasSize().getH());
+				g2Temp.translate(x, getPreferredSize().height);
 				//g2Temp.rotate(Math.PI / 2.0);
-				//g2Temp.translate(getCanvasSize().getH() - g2Temp.getFontMetrics().stringWidth(mMatrix.getColumnName(i)), xd);
+				//g2Temp.translate(getPreferredSize().height - g2Temp.getFontMetrics().stringWidth(mMatrix.getColumnName(i)), xd);
 				g2Temp.rotate(-Math.PI / 2.0);
-				//g2Temp.translate(-getCanvasSize().getH(), 0);
+				//g2Temp.translate(-getPreferredSize().height, 0);
 
 				g2Temp.drawString(mMatrix.getColumnName(i), 0, 0);
 			} finally {

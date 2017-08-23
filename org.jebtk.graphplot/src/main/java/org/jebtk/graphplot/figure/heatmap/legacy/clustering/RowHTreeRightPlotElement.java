@@ -107,7 +107,7 @@ public class RowHTreeRightPlotElement extends RowHTreeLeftPlotElement {
 		// end
 		Collections.reverse(parents);
 		
-		int w = getCanvasSize().getW();
+		int w = getPreferredSize().width;
 		int x1;
 		int x2;
 		int y1;

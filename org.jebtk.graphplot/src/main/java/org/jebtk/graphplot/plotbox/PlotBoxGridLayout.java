@@ -17,7 +17,6 @@ package org.jebtk.graphplot.plotbox;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Point;
 
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.ImageUtils;
@@ -47,14 +46,12 @@ public class PlotBoxGridLayout extends PlotBoxLayout {
 	 */
 	@Override
 	public void plotSize(PlotBox plot, Dimension dim) {
-		
-		PlotBoxGrid gp = (PlotBoxGrid)plot;
-		
+			
 		for (int i = 0; i < mHeights.length; ++i) {
 			mHeights[i] = 0;
 
 			for (int j = 0; j < mWidths.length; ++j) {
-				PlotBox child = gp.getChild(i, j);
+				PlotBox child = plot.getChild(i, j);
 
 				if (child != null) {
 					Dimension d = new Dimension(0, 0);
@@ -70,7 +67,7 @@ public class PlotBoxGridLayout extends PlotBoxLayout {
 			mWidths[i] = 0;
 
 			for (int j = 0; j < mHeights.length; ++j) {
-				PlotBox child = gp.getChild(i, j);
+				PlotBox child = plot.getChild(i, j);
 
 				if (child != null) {
 					Dimension d = new Dimension(0, 0);
@@ -99,51 +96,9 @@ public class PlotBoxGridLayout extends PlotBoxLayout {
 	@Override
 	public void plot(Graphics2D g2,
 			PlotBox plot,
-			Point offset,
-			DrawingContext context) {
-		/*
-		int[] mWidths = new int[mLocations.length];
-		int[] mHeights = new int[mLocations[0].length];
-		
-		for (int i = 0; i < mLocations.length; ++i) {
-			mHeights[i] = 0;
-
-			for (int j = 0; j < mLocations[0].length; ++j) {
-				PlotBox child = mLocations[i][j];
-
-				if (child != null) {
-					Dimension d = new Dimension(0, 0);
-
-					child.getPlotSizeRecursive(d);
-
-					mHeights[i] = Math.max(mHeights[i], d.height);
-				}
-			}
-		}
-		
-		for (int i = 0; i < mLocations[0].length; ++i) {
-			mWidths[i] = 0;
-
-			for (int j = 0; j < mLocations.length; ++j) {
-				PlotBox child = mLocations[j][i];
-
-				if (child != null) {
-					Dimension d = new Dimension(0, 0);
-
-					child.getPlotSizeRecursive(d);
-
-					mWidths[i] = Math.max(mWidths[i], d.width);
-				}
-			}
-		}
-		*/
-
-		//
-		// Plot
-		//
-		
-		PlotBoxGrid gp = (PlotBoxGrid)plot;
-
+			Dimension offset,
+			DrawingContext context,
+			Object... params) {
 		Graphics2D g2Temp = ImageUtils.clone(g2);
 
 		try {
@@ -152,10 +107,10 @@ public class PlotBoxGridLayout extends PlotBoxLayout {
 
 				try {
 					for (int j = 0; j < mHeights.length; ++j) {
-						PlotBox child = gp.getChild(i, j);
+						PlotBox child = plot.getChild(i, j);
 
 						if (child != null) {
-							child.plot(g2Temp2, new Point(0, 0), context);
+							child.plot(g2Temp2, new Dimension(0, 0), context, params);
 						}
 
 						g2Temp2.translate(mWidths[j], 0);
@@ -171,8 +126,8 @@ public class PlotBoxGridLayout extends PlotBoxLayout {
 		}
 
 		for (int i = 0; i < 3; ++i) {
-			offset.x += mWidths[i];
-			offset.y += mHeights[i];
+			offset.width += mWidths[i];
+			offset.height += mHeights[i];
 		}
 	}
 	

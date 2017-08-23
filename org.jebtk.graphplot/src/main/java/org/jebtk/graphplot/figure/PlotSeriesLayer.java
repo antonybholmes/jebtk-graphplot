@@ -63,10 +63,10 @@ public abstract class PlotSeriesLayer extends PlotClippedLayer implements Change
 	 */
 	public void setSeries(String series) {
 		mSeriesName = series;
-		
+
 		mSeries = null;
 
-		fireCanvasRedraw();
+		fireChanged();
 	}
 
 	/* (non-Javadoc)
@@ -75,11 +75,12 @@ public abstract class PlotSeriesLayer extends PlotClippedLayer implements Change
 	@Override
 	public final void plotClipped(Graphics2D g2,
 			DrawingContext context,
-			SubFigure figure,
+			Figure figure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m) {
-		
+
 		if (m == null) {
 			return;
 		}
@@ -91,6 +92,7 @@ public abstract class PlotSeriesLayer extends PlotClippedLayer implements Change
 		plotClipped(g2,
 				context,
 				figure,
+				subFigure,
 				axes,
 				plot,
 				m,
@@ -111,7 +113,8 @@ public abstract class PlotSeriesLayer extends PlotClippedLayer implements Change
 	 */
 	public abstract void plotClipped(Graphics2D g2,
 			DrawingContext context,
-			SubFigure figure, 
+			Figure figure,
+			SubFigure subFigure, 
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m, 
@@ -122,6 +125,6 @@ public abstract class PlotSeriesLayer extends PlotClippedLayer implements Change
 	 */
 	@Override
 	public void changed(ChangeEvent e) {
-		fireCanvasRedraw();
+		fireChanged();
 	}
 }

@@ -28,6 +28,7 @@ import org.jebtk.core.collections.HashMapCreator;
 import org.jebtk.core.collections.UniqueArrayList;
 import org.jebtk.graphplot.Image;
 import org.jebtk.graphplot.figure.Axes;
+import org.jebtk.graphplot.figure.Figure;
 import org.jebtk.graphplot.figure.Plot;
 import org.jebtk.graphplot.figure.PlotClippedLayer;
 import org.jebtk.graphplot.figure.SubFigure;
@@ -92,6 +93,7 @@ public class HeatMapFillPlotLayer extends PlotClippedLayer {
 	@Override
 	public void plotClipped(Graphics2D g2,
 			DrawingContext context,
+Figure figure,
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
@@ -104,6 +106,7 @@ public class HeatMapFillPlotLayer extends PlotClippedLayer {
 		int y1 = 0; //axes.toPlotY1(m.getRowCount());
 
 		cache(context,
+				figure,
 				subFigure,
 				axes,
 				plot,
@@ -150,6 +153,7 @@ public class HeatMapFillPlotLayer extends PlotClippedLayer {
 	 * @param h the h
 	 */
 	protected void cache(DrawingContext context,
+Figure figure,
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,

@@ -62,8 +62,9 @@ public class AxisLabelLayerY2 extends PlotLayer {
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.AxesLayer#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes)
 	 */
 	@Override
-	public void plot(Graphics2D g2,
+	public void drawPlot(Graphics2D g2,
 			DrawingContext context,
+Figure figure,
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot) {
@@ -112,7 +113,7 @@ public class AxisLabelLayerY2 extends PlotLayer {
 		drawTitle(g2, 
 				axes, 
 				axis,
-				axes.getCanvasSize().getW() - g2.getFontMetrics().getAscent() - g2.getFontMetrics().getDescent());
+				axes.getPreferredSize().width - g2.getFontMetrics().getAscent() - g2.getFontMetrics().getDescent());
 
 		mHashId = subFigure.hashId();
 	}

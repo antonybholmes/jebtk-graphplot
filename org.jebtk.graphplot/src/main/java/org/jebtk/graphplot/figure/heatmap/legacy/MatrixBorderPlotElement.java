@@ -16,6 +16,7 @@
 package org.jebtk.graphplot.figure.heatmap.legacy;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 
 import org.jebtk.core.geom.IntDim;
@@ -49,8 +50,10 @@ public class MatrixBorderPlotElement extends MatrixPlotElement {
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
 	 */
 	@Override
-	public void plot(Graphics2D g2, DrawingContext context) {
+	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Object... params) {
 		drawBorder(g2);
+		
+		super.plot(g2, offset, context, params);
 	}
 	
 	/**
@@ -62,18 +65,15 @@ public class MatrixBorderPlotElement extends MatrixPlotElement {
 		g2.setColor(Color.DARK_GRAY);
 		
 		
-		int w = getCanvasSize().getW();
-		int h = getCanvasSize().getH();
+		int w = getPreferredSize().width;
+		int h = getPreferredSize().height;
 		
 		g2.drawRect(0, 0, w, h);
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.abh.common.ui.ui.graphics.ModernCanvas#getCanvasSize()
-	 */
 	@Override
-	public IntDim getCanvasSize() {
-		return new IntDim(mMatrix.getColumnCount() * mBlockSize.getW(), 
-				mMatrix.getRowCount() * mBlockSize.getH());
+	public void plotSize(Dimension d) {
+		d.width += mMatrix.getColumnCount() * mBlockSize.getW();
+		d.height += mMatrix.getRowCount() * mBlockSize.getH();
 	}
 }

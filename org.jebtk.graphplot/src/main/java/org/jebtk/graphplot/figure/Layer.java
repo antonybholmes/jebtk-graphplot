@@ -15,9 +15,9 @@
  */
 package org.jebtk.graphplot.figure;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import org.jebtk.graphplot.plotbox.PlotBox;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -27,7 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @author Antony Holmes Holmes
  */
-public abstract class Layer extends LayerCanvasListener implements ZLayer {
+public abstract class Layer extends PlotBox {
 	
 	/**
 	 * The constant serialVersionUID.
@@ -38,16 +38,10 @@ public abstract class Layer extends LayerCanvasListener implements ZLayer {
 	private static final AtomicInteger ID = new AtomicInteger(0);
 	
 	/**
-	 * The member name.
-	 */
-	private String mName;
-	
-	/**
 	 * The member visible.
 	 */
 	protected boolean mVisible = true;
 
-	/** The m id. */
 	private int mId;
 
 	/**
@@ -56,25 +50,18 @@ public abstract class Layer extends LayerCanvasListener implements ZLayer {
 	 * @param name the name
 	 */
 	public Layer(String name) {
-		mName = name;
-		
+		super(name);
+			
 		mId = ID.getAndIncrement();
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.abh.lib.NameProperty#getName()
-	 */
-	@Override
-	public String getName() {
-		return mName;
-	}
+
 	
 	/* (non-Javadoc)
 	 * @see org.abh.common.IdProperty#getId()
 	 */
 	@Override
-	public int getId() {
-		return mId;
+	public String hashId() {
+		return getName() + mId;
 	}
 	
 	/**
@@ -92,6 +79,7 @@ public abstract class Layer extends LayerCanvasListener implements ZLayer {
 	 *
 	 * @return true, if is visible
 	 */
+	@Override
 	public boolean getVisible() {
 		return mVisible;
 	}
@@ -101,19 +89,10 @@ public abstract class Layer extends LayerCanvasListener implements ZLayer {
 	 *
 	 * @param visible the new visible
 	 */
+	@Override
 	public void setVisible(boolean visible) {
 		mVisible = visible;
 		
-		fireCanvasRedraw();
-	}
-	
-	/**
-	 * Sets the font.
-	 *
-	 * @param font the font
-	 * @param color the color
-	 */
-	public void setFont(Font font, Color color) {
-		fireCanvasRedraw();
+		fireChanged();
 	}
 }

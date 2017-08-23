@@ -16,13 +16,12 @@
 package org.jebtk.graphplot.figure.heatmap;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 
 import org.jebtk.graphplot.figure.Axes;
-import org.jebtk.graphplot.figure.Plot;
 import org.jebtk.graphplot.figure.SubFigure;
 import org.jebtk.math.cluster.Cluster;
-import org.jebtk.math.matrix.AnnotationMatrix;
 import org.jebtk.modern.graphics.DrawingContext;
 
 
@@ -36,6 +35,7 @@ public class RowHierarchicalTreeLayer extends HierarchicalTreeLayer {
 	 * The constant serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
+	private int mWidth;
 	
 	
 	/**
@@ -45,8 +45,16 @@ public class RowHierarchicalTreeLayer extends HierarchicalTreeLayer {
 	 * @param color the color
 	 */
 	public RowHierarchicalTreeLayer(Cluster rootCluster,
-			Color color) {
+			Color color,
+			int width) {
 		super("Row Tree", rootCluster, color);
+		
+		mWidth = width;
+	}
+	
+	@Override
+	public void plotSize(Dimension d) {
+		d.width = mWidth;
 	}
 	
 	/* (non-Javadoc)
@@ -54,11 +62,13 @@ public class RowHierarchicalTreeLayer extends HierarchicalTreeLayer {
 	 */
 	@Override
 	public void plot(Graphics2D g2,
+			Dimension offset,
 			DrawingContext context,
-			SubFigure figure,
-			Axes axes,
-			Plot plot,
-			AnnotationMatrix m) {
+			Object... params) {
+		SubFigure subFigure = (SubFigure)params[0];
+		Axes axes = (Axes)params[1];
+	
+		
 		g2.setColor(mColor);
 		
 	
@@ -72,7 +82,7 @@ public class RowHierarchicalTreeLayer extends HierarchicalTreeLayer {
 		double s1;
 		double s2;
 		
-		int offset = w / 2;
+		int o = w / 2;
 		
 		// process all the parents
 		for (Cluster cluster : mParents) {
@@ -82,8 +92,8 @@ public class RowHierarchicalTreeLayer extends HierarchicalTreeLayer {
 			Cluster c1 = cluster.getChild1();
 			Cluster c2 = cluster.getChild2();
 			
-			y1 = (int) (mClusterOffsetMap.get(c1.getId()) * w + offset);
-			y2 = (int) (mClusterOffsetMap.get(c2.getId()) * w + offset);
+			y1 = (int) (mClusterOffsetMap.get(c1.getId()) * w + o);
+			y2 = (int) (mClusterOffsetMap.get(c2.getId()) * w + o);
 			
 			
 			// now do some drawing

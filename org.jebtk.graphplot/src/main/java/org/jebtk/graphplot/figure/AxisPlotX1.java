@@ -15,6 +15,8 @@
  */
 package org.jebtk.graphplot.figure;
 
+import java.awt.Dimension;
+
 // TODO: Auto-generated Javadoc
 /**
  * Plot for drawing an axis. Responds to axis visibility properties.
@@ -26,6 +28,7 @@ public class AxisPlotX1 extends AxisPlot {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	private int mWidth;
 
 	/**
 	 * Instantiates a new axis plot x1.
@@ -46,6 +49,11 @@ public class AxisPlotX1 extends AxisPlot {
 		super(name, axis);
 		
 		setZ(new AxisLabelLayerX1());
-		setInternalPlotHeight(autoSetLabelMargin(axis));
+		mWidth = autoSetLabelMargin(axis);
+	}
+	
+	@Override
+	public void plotSize(Dimension d) {
+		d.height += mWidth;
 	}
 }

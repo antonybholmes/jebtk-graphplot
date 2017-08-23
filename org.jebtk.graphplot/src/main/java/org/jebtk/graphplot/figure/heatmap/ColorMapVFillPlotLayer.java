@@ -23,6 +23,7 @@ import java.util.Map;
 
 import org.jebtk.core.collections.UniqueArrayList;
 import org.jebtk.graphplot.figure.Axes;
+import org.jebtk.graphplot.figure.Figure;
 import org.jebtk.graphplot.figure.Plot;
 import org.jebtk.graphplot.figure.PlotClippedLayer;
 import org.jebtk.graphplot.figure.SubFigure;
@@ -70,6 +71,7 @@ public class ColorMapVFillPlotLayer extends PlotClippedLayer {
 	@Override
 	public void plotClipped(Graphics2D g2,
 			DrawingContext context,
+Figure figure,
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
@@ -81,6 +83,7 @@ public class ColorMapVFillPlotLayer extends PlotClippedLayer {
 		int w = axes.getInternalPlotSize().getW();
 	
 		int s = cache(context,
+				figure,
 				subFigure,
 				axes,
 				plot,
@@ -104,6 +107,7 @@ public class ColorMapVFillPlotLayer extends PlotClippedLayer {
 	 * @return the int
 	 */
 	protected int cache(DrawingContext context,
+Figure figure,
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,

@@ -62,6 +62,8 @@ public abstract class MatrixPlotElement extends PlotElement {
 	 * @param aspectRatio the aspect ratio
 	 */
 	public MatrixPlotElement(AnnotationMatrix matrix, IntDim aspectRatio) {
+		super("matrix");
+		
 		mMatrix = matrix;
 		
 		//mIM = matrix.getInnerMatrix();

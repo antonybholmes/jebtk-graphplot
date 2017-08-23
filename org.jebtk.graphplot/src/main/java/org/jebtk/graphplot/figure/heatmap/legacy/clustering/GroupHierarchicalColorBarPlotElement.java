@@ -15,6 +15,7 @@
  */
 package org.jebtk.graphplot.figure.heatmap.legacy.clustering;
 
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.Map;
 
@@ -102,8 +103,10 @@ public class GroupHierarchicalColorBarPlotElement extends ColumnMatrixPlotElemen
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
 	 */
 	@Override
-	public void plot(Graphics2D g2, DrawingContext context) {
+	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Object... params) {
 		drawGroups(g2);
+		
+		super.plot(g2, offset, context, params);
 	}
 	
 	/**
@@ -156,7 +159,7 @@ public class GroupHierarchicalColorBarPlotElement extends ColumnMatrixPlotElemen
 				
 				g2.setColor(group.getColor());
 				
-				g2.fillRect(x, y, blockSize.width, getCanvasSize().getH());
+				g2.fillRect(x, y, blockSize.width, getPreferredSize().height);
 				
 				g2.setColor(Color.BLACK);
 				g2.drawRect(x, y, blockSize.width, blockSize.height);

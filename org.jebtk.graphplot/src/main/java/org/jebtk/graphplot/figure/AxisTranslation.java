@@ -19,8 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.jebtk.core.Mathematics;
-import org.jebtk.core.event.ChangeEvent;
-import org.jebtk.core.event.ChangeListener;
+import org.jebtk.core.text.TextUtils;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -29,11 +28,11 @@ import org.jebtk.core.event.ChangeListener;
  * @author Antony Holmes Holmes
  *
  */
-public class AxisTranslation implements ChangeListener {
-	
+public abstract class AxisTranslation {
+
 	/** The m x map. */
 	protected Map<Double, Integer> mXMap = new HashMap<Double, Integer>();
-	
+
 	/** The m x norm map. */
 	protected Map<Double, Double> mXNormMap = new HashMap<Double, Double>();
 
@@ -46,49 +45,47 @@ public class AxisTranslation implements ChangeListener {
 	/** The m max x. */
 	protected int mMaxX;
 
-	/** The m offset. */
-	protected int mOffset = 0;
-
 	/** The m axis. */
 	protected Axis mAxis;
-	
+
+	private Axes mAxes;
+
+	protected int mXPixels;
+
+	private String mHashId = TextUtils.EMPTY_STRING;
+
 	/**
 	 * Instantiates a new axis translation.
 	 *
 	 * @param axis the axis
 	 */
-	public AxisTranslation(Axis axis) {
+	public AxisTranslation(Axes axes, Axis axis) {
+		mAxes = axes;
 		mAxis = axis;
-		
-		axis.addChangeListener(this);
-	}
-	
-	/**
-	 * Update.
-	 *
-	 * @param offset the offset
-	 * @param width the width
-	 */
-	protected void update(int offset, int width) {
-		mOffset = offset;
-		
-		// The max coordinate is the width - 1, since we are using 0 based
-		// coordinates.
-		mMaxX = width; // - 1;
 
-		mXMap.clear();
+		//axes.addCanvasListener(this);
+		//axis.addChangeListener(this);
+
+		redraw();
 	}
-	
+
+	public Axes getAxes() {
+		return mAxes;
+	}
+
 	/**
 	 * Redraw.
 	 */
 	public void redraw() {	
 		mXMin = mAxis.getMin();
 		mXDiff = mAxis.getMax() - mXMin;
-		
-		mXNormMap.clear();
+		mXPixels = getPixels();
+
+		clearCaches();
 	}
-	
+
+	public abstract int getPixels();
+
 	/**
 	 * To plot.
 	 *
@@ -96,13 +93,30 @@ public class AxisTranslation implements ChangeListener {
 	 * @return the int
 	 */
 	public int toPlot(double x) {
+		cacheCheck();
+
 		if (!mXMap.containsKey(x)) {
-			mXMap.put(x, mOffset + (int)Math.round(plotNormalize(x) * mMaxX));
+			mXMap.put(x, (int)Math.round(plotNormalize(x) * mXPixels));
 		}
 
 		return mXMap.get(x);
 	}
-	
+
+	public void cacheCheck() {
+		// To prevent race conditions where the plot refreshes before
+		// axis translator updates, do a check before a normalization whether
+		// we need to clear the caches. We do this as an alternative to a
+		// listening model.
+		
+		String id = mAxes.hashId();
+		
+		if (!mHashId.equals(id)) {
+			redraw();
+
+			mHashId = id;
+		}
+	}
+
 	/**
 	 * Plot normalize.
 	 *
@@ -113,24 +127,16 @@ public class AxisTranslation implements ChangeListener {
 		if (!mXNormMap.containsKey(x)) {
 			mXNormMap.put(x, Mathematics.bound((x - mXMin) / mXDiff, 0, 1));
 		}
-		
+
 		return mXNormMap.get(x);
 	}
-	
+
 	/**
 	 * Clear caches.
 	 */
 	public void clearCaches() {
 		mXMap.clear();
-		
-		mXNormMap.clear();
-	}
 
-	/* (non-Javadoc)
-	 * @see org.abh.common.event.ChangeListener#changed(org.abh.common.event.ChangeEvent)
-	 */
-	@Override
-	public void changed(ChangeEvent e) {
-		redraw();
+		mXNormMap.clear();
 	}
 }

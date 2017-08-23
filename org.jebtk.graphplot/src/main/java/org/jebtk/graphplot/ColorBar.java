@@ -16,8 +16,10 @@
 package org.jebtk.graphplot;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 
+import org.jebtk.core.geom.IntDim;
 import org.jebtk.core.text.Formatter;
 import org.jebtk.core.text.Formatter.NumberFormatter;
 import org.jebtk.modern.graphics.DrawingContext;
@@ -31,7 +33,7 @@ import org.jebtk.modern.graphics.colormap.ColorMap;
  * @author Antony Holmes Holmes
  *
  */
-public class ColorBar extends PlotElement {
+public class ColorBar extends PlotElementFixedSize {
 	
 	/**
 	 * The constant serialVersionUID.
@@ -68,8 +70,8 @@ public class ColorBar extends PlotElement {
 	 *
 	 * @param colorMap the color map
 	 */
-	public ColorBar(ColorMap colorMap) {
-		this(colorMap, colorMap.getMin(), colorMap.getMax());
+	public ColorBar(ColorMap colorMap, IntDim size) {
+		this(colorMap, colorMap.getMin(), colorMap.getMax(), size);
 	}
 	
 	/**
@@ -79,7 +81,12 @@ public class ColorBar extends PlotElement {
 	 * @param min the min
 	 * @param max the max
 	 */
-	public ColorBar(ColorMap colorMap, double min, double max) {
+	public ColorBar(ColorMap colorMap, 
+			double min, 
+			double max,
+			IntDim size) {
+		super("color-bar", size);
+		
 		setColorMap(colorMap);
 		
 		mMin = min;
@@ -100,7 +107,7 @@ public class ColorBar extends PlotElement {
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
 	 */
 	@Override
-	public void plot(Graphics2D g2, DrawingContext context) {
+	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Object... params) {
 		NumberFormatter nf = Formatter.number().dp(2);
 		
 		int l1 = g2.getFontMetrics().stringWidth(nf.format(mMin));
@@ -110,6 +117,8 @@ public class ColorBar extends PlotElement {
 		drawRangeBar(g2, l1, l2, nf);
 		drawRangeBarTicks(g2, l1, l2);
 		drawRangeBarLabels(g2, l1, l2, nf);
+		
+		super.plot(g2, offset, context, params);
 	}
 	
 	/**
@@ -123,7 +132,7 @@ public class ColorBar extends PlotElement {
 			int l2,
 			NumberFormatter nf) {
 		
-		int l = getCanvasSize().getW() - (l1 + l2) / 2;
+		int l = getPreferredSize().width - (l1 + l2) / 2;
 		
 		if (l < 10) {
 			return;
@@ -132,7 +141,7 @@ public class ColorBar extends PlotElement {
 		
 		int x = l1 / 2;
 		
-		int h = getCanvasSize().getH() / 3;
+		int h = getPreferredSize().height / 3;
 		
 		/*
 		LinearGradientPaint paint = mColorMap.getAnchorColors().toGradientPaint(new Point2D.Float(x, 0), new Point2D.Float(l, 0));
@@ -170,7 +179,7 @@ public class ColorBar extends PlotElement {
 			NumberFormatter nf) {
 		g2.setColor(Color.BLACK);
 	
-		int y = getCanvasSize().getH() * 3 / 5;
+		int y = getPreferredSize().height * 3 / 5;
 		
 		
 		String t = nf.format(mMin);
@@ -179,28 +188,28 @@ public class ColorBar extends PlotElement {
 		
 		t = nf.format(mMid);
 		
-		int x = (l1 + getCanvasSize().getW() - (l1 + l2) / 2) / 2;
+		int x = (l1 + getPreferredSize().width - (l1 + l2) / 2) / 2;
 		
 		offset = x - g2.getFontMetrics().stringWidth(t) / 2;
 		g2.drawString(t, offset, y);
 		
 		t = nf.format(mMax);
 		offset = g2.getFontMetrics().stringWidth(t);
-		g2.drawString(t, getCanvasSize().getW() - offset, y);
+		g2.drawString(t, getPreferredSize().width - offset, y);
 	}
 	
 	private void drawRangeBarTicks(Graphics2D g2, int l1, int l2) {
 		g2.setColor(Color.BLACK);
 	
-		int y = getCanvasSize().getH() / 3 - TICK_SIZE - 1;
+		int y = getPreferredSize().height / 3 - TICK_SIZE - 1;
 		
 		int offset = l1 / 2; //g2.getFontMetrics().stringWidth(t) / 2;
 		g2.drawLine(offset, y, offset, y + TICK_SIZE);
 		
-		offset = (l1 + getCanvasSize().getW() - (l1 + l2) / 2) / 2;
+		offset = (l1 + getPreferredSize().width - (l1 + l2) / 2) / 2;
 		g2.drawLine(offset, y, offset, y + TICK_SIZE);
 		
-		offset = getCanvasSize().getW() - l2 / 2 - 1;
+		offset = getPreferredSize().width - l2 / 2 - 1;
 		g2.drawLine(offset, y, offset, y + TICK_SIZE);
 	}
 }

@@ -17,7 +17,6 @@ package org.jebtk.graphplot.plotbox;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Point;
 
 import org.jebtk.core.geom.IntPos2D;
 import org.jebtk.modern.graphics.DrawingContext;
@@ -40,13 +39,11 @@ public class PlotBoxFloatingLayout extends PlotBoxLayout {
 	@Override
 	public void plotSize(PlotBox plot, Dimension dim) {
 
-		PlotBoxFloating fp = (PlotBoxFloating)plot;
-
 		int width = 0;
 		int height = 0;
 
-		for (IntPos2D p : fp.getPositions()) {
-			PlotBox child = fp.getChild(p);
+		for (IntPos2D p : plot.getPositions()) {
+			PlotBox child = plot.getChild(p);
 
 			Dimension dim1 = new Dimension(0, 0);
 
@@ -72,33 +69,32 @@ public class PlotBoxFloatingLayout extends PlotBoxLayout {
 	@Override
 	public void plot(Graphics2D g2,
 			PlotBox plot,
-			Point offset,
-			DrawingContext context) {
-		PlotBoxFloating fp = (PlotBoxFloating)plot;
-
+			Dimension offset,
+			DrawingContext context,
+			Object... params) {
 		int width = 0;
 		int height = 0;
 
-		for (IntPos2D p : fp.getPositions()) {
-			PlotBox child = fp.getChild(p);
+		for (IntPos2D p : plot.getPositions()) {
+			PlotBox child = plot.getChild(p);
 
 			Graphics2D g2Temp = ImageUtils.clone(g2);
 
-			Point tempOffset = new Point(0, 0);
+			Dimension tempOffset = new Dimension(0, 0);
 
 			try {
 				g2Temp.translate(p.getX(), p.getY());
 
-				child.plot(g2Temp, tempOffset, context);
+				child.plot(g2Temp, tempOffset, context, params);
 			} finally {
 				g2Temp.dispose();
 			}
 
-			width = Math.max(width, p.getX() + tempOffset.x);
-			height = Math.max(height, p.getY() + tempOffset.y);
+			width = Math.max(width, p.getX() + tempOffset.width);
+			height = Math.max(height, p.getY() + tempOffset.height);
 		}
 
-		offset.x += width;
-		offset.y += height;
+		offset.width += width;
+		offset.height += height;
 	}
 }
