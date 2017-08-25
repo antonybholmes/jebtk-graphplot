@@ -43,9 +43,8 @@ public class PlotBoxCompassGridStorage extends PlotBoxStorage {
 	@Override
 	public void addChild(PlotBox plot, GridLocation l) {
 		mMap.put(l, plot);
-		plot.addChangeListener(this);
 		
-		fireChanged();
+		addChildByName(plot);
 	}
 	
 	@Override
@@ -76,5 +75,30 @@ public class PlotBoxCompassGridStorage extends PlotBoxStorage {
 	@Override
 	public int getChildCount() {
 		return mMap.size();
+	}
+	
+	@Override
+	public void remove(PlotBox plot) {
+		boolean found = false;
+		
+		GridLocation rl = null;
+		
+		for (GridLocation l : mMap.keySet()) {
+			if (mMap.get(l).equals(plot)) {
+				rl = l;
+				found = true;
+				
+				break;
+			}
+		}
+		
+		if (found) {
+			remove(rl);
+		}
+	}
+	
+	@Override
+	public void remove(GridLocation l) {
+		mMap.remove(l);
 	}
 }

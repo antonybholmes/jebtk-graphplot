@@ -19,6 +19,7 @@ import java.awt.Graphics2D;
 import java.util.List;
 
 import org.jebtk.core.collections.UniqueArrayList;
+import org.jebtk.math.matrix.AnnotationMatrix;
 import org.jebtk.modern.graphics.DrawingContext;
 
 // TODO: Auto-generated Javadoc
@@ -62,12 +63,13 @@ public class AxisLabelLayerY2 extends PlotLayer {
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.AxesLayer#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes)
 	 */
 	@Override
-	public void drawPlot(Graphics2D g2,
+	public void plotLayer(Graphics2D g2,
 			DrawingContext context,
-Figure figure,
+			Figure figure,
 			SubFigure subFigure,
 			Axes axes,
-			Plot plot) {
+			Plot plot,
+			AnnotationMatrix m) {
 		Axis axis = axes.getY2Axis();
 
 		// Cache positions if not already done so

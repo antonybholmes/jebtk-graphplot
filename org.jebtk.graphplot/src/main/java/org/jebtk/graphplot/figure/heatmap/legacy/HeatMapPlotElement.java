@@ -87,6 +87,8 @@ public class HeatMapPlotElement extends MatrixPlotElement {
 		setColorMap(colorMap);
 
 		setAspectRatio(aspectRatio);
+		
+		setRasterMode(true);
 	}
 
 	/**
@@ -130,7 +132,7 @@ public class HeatMapPlotElement extends MatrixPlotElement {
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
 	 */
 	@Override
-	public void plot(Graphics2D g2, 
+	public void plotLayer(Graphics2D g2, 
 			Dimension offset,
 			DrawingContext context, 
 			Object... params) {
@@ -151,7 +153,7 @@ public class HeatMapPlotElement extends MatrixPlotElement {
 		g2.drawImage(image, 0, 0, null);
 		 */
 		
-		plotSize(offset);
+		super.plotLayer(g2, offset, context, params);
 	}
 
 	/**

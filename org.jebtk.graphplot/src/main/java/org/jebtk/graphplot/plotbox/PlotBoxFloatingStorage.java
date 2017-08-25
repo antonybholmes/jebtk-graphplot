@@ -21,6 +21,7 @@ import java.util.Map;
 
 import org.jebtk.core.geom.GeomUtils;
 import org.jebtk.core.geom.IntPos2D;
+import org.jebtk.graphplot.figure.GridLocation;
 
 
 // TODO: Auto-generated Javadoc
@@ -29,6 +30,8 @@ import org.jebtk.core.geom.IntPos2D;
  */
 public class PlotBoxFloatingStorage extends PlotBoxStorage {
 
+	private static final long serialVersionUID = 1L;
+	
 	private Map<IntPos2D, PlotBox> mMap =
 			new HashMap<IntPos2D, PlotBox>();
 
@@ -41,8 +44,8 @@ public class PlotBoxFloatingStorage extends PlotBoxStorage {
 	@Override
 	public void addChild(PlotBox plot, IntPos2D p) {
 		mMap.put(p, plot);
-		plot.addChangeListener(this);
-		fireChanged();
+		
+		addChildByName(plot);
 	}
 
 	@Override
@@ -70,5 +73,30 @@ public class PlotBoxFloatingStorage extends PlotBoxStorage {
 		mMap.clear();
 		
 		super.clear();
+	}
+	
+	@Override
+	public void remove(PlotBox plot) {
+		boolean found = false;
+		
+		IntPos2D rl = null;
+		
+		for (IntPos2D l : mMap.keySet()) {
+			if (mMap.get(l).equals(plot)) {
+				rl = l;
+				found = true;
+				
+				break;
+			}
+		}
+		
+		if (found) {
+			remove(rl);
+		}
+	}
+	
+	@Override
+	public void remove(IntPos2D l) {
+		mMap.remove(l);
 	}
 }

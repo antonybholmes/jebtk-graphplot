@@ -16,16 +16,21 @@
 package org.jebtk.graphplot.figure;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics2D;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Set;
 
+import org.jebtk.core.event.ChangeEvent;
+import org.jebtk.core.event.ChangeListener;
 import org.jebtk.graphplot.plotbox.PlotBox;
 import org.jebtk.graphplot.plotbox.PlotBoxContainer;
 import org.jebtk.graphplot.plotbox.PlotBoxLayout;
 import org.jebtk.graphplot.plotbox.PlotBoxStorage;
 import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.colormap.ColorMap;
 
 
@@ -36,9 +41,17 @@ import org.jebtk.modern.graphics.colormap.ColorMap;
  * 
  * @author Antony Holmes
  */
-public class PlotBoxGraph extends PlotBoxContainer { //LayoutLayer
+public abstract class PlotBoxGraph extends PlotBoxContainer { //LayoutLayer
 
 	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Keep track of the number of times this plot has been rendered since
+	 * a change. We can use this to decide whether to refresh a cached
+	 * portion of the graph tree. If there are no changes, there is no need
+	 * to change the cache
+	 */
+	private int mDrawCounter = 0;
 
 	/**
 	 * Instantiates a new sub figure.
@@ -49,10 +62,24 @@ public class PlotBoxGraph extends PlotBoxContainer { //LayoutLayer
 			PlotBoxStorage storage, 
 			PlotBoxLayout layout) {
 		super(id, storage, layout);
+		
+		init();
 	}
 	
 	public PlotBoxGraph(String name, PlotBoxLayout layout) {
 		super(name, layout);
+		
+		init();
+	}
+	
+	private void init() {
+		this.addChangeListener(new ChangeListener() {
+
+			@Override
+			public void changed(ChangeEvent e) {
+				// reset
+				mDrawCounter = 0;
+			}});
 	}
 
 	/* (non-Javadoc)
@@ -262,5 +289,28 @@ public class PlotBoxGraph extends PlotBoxContainer { //LayoutLayer
 			}
 		}
 		*/
+	}
+	
+	/**
+	 * Returns true if the graph stack has been invalidated and should be
+	 * updated/redraw. Most useful for elements that cache the look of a plot.
+	 * @return
+	 */
+	public boolean invalidated() {
+		return mDrawCounter == 0;
+	}
+	
+	public int getDrawCounter() {
+		return mDrawCounter;
+	}
+	
+	@Override
+	public void plot(Graphics2D g2, 
+			Dimension offset,
+			DrawingContext context,
+			Object... params) {
+		super.plot(g2, offset, context, params);
+		
+		++mDrawCounter;
 	}
 }

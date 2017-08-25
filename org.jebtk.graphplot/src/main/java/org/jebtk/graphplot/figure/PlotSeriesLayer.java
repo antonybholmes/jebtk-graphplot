@@ -70,10 +70,10 @@ public abstract class PlotSeriesLayer extends PlotClippedLayer implements Change
 	}
 
 	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotClippedLayer#plotClipped(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.AnnotationMatrix)
+	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotClippedLayer#plotLayer(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.AnnotationMatrix)
 	 */
 	@Override
-	public final void plotClipped(Graphics2D g2,
+	public final void plotLayer(Graphics2D g2,
 			DrawingContext context,
 			Figure figure,
 			SubFigure subFigure,
@@ -89,7 +89,7 @@ public abstract class PlotSeriesLayer extends PlotClippedLayer implements Change
 			mSeries = plot.getAllSeries().get(mSeriesName);
 		}
 
-		plotClipped(g2,
+		plotLayer(g2,
 				context,
 				figure,
 				subFigure,
@@ -111,7 +111,7 @@ public abstract class PlotSeriesLayer extends PlotClippedLayer implements Change
 	 * @param m the m
 	 * @param series the series
 	 */
-	public abstract void plotClipped(Graphics2D g2,
+	public abstract void plotLayer(Graphics2D g2,
 			DrawingContext context,
 			Figure figure,
 			SubFigure subFigure, 

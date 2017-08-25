@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,6 +39,7 @@ import org.jebtk.graphplot.figure.PlotStyle;
 import org.jebtk.graphplot.figure.properties.MarginProperties;
 import org.jebtk.math.matrix.AnnotationMatrix;
 import org.jebtk.modern.graphics.DrawingContext;
+import org.jebtk.modern.graphics.ImageUtils;
 import org.jebtk.modern.graphics.colormap.ColorMap;
 
 
@@ -53,6 +55,12 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 			Collections.emptyList();
 	
 	private String mName;
+
+	protected boolean mAAMode = false;
+	protected boolean mRasterMode = false;
+
+	private BufferedImage mBufferedImage;
+
 
 	public PlotBox(String name) {
 		mName = name;
@@ -142,9 +150,28 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 	public boolean updateMargins(MarginProperties margins) {
 		return false;
 	}
+	
+	/**
+	 * Sets whether to show the layer with anti-aliasing switched on. This
+	 * options only affects on screen rendering.
+	 * @param on
+	 */
+	public void setAAMode(boolean on) {
+		mAAMode = on;
+	}
+
+	/**
+	 * Sets whether the layer should be cached as an image rather than being
+	 * rendered with primitives.
+	 * 
+	 * @param on
+	 */
+	public void setRasterMode(boolean on) {
+		mRasterMode = on;
+	}
 
 	public final void plot(Graphics2D g2, 
-			DrawingContext context, 
+			DrawingContext context,
 			Object... params) {
 		if (getVisible()) {
 			plot(g2, new Dimension(0, 0), context, params);
@@ -153,15 +180,130 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 	
 	public void plot(Graphics2D g2, 
 			Dimension offset,
-			DrawingContext context, 
+			DrawingContext context,
 			Object... params) {
 
+		plotContext(g2, offset, context, params);
+	}
+	
+	public void plotContext(Graphics2D g2,
+			Dimension offset,
+			DrawingContext context,
+			Object... params) {
+		if (context == DrawingContext.SCREEN) {
+			plotScreen(g2, offset, context, params);
+		} else {
+			plotLayer(g2, offset, context, params);
+		} 
+	}
+
+	/**
+	 * Aa plot.
+	 *
+	 * @param g2 the g 2
+	 * @param offset, context the offset, context
+	 * @param subFigure the sub figure
+	 * @param axes the axes
+	 * @param plot the plot
+	 * @param m the m
+	 */
+	public void plotScreen(Graphics2D g2,
+			Dimension offset,
+			DrawingContext context,
+			Object... params) {
+
+		if (mRasterMode) {
+			plotRaster(g2, offset, context, params);
+		} else if (mAAMode) {
+			plotAA(g2, offset, context, params);
+		} else {
+			plotLayer(g2, offset, context, params);
+		}
+	}
+
+	public void plotAA(Graphics2D g2,
+			Dimension offset,
+			DrawingContext context,
+			Object... params) {
+
+		// Anti-alias by default
+		Graphics2D g2Temp = ImageUtils.createAAGraphics(g2);
+
+		try {
+			plotLayer(g2Temp, offset, context, params);
+		} finally {
+			g2Temp.dispose();
+		}
+	}
+
+	/**
+	 * Cache plot.
+	 *
+	 * @param g2 the g 2
+	 * @param offset, context the offset, context
+	 * @param subFigure the sub figure
+	 * @param axes the axes
+	 * @param plot the plot
+	 * @param m the m
+	 */
+	public void plotRaster(Graphics2D g2,
+			Dimension offset,
+			DrawingContext context,
+			Object... params) {
+		// Create an image version of the canvas and draw that to spped
+		// up operations
+		if (mBufferedImage == null) {
+			// The canvas need only be the size of the available display
+			
+			Dimension s = getPreferredSize();
+			
+			// Make it one pixel bigger to account for borders being drawn
+			mBufferedImage = ImageUtils.createImage(s.width + 1, s.height + 1);
+
+			Graphics2D g2Temp = ImageUtils.createGraphics(mBufferedImage);
+
+			try {
+				if (mAAMode) {
+					plotAA(g2Temp, offset, context, params);
+				} else {
+					plotLayer(g2Temp, offset, context, params);
+				}
+			} finally {
+				g2Temp.dispose();
+			}
+		}
+
+		g2.drawImage(mBufferedImage, 0, 0, null);
+		
+		plotSize(offset);
+	}
+
+	/**
+	 * Draw plot.
+	 *
+	 * @param g2 the g 2
+	 * @param offset, context the offset, context
+	 * @param subFigure the sub figure
+	 * @param axes the axes
+	 * @param plot the plot
+	 * @param m the m
+	 */
+	public void plotLayer(Graphics2D g2,
+			Dimension offset,
+			DrawingContext context, 
+			Object... params) {
 		plotSize(offset);
 	}
 	
-	public PlotBox addChildByName(PlotBox plot) {
-		return this;
-	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public PlotBox addChild(PlotBox plot) {
 		return this;

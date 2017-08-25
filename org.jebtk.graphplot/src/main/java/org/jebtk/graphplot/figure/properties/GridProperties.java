@@ -45,6 +45,8 @@ public class GridProperties extends LineProperties {
 	public GridProperties() {
 		setStroke(StrokeStyle.DASHED, 1);
 		setColor(GRID_COLOR);
+		
+		// Default to not being visible.
 		setVisible(false);
 	}
 }

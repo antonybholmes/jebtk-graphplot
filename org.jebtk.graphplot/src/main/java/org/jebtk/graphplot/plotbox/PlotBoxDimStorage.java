@@ -54,9 +54,8 @@ public class PlotBoxDimStorage extends PlotBoxStorage {
 	@Override
 	public void addChild(PlotBox plot) {
 		mChildren.add(plot);
-		plot.addChangeListener(this);
-		
-		fireChanged();
+
+		addChildByName(plot);
 	}
 	
 	@Override
@@ -102,5 +101,10 @@ public class PlotBoxDimStorage extends PlotBoxStorage {
 	@Override
 	public void remove(PlotBox plot) {
 		mChildren.remove(plot);
+	}
+	
+	@Override
+	public void remove(int i) {
+		mChildren.remove(i);
 	}
 }

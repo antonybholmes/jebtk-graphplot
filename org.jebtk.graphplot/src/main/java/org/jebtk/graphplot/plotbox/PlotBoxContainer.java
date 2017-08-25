@@ -17,10 +17,9 @@ package org.jebtk.graphplot.plotbox;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.TreeMap;
 
 import org.jebtk.core.Function;
 import org.jebtk.core.event.ChangeEvent;
@@ -51,8 +50,7 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
 
 	private PlotBoxLayout mLayout = null;
 	
-	private Map<String, PlotBox> mNameMap = new TreeMap<String, PlotBox>();
-
+	
 	private MarginProperties mMargins = MarginProperties.DEFAULT_MARGIN;
 
 	private PlotBoxStorage mStorage;
@@ -196,10 +194,11 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
 	 * @param context the context
 	 */
 	@Override
-	public void plot(Graphics2D g2, 
+	public void plotLayer(Graphics2D g2, 
 			Dimension offset,
 			DrawingContext context,
 			Object... params) {
+			
 		Graphics2D g2Temp = ImageUtils.clone(g2);
 		
 		try {
@@ -213,25 +212,14 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
 		
 	}
 	
-	@Override
-	public PlotBox addChildByName(PlotBox plot) {
-		mNameMap.put(plot.getName(), plot);
-		
-		fireChanged();
-		
-		return this;
-	}
-	
 	public <T extends PlotBox> void setChildren(Collection<T> plots) {
-		System.err.println("set children");
 		mStorage.setChildren(plots);
 	}
 	
 	@Override
 	public PlotBox addChild(PlotBox plot) {
 		mStorage.addChild(plot);
-		addChildByName(plot);
-		
+
 		return this;
 	}
 	
@@ -239,35 +227,35 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
 	public PlotBox addChild(PlotBox plot, int i) {
 		mStorage.addChild(plot, i);
 		
-		return addChildByName(plot);
+		return this;
 	}
 	
 	@Override
 	public PlotBox addReserved(PlotBox plot, int i) {
 		mStorage.addReserved(plot, i);
 		
-		return addChildByName(plot);
+		return this;
 	}
 	
 	@Override
 	public PlotBox addChild(PlotBox plot, int i, int j) {
 		mStorage.addChild(plot, i, j);
 		
-		return addChildByName(plot);
+		return this;
 	}
 	
 	@Override
 	public PlotBox addChild(PlotBox plot, GridLocation l) {
 		mStorage.addChild(plot, l);
 		
-		return addChildByName(plot);
+		return this;
 	}
 	
 	@Override
 	public PlotBox addChild(PlotBox plot, IntPos2D p) {
 		mStorage.addChild(plot, p);
 		
-		return addChildByName(plot);
+		return this;
 	}
 	
 	@Override
@@ -298,7 +286,7 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
 	}
 	
 	public PlotBox getChild(String name) {
-		return mNameMap.get(name);
+		return mStorage.getChild(name);
 	}
 	
 	/*
@@ -329,7 +317,7 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
 	}
 	
 	public Iterable<String> getNames() {
-		return mNameMap.keySet();
+		return mStorage.getNames();
 	}
 	
 	@Override
@@ -353,7 +341,6 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
 	}
 	
 	public void clear() {
-		mNameMap.clear();
 		mStorage.clear();
 	}
 	
@@ -375,7 +362,7 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
 	}
 	
 	public void removeByName(String name) {
-		remove(mNameMap.get(name));
+		mStorage.removeByName(name);
 	}
 	
 	public void remove(PlotBox plot) {

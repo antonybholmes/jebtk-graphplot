@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.jebtk.core.geom.Point2DDouble;
+import org.jebtk.core.geom.DoublePos2D;
 import org.jebtk.graphplot.figure.series.XYSeries;
 import org.jebtk.math.matrix.AnnotationMatrix;
 import org.jebtk.math.matrix.MatrixGroup;
@@ -45,8 +45,8 @@ public class UniqueXY implements Iterable<Point>, Comparable<UniqueXY> {
 	/**
 	 * The member point original map.
 	 */
-	private Map<Integer, Point2DDouble> mPointOriginalMap = 
-			new TreeMap<Integer, Point2DDouble>();
+	private Map<Integer, DoublePos2D> mPointOriginalMap = 
+			new TreeMap<Integer, DoublePos2D>();
 
 	/**
 	 * The member list.
@@ -91,7 +91,7 @@ public class UniqueXY implements Iterable<Point>, Comparable<UniqueXY> {
 			mAllList = new ArrayList<Point>(m.getRowCount());
 
 			for (int i = 0; i < m.getRowCount(); ++i) {
-				Point2DDouble point = new Point2DDouble(m.getValue(i, columns.get(0)), 
+				DoublePos2D point = new DoublePos2D(m.getValue(i, columns.get(0)), 
 						m.getValue(i, columns.get(1)));
 
 				Point p = axes.toPlotXY1(point);
@@ -145,10 +145,10 @@ public class UniqueXY implements Iterable<Point>, Comparable<UniqueXY> {
 				mList.set(mList.size() - 1, new Point(mList.get(mList.size() - 1).x, z)); 
 
 				mPointOriginalMap.put(mList.get(0).x, 
-						new Point2DDouble(mPointOriginalMap.get(mList.get(0).x).getX(), 0));
+						new DoublePos2D(mPointOriginalMap.get(mList.get(0).x).getX(), 0));
 
 				mPointOriginalMap.put(mList.get(mList.size() - 1).x, 
-						new Point2DDouble(mPointOriginalMap.get(mList.get(mList.size() - 1).x).getX(), 0));
+						new DoublePos2D(mPointOriginalMap.get(mList.get(mList.size() - 1).x).getX(), 0));
 			}
 
 			mList = Collections.unmodifiableList(mList);
@@ -206,7 +206,7 @@ public class UniqueXY implements Iterable<Point>, Comparable<UniqueXY> {
 	 * @param p the p
 	 * @return the point2 d double
 	 */
-	public Point2DDouble original(Point p) {
+	public DoublePos2D original(Point p) {
 		return original(p.x);
 	}
 
@@ -216,7 +216,7 @@ public class UniqueXY implements Iterable<Point>, Comparable<UniqueXY> {
 	 * @param x the x
 	 * @return the point2 d double
 	 */
-	public Point2DDouble original(int x) {
+	public DoublePos2D original(int x) {
 		return mPointOriginalMap.get(x);
 	}
 

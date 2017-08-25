@@ -20,6 +20,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.jebtk.graphplot.figure.GridLocation;
+
 
 // TODO: Auto-generated Javadoc
 /**
@@ -31,9 +33,6 @@ public class PlotBoxZStorage extends PlotBoxStorage {
 	
 	private Map<Integer, PlotBox> mMap =
 			new TreeMap<Integer, PlotBox>();
-	
-	private Map<PlotBox, Integer> mKeyMap =
-			new HashMap<PlotBox, Integer>();
 	
 	private int mUnused = 0;
 	
@@ -53,7 +52,8 @@ public class PlotBoxZStorage extends PlotBoxStorage {
 	
 	public void addReserved(PlotBox plot, int z) {
 		mMap.put(z, plot);
-		mKeyMap.put(plot, z);
+	
+		addChildByName(plot);
 	}
 	
 	@Override
@@ -85,16 +85,30 @@ public class PlotBoxZStorage extends PlotBoxStorage {
 	
 	@Override
 	public void clear() {
+		//System.err.println("clear z");
 		mMap.clear();
-		
+
 		super.clear();
 	}
 	
 	@Override
 	public void remove(PlotBox plot) {
-		if (mKeyMap.containsKey(plot)) {
-			mMap.remove(mKeyMap.get(plot));
-			mKeyMap.remove(plot);
+		int ri = -1;
+		
+		for (int i : mMap.keySet()) {
+			if (mMap.get(i).equals(plot)) {
+				ri = i;
+				break;
+			}
 		}
+		
+		if (ri != -1) {
+			remove(ri);
+		}
+	}
+	
+	@Override
+	public void remove(int i) {
+		mMap.remove(i);
 	}
 }

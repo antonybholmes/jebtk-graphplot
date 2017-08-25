@@ -32,7 +32,7 @@ import org.jebtk.core.StringId;
 import org.jebtk.core.collections.CollectionUtils;
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
-import org.jebtk.core.geom.Point2DDouble;
+import org.jebtk.core.geom.DoublePos2D;
 import org.jebtk.core.io.FileUtils;
 import org.jebtk.core.io.Io;
 import org.jebtk.core.io.PathUtils;
@@ -655,17 +655,17 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 	 * @param series the series
 	 * @return the XY points
 	 */
-	public static List<Point2DDouble> getXYPoints(AnnotationMatrix m, XYSeries series) {
+	public static List<DoublePos2D> getXYPoints(AnnotationMatrix m, XYSeries series) {
 		List<Integer> columns = MatrixGroup.findColumnIndices(m, series);
 		
 		if (columns.size() < 2) {
 			return Collections.emptyList();
 		}
 		
-		List<Point2DDouble> points = new ArrayList<Point2DDouble>();
+		List<DoublePos2D> points = new ArrayList<DoublePos2D>();
 		
 		for (int i = 0; i < m.getRowCount(); ++i) {
-			points.add(new Point2DDouble(m.getValue(i, columns.get(0)), m.getValue(i, columns.get(1))));
+			points.add(new DoublePos2D(m.getValue(i, columns.get(0)), m.getValue(i, columns.get(1))));
 		}
 		
 		return points;

@@ -17,7 +17,6 @@ package org.jebtk.graphplot.figure;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.util.Set;
 
 import org.jebtk.core.Mathematics;
@@ -33,7 +32,6 @@ import org.jebtk.graphplot.plotbox.PlotBoxZStorage;
 import org.jebtk.math.matrix.AnnotationMatrix;
 import org.jebtk.math.matrix.MatrixEventListener;
 import org.jebtk.modern.graphics.DrawingContext;
-import org.jebtk.modern.graphics.ImageUtils;
 import org.jebtk.modern.graphics.colormap.ColorMap;
 
 // TODO: Auto-generated Javadoc
@@ -85,12 +83,6 @@ public class Plot extends PlotBoxGraph implements MatrixEventListener, ChangeLis
 
 	/** The m color map. */
 	private ColorMap mColorMap = ColorMap.createBlueWhiteRedMap();
-
-	/** The m cache axes. */
-	private String mCacheAxes;
-
-	/** The m buffered image. */
-	private BufferedImage mBufferedImage;
 
 	/**
 	 * Instantiates a new plot.
@@ -249,89 +241,6 @@ public class Plot extends PlotBoxGraph implements MatrixEventListener, ChangeLis
 		
 		super.plot(g2, offset, context, figure, subFigure, axes, this);
 	}
-
-	public void drawPlot(Graphics2D g2,
-			DrawingContext context,
-			Figure figure, 
-			SubFigure subFigure, 
-			Axes axes) {
-		if (getVisible()) {
-			for (int z : getZ()) {
-				PlotLayer c = (PlotLayer)getChild(z);
-
-				if (c.getVisible()) {
-					//SysUtils.err().println("plot", c.getName(), getMatrix().getRowCount());
-
-					c.drawPlot(g2, context, figure, subFigure, axes, this);
-				}
-			}
-		}
-	}
-
-	/**
-	 * Aa plot.
-	 *
-	 * @param g2 the g 2
-	 * @param context the context
-	 * @param subFigure the sub figure
-	 * @param axes the axes
-	 */
-	public void aaPlot(Graphics2D g2,
-			DrawingContext context,
-			Figure figure,
-			SubFigure subFigure,
-			Axes axes) {
-
-		Graphics2D g2Temp = ImageUtils.createAAGraphics(g2);
-
-		try {
-			drawPlot(g2Temp, context, figure, subFigure, axes);
-		} finally {
-			g2Temp.dispose();
-		}
-	}
-
-	/**
-	 * Cache plot.
-	 *
-	 * @param g2 the g 2
-	 * @param context the context
-	 * @param figure the figure
-	 * @param axes the axes
-	 */
-	public void cachePlot(Graphics2D g2, 
-			DrawingContext context,
-			Figure figure,
-			SubFigure subFigure, 
-			Axes axes) {
-		if (context == DrawingContext.PRINT) {
-			drawPlot(g2, context, figure, subFigure, axes);
-		} else {
-			// Create an image version of the canvas and draw that to spped
-			// up operations
-			if (mBufferedImage == null ||
-					mCacheAxes == null || 
-					!axes.hashId().equals(mCacheAxes)) {
-				// The canvas need only be the size of the available display
-				mBufferedImage = ImageUtils.createImage(axes.getPreferredSize());
-
-				Graphics2D g2Temp = ImageUtils.createAAGraphics(mBufferedImage);
-
-				try {
-					drawPlot(g2Temp, context, figure, subFigure, axes);
-				} finally {
-					g2Temp.dispose();
-				}
-
-				mCacheAxes = axes.hashId();
-			}
-
-			g2.drawImage(mBufferedImage, 0, 0, null);
-		}
-	}
-
-
-
 
 	/**
 	 * Gets the column series group.

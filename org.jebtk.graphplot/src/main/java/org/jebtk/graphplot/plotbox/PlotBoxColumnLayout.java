@@ -44,6 +44,9 @@ public class PlotBoxColumnLayout extends PlotBoxLayout {
 		Dimension tmpDim = new Dimension(0, 0);
 		
 		for (PlotBox child : plotBox) {
+			tmpDim.width = 0;
+			tmpDim.height = 0;
+			
 			child.plotSize(tmpDim);
 
 			width += tmpDim.width;

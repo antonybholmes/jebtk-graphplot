@@ -60,7 +60,7 @@ public abstract class AxesClippedLayer extends AxesLayer  {
 					axes.getInternalPlotSize().getW(), 
 					axes.getInternalPlotSize().getH());
 
-			plotClipped(g2Temp, context, figure, subFigure, axes);
+			plotLayer(g2Temp, context, figure, subFigure, axes);
 		}  finally {
 			g2Temp.dispose();
 		}
@@ -74,7 +74,7 @@ public abstract class AxesClippedLayer extends AxesLayer  {
 	 * @param figure the figure
 	 * @param axes the axes
 	 */
-	public abstract void plotClipped(Graphics2D g2,
+	public abstract void plotLayer(Graphics2D g2,
 			DrawingContext context,
 			Figure figure,
 SubFigure subFigure,

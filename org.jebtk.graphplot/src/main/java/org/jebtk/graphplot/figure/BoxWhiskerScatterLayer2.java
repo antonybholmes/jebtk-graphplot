@@ -114,12 +114,13 @@ public class BoxWhiskerScatterLayer2 extends PlotClippedLayer {
 	}
 
 	@Override
-	public final void plotClipped(Graphics2D g2,
+	public final void plotLayer(Graphics2D g2,
 			DrawingContext context,
 			Figure figure,
 			SubFigure subFigure,
 			Axes axes,
-			Plot plot) {
+			Plot plot,
+			AnnotationMatrix m) {
 
 		// the width of the arms of the plot
 		int y;
@@ -150,7 +151,7 @@ public class BoxWhiskerScatterLayer2 extends PlotClippedLayer {
 			mPointMap = ArrayListMultiMap.create();
 
 			for (XYSeries s : plot.getAllSeries()) {
-				AnnotationMatrix m = s.getMatrix();
+				m = s.getMatrix();
 
 				for (int i = 0; i < m.getRowCount(); ++i) {
 					double p = m.getValue(i, 0);

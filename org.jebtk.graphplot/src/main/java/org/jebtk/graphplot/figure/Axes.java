@@ -32,7 +32,7 @@ import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
 import org.jebtk.core.geom.IntDim;
 import org.jebtk.core.geom.IntPos2D;
-import org.jebtk.core.geom.Point2DDouble;
+import org.jebtk.core.geom.DoublePos2D;
 import org.jebtk.core.stream.ListReduceFunction;
 import org.jebtk.core.stream.Stream;
 import org.jebtk.core.text.TextUtils;
@@ -136,7 +136,17 @@ public class Axes extends PlotBoxGraph {
 
 	public static final IntDim DEFAULT_SIZE = new IntDim(800, 400);
 
+	public static final int RESERVED_Z_GRID = -1000;
+	public static final int RESERVED_Z_X_AXIS_1 = 1000;
+	public static final int RESERVED_Z_X_AXIS_2 = 2000;
+	public static final int RESERVED_Z_Y_AXIS_1 = 3000;
+	public static final int RESERVED_Z_Y_AXIS_2 = 4000;
+	public static final int RESERVED_Z_LEGEND = 5000;
+	public static final int RESERVED_Z_TITLE = 6000;
+
 	private IntDim mInternalSize = DEFAULT_SIZE;
+
+	private Plot mCurrentPlot;
 
 	/**
 	 * Force axes to have a particular size.
@@ -186,37 +196,7 @@ public class Axes extends PlotBoxGraph {
 		mY1Axis.addChangeListener(ge);
 		mY2Axis.addChangeListener(ge);
 		mStyle.addChangeListener(ge);
-
-		// If the plot hierarchy changes, force a relayout
-		/*
-		mLocations.addCanvasListener(new ModernCanvasListener(){
-
-			@Override
-			public void canvasChanged(ChangeEvent e) {
-				refresh();
-			}
-
-			@Override
-			public void redrawCanvas(ChangeEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void canvasScrolled(ChangeEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void canvasResized(ChangeEvent e) {
-				// TODO Auto-generated method stub
-
-			}});
-		 */
-
-		//mFill.addChangeListener(new GraphEvents());
-
+		
 		// Default to not drawing outlines
 		//mStyle.getLineStyle().setColor(Color.LIGHT_GRAY);
 		mStyle.getLineStyle().setVisible(false);
@@ -226,6 +206,10 @@ public class Axes extends PlotBoxGraph {
 		mX1Axis.getTitle().getFontStyle().setVisible(false);
 		mX1Axis.getGrid().setVisible(false);
 
+		// Default x2 axis to being invisible
+		mX2Axis.getTitle().setText("Y");
+		mX2Axis.setVisible(false);
+		
 		mY1Axis.getTitle().setText("Y");
 		mY1Axis.getTitle().getFontStyle().setVisible(false);
 		mY1Axis.getGrid().setVisible(false);
@@ -233,6 +217,19 @@ public class Axes extends PlotBoxGraph {
 		// Default y2 axis to being invisible
 		mY2Axis.getTitle().setText("Y");
 		mY2Axis.setVisible(false);
+		
+		
+		addReserved(new Grid2dLayer(), RESERVED_Z_GRID);
+		addReserved(new AxisLayerX1(), RESERVED_Z_X_AXIS_1);
+		addReserved(new AxisLayerX2(), RESERVED_Z_X_AXIS_2);
+		addReserved(new AxisLayerY1(), RESERVED_Z_Y_AXIS_1);
+		addReserved(new AxisLayerY2(), RESERVED_Z_Y_AXIS_2);
+
+		// DO NOT NEED
+		//mAxesLayers.setZ(new LabelPlotLayer(), 4000);
+
+		addReserved(new LegendLayer(), RESERVED_Z_LEGEND);
+		addReserved(new AxesTitleLayer(), RESERVED_Z_TITLE);
 	}
 
 	public void setInternalPlotHeight(int h) {
@@ -248,13 +245,12 @@ public class Axes extends PlotBoxGraph {
 	}
 
 	public void setInternalPlotSize(IntDim d) {
+		System.err.println("axes d " + d + " " + mInternalSize);
 		if (!d.equals(mInternalSize)) {
 			mInternalSize = d;
 			
 			refresh();
 
-			System.err.println("set internal size " + d);
-			
 			fireChanged();
 		}
 	}
@@ -286,11 +282,11 @@ public class Axes extends PlotBoxGraph {
 	 * @return the axes
 	 */
 	public Plot newPlot() {
-		Plot plot = new Plot(mNextPlotId.getNextId());
+		mCurrentPlot = new Plot(mNextPlotId.getNextId());
 
-		addChild(plot);
+		addChild(mCurrentPlot);
 
-		return plot;
+		return mCurrentPlot;
 	}
 
 	public Plot newPlot(GridLocation l) {
@@ -331,15 +327,11 @@ public class Axes extends PlotBoxGraph {
 	 * @return the current axes
 	 */
 	public Plot getCurrentPlot() {
-		PlotBox c = getChild(getChildCount() - 1);
-
-		if (c == null || !c.getType().equals(LayerType.PLOT)) {
-			c = newPlot();
-
-			addChild(c);
+		if (mCurrentPlot == null) {
+			newPlot();
 		}
 
-		return (Plot)c;
+		return mCurrentPlot;
 	}
 
 	/**
@@ -566,6 +558,13 @@ public class Axes extends PlotBoxGraph {
 		//mZ1Axis.setFont(font, color);
 		//mZ1Axis.setFont(font, color);
 	}
+	
+	public void setAxisVisible(boolean visible) {
+		mX1Axis.setVisible(visible);
+		mX2Axis.setVisible(visible);
+		mY1Axis.setVisible(visible);
+		mY2Axis.setVisible(visible);
+	}
 
 	public void refresh() {
 		//Dimension s = getPreferredSize();
@@ -664,7 +663,7 @@ public class Axes extends PlotBoxGraph {
 		List<Point> points = new ArrayList<Point>(n);
 
 		for (int i = 0; i < n; ++i) {
-			points.add(toPlotXY1(new Point2DDouble(m.getValue(i, columns.get(0)), m.getValue(i, columns.get(1)))));
+			points.add(toPlotXY1(new DoublePos2D(m.getValue(i, columns.get(0)), m.getValue(i, columns.get(1)))));
 		}
 
 		return points;
@@ -687,7 +686,7 @@ public class Axes extends PlotBoxGraph {
 	 * @param p the p
 	 * @return the point
 	 */
-	public Point toPlotXY1(Point2DDouble p) {
+	public Point toPlotXY1(DoublePos2D p) {
 		return toPlotXY1(p.getX(), p.getY());
 	}
 

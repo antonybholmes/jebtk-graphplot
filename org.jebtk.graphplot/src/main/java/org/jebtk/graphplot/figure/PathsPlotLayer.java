@@ -65,10 +65,10 @@ public abstract class PathsPlotLayer extends UniqueXYLayer {
 	}
 
 	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXYLayer#plotClipped(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.AnnotationMatrix, edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries, edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXY)
+	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXYLayer#plotLayer(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.AnnotationMatrix, edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries, edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXY)
 	 */
 	@Override
-	public final void plotClipped(Graphics2D g2,
+	public final void plotLayer(Graphics2D g2,
 			DrawingContext context,
 			Figure figure,
 SubFigure subFigure,
@@ -85,7 +85,7 @@ SubFigure subFigure,
 			return;
 		}
 
-		plotClipped(g2,
+		plotLayer(g2,
 				context,
 				figure,
 				subFigure,
@@ -110,7 +110,7 @@ SubFigure subFigure,
 	 * @param xy the xy
 	 * @param path the path
 	 */
-	public abstract void plotClipped(Graphics2D g2,
+	public abstract void plotLayer(Graphics2D g2,
 			DrawingContext context,
 			Figure figure,
 SubFigure subFigure,

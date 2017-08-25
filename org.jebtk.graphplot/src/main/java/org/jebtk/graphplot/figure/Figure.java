@@ -47,6 +47,8 @@ public class Figure extends PlotBoxGraph {
 	/** The m next sub figure id. */
 	private final StringId mNextSubFigureId = new StringId("Sub Figure");
 
+	private SubFigure mCurrentSubFigure;
+
 	/**
 	 * Instantiates a new figure.
 	 */
@@ -99,11 +101,11 @@ public class Figure extends PlotBoxGraph {
 	 * @return the axes
 	 */
 	public SubFigure newSubFigure() {
-		SubFigure subFigure = new SubFigure(mNextSubFigureId.getNextId());
+		mCurrentSubFigure = new SubFigure(mNextSubFigureId.getNextId());
 
-		addSubFigure(subFigure);
+		addSubFigure(mCurrentSubFigure);
 		
-		return subFigure;
+		return mCurrentSubFigure;
 	}
 
 
@@ -121,7 +123,7 @@ public class Figure extends PlotBoxGraph {
 
 
 	/**
-	 * Gets the axes.
+	 * Gets the sub figure by name.
 	 *
 	 * @param name the name
 	 * @return the axes
@@ -131,21 +133,17 @@ public class Figure extends PlotBoxGraph {
 	}
 
 	/**
-	 * Returns the current axes associated with the figure (i.e. the last
-	 * created). If no axes exist, they are automatically recreated.
+	 * Returns the current sub figure. If there is no current sub figure,
+	 * one will be created.
 	 * 
-	 * @return	An axes object.
+	 * @return		The current sub figure.
 	 */
 	public SubFigure getCurrentSubFigure() {
-		PlotBox c = getChild(0);
-		
-		if (c == null || !c.getType().equals(LayerType.SUBFIGURE)) {
-			c = (SubFigure)newSubFigure();
-			
-			addChild(c);
+		if (mCurrentSubFigure == null) {
+			newSubFigure();
 		}
 
-		return (SubFigure)c;
+		return mCurrentSubFigure;
 	}
 
 	/* (non-Javadoc)

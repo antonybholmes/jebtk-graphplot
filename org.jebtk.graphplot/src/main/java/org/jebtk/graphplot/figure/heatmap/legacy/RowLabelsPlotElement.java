@@ -74,8 +74,6 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
 	/** The m titles. */
 	private String[] mTitles;
 
-	private List<String> mTypes;
-
 	/** The Constant FIELD_GAP. */
 	// Pixel gap between fields
 	private static final int FIELD_GAP = 
@@ -202,8 +200,6 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
 		}
 		
 		setLabels(labels);
-		
-		mTypes = types;
 	}
 	
 	/**

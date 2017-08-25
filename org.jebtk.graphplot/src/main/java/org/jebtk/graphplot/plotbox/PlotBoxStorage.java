@@ -20,6 +20,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.TreeMap;
 
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
@@ -42,8 +44,18 @@ public abstract class PlotBoxStorage extends ChangeListeners implements Iterable
 	private static final Iterable<IntPos2D> EMPTY_POSITIONS = 
 			Collections.emptyList();
 	
-	public void addChild(PlotBox plot) {
+	private Map<String, PlotBox> mNameMap = new TreeMap<String, PlotBox>();
+
+	public void addChildByName(PlotBox plot) {
 		plot.addChangeListener(this);
+		
+		mNameMap.put(plot.getName(), plot);
+		
+		fireChanged();
+	}
+	
+	public void addChild(PlotBox plot) {
+		addChildByName(plot);
 	}
 	
 	public void addChild(PlotBox plot, int i) {
@@ -93,11 +105,15 @@ public abstract class PlotBoxStorage extends ChangeListeners implements Iterable
 	}
 	
 	public PlotBox getChild(String name) {
-		return getChild(0);
+		return mNameMap.get(name);
 	}
 	
 	public int getChildCount() {
 		return 0;
+	}
+	
+	public Iterable<String> getNames() {
+		return mNameMap.keySet();
 	}
 	
 	/**
@@ -183,13 +199,15 @@ public abstract class PlotBoxStorage extends ChangeListeners implements Iterable
 	}
 
 	public void clear() {
+		mNameMap.clear();
+		
 		fireChanged();
 	}
-
-	public void remove(PlotBox plot) {
-		// TODO Auto-generated method stub
-		
+	
+	public void removeByName(String name) {
+		remove(mNameMap.get(name));
 	}
+
 
 	public <T extends PlotBox> void setChildren(Collection<T> plots) {
 		clear();
@@ -203,8 +221,26 @@ public abstract class PlotBoxStorage extends ChangeListeners implements Iterable
 	public void changed(ChangeEvent e) {
 		fireChanged();
 	}
-
 	
+	public void remove(int i) {
+		// Do nothing
+	}
+
+	public void remove(int i, int j) {
+		// Do nothing
+	}
+
+	public void remove(PlotBox plot) {
+		// Do nothing
+	}
+
+	public void remove(GridLocation l) {
+		// Do nothing
+	}
+
+	public void remove(IntPos2D l) {
+		// Do nothing
+	}
 
 	
 }

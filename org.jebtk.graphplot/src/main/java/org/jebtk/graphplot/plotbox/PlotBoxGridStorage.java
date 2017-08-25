@@ -36,7 +36,8 @@ public class PlotBoxGridStorage extends PlotBoxStorage {
 	@Override
 	public void addChild(PlotBox plot, int row, int col) {
 		mLocations[row][col] = plot;
-		plot.addChangeListener(this);
+		
+		addChildByName(plot);
 	}
 	
 	public void addChild(PlotBox plot) {
@@ -63,4 +64,27 @@ public class PlotBoxGridStorage extends PlotBoxStorage {
 		return mLocations.length * mLocations[0].length;
 	}
 	
+	@Override
+	public void remove(PlotBox plot) {
+		for (int i = 0; i < mLocations.length; ++i) {
+			boolean found = false;
+			
+			for (int j = 0; j < mLocations[0].length; ++j) {
+				if (mLocations[i][j].equals(plot)) {
+					mLocations[i][j] = null;
+					found = true;
+					break;
+				}
+			}
+			
+			if (found) {
+				break;
+			}
+		}
+	}
+	
+	@Override
+	public void remove(int i, int j) {
+		mLocations[i][j] = null;
+	}
 }

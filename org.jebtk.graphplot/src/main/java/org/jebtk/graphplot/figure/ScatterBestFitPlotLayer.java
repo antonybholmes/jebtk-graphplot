@@ -26,7 +26,7 @@ import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.fitting.PolynomialCurveFitter;
 import org.apache.commons.math3.fitting.WeightedObservedPoints;
 import org.jebtk.core.Mathematics;
-import org.jebtk.core.geom.Point2DDouble;
+import org.jebtk.core.geom.DoublePos2D;
 import org.jebtk.graphplot.figure.series.Marker;
 import org.jebtk.graphplot.figure.series.XYSeries;
 import org.jebtk.math.Linspace;
@@ -58,10 +58,10 @@ public class ScatterBestFitPlotLayer extends PlotSeriesLayer {
 	}
 
 	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotSeriesLayer#plotClipped(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.AnnotationMatrix, edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries)
+	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotSeriesLayer#plotLayer(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.AnnotationMatrix, edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries)
 	 */
 	@Override
-	public void plotClipped(Graphics2D g2,
+	public void plotLayer(Graphics2D g2,
 			DrawingContext context,
 			Figure figure,
 			SubFigure subFigure,
@@ -165,15 +165,15 @@ SubFigure subFigure,
 		
 		//List<Point> points = axes.convertToPlot(series);
 		
-		Point2DDouble p1;
-		Point2DDouble p2;
+		DoublePos2D p1;
+		DoublePos2D p2;
 		
 		List<Integer> columns = MatrixGroup.findColumnIndices(m, series);
 		
 		WeightedObservedPoints obs = new WeightedObservedPoints();
 		
 		for (int i = 0; i < n; ++i) {
-			p1 = new Point2DDouble(m.getValue(i, columns.get(0)), m.getValue(i, columns.get(1)));
+			p1 = new DoublePos2D(m.getValue(i, columns.get(0)), m.getValue(i, columns.get(1)));
 			
 			knotsX[i] = p1.getX();
 			knotsY[i] = p1.getY();
@@ -219,12 +219,12 @@ SubFigure subFigure,
 		
 		knotsY = new double[n];
 		
-		List<Point2DDouble> points = new ArrayList<Point2DDouble>(n);
+		List<DoublePos2D> points = new ArrayList<DoublePos2D>(n);
 		
 		for (int i = 0; i < n; ++i) {
 			knotsY[i] = function.value(knotsX[i]);
 			
-			points.add(new Point2DDouble(knotsX[i], knotsY[i]));
+			points.add(new DoublePos2D(knotsX[i], knotsY[i]));
 		}
 		
 		/*computes control points p1 and p2 for x and y direction*/
@@ -259,7 +259,7 @@ SubFigure subFigure,
 		
 		Marker shape = series.getMarker();
 		
-		for (Point2DDouble p : points) {
+		for (DoublePos2D p : points) {
 			shape.plot(g2, series.getMarkerStyle(), axes.toPlotXY1(p));
 		}
 		

@@ -24,7 +24,7 @@ import org.jebtk.core.settings.SettingsService;
 import org.jebtk.core.sys.SysUtils;
 import org.jebtk.core.text.TextUtils;
 import org.jebtk.graphplot.figure.Axes;
-import org.jebtk.graphplot.figure.Axes2D;
+import org.jebtk.graphplot.figure.Axes;
 import org.jebtk.graphplot.figure.Axis;
 import org.jebtk.graphplot.figure.AxisPlotX1;
 import org.jebtk.graphplot.figure.AxisPlotY2;
@@ -829,7 +829,7 @@ public class PlotFactory {
 		// set some limits, the width of the plot is 2 x n + 1 since
 		// we draw each box a 1,3,5 etc
 
-		axes.setInternalPlotSize(boxWhiskers.getCount() * BOX_WHISKER_WIDTH, SubFigure.DEFAULT_HEIGHT);
+		axes.setInternalPlotSize(boxWhiskers.getCount() * BOX_WHISKER_WIDTH, Axes.DEFAULT_SIZE.getH());
 
 		axes.getX1Axis().setLimits(0, boxWhiskers.getCount());
 		axes.getX1Axis().getTicks().setTicks(Linspace.evenlySpaced(0.5, boxWhiskers.getCount(), 1));
@@ -1183,7 +1183,7 @@ public class PlotFactory {
 		
 		//subFigure.removeByName(name);
 		
-		Axes2D colorBarAxes = new Axes2D(name);
+		Axes colorBarAxes = new Axes(name);
 		
 		axes.getChild(GridLocation.E).putZ(colorBarAxes);
 		

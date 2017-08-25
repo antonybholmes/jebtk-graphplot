@@ -27,17 +27,12 @@ import org.jebtk.modern.graphics.DrawingContext;
  *
  */
 public class Grid2dLayer extends AxesLayer {
-	
+
 	/**
 	 * The constant serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * The constant GRID_Z.
-	 */
-	public static final int GRID_Z = -300;
-	
+
 	/**
 	 * Instantiates a new grid2d layer.
 	 */
@@ -52,63 +47,53 @@ public class Grid2dLayer extends AxesLayer {
 	public void drawPlot(Graphics2D g2,
 			DrawingContext context,
 			Figure figure,
-SubFigure subFigure,
+			SubFigure subFigure,
 			Axes axes) {
-		int x;
-		int y;
-		int offset;
-
-		Graphics2D g2Temp = (Graphics2D)g2.create();
 		
-		//
-		// x axis
-		//
+		drawXAxis(g2, axes, axes.getX1Axis());
+		drawXAxis(g2, axes, axes.getX2Axis());
 
-		Axis axis = axes.getX1Axis();
-
-		offset = axes.getMargins().getTop() + 
-				axes.getInternalPlotSize().getH();
-
-
-		// draw grid lines
-
+		drawYAxis(g2, axes, axes.getY1Axis());
+		drawYAxis(g2, axes, axes.getY2Axis());
+	}
+	
+	private static void drawXAxis(Graphics2D g2, Axes axes, Axis axis) {
 		if (axis.getGrid().getVisible()) {
-			
-			g2Temp.setColor(axis.getGrid().getColor());
-			g2Temp.setStroke(axis.getGrid().getStroke());
 
+			g2.setColor(axis.getGrid().getColor());
+			g2.setStroke(axis.getGrid().getStroke());
+
+			int x;
+			int h = axes.getInternalPlotSize().getH();
+			
 			for (int i = 0; i < axis.getTicks().getMajorTicks().getTickCount(); ++i) {
 				x = axes.toPlotX1(axis.getTicks().getMajorTicks().getTick(i));
 
-				g2Temp.drawLine(x, 
-						axes.getMargins().getTop(), 
+				g2.drawLine(x, 
+						0, 
 						x, 
-						offset);
+						h);
 			}
 		}
+	}
 
-		//
-		// y axis
-		//
-
-		axis = axes.getY1Axis();
-
+	private static void drawYAxis(Graphics2D g2, Axes axes, Axis axis) {
 		if (axis.getGrid().getVisible()) {
-			g2Temp.setColor(axis.getGrid().getColor());
-			g2Temp.setStroke(axis.getGrid().getStroke());
+			g2.setColor(axis.getGrid().getColor());
+			g2.setStroke(axis.getGrid().getStroke());
 
-			int x2 = axes.getMargins().getLeft() + axes.getInternalPlotSize().getW();
+			int x2 = axes.getInternalPlotSize().getW();
+
+			int y;
 
 			for (int i = 0; i < axis.getTicks().getMajorTicks().getTickCount(); ++i) {
 				y = axes.toPlotY1(axis.getTicks().getMajorTicks().getTick(i));
 
-				g2Temp.drawLine(axes.getMargins().getLeft(), 
+				g2.drawLine(0, 
 						y, 
 						x2,
 						y);
 			}
 		}
-		
-		g2Temp.dispose();
 	}
 }

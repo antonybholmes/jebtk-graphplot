@@ -47,8 +47,6 @@ public class SubFigure extends PlotBoxGraph { //LayoutLayer
 	 */
 	private static final StringId NEXT_ID = new StringId("Sub Figure");
 
-	public static final int DEFAULT_HEIGHT = 600;
-
 	/** The m next axes id. */
 	private final StringId mNextAxesId = new StringId("Axes");
 	
@@ -56,6 +54,8 @@ public class SubFigure extends PlotBoxGraph { //LayoutLayer
 
 	/** The m vert alignment. */
 	private FigureVertAlignment mVertAlignment = FigureVertAlignment.TOP;
+
+	private Axes mCurrentAxes;
 
 	/**
 	 * Instantiates a new figure.
@@ -71,61 +71,6 @@ public class SubFigure extends PlotBoxGraph { //LayoutLayer
 	 */
 	public SubFigure(String id) {
 		super(id, new PlotBoxCompassGridStorage(), new PlotBoxCompassGridLayout());
-
-		// Figures do not have margins
-		//getMargins().setMargins(0);
-
-		/*
-		mLocations.addCanvasListener(new ModernCanvasListener(){
-
-			@Override
-			public void canvasChanged(ChangeEvent e) {
-				refresh();
-				
-				fireCanvasChanged();
-			}
-
-			@Override
-			public void canvasResized(ChangeEvent e) {
-				refresh();
-				
-				fireCanvasResized();
-			}
-
-			@Override
-			public void redrawCanvas(ChangeEvent e) {
-				fireCanvasRedraw();
-			}
-
-			@Override
-			public void canvasScrolled(ChangeEvent e) {
-				fireCanvasScrolled();
-			}});
-		*/
-	}
-
-	/**
-	 * Creates a new set of axes and adds them to the figure. Axes are
-	 * automatically layered on top of each other,
-	 *
-	 * @return the axes
-	 */
-	public Axes newAxes2D() {
-		return newAxes2D(GridLocation.CENTER);
-	}
-
-	/**
-	 * New axes.
-	 *
-	 * @param l the l
-	 * @return the axes
-	 */
-	public Axes newAxes2D(GridLocation l) {
-		Axes axes = new Axes2D(mNextAxesId.getNextId());
-
-		putZ(axes, l);
-
-		return axes;
 	}
 	
 	public Axes newAxes() {
@@ -139,69 +84,39 @@ public class SubFigure extends PlotBoxGraph { //LayoutLayer
 	 * @return the axes
 	 */
 	public Axes newAxes(GridLocation l) {
-		Axes axes = new Axes(mNextAxesId.getNextId());
+		mCurrentAxes = new Axes(mNextAxesId.getNextId());
 
-		putZ(axes, l);
+		addChild(mCurrentAxes, l);
 
-		return axes;
+		return mCurrentAxes;
 	}
 	
-
-	/**
-	 * Gets a set of axes by name.
-	 *
-	 * @param name the name
-	 * @return the axes
-	 */
 	public Axes getAxes(String name) {
 		return getAxes(name, GridLocation.CENTER);
 	}
 
-	/**
-	 * Gets the axes.
-	 *
-	 * @param name the name
-	 * @param l the l
-	 * @return the axes
-	 */
 	public Axes getAxes(String name, GridLocation l) {
 		PlotBox c = getChild(l);
 		
 		if (c == null || !c.getName().equals(name)) {
-			c = new Axes2D(name);
+			c = new Axes(name);
 			
 			putZ(c, l);
 		}
 
 		return (Axes)c;
 	}
-
-	/**
-	 * Returns the current axes associated with the figure (i.e. the last
-	 * created). If no axes exist, they are automatically recreated.
-	 * 
-	 * @return	An axes object.
-	 */
+	
 	public Axes getCurrentAxes() {
 		return getCurrentAxes(GridLocation.CENTER);
 	}
 
-	/**
-	 * Gets the current axes.
-	 *
-	 * @param l the l
-	 * @return the current axes
-	 */
 	public Axes getCurrentAxes(GridLocation l) {
-		PlotBox c = getChild(l);
-		
-		if (c == null || !c.getType().equals(LayerType.AXES)) {
-			c = (Axes2D)newAxes2D(l);
-			
-			putZ(c, l);
+		if (mCurrentAxes == null) {
+			newAxes(l);
 		}
 
-		return (Axes)c;
+		return mCurrentAxes;
 	}
 
 	/**
