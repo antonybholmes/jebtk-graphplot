@@ -50,11 +50,10 @@ public class AxisLabelLayerX1 extends PlotLayer {
 	/** The m major tick labels. */
 	protected List<String> mMajorTickLabels;
 	
-	/**
-	 * Instantiates a new axis x layer.
-	 */
-	public AxisLabelLayerX1() {
-		super("X Axis 1 Labels");
+	
+	@Override
+	public String getType() {
+		return "X1 Axis Labels";
 	}
 
 	/* (non-Javadoc)

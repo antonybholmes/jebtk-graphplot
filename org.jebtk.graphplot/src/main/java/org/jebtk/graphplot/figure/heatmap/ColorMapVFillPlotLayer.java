@@ -48,21 +48,10 @@ public class ColorMapVFillPlotLayer extends PlotClippedLayer {
 	/** The m colors map. */
 	private Map<Integer, Color> mColorsMap =
 			new HashMap<Integer, Color>();
-
-	/**
-	 * Instantiates a new heat map fill plot layer.
-	 */
-	public ColorMapVFillPlotLayer() {
-		this("Color Map");
-	}
-
-	/**
-	 * Instantiates a new heat map fill plot layer.
-	 *
-	 * @param name the name
-	 */
-	public ColorMapVFillPlotLayer(String name) {
-		super(name);
+	
+	@Override
+	public String getType() {
+		return "Color Map V Layer";
 	}
 
 	/* (non-Javadoc)
@@ -71,7 +60,7 @@ public class ColorMapVFillPlotLayer extends PlotClippedLayer {
 	@Override
 	public void plotLayer(Graphics2D g2,
 			DrawingContext context,
-Figure figure,
+			Figure figure,
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,

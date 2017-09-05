@@ -55,6 +55,8 @@ public abstract class VisibleProperties extends ChangeListeners {
 	public void setVisible(boolean visible) {
 		updateVisible(visible);
 		
+		//System.err.println("set visible " + visible + " " + this);
+		
 		fireChanged();
 	}
 	

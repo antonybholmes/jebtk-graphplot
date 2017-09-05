@@ -32,5 +32,4 @@ public class MarginFillerH extends MarginFiller {
 	public MarginFillerH(int w) {
 		super(w, 0);
 	}
-
 }

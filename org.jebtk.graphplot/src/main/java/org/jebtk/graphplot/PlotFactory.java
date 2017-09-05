@@ -24,7 +24,6 @@ import org.jebtk.core.settings.SettingsService;
 import org.jebtk.core.sys.SysUtils;
 import org.jebtk.core.text.TextUtils;
 import org.jebtk.graphplot.figure.Axes;
-import org.jebtk.graphplot.figure.Axes;
 import org.jebtk.graphplot.figure.Axis;
 import org.jebtk.graphplot.figure.AxisPlotX1;
 import org.jebtk.graphplot.figure.AxisPlotY2;
@@ -84,11 +83,11 @@ public class PlotFactory {
 
 	/** The Constant DEFAULT_HEATMAP_SIZE. */
 	public static final int DEFAULT_HEATMAP_SIZE = 
-			SettingsService.getInstance().getAsInt("graphplot.heatmap.getW()");
+			SettingsService.getInstance().getAsInt("graphplot.heatmap.width");
 
 	/** The Constant BOX_WHISKER_WIDTH. */
 	private static final int BOX_WHISKER_WIDTH = 
-			SettingsService.getInstance().getAsInt("graphplot.boxwhiskers.getW()");
+			SettingsService.getInstance().getAsInt("graphplot.boxwhiskers.width");
 
 	/** The Constant COLOR_BAR_WIDTH. */
 	private static final int COLOR_BAR_WIDTH = 30;
@@ -452,11 +451,6 @@ public class PlotFactory {
 		axes.getX1Axis().getTicks().getMajorTicks().getLineStyle().setVisible(false);
 		axes.getX1Axis().getTicks().getMinorTicks().getLineStyle().setVisible(false);
 
-
-		axes.getX1Axis().getGrid().setVisible(false);
-		axes.getY1Axis().getGrid().setVisible(false);
-
-
 		axes.getY1Axis().setLimitsAutoRound(0, MatrixOperations.max(m));
 
 
@@ -518,9 +512,6 @@ public class PlotFactory {
 		// dont draw the y ticks
 		axes.getY1Axis().getTicks().getMajorTicks().getLineStyle().setVisible(false);
 		axes.getY1Axis().getTicks().getMinorTicks().getLineStyle().setVisible(false);
-
-		axes.getX1Axis().getGrid().setVisible(false);
-		axes.getY1Axis().getGrid().setVisible(false);
 
 		// The y limits are from what we got earlier
 
@@ -662,16 +653,12 @@ public class PlotFactory {
 		axes.getX1Axis().getTicks().getMajorTicks().getFontStyle().setVisible(false);
 		axes.getX1Axis().getTicks().getMinorTicks().getLineStyle().setVisible(false);
 		axes.getX1Axis().getTicks().getMinorTicks().getFontStyle().setVisible(false);
-		axes.getX1Axis().getGrid().setVisible(false);
-		axes.getX1Axis().getTitle().setVisible(false);
 
 		axes.getY1Axis().getLineStyle().setVisible(false);
 		axes.getY1Axis().getTicks().getMajorTicks().getLineStyle().setVisible(false);
 		axes.getY1Axis().getTicks().getMajorTicks().getFontStyle().setVisible(false);
 		axes.getY1Axis().getTicks().getMinorTicks().getLineStyle().setVisible(false);
 		axes.getY1Axis().getTicks().getMinorTicks().getFontStyle().setVisible(false);
-		axes.getY1Axis().getGrid().setVisible(false);
-		axes.getY1Axis().getTitle().setVisible(false);
 		
 		axes.setMargins(100);
 	}
@@ -1039,7 +1026,7 @@ public class PlotFactory {
 		axes.getX1Axis().setVisible(fullView);
 
 		//axes.getChild(GridLocation.S).putZ(new PlotBoxV());
-		axes.getChild(GridLocation.S).putZ(new AxisPlotX1("Axis X1 Label Plot", axes.getX1Axis()));
+		axes.getChild(GridLocation.S).putZ(new AxisPlotX1(axes.getX1Axis()));
 		
 		
 		// If the height of the heatmap is less than the ideal height,
@@ -1079,7 +1066,7 @@ public class PlotFactory {
 		
 		// Lets make room for the v color bar
 		//axes.getChild(GridLocation.E).putZ(new PlotBoxH());
-		axes.getChild(GridLocation.E).putZ(new AxisPlotY2("Axis Y2 Label Plot", axes.getY2Axis()));
+		axes.getChild(GridLocation.E).putZ(new AxisPlotY2(axes.getY2Axis()));
 		
 		//axes.getY1Axis().getLineStyle().setVisible(false);
 
@@ -1144,7 +1131,6 @@ public class PlotFactory {
 		axis.getTicks().getMinorTicks().getLineStyle().setVisible(false);
 		axis.getTitle().getFontStyle().setVisible(false);
 		axis.getLineStyle().setVisible(false);
-		axis.getGrid().setVisible(false);
 
 		axis = axes.getY1Axis();
 		axis.setLimits(0, 1);
@@ -1191,11 +1177,9 @@ public class PlotFactory {
 		plot.setColorMap(colorMap);
 		plot.putZ(new ColorMapVFillPlotLayer());
 		plot.putZ(new OutlinePlotLayer());
-		colorBarAxes.addPlot(plot);
+		colorBarAxes.addChild(plot);
 		
-		colorBarAxes.addPlot(new AxisPlotY2("Color Bar Y2 Axis Label Plot", 
-				axes.getY2Axis()), 
-				GridLocation.E);
+		colorBarAxes.addChild(new AxisPlotY2(axes.getY2Axis()), GridLocation.E);
 		
 		
 		Axis axis = colorBarAxes.getY1Axis();
@@ -1213,7 +1197,6 @@ public class PlotFactory {
 		axis.getTicks().getMinorTicks().getLineStyle().setVisible(false);
 		axis.getTitle().getFontStyle().setVisible(false);
 		axis.getLineStyle().setVisible(false);
-		axis.getGrid().setVisible(false);
 
 		axis = colorBarAxes.getX1Axis();
 		axis.setLimits(0, 1);

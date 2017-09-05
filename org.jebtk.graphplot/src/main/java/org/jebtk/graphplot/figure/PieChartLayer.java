@@ -43,12 +43,10 @@ public class PieChartLayer extends PlotLayer {
 	
 	/** The Constant LABEL_R. */
 	private static final double LABEL_R = 0.55;
-
-	/**
-	 * Instantiates a new pie chart layer.
-	 */
-	public PieChartLayer() {
-		super("Pie");
+	
+	@Override
+	public String getType() {
+		return "Pie Layer";
 	}
 
 	/* (non-Javadoc)

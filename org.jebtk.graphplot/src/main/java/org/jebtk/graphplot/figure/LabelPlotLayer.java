@@ -31,24 +31,24 @@ import org.jebtk.modern.widget.ModernWidget;
  * @author Antony Holmes Holmes
  */
 public class LabelPlotLayer extends PlotLayer {
-	
+
 	/**
 	 * The constant serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/** The m label. */
 	protected String mLabel;
-	
+
 	/** The m x. */
 	protected double mX;
-	
+
 	/** The m y. */
 	protected double mY;
-	
+
 	/** The m offset x pixels. */
 	protected int mOffsetXPixels;
-	
+
 	/** The m offset y pixels. */
 	protected int mOffsetYPixels;
 
@@ -71,7 +71,7 @@ public class LabelPlotLayer extends PlotLayer {
 	public LabelPlotLayer(String name, double x, double y) {
 		this(name, x, y, 0, 0);
 	}
-	
+
 	/**
 	 * Instantiates a new label plot layer.
 	 *
@@ -88,7 +88,7 @@ public class LabelPlotLayer extends PlotLayer {
 			int offsetYPixels) {
 		this(name, x, y, false, false, offsetXPixels, offsetYPixels);
 	}
-	
+
 	/**
 	 * Instantiates a new label plot layer.
 	 *
@@ -105,7 +105,7 @@ public class LabelPlotLayer extends PlotLayer {
 			boolean centerY) {
 		this(name, x, y, centerX, centerY, 0, 0);
 	}
-	
+
 	/**
 	 * Instantiates a new label plot layer.
 	 *
@@ -126,7 +126,7 @@ public class LabelPlotLayer extends PlotLayer {
 			int offsetYPixels) {
 		this(name, x, y, centerX, centerY, offsetXPixels, offsetYPixels, Color.BLACK);
 	}
-	
+
 	/**
 	 * Instantiates a new label plot layer.
 	 *
@@ -147,8 +147,6 @@ public class LabelPlotLayer extends PlotLayer {
 			int offsetXPixels, 
 			int offsetYPixels,
 			Color color) {
-		super("Label");
-		
 		mLabel = name;
 		mX = x;
 		mY = y;
@@ -166,23 +164,23 @@ public class LabelPlotLayer extends PlotLayer {
 	public void plotLayer(Graphics2D g2,
 			DrawingContext context,
 			Figure figure,
-SubFigure subFigure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m) {
 		Point p = axes.toPlotXY1(mX, mY);
-		
+
 		int x = p.x;
 		int y = p.y;
-		
+
 		if (mCenterX) {
 			x -= ModernWidget.getStringWidth(g2, mLabel) / 2;
 		}
-		
+
 		if (mCenterY) {
 			y += ModernWidget.getStringHeight(g2) / 2;
 		}
-		
+
 		g2.setColor(mColor);
 		g2.drawString(mLabel, x + mOffsetXPixels, y + mOffsetYPixels);
 	}

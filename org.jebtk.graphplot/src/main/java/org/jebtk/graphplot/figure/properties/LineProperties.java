@@ -73,7 +73,13 @@ public class LineProperties extends ColorProperties {
 	 * @param w the new stroke
 	 */
 	public void setStroke(int w) {
-		setStroke(StrokeStyle.SINGLE, w);
+		updateStroke(w);
+		
+		fireChanged();
+	}
+	
+	public void updateStroke(int w) {
+		updateStroke(StrokeStyle.SINGLE, w);
 	}
 	
 	/**
@@ -83,10 +89,16 @@ public class LineProperties extends ColorProperties {
 	 * @param w the w
 	 */
 	public void setStroke(StrokeStyle style, int w) {
+		updateStroke(style, w);
+		
+		fireChanged();
+	}
+	
+	public void updateStroke(StrokeStyle style, int w) {
 		mStyle = style;
 		mWidth = w;
 		
-		setStroke(StrokeStyle.getStroke(style, w));
+		updateStroke(StrokeStyle.getStroke(style, w));
 	}
 	
 	/**
@@ -95,9 +107,13 @@ public class LineProperties extends ColorProperties {
 	 * @param stroke	The line stroke.
 	 */
 	private void setStroke(Stroke stroke) {
-		mStroke = stroke;
+		updateStroke(stroke);
 		
 		fireChanged();
+	}
+	
+	private void updateStroke(Stroke stroke) {
+		mStroke = stroke;
 	}
 	
 	/**

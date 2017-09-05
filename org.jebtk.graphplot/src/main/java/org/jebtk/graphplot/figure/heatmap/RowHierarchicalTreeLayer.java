@@ -47,9 +47,14 @@ public class RowHierarchicalTreeLayer extends HierarchicalTreeLayer {
 	public RowHierarchicalTreeLayer(Cluster rootCluster,
 			Color color,
 			int width) {
-		super("Row Tree", rootCluster, color);
+		super(rootCluster, color);
 		
 		mWidth = width;
+	}
+	
+	@Override
+	public String getType() {
+		return "Row Hierarchical Tree Layer";
 	}
 	
 	@Override

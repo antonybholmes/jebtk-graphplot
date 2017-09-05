@@ -41,18 +41,11 @@ public abstract class PlotLayer extends Layer {
 	/** The m buffered image. */
 	private BufferedImage mBufferedImage;
 
-
-
-	/**
-	 * Instantiates a new plot layer.
-	 *
-	 * @param name the name
-	 */
-	public PlotLayer(String name) {
-		super(name);
+	
+	@Override
+	public String getType() {
+		return "Plot Layer";
 	}
-
-
 
 	/**
 	 * Plot.

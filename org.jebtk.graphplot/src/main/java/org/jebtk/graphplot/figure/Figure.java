@@ -19,7 +19,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 
 import org.jebtk.core.Function;
-import org.jebtk.core.StringId;
+import org.jebtk.core.IntId;
 import org.jebtk.core.stream.Stream;
 import org.jebtk.graphplot.plotbox.PlotBox;
 import org.jebtk.graphplot.plotbox.PlotBoxDimStorage;
@@ -41,20 +41,11 @@ public class Figure extends PlotBoxGraph {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/** The Constant NEXT_ID. */
-	private static final StringId NEXT_ID = new StringId("Figure");
-
 	/** The m next sub figure id. */
-	private final StringId mNextSubFigureId = new StringId("Sub Figure");
+	private IntId mNextSubFigureId = new IntId();
 
 	private SubFigure mCurrentSubFigure;
 
-	/**
-	 * Instantiates a new figure.
-	 */
-	public Figure() {
-		this(NEXT_ID.getNextId());
-	}
 
 	/**
 	 * Instantiates a new figure grid canvas.
@@ -78,22 +69,22 @@ public class Figure extends PlotBoxGraph {
 	 *
 	 * @param figure the figure
 	 */
-	public Figure(SubFigure figure) {
-		this();
+	public Figure(String name, SubFigure figure) {
+		this(name);
 
-		addSubFigure(figure);
+		addChild(figure);
 	}
 	
-	/**
-	 * Instantiates a new figure.
-	 *
-	 * @param columns the columns
-	 */
-	public Figure(int columns) {
-		super(NEXT_ID.getNextId(), new PlotBoxDimStorage(), new PlotBoxRowsLayout(columns));
+	@Override
+	protected boolean cacheCurrent(PlotBox plot) {
+		if (plot instanceof SubFigure) {
+			mCurrentSubFigure = (SubFigure)plot;
+			
+			return true;
+		} else {
+			return false;
+		}
 	}
-
-	
 
 	/**
 	 * Creates the new axes.
@@ -101,24 +92,12 @@ public class Figure extends PlotBoxGraph {
 	 * @return the axes
 	 */
 	public SubFigure newSubFigure() {
-		mCurrentSubFigure = new SubFigure(mNextSubFigureId.getNextId());
+		mCurrentSubFigure = new SubFigure(createId(LayerType.SUBFIGURE, 
+				mNextSubFigureId.getNextId()));
 
-		addSubFigure(mCurrentSubFigure);
+		addChild(mCurrentSubFigure);
 		
 		return mCurrentSubFigure;
-	}
-
-
-	/**
-	 * Adds the sub figure.
-	 *
-	 * @param figure the figure
-	 * @return the sub figure
-	 */
-	public Figure addSubFigure(SubFigure figure) {
-		addChild(figure);
-
-		return this;
 	}
 
 

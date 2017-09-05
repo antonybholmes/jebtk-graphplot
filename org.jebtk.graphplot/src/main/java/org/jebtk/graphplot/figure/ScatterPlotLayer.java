@@ -41,7 +41,12 @@ public class ScatterPlotLayer extends UniqueXYLayer {
 	 * @param series the series
 	 */
 	public ScatterPlotLayer(String series) {
-		super("Scatter Plot", series);
+		super(series);
+	}
+	
+	@Override
+	public String getType() {
+		return "Scatter Plot Layer";
 	}
 
 	/* (non-Javadoc)

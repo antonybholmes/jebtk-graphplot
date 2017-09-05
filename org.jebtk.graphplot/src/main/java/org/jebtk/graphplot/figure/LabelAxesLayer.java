@@ -71,13 +71,16 @@ public class LabelAxesLayer extends AxesLayer {
 	 * @param offsetYPixels the offset y pixels
 	 */
 	public LabelAxesLayer(String name, double x, double y, int offsetXPixels, int offsetYPixels) {
-		super("Label");
-		
 		mLabel = name;
 		mX = x;
 		mY = y;
 		mOffsetXPixels = offsetXPixels;
 		mOffsetYPixels = offsetYPixels;
+	}
+	
+	@Override
+	public String getType() {
+		return "Axes Label Layer";
 	}
 
 	/* (non-Javadoc)

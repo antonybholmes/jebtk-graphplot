@@ -42,8 +42,8 @@ public abstract class SplinePlotLayer extends PathPlotLayer {
 	 * @param series the series
 	 * @param zeroEnds the zero ends
 	 */
-	public SplinePlotLayer(String name, String series, boolean zeroEnds) {
-		super(name, series, zeroEnds);
+	public SplinePlotLayer(String series, boolean zeroEnds) {
+		super(series, zeroEnds);
 	}
 
 	/* (non-Javadoc)

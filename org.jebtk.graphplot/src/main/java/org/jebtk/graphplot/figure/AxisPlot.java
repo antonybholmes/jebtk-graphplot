@@ -37,15 +37,6 @@ public class AxisPlot extends Plot {
 	private Axis mAxis;
 
 	/**
-	 * Instantiates a new axis plot.
-	 *
-	 * @param axis the axis
-	 */
-	public AxisPlot(Axis axis) {
-		this(NEXT_ID.getNextId(), axis);
-	}
-
-	/**
 	 * Instantiates a new plot.
 	 *
 	 * @param name the name
@@ -53,7 +44,7 @@ public class AxisPlot extends Plot {
 	 */
 	public AxisPlot(String name, Axis axis) {
 		super(name);
-
+		
 		mAxis = axis;
 
 		setVisible(mAxis.getVisible());

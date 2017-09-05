@@ -33,12 +33,10 @@ public class AxesBackgroundLayer extends AxesLayer {
 	 * The constant serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Instantiates a new axes background layer.
-	 */
-	public AxesBackgroundLayer() {
-		super("Background");
+	
+	@Override
+	public String getType() {
+		return "Background";
 	}
 
 	/* (non-Javadoc)

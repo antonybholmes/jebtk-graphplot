@@ -61,42 +61,33 @@ public class PlotBoxColumnLayout extends PlotBoxLayout {
 	 * Draw recursive.
 	 *
 	 * @param g2 the g2
-	 * @param plotBox the plot box
+	 * @param plot the plot box
 	 * @param offset the offset
 	 * @param context the context
 	 */
 	@Override
 	public void plot(Graphics2D g2,
-			PlotBox plotBox,
+			PlotBox plot,
 			Dimension offset,
 			DrawingContext context,
 			Object... params) {
 		Graphics2D g2Temp = ImageUtils.clone(g2);
 
-		//subg2.translate(offset.width, offset.height);
-
-		int width = 0;
-		int height = 0;
-
 		Dimension tempOffset = new Dimension(0, 0);
 
 		try {
-			for (PlotBox child : plotBox) {
+			for (PlotBox child : plot) {
 				tempOffset.width = 0;
 				tempOffset.height = 0;
 
 				child.plot(g2Temp, tempOffset, context, params);
 
 				g2Temp.translate(tempOffset.width, 0);
-
-				width += tempOffset.width;
-				height = Math.max(height, tempOffset.height);
 			}
 		} finally {
 			g2Temp.dispose();
 		}
 		
-		offset.width += width;
-		offset.height += height;
+		super.plot(g2, plot, offset, context, params);
 	}
 }

@@ -15,9 +15,6 @@
  */
 package org.jebtk.graphplot.plotbox;
 
-import org.jebtk.core.StringId;
-
-
 // TODO: Auto-generated Javadoc
 /**
  * The class PlotBox.
@@ -29,14 +26,12 @@ public class PlotBoxColumn extends PlotBoxContainer {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private static final StringId NEXT_ID = new StringId("Plot Box Column");
-
-
 	public PlotBoxColumn() {
-		this(NEXT_ID.getNextId());
+		super(new PlotBoxDimStorage(), new PlotBoxColumnLayout());
 	}
 	
-	public PlotBoxColumn(String name) {
-		super(name, new PlotBoxDimStorage(), new PlotBoxColumnLayout());
+	@Override
+	public String getType() {
+		return "Plot Box Column";
 	}
 }

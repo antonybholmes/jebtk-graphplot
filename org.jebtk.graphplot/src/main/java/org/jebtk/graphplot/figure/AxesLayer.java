@@ -30,25 +30,16 @@ import org.jebtk.modern.graphics.ImageUtils;
  *
  */
 public abstract class AxesLayer extends Layer {
-	
+
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-	
+
 	/** The m buffered image. */
 	private BufferedImage mBufferedImage;
-	
+
 	/** The m cache axes. */
 	private String mCacheAxes;
-	
-	/**
-	 * Instantiates a new axes layer.
-	 *
-	 * @param name the name
-	 */
-	public AxesLayer(String name) {
-		super(name);
-	}
-	
+
 	/**
 	 * Plot.
 	 *
@@ -65,10 +56,10 @@ public abstract class AxesLayer extends Layer {
 		Figure figure = (Figure)params[0];
 		SubFigure subFigure = (SubFigure)params[1];
 		Axes axes = (Axes)params[2];
-		
+
 		drawPlot(g2, context, figure, subFigure, axes);
 	}
-	
+
 	/**
 	 * Aa plot.
 	 *
@@ -91,7 +82,7 @@ public abstract class AxesLayer extends Layer {
 			g2Temp.dispose();
 		}
 	}
-	
+
 	/**
 	 * Cache plot.
 	 *
@@ -115,22 +106,22 @@ public abstract class AxesLayer extends Layer {
 					!axes.hashId().equals(mCacheAxes)) {
 				// The canvas need only be the size of the available display
 				mBufferedImage = ImageUtils.createImage(axes.getPreferredSize());
-				
+
 				Graphics2D g2Temp = ImageUtils.createAAGraphics(mBufferedImage);
-				
+
 				try {
 					drawPlot(g2Temp, context, figure, subFigure, axes);
 				} finally {
 					g2Temp.dispose();
 				}
-				
+
 				mCacheAxes = axes.hashId();
 			}
-			
+
 			g2.drawImage(mBufferedImage, 0, 0, null);
 		}
 	}
-	
+
 	/**
 	 * Draw plot.
 	 *

@@ -34,15 +34,6 @@ public abstract class AxesClippedLayer extends AxesLayer  {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Instantiates a new axes clipped layer.
-	 *
-	 * @param name the name
-	 */
-	public AxesClippedLayer(String name) {
-		super(name);
-	}
-
 	/* (non-Javadoc)
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.AxesLayer#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes)
 	 */

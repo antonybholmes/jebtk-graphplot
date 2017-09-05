@@ -44,15 +44,6 @@ public abstract class AxisLayerY extends AxesLayer {
 	 * The constant Y_ROTATION.
 	 */
 	public static final double Y_ROTATION = Mathematics.TWO_PI * 0.75;
-
-	/**
-	 * Instantiates a new axis y1 layer.
-	 *
-	 * @param name the name
-	 */
-	public AxisLayerY(String name) {
-		super(name);
-	}
 	
 	/**
 	 * Draw labels.

@@ -44,7 +44,11 @@ public class SplineFillPlotLayer extends SplinePlotLayer {
 	 * @param series the series
 	 */
 	public SplineFillPlotLayer(String series) {
-		super("Spline Fill Plot", series, false);
+		super(series, false);
+	}
+	@Override
+	public String getType() {
+		return "Spline Fill Layer";
 	}
 
 	/* (non-Javadoc)

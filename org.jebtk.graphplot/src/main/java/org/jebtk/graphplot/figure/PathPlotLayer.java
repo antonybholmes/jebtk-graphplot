@@ -49,8 +49,8 @@ public abstract class PathPlotLayer extends UniqueXYLayer {
 	 * @param name the name
 	 * @param series the series
 	 */
-	public PathPlotLayer(String name, String series) {
-		this(name, series, false);
+	public PathPlotLayer(String series) {
+		this(series, false);
 	}
 
 	/**
@@ -60,8 +60,8 @@ public abstract class PathPlotLayer extends UniqueXYLayer {
 	 * @param series the series
 	 * @param zeroEnds the zero ends
 	 */
-	public PathPlotLayer(String name, String series, boolean zeroEnds) {
-		super(name, series, zeroEnds);
+	public PathPlotLayer(String series, boolean zeroEnds) {
+		super(series, zeroEnds);
 	}
 
 	/* (non-Javadoc)
@@ -77,9 +77,6 @@ public abstract class PathPlotLayer extends UniqueXYLayer {
 			AnnotationMatrix m,
 			XYSeries series,
 			UniqueXY xy) {
-
-
-
 		updatePath(figure, subFigure, axes, plot, m, series, xy);
 
 		//System.err.println("path plot " + plot.getName() + " " + plot.getId() + " " + axes.getInternalPlotSize() + " " + (mPath == null || mPath.getValue() == null));

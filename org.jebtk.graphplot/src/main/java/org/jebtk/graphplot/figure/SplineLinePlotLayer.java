@@ -52,7 +52,12 @@ public class SplineLinePlotLayer extends SplinePlotLayer {
 	 * @param zeroEnds the zero ends
 	 */
 	public SplineLinePlotLayer(String series, boolean zeroEnds) {
-		super("Spline Plot", series, zeroEnds);
+		super(series, zeroEnds);
+	}
+	
+	@Override
+	public String getType() {
+		return "Spline Plot Layer";
 	}
 
 	/* (non-Javadoc)

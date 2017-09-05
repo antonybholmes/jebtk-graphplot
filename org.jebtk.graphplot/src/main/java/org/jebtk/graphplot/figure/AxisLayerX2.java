@@ -33,13 +33,12 @@ public class AxisLayerX2 extends AxisLayerX {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Instantiates a new axis x layer.
-	 */
-	public AxisLayerX2() {
-		super("X Axis 2");
-	}
 
+	@Override
+	public String getType() {
+		return "X2 Axis";
+	}
+	
 
 	/* (non-Javadoc)
 	 * @see org.graphplot.figure.AxisLayerX#drawAxisLine(java.awt.Graphics2D, org.graphplot.figure.Axes, org.graphplot.figure.Axis, int)

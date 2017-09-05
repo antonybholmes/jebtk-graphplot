@@ -76,15 +76,17 @@ public abstract class HierarchicalTreeLayer extends PlotLayer {
 	 * @param rootCluster the root cluster
 	 * @param color the color
 	 */
-	public HierarchicalTreeLayer(String name,
-			Cluster rootCluster,
+	public HierarchicalTreeLayer(Cluster rootCluster,
 			Color color) {
-		super(name);
-		
 		mRootCluster = rootCluster;
 		mColor = color;
 		
 		setup();
+	}
+	
+	@Override
+	public String getType() {
+		return "Hierarchical Tree Layer";
 	}
 	
 	/**

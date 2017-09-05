@@ -48,20 +48,10 @@ public abstract class PathsPlotLayer extends UniqueXYLayer {
 	 *
 	 * @param name the name
 	 * @param series the series
-	 */
-	public PathsPlotLayer(String name, String series) {
-		this(name, series, false);
-	}
-
-	/**
-	 * Instantiates a new path plot layer.
-	 *
-	 * @param name the name
-	 * @param series the series
 	 * @param zeroEnds the zero ends
 	 */
-	public PathsPlotLayer(String name, String series, boolean zeroEnds) {
-		super(name, series, zeroEnds);
+	public PathsPlotLayer(String series, boolean zeroEnds) {
+		super(series, zeroEnds);
 	}
 
 	/* (non-Javadoc)
@@ -71,7 +61,7 @@ public abstract class PathsPlotLayer extends UniqueXYLayer {
 	public final void plotLayer(Graphics2D g2,
 			DrawingContext context,
 			Figure figure,
-SubFigure subFigure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m,
@@ -113,7 +103,7 @@ SubFigure subFigure,
 	public abstract void plotLayer(Graphics2D g2,
 			DrawingContext context,
 			Figure figure,
-SubFigure subFigure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m,

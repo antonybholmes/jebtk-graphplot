@@ -56,15 +56,6 @@ public abstract class AxisLayerX extends AxesLayer {
 	protected List<String> mMajorTickLabels;
 
 	/**
-	 * Instantiates a new axis x layer.
-	 *
-	 * @param name the name
-	 */
-	public AxisLayerX(String name) {
-		super(name);
-	}
-
-	/**
 	 * Plot.
 	 *
 	 * @param g2 the g2

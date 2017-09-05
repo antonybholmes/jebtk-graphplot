@@ -36,12 +36,10 @@ public class BarChartStackedLayer extends PlotClippedLayer {
 	 * The constant serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Instantiates a new bar chart stacked layer.
-	 */
-	public BarChartStackedLayer() {
-		super("Stacked Bar Chart");
+	
+	@Override
+	public String getType() {
+		return "Stacked Bar Chart Layer";
 	}
 
 	/* (non-Javadoc)
@@ -51,7 +49,7 @@ public class BarChartStackedLayer extends PlotClippedLayer {
 	public void plotLayer(Graphics2D g2,
 			DrawingContext context,
 			Figure figure,
-SubFigure subFigure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m) {
@@ -85,8 +83,6 @@ SubFigure subFigure,
 
 				y2 = y1 - axes.toPlotY1(m.getValue(r, i));
 				
-				System.err.println("m " + r + " " +i + " " + m.getValue(r, i) + " " + y + " " + y2);
-
 				h = y2 + 1;
 
 				if (series.getStyle().getFillStyle().getVisible()) {

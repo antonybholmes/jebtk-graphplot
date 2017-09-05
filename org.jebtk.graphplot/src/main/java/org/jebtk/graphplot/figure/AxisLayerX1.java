@@ -32,11 +32,10 @@ public class AxisLayerX1 extends AxisLayerX {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Instantiates a new axis x layer.
-	 */
-	public AxisLayerX1() {
-		super("X Axis 1");
+	
+	@Override
+	public String getType() {
+		return "X1 Axis";
 	}
 
 	/* (non-Javadoc)

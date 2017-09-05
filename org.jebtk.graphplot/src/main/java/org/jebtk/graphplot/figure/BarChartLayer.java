@@ -39,13 +39,10 @@ public class BarChartLayer extends PlotClippedLayer {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Instantiates a new bar chart layer.
-	 *
-	 * @param series the series
-	 */
-	public BarChartLayer(String series) {
-		super("Bar Chart");
+	
+	@Override
+	public String getType() {
+		return "Bar Chart Layer";
 	}
 
 	/* (non-Javadoc)
@@ -55,7 +52,7 @@ public class BarChartLayer extends PlotClippedLayer {
 	public void plotLayer(Graphics2D g2,
 			DrawingContext context,
 			Figure figure,
-SubFigure subFigure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m) {

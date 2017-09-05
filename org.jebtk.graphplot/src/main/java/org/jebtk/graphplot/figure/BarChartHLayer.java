@@ -38,11 +38,9 @@ public class BarChartHLayer extends PlotClippedLayer {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Instantiates a new bar chart h layer.
-	 */
-	public BarChartHLayer() {
-		super("Bar Chart Horizontal");
+	@Override
+	public String getType() {
+		return "Bar Chart Horizontal Layer";
 	}
 
 	/* (non-Javadoc)
@@ -52,7 +50,7 @@ public class BarChartHLayer extends PlotClippedLayer {
 	public void plotLayer(Graphics2D g2,
 			DrawingContext context,
 			Figure figure,
-SubFigure subFigure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m) {

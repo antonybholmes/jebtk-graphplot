@@ -72,9 +72,6 @@ public class PlotBoxFloatingLayout extends PlotBoxLayout {
 			Dimension offset,
 			DrawingContext context,
 			Object... params) {
-		int width = 0;
-		int height = 0;
-
 		for (IntPos2D p : plot.getPositions()) {
 			PlotBox child = plot.getChild(p);
 
@@ -89,12 +86,8 @@ public class PlotBoxFloatingLayout extends PlotBoxLayout {
 			} finally {
 				g2Temp.dispose();
 			}
-
-			width = Math.max(width, p.getX() + tempOffset.width);
-			height = Math.max(height, p.getY() + tempOffset.height);
 		}
 
-		offset.width += width;
-		offset.height += height;
+		super.plot(g2, plot, offset, context, params);
 	}
 }

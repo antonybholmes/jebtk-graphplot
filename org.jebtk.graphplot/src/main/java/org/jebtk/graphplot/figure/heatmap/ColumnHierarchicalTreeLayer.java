@@ -63,9 +63,14 @@ public class ColumnHierarchicalTreeLayer extends HierarchicalTreeLayer {
 	public ColumnHierarchicalTreeLayer(Cluster rootCluster,
 			Color color,
 			int width) {
-		super("Column Tree", rootCluster, color);
+		super(rootCluster, color);
 		
 		mWidth = width;
+	}
+	
+	@Override
+	public String getType() {
+		return "Column Tree Layer";
 	}
 	
 	@Override
@@ -97,9 +102,7 @@ public class ColumnHierarchicalTreeLayer extends HierarchicalTreeLayer {
 		if (m == null) {
 			return;
 		}
-		
-		System.err.println("ha tree");
-		
+	
 		maxRows(plot, m);
 		
 		/*

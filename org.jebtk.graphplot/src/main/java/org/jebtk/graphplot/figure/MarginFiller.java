@@ -36,11 +36,6 @@ public class MarginFiller extends Layer {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * The constant NEXT_ID.
-	 */
-	private static final StringId NEXT_ID = new StringId("Filler");
-
 	private IntDim mSize;
 
 	
@@ -51,9 +46,12 @@ public class MarginFiller extends Layer {
 	 * @param h the h
 	 */
 	public MarginFiller(int w, int h) {
-		super(NEXT_ID.getNextId());
-		
 		mSize = new IntDim(w, h);
+	}
+	
+	@Override
+	public String getType() {
+		return "Margin Filler";
 	}
 	
 	@Override

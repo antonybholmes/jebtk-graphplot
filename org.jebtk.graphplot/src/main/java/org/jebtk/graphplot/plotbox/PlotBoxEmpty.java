@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import org.jebtk.core.StringId;
+import org.jebtk.core.IntId;
 import org.jebtk.core.geom.IntDim;
 
 
@@ -31,10 +31,7 @@ import org.jebtk.core.geom.IntDim;
  */
 public class PlotBoxEmpty extends PlotBox {
 	
-	private static final StringId NEXT_ID = new StringId("Plot Box Empty");
-
 	private IntDim mSize;
-
 	
 	public PlotBoxEmpty(int w, int h) {
 		this(new IntDim(w, h));
@@ -45,12 +42,13 @@ public class PlotBoxEmpty extends PlotBox {
 	}
 	
 	public PlotBoxEmpty(IntDim size) {
-		super(NEXT_ID.getNextId());
-		
 		mSize = size;
 	}
 	
-	
+	@Override
+	public String getType() {
+		return "Plot Box Empty";
+	}
 
 	@Override
 	public void plotSize(Dimension d) {

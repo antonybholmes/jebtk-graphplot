@@ -50,9 +50,7 @@ public abstract class PlotSeriesLayer extends PlotClippedLayer implements Change
 	 * @param name the name
 	 * @param series the group
 	 */
-	public PlotSeriesLayer(String name, String series) {
-		super(series + " " + name);
-
+	public PlotSeriesLayer(String series) {
 		setSeries(series);
 	}
 

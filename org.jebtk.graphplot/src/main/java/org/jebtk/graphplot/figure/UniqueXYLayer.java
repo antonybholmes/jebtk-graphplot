@@ -51,8 +51,8 @@ public abstract class UniqueXYLayer extends PlotSeriesLayer {
 	 * @param name the name
 	 * @param series the series
 	 */
-	public UniqueXYLayer(String name, String series) {
-		this(name, series, false);
+	public UniqueXYLayer(String series) {
+		this(series, false);
 	}
 
 	/**
@@ -62,12 +62,16 @@ public abstract class UniqueXYLayer extends PlotSeriesLayer {
 	 * @param series the series
 	 * @param zeroEnds the zero ends
 	 */
-	public UniqueXYLayer(String name, 
-			String series, 
+	public UniqueXYLayer(String series, 
 			boolean zeroEnds) {
-		super(name, series);
+		super(series);
 
 		mZeroEnds = zeroEnds;
+	}
+	
+	@Override
+	public String getType() {
+		return "Unique XY Layer";
 	}
 
 	/* (non-Javadoc)

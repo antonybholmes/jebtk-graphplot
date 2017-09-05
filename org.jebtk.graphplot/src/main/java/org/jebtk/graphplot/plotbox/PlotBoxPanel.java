@@ -15,6 +15,7 @@
  */
 package org.jebtk.graphplot.plotbox;
 
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 
 import org.jebtk.core.event.ChangeEvent;
@@ -35,6 +36,8 @@ public class PlotBoxPanel extends ModernPlotCanvas implements ChangeListener {
 	private static final long serialVersionUID = 1L;
 
 	private PlotBoxContainer mPlot;
+
+	private Dimension mS;
 	
 	/**
 	 * Instantiates a new plot box.
@@ -63,11 +66,21 @@ public class PlotBoxPanel extends ModernPlotCanvas implements ChangeListener {
 	}
 	
 	private void resize() {
-		setCanvasSize(mPlot.getPreferredSize());
+		Dimension s = mPlot.getPreferredSize();
+		
+		if (mS == null || !s.equals(mS)) {
+			setCanvasSize(s);
+			
+			mS = s;
+		} else {
+			fireCanvasRedraw();
+		}
 	}
 
 	@Override
 	public void changed(ChangeEvent e) {
+		System.err.println("plot box panel aha");
+		
 		resize();
 	}
 }

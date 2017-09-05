@@ -30,7 +30,6 @@ import org.jebtk.graphplot.figure.PlotClippedLayer;
 import org.jebtk.graphplot.figure.SubFigure;
 import org.jebtk.math.matrix.AnnotationMatrix;
 import org.jebtk.modern.graphics.DrawingContext;
-import org.jebtk.modern.graphics.colormap.ColorMap;
 
 
 // TODO: Auto-generated Javadoc
@@ -51,28 +50,20 @@ public class ColorMapFillPlotLayer extends PlotClippedLayer {
 	private Map<Integer, Color> mColorsMap =
 			new HashMap<Integer, Color>();
 
-	/** The m color map. */
-	private ColorMap mColorMap = null;
-
 	private int mWidth;
-
-
-	/**
-	 * Instantiates a new heat map fill plot layer.
-	 */
-	public ColorMapFillPlotLayer(int height) {
-		this("Color Map", height);
-	}
 
 	/**
 	 * Instantiates a new heat map fill plot layer.
 	 *
 	 * @param name the name
 	 */
-	public ColorMapFillPlotLayer(String name, int height) {
-		super(name);
-		
+	public ColorMapFillPlotLayer(int height) {
 		mWidth = height;
+	}
+	
+	@Override
+	public String getType() {
+		return "Color Map Layer";
 	}
 	
 	@Override
@@ -151,8 +142,6 @@ Figure figure,
 
 			mColorsMap.put(x, c);
 		}
-
-		mColorMap = plot.getColorMap();
 
 		return (int)Math.round(s);
 	}

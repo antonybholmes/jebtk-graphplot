@@ -19,7 +19,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.List;
 
-import org.jebtk.core.StringId;
+import org.jebtk.core.IntId;
 import org.jebtk.core.stream.ListReduceFunction;
 import org.jebtk.core.stream.Stream;
 import org.jebtk.graphplot.plotbox.PlotBox;
@@ -42,27 +42,21 @@ public class SubFigure extends PlotBoxGraph { //LayoutLayer
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * The constant NEXT_ID.
-	 */
-	private static final StringId NEXT_ID = new StringId("Sub Figure");
-
-	/** The m next axes id. */
-	private final StringId mNextAxesId = new StringId("Axes");
+	private IntId mNextSubFigureId = new IntId();
 	
-	private final StringId mNextPlotId = new StringId("Plot");
+	/** The m next axes id. */
+	private IntId mNextAxesId = new IntId();
+	
+	private IntId mNextPlotId = new IntId();
 
 	/** The m vert alignment. */
 	private FigureVertAlignment mVertAlignment = FigureVertAlignment.TOP;
 
 	private Axes mCurrentAxes;
 
-	/**
-	 * Instantiates a new figure.
-	 */
-	public SubFigure() {
-		this(NEXT_ID.getNextId());
-	}
+	private SubFigure mCurrentSubFigure;
+
+
 
 	/**
 	 * Instantiates a new sub figure.
@@ -70,12 +64,29 @@ public class SubFigure extends PlotBoxGraph { //LayoutLayer
 	 * @param id the id
 	 */
 	public SubFigure(String id) {
-		super(id, new PlotBoxCompassGridStorage(), new PlotBoxCompassGridLayout());
+		super(id, 
+				new PlotBoxCompassGridStorage(), 
+				new PlotBoxCompassGridLayout());
+	}
+	
+	@Override
+	protected boolean cacheCurrent(PlotBox plot) {
+		if (plot instanceof SubFigure) {
+			mCurrentSubFigure = (SubFigure)plot;
+			return true;
+		} else if (plot instanceof Axes) {
+			mCurrentAxes = (Axes)plot;
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	public Axes newAxes() {
 		return newAxes(GridLocation.CENTER);
 	}
+	
+	
 
 	/**
 	 * New axes.
@@ -84,7 +95,11 @@ public class SubFigure extends PlotBoxGraph { //LayoutLayer
 	 * @return the axes
 	 */
 	public Axes newAxes(GridLocation l) {
-		mCurrentAxes = new Axes(mNextAxesId.getNextId());
+		return newAxes(createId(LayerType.AXES, mNextAxesId.getNextId()), l);
+	}
+	
+	public Axes newAxes(String name, GridLocation l) {
+		mCurrentAxes = new Axes(name);
 
 		addChild(mCurrentAxes, l);
 
@@ -98,10 +113,22 @@ public class SubFigure extends PlotBoxGraph { //LayoutLayer
 	public Axes getAxes(String name, GridLocation l) {
 		PlotBox c = getChild(l);
 		
-		if (c == null || !c.getName().equals(name)) {
-			c = new Axes(name);
-			
-			putZ(c, l);
+		if (c == null || !(c instanceof Axes) || !checkName(name, c)) {
+			c = newAxes(l);
+		}
+
+		return (Axes)c;
+	}
+	
+	public Axes getAxes(int name) {
+		return getAxes(name, GridLocation.CENTER);
+	}
+
+	public Axes getAxes(int id, GridLocation l) {
+		PlotBox c = getChild(l);
+		
+		if (c == null || !(c instanceof Axes) || c.getId() != id) {
+			c = newAxes(l);
 		}
 
 		return (Axes)c;
@@ -135,11 +162,23 @@ public class SubFigure extends PlotBoxGraph { //LayoutLayer
 	 * @return the sub figure
 	 */
 	public SubFigure newSubFigure(GridLocation l) {
-		SubFigure axes = new SubFigure(mNextAxesId.getNextId());
+		mCurrentSubFigure = new SubFigure(createId(LayerType.SUBFIGURE, mNextSubFigureId.getNextId()));
 
-		putZ(axes, l);
+		addChild(mCurrentSubFigure, l);
 
-		return axes;
+		return mCurrentSubFigure;
+	}
+	
+	public SubFigure getCurrentSubFigure() {
+		return getCurrentSubFigure(GridLocation.CENTER);
+	}
+
+	public SubFigure getCurrentSubFigure(GridLocation l) {
+		if (mCurrentSubFigure == null) {
+			newSubFigure(l);
+		}
+
+		return mCurrentSubFigure;
 	}
 	
 	public Plot newPlot() {
@@ -147,7 +186,7 @@ public class SubFigure extends PlotBoxGraph { //LayoutLayer
 	}
 	
 	public Plot newPlot(GridLocation l) {
-		Plot plot = new Plot(mNextPlotId.getNextId());
+		Plot plot = new Plot(createId(LayerType.PLOT, mNextPlotId.getNextId()));
 
 		addChild(plot);
 
@@ -173,31 +212,7 @@ public class SubFigure extends PlotBoxGraph { //LayoutLayer
 	 */
 	@Override
 	public String getType() {
-		return "sub-figure";
-	}
-
-	/**
-	 * Returns the axes with the given id. If the axes does not exist,
-	 * it will be created.
-	 *
-	 * @param id the id
-	 * @return the axes
-	 */
-	public Axes getAxes(int id) {
-		return getAxes(id, GridLocation.CENTER);
-	}
-
-	/**
-	 * Gets the axes.
-	 *
-	 * @param id the id
-	 * @param l the l
-	 * @return the axes
-	 */
-	public Axes getAxes(int id, GridLocation l) {
-		String name = "Axes " + id;
-
-		return getAxes(name, l);
+		return LayerType.SUBFIGURE;
 	}
 
 	/**
@@ -218,34 +233,14 @@ public class SubFigure extends PlotBoxGraph { //LayoutLayer
 	 * @return the sub figure
 	 */
 	public SubFigure getSubFigure(int id, GridLocation l) {
-		String name = "Sub Figure " + id;
-
 		PlotBox c = getChild(l);
 		
-		if (c == null || !c.getName().equals(name)) {
-			c = new SubFigure(name);
-			
-			putZ(c, l);
+		if (c == null || !(c instanceof SubFigure) || c.getId() != id) {
+			c = newSubFigure(l);
 		}
 
 		return (SubFigure)c;
 	}
-
-
-	/*
-	public MovableLayer getCurrentLayer() {
-		return getCurrentLayer(GridLocation.CENTER);
-	}
-
-	public MovableLayer getCurrentLayer(GridLocation l) {
-		if (mLocations.getChild(l).getCurrentLayer() == null) {
-			newSubFigure(l);
-		}
-
-		return mLocations.getChild(l).getCurrentLayer();
-	}
-	*/
-
 
 	/**
 	 * Sets the vert alignment.
@@ -286,5 +281,9 @@ public class SubFigure extends PlotBoxGraph { //LayoutLayer
 		Figure figure = (Figure)params[0];
 		
 		super.plot(g2, offset, context, figure, this);
+	}
+	
+	public static String createSubFigureId(int id) {
+		return createId(LayerType.SUBFIGURE, id);
 	}
 }

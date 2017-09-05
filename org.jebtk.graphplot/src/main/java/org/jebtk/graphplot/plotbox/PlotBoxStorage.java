@@ -19,6 +19,7 @@ import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
@@ -44,11 +45,13 @@ public abstract class PlotBoxStorage extends ChangeListeners implements Iterable
 	private static final Iterable<IntPos2D> EMPTY_POSITIONS = 
 			Collections.emptyList();
 	
+	private Map<Integer, PlotBox> mIdMap = new HashMap<Integer, PlotBox>();
 	private Map<String, PlotBox> mNameMap = new TreeMap<String, PlotBox>();
 
 	public void addChildByName(PlotBox plot) {
 		plot.addChangeListener(this);
 		
+		mIdMap.put(plot.getId(), plot);
 		mNameMap.put(plot.getName(), plot);
 		
 		fireChanged();
@@ -99,13 +102,16 @@ public abstract class PlotBoxStorage extends ChangeListeners implements Iterable
 		return getChild(0);
 	}
 
-
 	public PlotBox getChild(IntPos2D p) {
 		return getChild(0);
 	}
 	
 	public PlotBox getChild(String name) {
 		return mNameMap.get(name);
+	}
+	
+	public PlotBox getChildById(int id) {
+		return mIdMap.get(id);
 	}
 	
 	public int getChildCount() {

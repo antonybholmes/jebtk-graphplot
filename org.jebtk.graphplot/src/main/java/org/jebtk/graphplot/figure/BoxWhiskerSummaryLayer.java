@@ -29,17 +29,16 @@ import org.jebtk.modern.graphics.DrawingContext;
  * @author Antony Holmes Holmes
  */
 public class BoxWhiskerSummaryLayer extends PlotClippedLayer {
-	
+
 	/**
 	 * The constant serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * Instantiates a new box whisker summary layer.
-	 */
-	public BoxWhiskerSummaryLayer() {
-		super("Box and Whisker Summary");
+
+
+	@Override
+	public String getType() {
+		return "Box Whisker Summary Layer";
 	}
 
 	/* (non-Javadoc)
@@ -49,11 +48,11 @@ public class BoxWhiskerSummaryLayer extends PlotClippedLayer {
 	public void plotLayer(Graphics2D g2,
 			DrawingContext context,
 			Figure figure,
-SubFigure subFigure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m) {
-		
+
 		int realX = 0;
 
 		// the width of the arms of the plot
@@ -67,30 +66,30 @@ SubFigure subFigure,
 		int x2;
 		int w2;
 		int xc;
-		
+
 		w = axes.toPlotX1(1) - axes.toPlotX1(0);
 		w2 = w / 2;
-		
+
 		bw = (int)(w * plot.getBarWidth());
 		o = (w - bw) / 2;
 
 		Graphics2D g2Temp = (Graphics2D)g2.create();
-		
+
 		for (int i = 0; i < m.getColumnCount(); ++i) {
 			XYSeries s = plot.getAllSeries().get(i);
-			
+
 			lx = axes.toPlotX1(realX);
 
 			x1 = lx + o;
 			x2 = x1 + bw;
 			xc = lx + w2;
-			
+
 			double median = m.getValue(0, i);
 			double q1 = m.getValue(1, i);
 			double q3 = m.getValue(2, i);
 			double lower = m.getValue(3, i);
 			double upper = m.getValue(4, i);
-			
+
 			// set the line color
 			g2Temp.setColor(s.getStyle().getLineStyle().getColor());
 
@@ -126,7 +125,7 @@ SubFigure subFigure,
 
 			realX += 1;
 		}
-		
+
 		g2Temp.dispose();
 	}
 }

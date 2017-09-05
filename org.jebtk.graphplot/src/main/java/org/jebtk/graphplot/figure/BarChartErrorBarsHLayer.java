@@ -36,11 +36,10 @@ public class BarChartErrorBarsHLayer extends PlotClippedLayer {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Instantiates a new bar chart error bars h layer.
-	 */
-	public BarChartErrorBarsHLayer() {
-		super("Bar Chart Error bars");
+	
+	@Override
+	public String getType() {
+		return "Bar Chart Error Bars Layer";
 	}
 
 	/* (non-Javadoc)
@@ -50,7 +49,7 @@ public class BarChartErrorBarsHLayer extends PlotClippedLayer {
 	public void plotLayer(Graphics2D g2,
 			DrawingContext context,
 			Figure figure,
-SubFigure subFigure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m) {

@@ -29,10 +29,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.jebtk.core.IdProperty;
+import org.jebtk.core.IntId;
 import org.jebtk.core.NameProperty;
+import org.jebtk.core.UidProperty;
 import org.jebtk.core.event.ChangeListeners;
 import org.jebtk.core.geom.IntPos2D;
 import org.jebtk.core.sys.SysUtils;
+import org.jebtk.core.text.Join;
+import org.jebtk.core.text.TextUtils;
 import org.jebtk.graphplot.figure.GridLocation;
 import org.jebtk.graphplot.figure.PlotHashProperty;
 import org.jebtk.graphplot.figure.PlotStyle;
@@ -47,7 +52,7 @@ import org.jebtk.modern.graphics.colormap.ColorMap;
 /**
  * The class PlotBox.
  */
-public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBox>, NameProperty, PlotHashProperty {
+public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBox>, IdProperty, NameProperty, PlotHashProperty, UidProperty {
 
 	private static final long serialVersionUID = 1L;
 
@@ -55,20 +60,111 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 			Collections.emptyList();
 	
 	private String mName;
+	private String mPlotName;
 
 	protected boolean mAAMode = false;
 	protected boolean mRasterMode = false;
 
 	private BufferedImage mBufferedImage;
 
+	private PlotBox mParent = null;
 
+	private boolean mVisible = true;
+
+	private static final IntId NEXT_ID = new IntId();
+	
+	private int mId;
+	
+	public PlotBox() {
+		mId = NEXT_ID.getNextId();
+		
+		mPlotName = createId(getType(), mId);
+		
+		setName(mPlotName);
+	}
+	
 	public PlotBox(String name) {
+		this();
+		
+		setName(name);
+	}
+	
+	@Override
+	public int getId() {
+		return mId;
+	}
+	
+	/**
+	 * Returns the plot name such as Figure 1. This is immutable and set once
+	 * when the object is created. {@code getName()} will return the same 
+	 * value as {@code getPlotName()} unless {@code setName()} is called.
+	 * 
+	 * @return
+	 */
+	public String getPlotName() {
+		return mPlotName;
+	}
+	
+	/**
+	 * Allows the plot to have a secondary name that can be more human readable
+	 * instead of Sub Figure 1 etc. This is designed so that complex layouts
+	 * can have easier to understand names
+	 * @param name
+	 */
+	public void setName(String name) {
 		mName = name;
+		
+		fireChanged();
 	}
 
+	/**
+	 * Returns a more human readable name for the plot.
+	 * 
+	 */
 	@Override
 	public String getName() {
 		return mName;
+	}
+	
+	@Override
+	public String getUid() {
+		return getUid(this);
+	}
+	
+	/**
+	 * Generate an id from the plot box using the graph from the root to this
+	 * leaf to create a unique id.
+	 * 
+	 * @param plotBox
+	 * @return
+	 */
+	private static String getUid(PlotBox plotBox) {
+		List<String> stack = new ArrayList<String>(10);
+		
+		PlotBox p = plotBox;
+		
+		while (true) {
+			stack.add(TextUtils.squareBrackets(p.getName()));
+			
+			p = p.getParent();
+			
+			if (p == null) {
+				break;
+			}
+		}
+		
+		// Print in order from root to leaf.
+		Collections.reverse(stack);
+		
+		return Join.onColon().values(stack).toString();
+	}
+
+	public void setParent(PlotBox parent) {
+		mParent = parent;
+	}
+	
+	public PlotBox getParent() {
+		return mParent;
 	}
 	
 	public void setStorage(PlotBoxStorage s) {
@@ -264,9 +360,12 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 
 			try {
 				if (mAAMode) {
-					plotAA(g2Temp, offset, context, params);
+					// Do not allow these methods to update the offset since
+					// this method does it as well. We only want to update
+					// this once to ensure dimensions are correct.
+					plotAA(g2Temp, new Dimension(), context, params);
 				} else {
-					plotLayer(g2Temp, offset, context, params);
+					plotLayer(g2Temp, new Dimension(), context, params);
 				}
 			} finally {
 				g2Temp.dispose();
@@ -295,21 +394,30 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 		plotSize(offset);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public PlotBox addChild(PlotBox plot) {
+		plot.setParent(this);
+		
 		return this;
 	}
 	
 	public PlotBox addChild(PlotBox plot, int i) {
+		plot.setParent(this);
+		
+		return this;
+	}
+	
+	public PlotBox addChild(PlotBox plot, int i, int j) {
+		plot.setParent(this);
+		return this;
+	}
+	
+	public PlotBox addChild(PlotBox plot, GridLocation l) {
+		plot.setParent(this);
+		return this;
+	}
+	
+	public PlotBox addChild(PlotBox plot, IntPos2D p) {
+		plot.setParent(this);
 		return this;
 	}
 	
@@ -317,23 +425,19 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 		return addChild(plot, i);
 	}
 	
-	public PlotBox addChild(PlotBox plot, int i, int j) {
-		return this;
-	}
-	
-	public PlotBox addChild(PlotBox plot, GridLocation l) {
-		return this;
-	}
-	
-	public PlotBox addChild(PlotBox plot, IntPos2D p) {
-		return this;
-	}
-	
 	public PlotBox putZ(PlotBox plot) {
-		return this;
+		return addChild(plot);
 	}
 	
 	public PlotBox putZ(PlotBox plot, GridLocation l) {
+		return addChild(plot, l);
+	}
+	
+	public <T extends PlotBox> PlotBox setChildren(List<T> plots) {
+		for (T plot : plots) {
+			plot.setParent(this);
+		}
+		
 		return this;
 	}
 	
@@ -366,7 +470,7 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 	}
 	
 	public String getType() {
-		return "plot-box";
+		return "Plot Box";
 	}
 	
 	public int getChildCount() {
@@ -458,11 +562,13 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 	}
 	
 	public void setVisible(boolean visible) {
+		mVisible = visible;
 		
+		fireChanged();
 	}
 	
 	public boolean getVisible() {
-		return true;
+		return mVisible;
 	}
 	
 	/**
@@ -481,9 +587,30 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 		while (!stack.isEmpty()) {
 			PlotBox p = stack.pop();
 			
-			System.err.println("fbn " + p.getName());
-			
 			if (p.getName().toLowerCase().contains(ls)) {
+				return p;
+			}
+			
+			for (PlotBox c : p) {
+				stack.push(c);
+			}
+		}
+
+		// If this fails, try searching by plot name.
+		return findByPlotName(name);
+	}
+	
+	public PlotBox findByPlotName(String name) {
+		String ls = name.toLowerCase();
+		
+		Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
+		
+		stack.push(this);
+		
+		while (!stack.isEmpty()) {
+			PlotBox p = stack.pop();
+			
+			if (p.getPlotName().toLowerCase().contains(ls)) {
 				return p;
 			}
 			
@@ -551,7 +678,9 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 	public Dimension getPreferredSize() {
 		Dimension dim = new Dimension(0, 0);
 
-		plotSize(dim);
+		if (getVisible()) {
+			plotSize(dim);
+		}
 
 		return dim;
 	}
@@ -563,6 +692,10 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 	public void removeByName(String name) {
 		
 	}
+	
+	//public String getUid() {
+	//	return mUuid;
+	//}
 	
 	/*
 	@Override
@@ -632,5 +765,22 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 		}
 		
 		System.err.println("========");
+	}
+
+	/**
+	 * Create a plot name.
+	 * 
+	 * @param type
+	 * @param id
+	 * @return
+	 */
+	public static String createId(String type, int id) {
+		return type + " " + id;
+	}
+
+	public static boolean checkName(String name, PlotBox plot) {
+		String ln = name.toLowerCase();
+		
+		return plot.getName().toLowerCase().equals(ln) || plot.getPlotName().toLowerCase().equals(ln);
 	}
 }

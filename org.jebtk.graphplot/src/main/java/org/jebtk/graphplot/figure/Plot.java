@@ -17,10 +17,11 @@ package org.jebtk.graphplot.figure;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.util.Arrays;
 import java.util.Set;
 
+import org.jebtk.core.IntId;
 import org.jebtk.core.Mathematics;
-import org.jebtk.core.StringId;
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
 import org.jebtk.graphplot.figure.heatmap.HeatMapFillPlotLayer;
@@ -53,7 +54,7 @@ public class Plot extends PlotBoxGraph implements MatrixEventListener, ChangeLis
 	/**
 	 * The constant NEXT_ID.
 	 */
-	protected static final StringId NEXT_ID = new StringId("Plot");
+	protected static final IntId NEXT_ID = new IntId();
 
 	/**
 	 * The member column series.
@@ -86,18 +87,11 @@ public class Plot extends PlotBoxGraph implements MatrixEventListener, ChangeLis
 
 	/**
 	 * Instantiates a new plot.
-	 */
-	public Plot() {
-		this(NEXT_ID.getNextId());
-	}
-
-	/**
-	 * Instantiates a new plot.
 	 *
 	 * @param name the name
 	 */
-	public Plot(String name) {
-		super(name, new PlotBoxZStorage(), new PlotBoxZLayout());
+	public Plot(String id) {
+		super(id, new PlotBoxZStorage(), new PlotBoxZLayout());
 
 		//mLayers.addCanvasListener(this);
 
@@ -342,6 +336,9 @@ public class Plot extends PlotBoxGraph implements MatrixEventListener, ChangeLis
 			String series,
 			PlotStyle style,
 			PlotStyle... styles) {
+		
+		System.err.println("add style 1 " + style + " " + Arrays.toString(styles));
+		
 		addStyle(plot, series, style);
 
 		for (PlotStyle s : styles) {
@@ -349,11 +346,9 @@ public class Plot extends PlotBoxGraph implements MatrixEventListener, ChangeLis
 		}
 	}
 
-	public static void addStyle(Plot plot,
-			String series,
-			PlotStyle style) {
+	public static void addStyle(Plot plot, String series, PlotStyle style) {
 
-		System.err.println("add style " + style + " " + plot.getName());
+		System.err.println("add style " + style + " " + plot.getUid());
 
 		switch(style) {
 		case FILLED:
@@ -556,5 +551,9 @@ public class Plot extends PlotBoxGraph implements MatrixEventListener, ChangeLis
 		}
 
 		return ret;
+	}
+
+	public static String createPlotId(int id) {
+		return createId(LayerType.PLOT, id);
 	}
 }

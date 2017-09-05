@@ -105,12 +105,15 @@ public class BoxWhiskerScatterLayer2 extends PlotClippedLayer {
 	public BoxWhiskerScatterLayer2(double x, 
 			double w, 
 			boolean visible) {
-		super("Box and Whisker Scatter");
-
 		mX = x;
 		mW = w;
 
 		setVisible(visible);
+	}
+	
+	@Override
+	public String getType() {
+		return "Box Whisker Scatter Layer";
 	}
 
 	@Override

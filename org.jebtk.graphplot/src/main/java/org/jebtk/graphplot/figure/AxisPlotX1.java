@@ -36,20 +36,15 @@ public class AxisPlotX1 extends AxisPlot {
 	 * @param axis the axis
 	 */
 	public AxisPlotX1(Axis axis) {
-		this("Axis X1 Label Plot", axis);
-	}
-
-	/**
-	 * Instantiates a new plot.
-	 *
-	 * @param name the name
-	 * @param axis the axis
-	 */
-	public AxisPlotX1(String name, Axis axis) {
-		super(name, axis);
+		super("Axis Plot X1", axis);
 		
 		setZ(new AxisLabelLayerX1());
 		mWidth = autoSetLabelMargin(axis);
+	}
+	
+	@Override
+	public String getType() {
+		return "Axis X1 Label Plot Layer";
 	}
 	
 	@Override

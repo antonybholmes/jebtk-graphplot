@@ -57,11 +57,16 @@ public class BoxWhiskerMeanLayer extends PlotSeriesLayer {
 	public BoxWhiskerMeanLayer(String name, 
 			double x,
 			boolean visible) {
-		super("box and whisker mean", name);
+		super(name);
 
 		mX = x;
 		
 		setVisible(visible);
+	}
+	
+	@Override
+	public String getType() {
+		return "Box Whisker Box Mean Layer";
 	}
 
 	/* (non-Javadoc)

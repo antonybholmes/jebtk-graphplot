@@ -112,11 +112,7 @@ public class PlotBoxRowsLayout extends PlotBoxLayout {
 			subg2.dispose();
 		}
 		
-		offset.width += tw;
-		
-		for (int h : heights) {
-			offset.height += h;
-		}
+		super.plot(g2, plotBox, offset, context, params);
 	}
 	
 	private void sizes(PlotBox plotBox, 

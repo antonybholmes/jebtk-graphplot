@@ -34,14 +34,10 @@ public abstract class PlotClippedLayer extends PlotLayer  {
 	 * The constant serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Instantiates a new plot clipped layer.
-	 *
-	 * @param name the name
-	 */
-	public PlotClippedLayer(String name) {
-		super(name);
+	
+	@Override
+	public String getType() {
+		return "Plot Clipped Layer";
 	}
 	
 	/* (non-Javadoc)

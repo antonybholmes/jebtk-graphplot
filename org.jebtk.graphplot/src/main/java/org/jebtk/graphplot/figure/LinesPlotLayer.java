@@ -43,7 +43,12 @@ public class LinesPlotLayer extends UniqueXYLayer {
 	 * @param series the series
 	 */
 	public LinesPlotLayer(String series) {
-		super("Lines", series);
+		super(series);
+	}
+	
+	@Override
+	public String getType() {
+		return "Lines Plot Layer";
 	}
 
 	/* (non-Javadoc)
@@ -53,7 +58,7 @@ public class LinesPlotLayer extends UniqueXYLayer {
 	public void plotLayer(Graphics2D g2,
 			DrawingContext context,
 			Figure figure,
-SubFigure subFigure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m,

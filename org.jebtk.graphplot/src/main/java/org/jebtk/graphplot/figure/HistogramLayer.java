@@ -47,9 +47,14 @@ public class HistogramLayer extends PlotSeriesLayer {
 	 * @param hist the hist
 	 */
 	public HistogramLayer(String series, HistBin[] hist) {
-		super("Histogram", series);
+		super(series);
 		
 		mHist = hist;
+	}
+	
+	@Override
+	public String getType() {
+		return "Histogram Layer";
 	}
 
 	/* (non-Javadoc)

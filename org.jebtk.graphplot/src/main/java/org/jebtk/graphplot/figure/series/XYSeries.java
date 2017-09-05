@@ -156,11 +156,15 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 
 		mFontProperties.addChangeListener(this);
 		mMarkerStyle.addChangeListener(this);
+		mStyle.addChangeListener(this);
+		
+		/*
 		mStyle.addChangeListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent e) {
 				mMarkerStyle.copy(mStyle);
 			}});
+		*/
 
 		addRegex(name);
 		
@@ -271,66 +275,6 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 	
 	
 
-	/*
-	public void add(double x) {
-		add(x, x);
-	}
-
-	public void add(double x, double y) {
-		XYPoint point = new XYPoint(x, y);
-
-		add(point);
-	}
-
-	public void add(String name, double x, double y) {
-		XYPoint point = new XYPoint(name, x, y);
-
-		add(point);
-	}
-
-	public void add(XYPoint p) {
-		//XYPoint point = new XYPoint(p);
-
-		mPoints.add(p);
-
-		//p.addChangeListener(this);
-
-		fireChanged();
-	}
-
-	public void set(List<XYPoint> points) {
-		mPoints.clear();
-
-		mPoints.addAll(points);
-
-		//for (XYPoint p : points) {
-		//	p.addChangeListener(this);
-		//}
-
-		fireChanged();
-	}
-
-	public void clear() {
-		mPoints.clear();
-
-		fireChanged();
-	}
-
-
-	@Override
-	public Iterator<XYPoint> iterator() {
-		return mPoints.iterator();
-	}
-
-	public int getPointCount() {
-		return mPoints.size();
-	}
-
-	public XYPoint getPoint(int i) {
-		return mPoints.get(i);
-	}
-	 */
-
 
 	/**
 	 * Set the width of the displayed bar as a percentage of data width.
@@ -357,12 +301,14 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 	public void setColor(Color color) {
 		super.setColor(color);
 		
-		mStyle.getLineStyle().setColor(color);
-		mStyle.getFillStyle().setColor(ColorUtils.getTransparentColor80(color));
-		mStyle.getLineStyle().setVisible(false); //setColor(color);
+		mStyle.getLineStyle().updateColor(color);
+		mStyle.getFillStyle().updateColor(ColorUtils.getTransparentColor80(color));
+		mStyle.getLineStyle().updateVisible(false); //setColor(color);
 		
-		mMarkerStyle.getLineStyle().setColor(color);
-		mMarkerStyle.getFillStyle().setColor(color);
+		mMarkerStyle.getLineStyle().updateColor(color);
+		mMarkerStyle.getFillStyle().updateColor(color);
+		
+		fireChanged();
 	}
 	
 

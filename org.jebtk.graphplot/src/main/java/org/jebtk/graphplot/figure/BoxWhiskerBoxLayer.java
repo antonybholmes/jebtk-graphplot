@@ -57,11 +57,16 @@ public class BoxWhiskerBoxLayer extends PlotSeriesLayer {
 	 * @param visible the visible
 	 */
 	public BoxWhiskerBoxLayer(String name, double x, boolean visible) {
-		super("box and whisker box", name);
+		super(name);
 
 		mX = x;
 		
 		setVisible(visible);
+	}
+	
+	@Override
+	public String getType() {
+		return "Box Whisker Box Layer";
 	}
 
 	/* (non-Javadoc)
@@ -71,7 +76,7 @@ public class BoxWhiskerBoxLayer extends PlotSeriesLayer {
 	public void plotLayer(Graphics2D g2,
 			DrawingContext context,
 			Figure figure,
-SubFigure subFigure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m,

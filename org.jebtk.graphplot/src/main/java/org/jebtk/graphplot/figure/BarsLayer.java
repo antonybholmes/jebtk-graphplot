@@ -41,7 +41,12 @@ public class BarsLayer extends UniqueXYLayer {
 	 * @param series the series
 	 */
 	public BarsLayer(String series) {
-		super("Bars", series);
+		super(series);
+	}
+	
+	@Override
+	public String getType() {
+		return "Bars Layer";
 	}
 
 	/* (non-Javadoc)
@@ -74,11 +79,7 @@ public class BarsLayer extends UniqueXYLayer {
 			h = y1 - p.y; // + 1;
 
 			if (series.getStyle().getFillStyle().getVisible()) {
-				//System.err.println("has " + series.getTitle().getText());
-
 				g2.setColor(series.getStyle().getFillStyle().getColor());
-
-				//System.err.println("run " + x1 + " " + y1 + " " + y2 + " " + w);
 
 				g2.fillRect(x, p.y, bw, h); //h);
 			}

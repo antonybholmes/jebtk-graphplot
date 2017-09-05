@@ -41,7 +41,12 @@ public class SegmentsPlotLayer extends PlotSeriesLayer {
 	 * @param series the series
 	 */
 	public SegmentsPlotLayer(String series) {
-		super("Segments", series);
+		super(series);
+	}
+	
+	@Override
+	public String getType() {
+		return "Segments Plot Layer";
 	}
 
 	/* (non-Javadoc)

@@ -25,14 +25,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.jebtk.core.StringId;
+import org.jebtk.core.IntId;
 import org.jebtk.core.collections.DefaultHashMap;
 import org.jebtk.core.collections.HashMapCreator;
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
+import org.jebtk.core.geom.DoublePos2D;
 import org.jebtk.core.geom.IntDim;
 import org.jebtk.core.geom.IntPos2D;
-import org.jebtk.core.geom.DoublePos2D;
 import org.jebtk.core.stream.ListReduceFunction;
 import org.jebtk.core.stream.Stream;
 import org.jebtk.core.text.TextUtils;
@@ -99,21 +99,10 @@ public class Axes extends PlotBoxGraph {
 	 */
 	private TitleProperties mTitle = new TitleProperties();
 
-
-	/**
-	 * The constant NEXT_ID.
-	 */
-	private static final StringId NEXT_ID = new StringId("Axes");
-
-
-
-	//protected AxesLayerZModel mAxesLayers = new AxesLayerZModel();
-
-
 	/** The m next axes id. */
-	protected final StringId mNextAxesId = new StringId("Axes");
+	protected final IntId mNextAxesId = new IntId();
 
-	protected final StringId mNextPlotId = new StringId("Plot");
+	protected final IntId mNextPlotId = new IntId();
 
 	/** The m x1 axis trans. */
 	private AxisTranslation mX1AxisTrans;
@@ -167,14 +156,7 @@ public class Axes extends PlotBoxGraph {
 			refresh(); //redraw();
 		}
 	}
-
-	/**
-	 * Instantiates a new axes.
-	 */
-	public Axes() {
-		this(NEXT_ID.getNextId());
-	}
-
+	
 	/**
 	 * Instantiates a new axes.
 	 *
@@ -204,7 +186,6 @@ public class Axes extends PlotBoxGraph {
 
 		mX1Axis.getTitle().setText("X");
 		mX1Axis.getTitle().getFontStyle().setVisible(false);
-		mX1Axis.getGrid().setVisible(false);
 
 		// Default x2 axis to being invisible
 		mX2Axis.getTitle().setText("Y");
@@ -212,7 +193,6 @@ public class Axes extends PlotBoxGraph {
 		
 		mY1Axis.getTitle().setText("Y");
 		mY1Axis.getTitle().getFontStyle().setVisible(false);
-		mY1Axis.getGrid().setVisible(false);
 
 		// Default y2 axis to being invisible
 		mY2Axis.getTitle().setText("Y");
@@ -232,6 +212,16 @@ public class Axes extends PlotBoxGraph {
 		addReserved(new AxesTitleLayer(), RESERVED_Z_TITLE);
 	}
 
+	@Override
+	protected boolean cacheCurrent(PlotBox plot) {
+		if (plot instanceof Plot) {
+			mCurrentPlot = (Plot)plot;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public void setInternalPlotHeight(int h) {
 		setInternalPlotSize(getInternalPlotSize().getW(), h);
 	}
@@ -245,7 +235,6 @@ public class Axes extends PlotBoxGraph {
 	}
 
 	public void setInternalPlotSize(IntDim d) {
-		System.err.println("axes d " + d + " " + mInternalSize);
 		if (!d.equals(mInternalSize)) {
 			mInternalSize = d;
 			
@@ -282,7 +271,11 @@ public class Axes extends PlotBoxGraph {
 	 * @return the axes
 	 */
 	public Plot newPlot() {
-		mCurrentPlot = new Plot(mNextPlotId.getNextId());
+		return newPlot(createId(LayerType.PLOT, mNextPlotId.getNextId()));
+	}
+	
+	public Plot newPlot(String name) {
+		mCurrentPlot = new Plot(name);
 
 		addChild(mCurrentPlot);
 
@@ -292,14 +285,7 @@ public class Axes extends PlotBoxGraph {
 	public Plot newPlot(GridLocation l) {
 		return newPlot();
 	}
-
-	public void addPlot(Plot plot) {
-		addChild(plot);
-	}
-
-	public void addPlot(Plot plot, GridLocation l) {
-		addChild(plot);
-	}
+	
 
 	/**
 	 * Gets the axes.
@@ -311,13 +297,23 @@ public class Axes extends PlotBoxGraph {
 	public Plot getPlot(String name) {
 		PlotBox c = getChild(name);
 
-		if (c == null || !c.getName().equals(name)) {
-			c = new Plot(name);
+		if (c == null || !(c instanceof Plot) || !c.getName().equals(name)) {
+			c = newPlot(name);
 
 			addChild(c);
 		}
 
 		return (Plot)c;
+	}
+	
+	public Plot getPlot(int id) {
+		PlotBox c = getChildById(id);
+
+		if (c != null) {
+			return (Plot)c;
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -918,6 +914,7 @@ public class Axes extends PlotBoxGraph {
 		axes.getStyle().setVisible(enable);
 
 		Axis.enableAllFeatures(axes.getX1Axis(), enable);
+		Axis.enableAllFeatures(axes.getX2Axis(), enable);
 		Axis.enableAllFeatures(axes.getY1Axis(), enable);
 		Axis.enableAllFeatures(axes.getY2Axis(), enable);
 		//Axis.enableAllFeatures(axes.getZAxis(), enable);

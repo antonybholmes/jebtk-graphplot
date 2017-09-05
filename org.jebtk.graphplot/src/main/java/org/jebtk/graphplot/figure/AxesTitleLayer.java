@@ -33,12 +33,10 @@ public class AxesTitleLayer extends AxesLayer {
 	 * The constant serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Instantiates a new axes title layer.
-	 */
-	public AxesTitleLayer() {
-		super("Title");
+	
+	@Override
+	public String getType() {
+		return "Axes Title";
 	}
 
 	/* (non-Javadoc)

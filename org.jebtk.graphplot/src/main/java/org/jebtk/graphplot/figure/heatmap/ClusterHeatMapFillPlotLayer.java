@@ -72,10 +72,13 @@ public class ClusterHeatMapFillPlotLayer extends HeatMapFillPlotLayer {
 	 */
 	public ClusterHeatMapFillPlotLayer(Cluster rowCluster, 
 			Cluster columnCluster) {
-		super("Cluster Heat Map");
-
 		mRowCluster = rowCluster;
 		mColumnCluster = columnCluster;
+	}
+	
+	@Override
+	public String getType() {
+		return "Cluster Heat Map Layer";
 	}
 
 
@@ -84,7 +87,7 @@ public class ClusterHeatMapFillPlotLayer extends HeatMapFillPlotLayer {
 	 */
 	@Override
 	protected void cache(DrawingContext context,
-Figure figure,
+			Figure figure,
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,

@@ -15,8 +15,6 @@
  */
 package org.jebtk.graphplot.figure;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import org.jebtk.graphplot.plotbox.PlotBox;
 
 // TODO: Auto-generated Javadoc
@@ -34,34 +32,19 @@ public abstract class Layer extends PlotBox {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	/** The Constant ID. */
-	private static final AtomicInteger ID = new AtomicInteger(0);
-	
 	/**
 	 * The member visible.
 	 */
 	protected boolean mVisible = true;
 
-	private int mId;
-
-	/**
-	 * Instantiates a new plot layer.
-	 *
-	 * @param name the name
-	 */
-	public Layer(String name) {
-		super(name);
-			
-		mId = ID.getAndIncrement();
-	}
-
+	
 	
 	/* (non-Javadoc)
 	 * @see org.abh.common.IdProperty#getId()
 	 */
 	@Override
 	public String hashId() {
-		return getName() + mId;
+		return getName() + getId();
 	}
 	
 	/**
@@ -71,7 +54,7 @@ public abstract class Layer extends PlotBox {
 	 */
 	@Override
 	public String getType() {
-		return "layer";
+		return LayerType.LAYER;
 	}
 	
 	/**

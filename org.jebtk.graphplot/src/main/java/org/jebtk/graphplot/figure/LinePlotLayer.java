@@ -44,7 +44,12 @@ public class LinePlotLayer extends PathPlotLayer {
 	 * @param series the series
 	 */
 	public LinePlotLayer(String series) {
-		super("Line", series);
+		super(series);
+	}
+	
+	@Override
+	public String getType() {
+		return "Line Plot Layer";
 	}
 
 	/* (non-Javadoc)
@@ -54,7 +59,7 @@ public class LinePlotLayer extends PathPlotLayer {
 	public void plotLayer(Graphics2D g2,
 			DrawingContext context,
 			Figure figure,
-SubFigure subFigure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m,

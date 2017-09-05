@@ -17,6 +17,7 @@ package org.jebtk.graphplot.plotbox;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.util.Arrays;
 
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.ImageUtils;
@@ -59,28 +60,18 @@ public class PlotBoxGridLayout extends PlotBoxLayout {
 					child.plotSize(d);
 
 					mHeights[i] = Math.max(mHeights[i], d.height);
+					mWidths[j] = Math.max(mWidths[j], d.width);
 				}
 			}
 		}
 		
+		//System.err.println(" plot grid " + Arrays.toString(mWidths) + " " + Arrays.toString(mHeights));
+
 		for (int i = 0; i < mWidths.length; ++i) {
-			mWidths[i] = 0;
-
-			for (int j = 0; j < mHeights.length; ++j) {
-				PlotBox child = plot.getChild(i, j);
-
-				if (child != null) {
-					Dimension d = new Dimension(0, 0);
-
-					child.plotSize(d);
-
-					mWidths[i] = Math.max(mWidths[i], d.width);
-				}
-			}
-		}
-
-		for (int i = 0; i < 3; ++i) {
 			dim.width += mWidths[i];
+		}
+		
+		for (int i = 0; i < mHeights.length; ++i) {
 			dim.height += mHeights[i];
 		}
 	}
@@ -99,14 +90,17 @@ public class PlotBoxGridLayout extends PlotBoxLayout {
 			Dimension offset,
 			DrawingContext context,
 			Object... params) {
+		
+		super.plot(g2, plot, offset, context, params);
+		
 		Graphics2D g2Temp = ImageUtils.clone(g2);
 
 		try {
-			for (int i = 0; i < mWidths.length; ++i) {
+			for (int i = 0; i < mHeights.length; ++i) {
 				Graphics2D g2Temp2 = ImageUtils.clone(g2Temp);
 
 				try {
-					for (int j = 0; j < mHeights.length; ++j) {
+					for (int j = 0; j < mWidths.length; ++j) {
 						PlotBox child = plot.getChild(i, j);
 
 						if (child != null) {
@@ -124,12 +118,5 @@ public class PlotBoxGridLayout extends PlotBoxLayout {
 		} finally {
 			g2Temp.dispose();
 		}
-
-		for (int i = 0; i < 3; ++i) {
-			offset.width += mWidths[i];
-			offset.height += mHeights[i];
-		}
 	}
-	
-	
 }

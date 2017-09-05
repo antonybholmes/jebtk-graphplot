@@ -69,11 +69,16 @@ public class BoxWhiskerScatterLayer extends PlotSeriesLayer {
 	 * @param visible the visible
 	 */
 	public BoxWhiskerScatterLayer(String name, double x, boolean visible) {
-		super("box and whisker scatter", name);
+		super(name);
 
 		mX = x + 0.5;
 		
 		setVisible(visible);
+	}
+	
+	@Override
+	public String getType() {
+		return "Box Whisker Scatter Layer";
 	}
 
 	/* (non-Javadoc)

@@ -64,10 +64,12 @@ public class GroupColorBarLayer extends PlotLayer {
 	 * Instantiates a new group color bar layer.
 	 */
 	public GroupColorBarLayer() {
-		super("Group Bar");
-
 		mMaxRows = 0;
-
+	}
+	
+	@Override
+	public String getType() {
+		return "Group Bar";
 	}
 
 	/* (non-Javadoc)
@@ -77,7 +79,7 @@ public class GroupColorBarLayer extends PlotLayer {
 	public void plotLayer(Graphics2D g2,
 			DrawingContext context,
 			Figure figure,
-SubFigure subFigure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m) {

@@ -21,10 +21,13 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.List;
 import java.util.Set;
 
+import org.jebtk.core.collections.ReverseIterator;
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
+import org.jebtk.core.geom.IntPos2D;
 import org.jebtk.graphplot.plotbox.PlotBox;
 import org.jebtk.graphplot.plotbox.PlotBoxContainer;
 import org.jebtk.graphplot.plotbox.PlotBoxLayout;
@@ -66,8 +69,8 @@ public abstract class PlotBoxGraph extends PlotBoxContainer { //LayoutLayer
 		init();
 	}
 	
-	public PlotBoxGraph(String name, PlotBoxLayout layout) {
-		super(name, layout);
+	public PlotBoxGraph(String id, PlotBoxLayout layout) {
+		super(id, layout);
 		
 		init();
 	}
@@ -80,6 +83,63 @@ public abstract class PlotBoxGraph extends PlotBoxContainer { //LayoutLayer
 				// reset
 				mDrawCounter = 0;
 			}});
+	}
+	
+	@Override
+	public PlotBox addChild(PlotBox plot) {
+		cacheCurrent(plot);
+		
+		return super.addChild(plot);
+	}
+	
+	@Override
+	public PlotBox addChild(PlotBox plot, int i) {
+		cacheCurrent(plot);
+		
+		return super.addChild(plot, i);
+	}
+	
+	@Override
+	public PlotBox addChild(PlotBox plot, int i, int j) {
+		cacheCurrent(plot);
+		
+		return super.addChild(plot, i, j);
+	}
+	
+	@Override
+	public PlotBox addChild(PlotBox plot, GridLocation l) {
+		cacheCurrent(plot);
+		
+		return super.addChild(plot, l);
+	}
+	
+	@Override
+	public PlotBox addChild(PlotBox plot, IntPos2D p) {
+		cacheCurrent(plot);
+		
+		return super.addChild(plot, p);
+	}
+	
+	@Override
+	public <T extends PlotBox> PlotBox setChildren(List<T> plots) {
+		for (T plot : ReverseIterator.create(plots)) {
+			if (cacheCurrent(plot)) {
+				break;
+			}
+		}
+		
+		return super.setChildren(plots);
+	}
+	
+	/**
+	 * Should set the currently cached axes, sub figure etc when a new child
+	 * is added. Should return true if an item was cached.
+	 * 
+	 * @param plot
+	 * @return
+	 */
+	protected boolean cacheCurrent(PlotBox plot) {
+		return false;
 	}
 
 	/* (non-Javadoc)
@@ -113,7 +173,7 @@ public abstract class PlotBoxGraph extends PlotBoxContainer { //LayoutLayer
 			return;
 		}
 		
-		System.err.println("style " + this.getName());
+		System.err.println("style plot graph " + this.getUid() + " " + getChildCount());
 		
 		Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
 		
@@ -126,9 +186,12 @@ public abstract class PlotBoxGraph extends PlotBoxContainer { //LayoutLayer
 			p.setStyle(used, style, styles);
 			
 			for (PlotBox c : p) {
+				System.err.println("style plot graph child " + c.getUid());
 				stack.push(c);
 			}
 		}
+		
+		System.err.println("==== fin style plot graph " + this.getName());
 	}
 
 	@Override

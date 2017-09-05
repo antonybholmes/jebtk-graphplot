@@ -61,13 +61,13 @@ public class PlotBoxRowLayout extends PlotBoxLayout {
 	 * Draw recursive.
 	 *
 	 * @param g2 the g2
-	 * @param plotBox the plot box
+	 * @param plot the plot box
 	 * @param offset the offset
 	 * @param context the context
 	 */
 	@Override
 	public void plot(Graphics2D g2,
-			PlotBox plotBox,
+			PlotBox plot,
 			Dimension offset,
 			DrawingContext context,
 			Object... params) {
@@ -76,8 +76,7 @@ public class PlotBoxRowLayout extends PlotBoxLayout {
 		Dimension tempOffset = new Dimension(0, 0);
 
 		try {	
-			for (PlotBox child : plotBox) {
-				
+			for (PlotBox child : plot) {
 				tempOffset.width = 0;
 				tempOffset.height = 0;
 
@@ -89,6 +88,6 @@ public class PlotBoxRowLayout extends PlotBoxLayout {
 			g2Temp.dispose();
 		}
 		
-		super.plot(g2Temp, plotBox, offset, context, params);
+		super.plot(g2, plot, offset, context, params);
 	}
 }

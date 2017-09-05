@@ -36,11 +36,9 @@ public class OutlinePlotLayer extends PlotLayer {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Instantiates a new outline plot layer.
-	 */
-	public OutlinePlotLayer() {
-		super("Outline");
+	@Override
+	public String getType() {
+		return "Outline";
 	}
 	
 	/* (non-Javadoc)

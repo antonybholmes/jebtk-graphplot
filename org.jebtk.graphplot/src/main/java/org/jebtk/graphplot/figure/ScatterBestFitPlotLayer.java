@@ -54,7 +54,12 @@ public class ScatterBestFitPlotLayer extends PlotSeriesLayer {
 	 * @param series the series
 	 */
 	public ScatterBestFitPlotLayer(String series) {
-		super("Scatter Best Fit Plot", series);
+		super(series);
+	}
+	
+	@Override
+	public String getType() {
+		return "Scatter Plot Best Fit Layer";
 	}
 
 	/* (non-Javadoc)

@@ -94,13 +94,16 @@ public class ColorBarHLayer extends PlotLayer {
 	 * @param max the max
 	 */
 	public ColorBarHLayer(ColorMap colorMap, double min, double max) {
-		super("Color Bar");
-		
 		setColorMap(colorMap);
 		
 		mMin = min;
 		mMax = max;
 		mMid = (mMin + mMax) / 2.0;
+	}
+	
+	@Override
+	public String getType() {
+		return "Color Bar H";
 	}
 
 	/**

@@ -47,11 +47,10 @@ public class LegendLayer extends AxesLayer {
 	/** The Constant LINE_WIDTH. */
 	private static final int LINE_WIDTH = 32;
 
-	/**
-	 * Instantiates a new legend layer.
-	 */
-	public LegendLayer() {
-		super("Legend");
+	
+	@Override
+	public String getType() {
+		return "Legend";
 	}
 
 	/* (non-Javadoc)
@@ -61,7 +60,7 @@ public class LegendLayer extends AxesLayer {
 	public void drawPlot(Graphics2D g2,
 			DrawingContext context,
 			Figure figure,
-SubFigure subFigure,
+			SubFigure subFigure,
 			Axes axes) {
 		// determine the size of the legend
 

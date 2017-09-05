@@ -17,9 +17,8 @@ package org.jebtk.graphplot.plotbox;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import org.jebtk.core.Function;
 import org.jebtk.core.event.ChangeEvent;
@@ -56,20 +55,38 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
 	private PlotBoxStorage mStorage;
 	
 	
-	public PlotBoxContainer(String name) {
-		this(name, new PlotBoxDimStorage(), new PlotBoxColumnLayout());
+	public PlotBoxContainer(String id) {
+		this(id, new PlotBoxDimStorage(), new PlotBoxColumnLayout());
 	}
 	
-	public PlotBoxContainer(String name, PlotBoxLayout layout) {
-		this(name, new PlotBoxDimStorage(), layout);
+	public PlotBoxContainer() {
+		this(new PlotBoxDimStorage(), new PlotBoxColumnLayout());
 	}
 	
-	public PlotBoxContainer(String name, 
+	public PlotBoxContainer(String id, PlotBoxLayout layout) {
+		this(id, new PlotBoxDimStorage(), layout);
+	}
+	
+	public PlotBoxContainer(PlotBoxLayout layout) {
+		this(new PlotBoxDimStorage(), layout);
+	}
+	
+	public PlotBoxContainer(String id,
 			PlotBoxStorage storage, 
 			PlotBoxLayout layout) {
-		super(name);
+		super(id);
 		setStorage(storage);
 		setLayout(layout);
+	}
+	
+	public PlotBoxContainer(PlotBoxStorage storage, PlotBoxLayout layout) {
+		setStorage(storage);
+		setLayout(layout);
+	}
+	
+	@Override
+	public String getType() {
+		return "Plot Box Container";
 	}
 	
 	public void setStorage(PlotBoxStorage s) {
@@ -212,50 +229,53 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
 		
 	}
 	
-	public <T extends PlotBox> void setChildren(Collection<T> plots) {
+	@Override
+	public <T extends PlotBox> PlotBox setChildren(List<T> plots) {
 		mStorage.setChildren(plots);
+		
+		return super.setChildren(plots);
 	}
 	
 	@Override
 	public PlotBox addChild(PlotBox plot) {
 		mStorage.addChild(plot);
-
-		return this;
+		
+		return super.addChild(plot);
 	}
 	
 	@Override
 	public PlotBox addChild(PlotBox plot, int i) {
 		mStorage.addChild(plot, i);
 		
-		return this;
+		return super.addChild(plot, i);
 	}
 	
 	@Override
 	public PlotBox addReserved(PlotBox plot, int i) {
 		mStorage.addReserved(plot, i);
 		
-		return this;
+		return super.addReserved(plot, i);
 	}
 	
 	@Override
 	public PlotBox addChild(PlotBox plot, int i, int j) {
 		mStorage.addChild(plot, i, j);
 		
-		return this;
+		return super.addChild(plot, i, j);
 	}
 	
 	@Override
 	public PlotBox addChild(PlotBox plot, GridLocation l) {
 		mStorage.addChild(plot, l);
 		
-		return this;
+		return super.addChild(plot, l);
 	}
 	
 	@Override
 	public PlotBox addChild(PlotBox plot, IntPos2D p) {
 		mStorage.addChild(plot, p);
 		
-		return this;
+		return super.addChild(plot, p);
 	}
 	
 	@Override
@@ -289,6 +309,10 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
 		return mStorage.getChild(name);
 	}
 	
+	public PlotBox getChildById(int id) {
+		return mStorage.getChildById(id);
+	}
+	
 	/*
 	public void setPosition(IntPos2D p) {
 		mPos = p;
@@ -309,11 +333,6 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
 	@Override
 	public Iterable<GridLocation> getLocations() {
 		return GridLocation.LOCATIONS_LIST;
-	}
-	
-	@Override
-	public String getType() {
-		return "plot-box-container";
 	}
 	
 	public Iterable<String> getNames() {

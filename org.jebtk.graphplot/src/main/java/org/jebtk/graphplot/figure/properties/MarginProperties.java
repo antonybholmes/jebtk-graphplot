@@ -94,11 +94,7 @@ public class MarginProperties extends ChangeListeners implements Comparable<Marg
 		addChangeListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent e) {
-				try {
-					mText = TextUtils.squareBrackets(TextUtils.join(TextUtils.COMMA_DELIMITER, mTop, mLeft, mBottom, mRight));
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+				mText = TextUtils.squareBrackets(TextUtils.join(TextUtils.COMMA_DELIMITER, mTop, mLeft, mBottom, mRight));
 			}});
 
 		setMargins(top, left, bottom, right);

@@ -52,11 +52,10 @@ public class AxisLayerY1 extends AxisLayerY {
 	/** The m major tick labels. */
 	private UniqueArrayList<String> mMajorTickLabels;
 
-	/**
-	 * Instantiates a new axis y1 layer.
-	 */
-	public AxisLayerY1() {
-		super("Y Axis 1");
+	
+	@Override
+	public String getType() {
+		return "Y1 Axis";
 	}
 
 	/* (non-Javadoc)

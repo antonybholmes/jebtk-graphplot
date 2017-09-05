@@ -45,8 +45,8 @@ public class PlotBoxGridStorage extends PlotBoxStorage {
 	}
 	
 	@Override
-	public PlotBox getChild(int i, int j) {
-		return mLocations[i][j];
+	public PlotBox getChild(int row, int col) {
+		return mLocations[row][col];
 	}
 	
 	@Override

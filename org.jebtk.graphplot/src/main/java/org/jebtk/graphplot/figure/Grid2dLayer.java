@@ -32,12 +32,10 @@ public class Grid2dLayer extends AxesLayer {
 	 * The constant serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Instantiates a new grid2d layer.
-	 */
-	public Grid2dLayer() {
-		super("Grid");
+	
+	@Override
+	public String getType() {
+		return "Grid 2D Layer";
 	}
 
 	/* (non-Javadoc)
@@ -59,7 +57,6 @@ public class Grid2dLayer extends AxesLayer {
 	
 	private static void drawXAxis(Graphics2D g2, Axes axes, Axis axis) {
 		if (axis.getGrid().getVisible()) {
-
 			g2.setColor(axis.getGrid().getColor());
 			g2.setStroke(axis.getGrid().getStroke());
 
@@ -79,6 +76,9 @@ public class Grid2dLayer extends AxesLayer {
 
 	private static void drawYAxis(Graphics2D g2, Axes axes, Axis axis) {
 		if (axis.getGrid().getVisible()) {
+			
+			System.err.println("g2 layer " + axis.getName());
+			
 			g2.setColor(axis.getGrid().getColor());
 			g2.setStroke(axis.getGrid().getStroke());
 

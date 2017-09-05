@@ -56,11 +56,9 @@ public class HeatMapGridPlotLayer extends PlotClippedLayer {
 	/** The m hash id. */
 	private String mHashId = null;
 
-	/**
-	 * Instantiates a new heat map outline plot layer.
-	 */
-	public HeatMapGridPlotLayer() {
-		super("Heat Map Grid");
+	@Override
+	public String getType() {
+		return "Heat Map Grid Layer";
 	}
 
 	/* (non-Javadoc)
@@ -69,7 +67,7 @@ public class HeatMapGridPlotLayer extends PlotClippedLayer {
 	@Override
 	public void plotLayer(Graphics2D g2,
 			DrawingContext context,
-Figure figure,
+			Figure figure,
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,

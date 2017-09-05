@@ -41,7 +41,12 @@ public class JoinedBarsLayer extends UniqueXYLayer {
 	 * @param series the series
 	 */
 	public JoinedBarsLayer(String series) {
-		super("Joined Bars", series);
+		super(series);
+	}
+	
+	@Override
+	public String getType() {
+		return "Joined Bars Layer";
 	}
 
 	/* (non-Javadoc)
@@ -51,7 +56,7 @@ public class JoinedBarsLayer extends UniqueXYLayer {
 	public void plotLayer(Graphics2D g2, 
 			DrawingContext context,
 			Figure figure,
-SubFigure subFigure, 
+			SubFigure subFigure, 
 			Axes axes, 
 			Plot plot, 
 			AnnotationMatrix m,

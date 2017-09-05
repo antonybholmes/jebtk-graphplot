@@ -71,20 +71,9 @@ public class HeatMapFillPlotLayer extends PlotClippedLayer {
 	/** The m hash id. */
 	protected String mHashId;
 
-	/**
-	 * Instantiates a new heat map fill plot layer.
-	 */
-	public HeatMapFillPlotLayer() {
-		this("Heat Map");
-	}
-
-	/**
-	 * Instantiates a new heat map fill plot layer.
-	 *
-	 * @param name the name
-	 */
-	public HeatMapFillPlotLayer(String name) {
-		super(name);
+	@Override
+	public String getType() {
+		return "Heat Map Fill Layer";
 	}
 
 	/* (non-Javadoc)
@@ -93,7 +82,7 @@ public class HeatMapFillPlotLayer extends PlotClippedLayer {
 	@Override
 	public void plotLayer(Graphics2D g2,
 			DrawingContext context,
-Figure figure,
+			Figure figure,
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,

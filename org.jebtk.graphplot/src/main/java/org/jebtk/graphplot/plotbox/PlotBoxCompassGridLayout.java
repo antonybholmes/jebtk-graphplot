@@ -127,10 +127,6 @@ public class PlotBoxCompassGridLayout extends PlotBoxLayout {
 			g2Temp.dispose();
 		}
 
-
-		for (int i = 0; i < 3; ++i) {
-			offset.width += mWidths[i];
-			offset.height += mHeights[i];
-		}
+		super.plot(g2, plot, offset, context, params);
 	}
 }
