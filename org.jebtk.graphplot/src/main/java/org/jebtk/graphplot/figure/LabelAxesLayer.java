@@ -92,7 +92,7 @@ public class LabelAxesLayer extends AxesLayer {
 			Figure figure,
 			SubFigure subFigure,
 			Axes axes) {
-		Point p = axes.toPlotXY1(mX, mY);
+		Point p = axes.toPlotX1Y1(mX, mY);
 		
 		g2.setColor(Color.BLACK);
 		g2.drawString(mLabel, p.x + mOffsetXPixels, p.y + mOffsetYPixels);

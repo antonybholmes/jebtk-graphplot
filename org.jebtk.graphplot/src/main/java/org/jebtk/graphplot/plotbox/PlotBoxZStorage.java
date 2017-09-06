@@ -15,12 +15,9 @@
  */
 package org.jebtk.graphplot.plotbox;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
-
-import org.jebtk.graphplot.figure.GridLocation;
 
 
 // TODO: Auto-generated Javadoc

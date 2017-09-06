@@ -202,7 +202,7 @@ public abstract class AxisLayerX extends AxesLayer {
 
 			x = (axes.getPreferredSize().width - g2.getFontMetrics().stringWidth(axes.getX1Axis().getTitle().getText())) / 2;
 
-			y = axes.getInternalPlotSize().getH() + axes.getMargins().getBottom() - g2.getFontMetrics().getDescent();
+			y = axes.getInternalSize().getH() + axes.getMargins().getBottom() - g2.getFontMetrics().getDescent();
 
 			g2.drawString(axis.getTitle().getText(), x, y);
 		}

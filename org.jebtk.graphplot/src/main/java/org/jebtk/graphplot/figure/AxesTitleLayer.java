@@ -34,9 +34,8 @@ public class AxesTitleLayer extends AxesLayer {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Override
-	public String getType() {
-		return "Axes Title";
+	public AxesTitleLayer() {
+		super("Axes Title");
 	}
 
 	/* (non-Javadoc)
@@ -60,7 +59,7 @@ public class AxesTitleLayer extends AxesLayer {
 		g2.setColor(color);
 		g2.setFont(axes.getTitle().getFontStyle().getFont());
 		
-		int x = (axes.getInternalPlotSize().getW() - g2.getFontMetrics().stringWidth(title)) / 2;
+		int x = (axes.getInternalSize().getW() - g2.getFontMetrics().stringWidth(title)) / 2;
 		int y = ModernWidget.getTextYPosCenter(g2, axes.getMargins().getTop()) - axes.getMargins().getTop();
 
 		g2.drawString(title, x, y);

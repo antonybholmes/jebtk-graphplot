@@ -47,6 +47,8 @@ public class LegendProperties extends VisibleProperties implements ChangeListene
 	 */
 	private FontProperties mFont = new FontProperties();
 	
+	private boolean mInside = true;
+	
 	/**
 	 * Instantiates a new legend properties.
 	 */
@@ -70,6 +72,28 @@ public class LegendProperties extends VisibleProperties implements ChangeListene
 		mPosition = position;
 		
 		fireChanged();
+	}
+	
+	/**
+	 * Set whether to plot the legend inside the boundaries of the axes or
+	 * not.
+	 * 
+	 * @param inside
+	 */
+	public void setInside(boolean inside) {
+		mInside = inside;
+		
+		fireChanged();
+	}
+	
+	/**
+	 * Returns true if the legend should be plotted inside the boundaries of
+	 * the axes.
+	 * 
+	 * @return
+	 */
+	public boolean inside() {
+		return mInside;
 	}
 	
 	/**

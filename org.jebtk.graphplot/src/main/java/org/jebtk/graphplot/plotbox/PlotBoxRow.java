@@ -27,7 +27,7 @@ public class PlotBoxRow extends PlotBoxContainer {
 	private static final long serialVersionUID = 1L;
 
 	public PlotBoxRow() {
-		super(-1, new PlotBoxDimStorage(), new PlotBoxRowLayout());
+		super(new PlotBoxDimStorage(), new PlotBoxRowLayout());
 	}
 	
 	@Override

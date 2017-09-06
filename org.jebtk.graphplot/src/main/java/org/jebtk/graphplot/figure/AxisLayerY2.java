@@ -103,7 +103,7 @@ public class AxisLayerY2 extends AxisLayerY {
 
 		// the line
 
-		int x = axes.getInternalPlotSize().getW();
+		int x = axes.getInternalSize().getW();
 
 		//System.err.println("y2 " + axes.getName() + " " + axes.getMargins() + " " + axes.getInternalPlotSize());
 		

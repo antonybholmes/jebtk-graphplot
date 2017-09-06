@@ -94,7 +94,7 @@ public class UniqueXY implements Iterable<Point>, Comparable<UniqueXY> {
 				DoublePos2D point = new DoublePos2D(m.getValue(i, columns.get(0)), 
 						m.getValue(i, columns.get(1)));
 
-				Point p = axes.toPlotXY1(point);
+				Point p = axes.toPlotX1Y1(point);
 
 				//if (i < 10) {
 				//	System.err.println("unique " + point + " " + p);

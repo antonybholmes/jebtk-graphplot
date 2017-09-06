@@ -37,7 +37,13 @@ public abstract class Layer extends PlotBox {
 	 */
 	protected boolean mVisible = true;
 
+	public Layer() {
+		
+	}
 	
+	public Layer(String name) {
+		super(name);
+	}
 	
 	/* (non-Javadoc)
 	 * @see org.abh.common.IdProperty#getId()

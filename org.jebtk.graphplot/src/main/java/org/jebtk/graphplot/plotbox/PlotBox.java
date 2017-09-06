@@ -64,6 +64,7 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 
 	protected boolean mAAMode = false;
 	protected boolean mRasterMode = false;
+	protected boolean mClipMode = false;
 
 	private BufferedImage mBufferedImage;
 
@@ -254,6 +255,8 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 	 */
 	public void setAAMode(boolean on) {
 		mAAMode = on;
+		
+		fireChanged();
 	}
 
 	/**
@@ -264,6 +267,19 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 	 */
 	public void setRasterMode(boolean on) {
 		mRasterMode = on;
+		
+		fireChanged();
+	}
+	
+	/**
+	 * Sets whether the layer should clip on the boundaries.
+	 * 
+	 * @param on
+	 */
+	public void setClipMode(boolean on) {
+		mClipMode = on;
+		
+		fireChanged();
 	}
 
 	public final void plot(Graphics2D g2, 

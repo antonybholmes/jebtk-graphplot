@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.jebtk.core.IntId;
+import org.jebtk.core.StringId;
 import org.jebtk.core.collections.DefaultHashMap;
 import org.jebtk.core.collections.HashMapCreator;
 import org.jebtk.core.event.ChangeEvent;
@@ -35,7 +36,7 @@ import org.jebtk.core.geom.IntDim;
 import org.jebtk.core.geom.IntPos2D;
 import org.jebtk.core.stream.ListReduceFunction;
 import org.jebtk.core.stream.Stream;
-import org.jebtk.core.text.TextUtils;
+import org.jebtk.core.text.Join;
 import org.jebtk.graphplot.figure.properties.LegendProperties;
 import org.jebtk.graphplot.figure.properties.StyleProperties;
 import org.jebtk.graphplot.figure.properties.TitleProperties;
@@ -58,6 +59,134 @@ import org.jebtk.modern.graphics.DrawingContext;
  *
  */
 public class Axes extends PlotBoxGraph {
+	private static abstract class CachePoints {
+		protected Axes mAxes;
+
+		protected Map<Double, Map<Double, Point>> mXYMap =
+				DefaultHashMap.create(new HashMapCreator<Double, Point>());
+
+		public CachePoints(Axes axes) {
+			mAxes = axes;
+		}
+
+		public Point toPlotXY(double x, double y) {
+			if (!mXYMap.get(x).containsKey(y)) {
+				mXYMap.get(x).put(y, new Point(toPlotX(x), toPlotY(y)));
+			}
+
+			return mXYMap.get(x).get(y);
+		}
+
+		protected abstract int toPlotX(double x);
+
+		protected abstract int toPlotY(double x);
+
+		public void clear() {
+			mXYMap.clear();
+		}
+	}
+
+	private static class CachePointsX1Y1 extends CachePoints {
+		public CachePointsX1Y1(Axes axes) {
+			super(axes);
+		}
+
+		@Override
+		protected int toPlotX(double x) {
+			return mAxes.toPlotX1(x);
+		}
+
+		@Override
+		protected int toPlotY(double x) {
+			return mAxes.toPlotY1(x);
+		}
+	}
+
+	private static class CachePointsX1Y2 extends CachePointsX1Y1 {
+		public CachePointsX1Y2(Axes axes) {
+			super(axes);
+		}
+
+		@Override
+		protected int toPlotY(double x) {
+			return mAxes.toPlotY2(x);
+		}
+	}
+
+	private static class CachePointsX2Y1 extends CachePoints {
+		public CachePointsX2Y1(Axes axes) {
+			super(axes);
+		}
+
+		@Override
+		protected int toPlotX(double x) {
+			return mAxes.toPlotX2(x);
+		}
+
+		@Override
+		protected int toPlotY(double x) {
+			return mAxes.toPlotY1(x);
+		}
+	}
+
+	private static class CachePointsX2Y2 extends CachePointsX2Y1 {
+		public CachePointsX2Y2(Axes axes) {
+			super(axes);
+		}
+
+		@Override
+		protected int toPlotY(double x) {
+			return mAxes.toPlotY2(x);
+		}
+	}
+	
+	private class AxesCachePoints {
+		private CachePoints mX1Y1Map;
+		private CachePoints mX1Y2Map;
+		private CachePoints mX2Y1Map;
+		private CachePoints mX2Y2Map;
+
+		
+		public AxesCachePoints(Axes axes) {
+			mX1Y1Map = new CachePointsX1Y1(axes);
+			mX1Y2Map = new CachePointsX1Y2(axes);
+			mX2Y1Map = new CachePointsX2Y1(axes);
+			mX2Y2Map = new CachePointsX2Y2(axes);
+		}
+		
+		public Point toPlotXY(double x, 
+				XAxisType xAxis, 
+				double y, 
+				YAxisType yAxis) {
+			if (xAxis == XAxisType.X1) {
+				// X1
+				
+				if (yAxis == YAxisType.Y1) {
+					return mX1Y1Map.toPlotXY(x, y);
+				} else {
+					return mX1Y2Map.toPlotXY(x, y);
+				}
+			} else {
+				// X2
+				if (yAxis == YAxisType.Y1) {
+					return mX2Y1Map.toPlotXY(x, y);
+				} else {
+					return mX2Y2Map.toPlotXY(x, y);
+				}
+			}
+		}
+		
+		public Point toPlotX1Y1(double x, double y) {
+			return mX1Y1Map.toPlotXY(x, y); //toPlotXY(x, XAxisType.X1, y, YAxisType.Y1);
+		}
+		
+		public void clear() {
+			mX1Y1Map.clear();
+			mX1Y2Map.clear();
+			mX2Y1Map.clear();
+			mX2Y2Map.clear();
+		}
+	}
 
 	/**
 	 * The constant serialVersionUID.
@@ -116,13 +245,7 @@ public class Axes extends PlotBoxGraph {
 	/** The m y2 axis trans. */
 	private AxisTranslation mY2AxisTrans;
 
-	protected Map<Double, Map<Double, Point>> mXY1Map =
-			DefaultHashMap.create(new HashMapCreator<Double, Point>());
-
-	/** The m x y2 map. */
-	protected Map<Double, Map<Double, Point>> mXY2Map =
-			DefaultHashMap.create(new HashMapCreator<Double, Point>());
-
+	
 	public static final IntDim DEFAULT_SIZE = new IntDim(800, 400);
 
 	public static final int RESERVED_Z_GRID = -1000;
@@ -137,11 +260,9 @@ public class Axes extends PlotBoxGraph {
 
 	private Plot mCurrentPlot;
 
-	/**
-	 * Force axes to have a particular size.
-	 */
-	//private IntDim mInternalSize = new IntDim(1000, 600);
+	private AxesCachePoints mPointsCache;
 
+	private static final StringId NEXT_ID = new StringId("Axes");
 
 	/**
 	 * The class GraphEvents.
@@ -157,6 +278,17 @@ public class Axes extends PlotBoxGraph {
 		}
 	}
 	
+	private class ForwardEvents implements ChangeListener {
+
+		/* (non-Javadoc)
+		 * @see org.abh.lib.event.ChangeListener#changed(org.abh.lib.event.ChangeEvent)
+		 */
+		@Override
+		public void changed(ChangeEvent e) {
+			fireChanged();
+		}
+	}
+
 	/**
 	 * Instantiates a new axes.
 	 *
@@ -165,20 +297,26 @@ public class Axes extends PlotBoxGraph {
 	public Axes(String name) {
 		super(name, new PlotBoxZStorage(), new PlotBoxZLayout());
 
+		mPointsCache = new AxesCachePoints(this);
+
 		mX1AxisTrans = new AxisTranslationX1(this);
 		mY1AxisTrans = new AxisTranslationY1(this);
 		mX2AxisTrans = new AxisTranslationX2(this);
 		mY2AxisTrans = new AxisTranslationY2(this);
 
 		GraphEvents ge = new GraphEvents();
+		ForwardEvents fe = new ForwardEvents();
 
-		mTitle.addChangeListener(ge);
-		mLegend.addChangeListener(ge);
+		mTitle.addChangeListener(fe);
+		mLegend.addChangeListener(fe);
+		mStyle.addChangeListener(fe);
+		
 		mX1Axis.addChangeListener(ge);
+		mX2Axis.addChangeListener(ge);
 		mY1Axis.addChangeListener(ge);
 		mY2Axis.addChangeListener(ge);
-		mStyle.addChangeListener(ge);
 		
+
 		// Default to not drawing outlines
 		//mStyle.getLineStyle().setColor(Color.LIGHT_GRAY);
 		mStyle.getLineStyle().setVisible(false);
@@ -190,15 +328,15 @@ public class Axes extends PlotBoxGraph {
 		// Default x2 axis to being invisible
 		mX2Axis.getTitle().setText("Y");
 		mX2Axis.setVisible(false);
-		
+
 		mY1Axis.getTitle().setText("Y");
 		mY1Axis.getTitle().getFontStyle().setVisible(false);
 
 		// Default y2 axis to being invisible
 		mY2Axis.getTitle().setText("Y");
 		mY2Axis.setVisible(false);
-		
-		
+
+
 		addReserved(new Grid2dLayer(), RESERVED_Z_GRID);
 		addReserved(new AxisLayerX1(), RESERVED_Z_X_AXIS_1);
 		addReserved(new AxisLayerX2(), RESERVED_Z_X_AXIS_2);
@@ -222,29 +360,29 @@ public class Axes extends PlotBoxGraph {
 		}
 	}
 
-	public void setInternalPlotHeight(int h) {
-		setInternalPlotSize(getInternalPlotSize().getW(), h);
+	public void setInternalHeight(int h) {
+		setInternalSize(getInternalSize().getW(), h);
 	}
 
-	public void setInternalPlotSize(int w, int h) {
-		setInternalPlotSize(new IntDim(w, h));
+	public void setInternalSize(int w, int h) {
+		setInternalSize(new IntDim(w, h));
 	}
 
-	public void setInternalPlotSize(Dimension d) {
-		setInternalPlotSize(IntDim.create(d));
+	public void setInternalSize(Dimension d) {
+		setInternalSize(IntDim.create(d));
 	}
 
-	public void setInternalPlotSize(IntDim d) {
+	public void setInternalSize(IntDim d) {
 		if (!d.equals(mInternalSize)) {
 			mInternalSize = d;
-			
+
 			refresh();
 
 			fireChanged();
 		}
 	}
 
-	public IntDim getInternalPlotSize() {
+	public IntDim getInternalSize() {
 		return mInternalSize;
 	}
 
@@ -273,7 +411,7 @@ public class Axes extends PlotBoxGraph {
 	public Plot newPlot() {
 		return newPlot(createId(LayerType.PLOT, mNextPlotId.getNextId()));
 	}
-	
+
 	public Plot newPlot(String name) {
 		mCurrentPlot = new Plot(name);
 
@@ -285,7 +423,7 @@ public class Axes extends PlotBoxGraph {
 	public Plot newPlot(GridLocation l) {
 		return newPlot();
 	}
-	
+
 
 	/**
 	 * Gets the axes.
@@ -305,7 +443,7 @@ public class Axes extends PlotBoxGraph {
 
 		return (Plot)c;
 	}
-	
+
 	public Plot getPlot(int id) {
 		PlotBox c = getChildById(id);
 
@@ -322,7 +460,7 @@ public class Axes extends PlotBoxGraph {
 	 * @param l the l
 	 * @return the current axes
 	 */
-	public Plot getCurrentPlot() {
+	public Plot currentPlot() {
 		if (mCurrentPlot == null) {
 			newPlot();
 		}
@@ -554,7 +692,7 @@ public class Axes extends PlotBoxGraph {
 		//mZ1Axis.setFont(font, color);
 		//mZ1Axis.setFont(font, color);
 	}
-	
+
 	public void setAxisVisible(boolean visible) {
 		mX1Axis.setVisible(visible);
 		mX2Axis.setVisible(visible);
@@ -568,11 +706,12 @@ public class Axes extends PlotBoxGraph {
 		//mX2AxisTrans.update(mXOffset, s.width);
 		//mY1AxisTrans.update(mYOffset, s.height);
 		//mY2AxisTrans.update(mYOffset, s.height);
-		
-		mXY1Map.clear();
-		mXY2Map.clear();
+
+		mPointsCache.clear();
 
 		//fireCanvasRedraw();
+		
+		fireChanged();
 	}
 
 
@@ -583,13 +722,12 @@ public class Axes extends PlotBoxGraph {
 	 */
 	@Override
 	public String hashId() {
-		return TextUtils.join(TextUtils.COLON_DELIMITER,
-				getMargins(),
-				getPreferredSize(),
+		return Join.onDash().values(getPreferredSize(),
 				getX1Axis().getMin(),
 				getX1Axis().getMax(),
 				getY1Axis().getMin(),
-				getY1Axis().getMax());
+				getY1Axis().getMax())
+				.toString();
 	}
 
 	/* (non-Javadoc)
@@ -651,7 +789,7 @@ public class Axes extends PlotBoxGraph {
 	 * @param s the s
 	 * @return the list
 	 */
-	public List<Point> toPlotXY1(AnnotationMatrix m, XYSeries s) {
+	public List<Point> toPlotX1Y1(AnnotationMatrix m, XYSeries s) {
 		int n = m.getRowCount();
 
 		List<Integer> columns = MatrixGroup.findColumnIndices(m, s);
@@ -659,7 +797,7 @@ public class Axes extends PlotBoxGraph {
 		List<Point> points = new ArrayList<Point>(n);
 
 		for (int i = 0; i < n; ++i) {
-			points.add(toPlotXY1(new DoublePos2D(m.getValue(i, columns.get(0)), m.getValue(i, columns.get(1)))));
+			points.add(toPlotX1Y1(m.getValue(i, columns.get(0)), m.getValue(i, columns.get(1))));
 		}
 
 		return points;
@@ -672,8 +810,8 @@ public class Axes extends PlotBoxGraph {
 	 * @param p the p
 	 * @return the point
 	 */
-	public Point toPlotXY1(XYPoint p) {
-		return toPlotXY1(p.getX(), p.getY());
+	public Point toPlotX1Y1(XYPoint p) {
+		return toPlotX1Y1(p.getX(), p.getY());
 	}
 
 	/**
@@ -682,8 +820,8 @@ public class Axes extends PlotBoxGraph {
 	 * @param p the p
 	 * @return the point
 	 */
-	public Point toPlotXY1(DoublePos2D p) {
-		return toPlotXY1(p.getX(), p.getY());
+	public Point toPlotX1Y1(DoublePos2D p) {
+		return toPlotX1Y1(p.getX(), p.getY());
 	}
 
 	/**
@@ -692,8 +830,8 @@ public class Axes extends PlotBoxGraph {
 	 * @param p the p
 	 * @return the point
 	 */
-	public Point toPlotXY1(IntPos2D p) {
-		return toPlotXY1(p.getX(), p.getY());
+	public Point toPlotX1Y1(IntPos2D p) {
+		return toPlotX1Y1(p.getX(), p.getY());
 	}
 
 	/**
@@ -703,37 +841,19 @@ public class Axes extends PlotBoxGraph {
 	 * @param y the y
 	 * @return the point
 	 */
-	public Point toPlotXY1(double x, double y) {
-		if (!mXY1Map.get(x).containsKey(y)) {
-			mXY1Map.get(x).put(y, new Point(toPlotX1(x), toPlotY1(y)));
-		}
-
-		return mXY1Map.get(x).get(y);
+	public Point toPlotX1Y1(double x, double y) {
+		return mPointsCache.toPlotX1Y1(x, y); //toPlotXY(x, XAxisType.X1, y, YAxisType.Y1);
+	}
+	
+	public Point toPlotXY(double x, 
+			XAxisType xAxis, 
+			double y, 
+			YAxisType yAxis) {
+		return mPointsCache.toPlotXY(x, xAxis, y, yAxis);
 	}
 
-	/**
-	 * To plot x y2.
-	 *
-	 * @param p the p
-	 * @return the point
-	 */
-	public Point toPlotXY2(XYPoint p) {
-		return toPlotXY2(p.getX(), p.getY());
-	}
-
-	/**
-	 * To plot x y2.
-	 *
-	 * @param x the x
-	 * @param y the y
-	 * @return the point
-	 */
-	public Point toPlotXY2(double x, double y) {
-		if (!mXY2Map.get(x).containsKey(y)) {
-			mXY2Map.get(x).put(y, new Point(toPlotX1(x), toPlotY2(y)));
-		}
-
-		return mXY2Map.get(x).get(y);
+	public AxesCachePoints getPointsCache() {
+		return mPointsCache;
 	}
 
 	//
@@ -941,5 +1061,18 @@ public class Axes extends PlotBoxGraph {
 		SubFigure subFigure = (SubFigure)params[1];
 
 		super.plot(g2, offset, context, figure, subFigure, this);
+	}
+
+	/**
+	 * Create a new axes object.
+	 * 
+	 * @return
+	 */
+	public static Axes createAxes() {
+		return createAxes(NEXT_ID.getNextId());
+	}
+
+	public static Axes createAxes(String name) {
+		return new Axes(name);
 	}
 }

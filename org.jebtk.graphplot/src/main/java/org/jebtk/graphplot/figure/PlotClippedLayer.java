@@ -15,12 +15,6 @@
  */
 package org.jebtk.graphplot.figure;
 
-import java.awt.Graphics2D;
-
-import org.jebtk.math.matrix.AnnotationMatrix;
-import org.jebtk.modern.graphics.DrawingContext;
-import org.jebtk.modern.graphics.ImageUtils;
-
 // TODO: Auto-generated Javadoc
 /**
  * Each layer of the graph can respond to changes.
@@ -30,19 +24,23 @@ import org.jebtk.modern.graphics.ImageUtils;
  */
 public abstract class PlotClippedLayer extends PlotLayer  {
 
+	private static final PlotClip CLIP = new PlotClipRectY();
+	
 	/**
 	 * The constant serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	public PlotClippedLayer() {
+		setClip(CLIP);
+	}
 	
 	@Override
 	public String getType() {
 		return "Plot Clipped Layer";
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.graphplot.figure.PlotLayer#plot(java.awt.Graphics2D, org.graphplot.DrawingContext, org.graphplot.figure.SubFigure, org.graphplot.figure.Axes, org.graphplot.figure.Plot, org.abh.common.math.matrix.AnnotationMatrix)
-	 */
+	/*
 	@Override
 	public final void plotContext(Graphics2D g2,
 			DrawingContext context,
@@ -56,12 +54,13 @@ public abstract class PlotClippedLayer extends PlotLayer  {
 		try {
 			g2Temp.clipRect(0,
 					0, 
-					axes.getInternalPlotSize().getW(), 
-					axes.getInternalPlotSize().getH());
+					axes.getInternalSize().getW(), 
+					axes.getInternalSize().getH());
 
 			super.plotContext(g2Temp, context, figure, subFigure, axes, plot, m);
 		} finally {
 			g2Temp.dispose();
 		}
 	}
+	*/
 }

@@ -254,7 +254,7 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
 	public PlotBox addReserved(PlotBox plot, int i) {
 		mStorage.addReserved(plot, i);
 		
-		return super.addReserved(plot, i);
+		return super.addChild(plot, i);
 	}
 	
 	@Override

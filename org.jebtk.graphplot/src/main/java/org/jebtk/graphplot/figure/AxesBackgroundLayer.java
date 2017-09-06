@@ -58,8 +58,8 @@ SubFigure subFigure,
 		
 		int x = 0;
 		int y = 0;
-		int w = axes.getInternalPlotSize().getW();
-		int h = axes.getInternalPlotSize().getH();
+		int w = axes.getInternalSize().getW();
+		int h = axes.getInternalSize().getH();
 		
 		g2.fillRect(x, y, w, h);
 	}

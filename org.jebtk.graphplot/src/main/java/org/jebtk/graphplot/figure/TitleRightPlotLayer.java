@@ -53,12 +53,12 @@ public class TitleRightPlotLayer extends AxesTitleLayer {
 		String title = axes.getTitle().getText();
 		Color color = axes.getTitle().getFontStyle().getColor();
 		
-		if (!axes.getTitle().getFontStyle().getVisible() || title == null || title.length() == 0) {
+		if (!axes.getTitle().getVisible() || title == null || title.length() == 0) {
 			return;
 		}
 
 		
-		int x = OFFSET + axes.getInternalPlotSize().getW();
+		int x = OFFSET + axes.getInternalSize().getW();
 		int y = ModernWidget.getTextYPosCenter(g2, axes.getPreferredSize().height);
 		
 		g2.setColor(color);

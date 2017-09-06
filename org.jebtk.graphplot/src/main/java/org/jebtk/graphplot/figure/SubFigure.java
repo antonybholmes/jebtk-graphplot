@@ -20,6 +20,7 @@ import java.awt.Graphics2D;
 import java.util.List;
 
 import org.jebtk.core.IntId;
+import org.jebtk.core.StringId;
 import org.jebtk.core.stream.ListReduceFunction;
 import org.jebtk.core.stream.Stream;
 import org.jebtk.graphplot.plotbox.PlotBox;
@@ -56,8 +57,12 @@ public class SubFigure extends PlotBoxGraph { //LayoutLayer
 
 	private SubFigure mCurrentSubFigure;
 
+	private static final StringId NEXT_ID = new StringId("Sub Figure");
 
-
+	public SubFigure() {
+		this(NEXT_ID.getNextId());
+	}
+	
 	/**
 	 * Instantiates a new sub figure.
 	 *
@@ -134,11 +139,11 @@ public class SubFigure extends PlotBoxGraph { //LayoutLayer
 		return (Axes)c;
 	}
 	
-	public Axes getCurrentAxes() {
-		return getCurrentAxes(GridLocation.CENTER);
+	public Axes currentAxes() {
+		return currentAxes(GridLocation.CENTER);
 	}
 
-	public Axes getCurrentAxes(GridLocation l) {
+	public Axes currentAxes(GridLocation l) {
 		if (mCurrentAxes == null) {
 			newAxes(l);
 		}
@@ -169,11 +174,11 @@ public class SubFigure extends PlotBoxGraph { //LayoutLayer
 		return mCurrentSubFigure;
 	}
 	
-	public SubFigure getCurrentSubFigure() {
-		return getCurrentSubFigure(GridLocation.CENTER);
+	public SubFigure currentSubFigure() {
+		return currentSubFigure(GridLocation.CENTER);
 	}
 
-	public SubFigure getCurrentSubFigure(GridLocation l) {
+	public SubFigure currentSubFigure(GridLocation l) {
 		if (mCurrentSubFigure == null) {
 			newSubFigure(l);
 		}
@@ -285,5 +290,13 @@ public class SubFigure extends PlotBoxGraph { //LayoutLayer
 	
 	public static String createSubFigureId(int id) {
 		return createId(LayerType.SUBFIGURE, id);
+	}
+	
+	public static SubFigure createSubFigure() {
+		return createSubFigure(NEXT_ID.getNextId());
+	}
+
+	public static SubFigure createSubFigure(String name) {
+		return new SubFigure(name);
 	}
 }

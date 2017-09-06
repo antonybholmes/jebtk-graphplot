@@ -336,9 +336,7 @@ public class Plot extends PlotBoxGraph implements MatrixEventListener, ChangeLis
 			String series,
 			PlotStyle style,
 			PlotStyle... styles) {
-		
-		System.err.println("add style 1 " + style + " " + Arrays.toString(styles));
-		
+	
 		addStyle(plot, series, style);
 
 		for (PlotStyle s : styles) {
@@ -352,48 +350,48 @@ public class Plot extends PlotBoxGraph implements MatrixEventListener, ChangeLis
 
 		switch(style) {
 		case FILLED:
-			plot.putZ(new FillPlotLayer(series));
+			plot.addChild(new FillPlotLayer(series));
 			//plot.getPlotLayerZModel().setZ(new LinePlotLayer(series));
 			break;
 		case JOINED_SMOOTH_ZERO_ENDS:
-			plot.putZ(new SplineLinePlotLayer(series, true));
+			plot.addChild(new SplineLinePlotLayer(series, true));
 			break;
 		case FILLED_SMOOTH:
-			plot.putZ(new SplineFillPlotLayer(series));
+			plot.addChild(new SplineFillPlotLayer(series));
 			//plot.getPlotLayerZModel().setZ(new SplineLinePlotLayer(series));
 			//break;
 		case JOINED_SMOOTH:
-			plot.putZ(new SplineLinePlotLayer(series, false));
+			plot.addChild(new SplineLinePlotLayer(series, false));
 			break;
 		case LINES:
-			plot.putZ(new LinesPlotLayer(series));
+			plot.addChild(new LinesPlotLayer(series));
 			break;
 		case BARS:
-			plot.putZ(new BarsLayer(series));
+			plot.addChild(new BarsLayer(series));
 			break;
 		case JOINED_BARS:
-			plot.putZ(new JoinedBarsLayer(series));
+			plot.addChild(new JoinedBarsLayer(series));
 			break;
 		case BAR_PLOT:
-			plot.putZ(new BarChartLayer(series));
-			//plot.mLayers.putZ(new JoinedBarsLayer(series));
+			plot.addChild(new BarChartLayer());
+			//plot.mLayers.addChild(new JoinedBarsLayer(series));
 			break;
 		case SCATTER:
-			plot.putZ(new ScatterPlotLayer(series));
+			plot.addChild(new ScatterPlotLayer(series));
 			break;
 		case FILLED_TRAPEZOID:
-			plot.putZ(new FillTrapezoidPlotLayer(series));
+			plot.addChild(new FillTrapezoidPlotLayer(series));
 			break;
 		case SEGMENTS:
-			plot.putZ(new SegmentsPlotLayer(series));
+			plot.addChild(new SegmentsPlotLayer(series));
 			break;
 		case HEATMAP:
-			plot.putZ(new HeatMapFillPlotLayer());
-			plot.putZ(new OutlinePlotLayer());
+			plot.addChild(new HeatMapFillPlotLayer());
+			plot.addChild(new OutlinePlotLayer());
 			break;
 		default:
 			// Joined
-			plot.putZ(new LinePlotLayer(series));
+			plot.addChild(new LinePlotLayer(series));
 			break;
 		}
 	}

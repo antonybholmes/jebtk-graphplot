@@ -56,7 +56,7 @@ public class AxisLayerX2 extends AxisLayerX {
 
 			g2.drawLine(axes.getMargins().getLeft(), 
 					y,
-					axes.getMargins().getLeft() + axes.getInternalPlotSize().getW() - 1,
+					axes.getMargins().getLeft() + axes.getInternalSize().getW() - 1,
 					y);
 
 			// If xmin is less than zero and xmax greater than zero,
@@ -69,7 +69,7 @@ public class AxisLayerX2 extends AxisLayerX {
 				g2.drawLine(x, 
 						y,
 						x,
-						y + axes.getInternalPlotSize().getH() - 1);
+						y + axes.getInternalSize().getH() - 1);
 			}
 		}
 	}

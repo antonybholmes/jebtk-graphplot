@@ -72,7 +72,7 @@ SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m) {
-		Point p = axes.toPlotXY1(mX, mY);
+		Point p = axes.toPlotX1Y1(mX, mY);
 		
 		g2.drawString(mLabel, p.x - g2.getFontMetrics().stringWidth(mLabel) + mOffsetXPixels, p.y + mOffsetYPixels);
 	}

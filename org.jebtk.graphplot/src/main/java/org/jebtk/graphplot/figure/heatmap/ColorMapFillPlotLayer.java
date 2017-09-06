@@ -85,7 +85,7 @@ Figure figure,
 
 		int x1 = 0; //axes.getMargins().getLeft();
 		int y1 = 0; //axes.getMargins().getTop();
-		int h = axes.getInternalPlotSize().getH();
+		int h = axes.getInternalSize().getH();
 	
 		int s = cache(context,
 				figure,
@@ -117,7 +117,7 @@ Figure figure,
 			Axes axes,
 			Plot plot,
 			int x1) {
-		int w = axes.getInternalPlotSize().getW();
+		int w = axes.getInternalSize().getW();
 
 		double wd = w;
 		

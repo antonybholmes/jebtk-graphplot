@@ -61,7 +61,7 @@ public class Grid2dLayer extends AxesLayer {
 			g2.setStroke(axis.getGrid().getStroke());
 
 			int x;
-			int h = axes.getInternalPlotSize().getH();
+			int h = axes.getInternalSize().getH();
 			
 			for (int i = 0; i < axis.getTicks().getMajorTicks().getTickCount(); ++i) {
 				x = axes.toPlotX1(axis.getTicks().getMajorTicks().getTick(i));
@@ -82,7 +82,7 @@ public class Grid2dLayer extends AxesLayer {
 			g2.setColor(axis.getGrid().getColor());
 			g2.setStroke(axis.getGrid().getStroke());
 
-			int x2 = axes.getInternalPlotSize().getW();
+			int x2 = axes.getInternalSize().getW();
 
 			int y;
 

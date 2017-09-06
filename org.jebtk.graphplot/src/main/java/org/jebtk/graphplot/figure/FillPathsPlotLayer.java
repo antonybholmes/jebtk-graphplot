@@ -43,8 +43,8 @@ public abstract class FillPathsPlotLayer extends PathsPlotLayer {
 	 * @param name the name
 	 * @param series the series
 	 */
-	public FillPathsPlotLayer(String name, String series) {
-		super(name, series);
+	public FillPathsPlotLayer(String series) {
+		super(series);
 	}
 
 	/* (non-Javadoc)
@@ -54,7 +54,7 @@ public abstract class FillPathsPlotLayer extends PathsPlotLayer {
 	public void plotLayer(Graphics2D g2,
 			DrawingContext context,
 			Figure figure,
-SubFigure subFigure,
+			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m,

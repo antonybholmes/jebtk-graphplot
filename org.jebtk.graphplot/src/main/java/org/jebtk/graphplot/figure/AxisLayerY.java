@@ -77,7 +77,7 @@ public abstract class AxisLayerY extends AxesLayer {
 			Graphics2D g2Temp = (Graphics2D)g2.create();
 
 			try {
-				g2Temp.translate(x, axes.getInternalPlotSize().getH() - (axes.getInternalPlotSize().getH() - g2.getFontMetrics().stringWidth(axis.getTitle().getText())) / 2);
+				g2Temp.translate(x, axes.getInternalSize().getH() - (axes.getInternalSize().getH() - g2.getFontMetrics().stringWidth(axis.getTitle().getText())) / 2);
 
 				// Default to drawing the label vertically
 				g2Temp.rotate(Y_ROTATION);
@@ -111,7 +111,7 @@ public abstract class AxisLayerY extends AxesLayer {
 			g2.drawLine(x, 
 					0,
 					x,
-					axes.getInternalPlotSize().getH());
+					axes.getInternalSize().getH());
 
 			// Draw a line at y = 0
 			if (axis.getShowZerothLine() && axis.getMin() < 0 && axis.getMax() > 0) {
@@ -120,7 +120,7 @@ public abstract class AxisLayerY extends AxesLayer {
 
 				g2.drawLine(x, 
 						y,
-						axes.getInternalPlotSize().getW(),
+						axes.getInternalSize().getW(),
 						y);
 			}
 		}

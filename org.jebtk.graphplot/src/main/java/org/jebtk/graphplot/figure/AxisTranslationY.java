@@ -38,7 +38,7 @@ public abstract class AxisTranslationY extends AxisTranslation {
 
 	@Override
 	public int getPixels() {
-		return getAxes().getInternalPlotSize().getH();
+		return getAxes().getInternalSize().getH();
 	}
 
 	@Override

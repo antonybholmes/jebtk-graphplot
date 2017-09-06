@@ -183,7 +183,7 @@ public class AxisLabelLayerX1 extends PlotLayer {
 			g2.setColor(axis.getTitle().getFontStyle().getColor());
 
 			x = axes.getMargins().getLeft() + 
-					(axes.getInternalPlotSize().getW() - g2.getFontMetrics().stringWidth(axes.getX1Axis().getTitle().getText())) / 2;
+					(axes.getInternalSize().getW() - g2.getFontMetrics().stringWidth(axes.getX1Axis().getTitle().getText())) / 2;
 
 			y = axes.getPreferredSize().height - g2.getFontMetrics().getDescent();
 

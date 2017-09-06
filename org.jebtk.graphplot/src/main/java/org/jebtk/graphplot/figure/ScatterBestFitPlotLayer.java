@@ -265,7 +265,7 @@ SubFigure subFigure,
 		Marker shape = series.getMarker();
 		
 		for (DoublePos2D p : points) {
-			shape.plot(g2, series.getMarkerStyle(), axes.toPlotXY1(p));
+			shape.plot(g2, series.getMarkerStyle(), axes.toPlotX1Y1(p));
 		}
 		
 		/*updates path settings, the browser will draw the new spline*/

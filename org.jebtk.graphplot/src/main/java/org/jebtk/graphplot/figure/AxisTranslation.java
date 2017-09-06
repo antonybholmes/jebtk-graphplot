@@ -66,23 +66,13 @@ public abstract class AxisTranslation {
 		//axes.addCanvasListener(this);
 		//axis.addChangeListener(this);
 
-		redraw();
+		cache();
 	}
 
 	public Axes getAxes() {
 		return mAxes;
 	}
 
-	/**
-	 * Redraw.
-	 */
-	public void redraw() {	
-		mXMin = mAxis.getMin();
-		mXDiff = mAxis.getMax() - mXMin;
-		mXPixels = getPixels();
-
-		clearCaches();
-	}
 
 	public abstract int getPixels();
 
@@ -102,7 +92,7 @@ public abstract class AxisTranslation {
 		return mXMap.get(x);
 	}
 
-	public void cacheCheck() {
+	protected void cacheCheck() {
 		// To prevent race conditions where the plot refreshes before
 		// axis translator updates, do a check before a normalization whether
 		// we need to clear the caches. We do this as an alternative to a
@@ -111,10 +101,21 @@ public abstract class AxisTranslation {
 		String id = mAxes.hashId();
 		
 		if (!mHashId.equals(id)) {
-			redraw();
+			cache();
 
 			mHashId = id;
 		}
+	}
+
+	/**
+	 * Redraw.
+	 */
+	private void cache() {	
+		mXMin = mAxis.getMin();
+		mXDiff = mAxis.getMax() - mXMin;
+		mXPixels = getPixels();
+
+		clearCaches();
 	}
 
 	/**

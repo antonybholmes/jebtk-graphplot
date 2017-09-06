@@ -116,4 +116,8 @@ public class TitleProperties extends ChangeListeners implements ChangeListener {
 	public void setVisible(boolean visible) {
 		mFont.setVisible(visible);
 	}
+	
+	public boolean getVisible() {
+		return mFont.getVisible();
+	}
 }

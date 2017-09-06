@@ -48,8 +48,8 @@ public abstract class AxesClippedLayer extends AxesLayer  {
 		try {
 			g2Temp.clipRect(0,
 					0, 
-					axes.getInternalPlotSize().getW(), 
-					axes.getInternalPlotSize().getH());
+					axes.getInternalSize().getW(), 
+					axes.getInternalSize().getH());
 
 			plotLayer(g2Temp, context, figure, subFigure, axes);
 		}  finally {

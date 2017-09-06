@@ -39,6 +39,14 @@ public abstract class AxesLayer extends Layer {
 
 	/** The m cache axes. */
 	private String mCacheAxes;
+	
+	public AxesLayer() {
+		
+	}
+	
+	public AxesLayer(String name) {
+		super(name);
+	}
 
 	/**
 	 * Plot.

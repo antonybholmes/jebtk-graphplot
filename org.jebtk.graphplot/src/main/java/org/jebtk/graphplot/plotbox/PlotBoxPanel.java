@@ -48,7 +48,7 @@ public class PlotBoxPanel extends ModernPlotCanvas implements ChangeListener {
 		mPlot = plot;
 		mPlot.addChangeListener(this);
 		
-		resize();
+		refresh();
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public class PlotBoxPanel extends ModernPlotCanvas implements ChangeListener {
 		return mPlot.getStorage();
 	}
 	
-	private void resize() {
+	private void refresh() {
 		Dimension s = mPlot.getPreferredSize();
 		
 		if (mS == null || !s.equals(mS)) {
@@ -79,8 +79,6 @@ public class PlotBoxPanel extends ModernPlotCanvas implements ChangeListener {
 
 	@Override
 	public void changed(ChangeEvent e) {
-		System.err.println("plot box panel aha");
-		
-		resize();
+		refresh();
 	}
 }

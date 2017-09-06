@@ -68,8 +68,8 @@ public class ColorMapVFillPlotLayer extends PlotClippedLayer {
 
 		int x1 = 0; //axes.getMargins().getLeft();
 		int y1 = 0; //axes.getMargins().getTop();
-		int y2 = y1 + axes.getInternalPlotSize().getH() - 1;
-		int w = axes.getInternalPlotSize().getW();
+		int y2 = y1 + axes.getInternalSize().getH() - 1;
+		int w = axes.getInternalSize().getW();
 	
 		int s = cache(context,
 				figure,
@@ -101,7 +101,7 @@ Figure figure,
 			Axes axes,
 			Plot plot,
 			int y1) {
-		int h = axes.getInternalPlotSize().getH();
+		int h = axes.getInternalSize().getH();
 
 		double wd = h;
 		

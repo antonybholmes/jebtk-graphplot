@@ -127,7 +127,7 @@ public class ColorBarVLayer extends PlotLayer {
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m) {
-		int l = axes.getInternalPlotSize().getH();
+		int l = axes.getInternalSize().getH();
 		
 		if (l < 10) {
 			return;

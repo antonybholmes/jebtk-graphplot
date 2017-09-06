@@ -20,6 +20,7 @@ import java.awt.Graphics2D;
 
 import org.jebtk.core.Function;
 import org.jebtk.core.IntId;
+import org.jebtk.core.StringId;
 import org.jebtk.core.stream.Stream;
 import org.jebtk.graphplot.plotbox.PlotBox;
 import org.jebtk.graphplot.plotbox.PlotBoxDimStorage;
@@ -41,12 +42,14 @@ public class Figure extends PlotBoxGraph {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private static final StringId NEXT_ID = new StringId("Figure");
+	
 	/** The m next sub figure id. */
 	private IntId mNextSubFigureId = new IntId();
 
 	private SubFigure mCurrentSubFigure;
 
-
+	
 	/**
 	 * Instantiates a new figure grid canvas.
 	 *
@@ -73,6 +76,12 @@ public class Figure extends PlotBoxGraph {
 		this(name);
 
 		addChild(figure);
+	}
+	
+	public Figure addSubFigure(SubFigure subFigure) {
+		addChild(subFigure);
+		
+		return this;
 	}
 	
 	@Override
@@ -117,7 +126,7 @@ public class Figure extends PlotBoxGraph {
 	 * 
 	 * @return		The current sub figure.
 	 */
-	public SubFigure getCurrentSubFigure() {
+	public SubFigure currentSubFigure() {
 		if (mCurrentSubFigure == null) {
 			newSubFigure();
 		}
@@ -153,4 +162,14 @@ public class Figure extends PlotBoxGraph {
 			Object... params) {
 		super.plot(g2, offset, context, this);
 	}
+	
+	public static Figure createFigure() {
+		return createFigure(NEXT_ID.getNextId());
+	}
+
+	public static Figure createFigure(String name) {
+		return new Figure(name);
+	}
+
+	
 }

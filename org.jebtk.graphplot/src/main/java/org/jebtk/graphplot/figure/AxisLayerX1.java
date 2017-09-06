@@ -55,7 +55,7 @@ public class AxisLayerX1 extends AxisLayerX {
 				subFigure,
 				axes,
 				axis,
-				axes.getInternalPlotSize().getH(),
+				axes.getInternalSize().getH(),
 				axis.getTicks().getDrawInside());
 	}
 
@@ -75,7 +75,7 @@ public class AxisLayerX1 extends AxisLayerX {
 
 			g2.drawLine(0, 
 					y,
-					axes.getInternalPlotSize().getW(),
+					axes.getInternalSize().getW(),
 					y);
 
 			// If xmin is less than zero and xmax greater than zero,
@@ -88,7 +88,7 @@ public class AxisLayerX1 extends AxisLayerX {
 				g2.drawLine(x, 
 						y,
 						x,
-						axes.getInternalPlotSize().getH());
+						axes.getInternalSize().getH());
 			}
 		}
 	}

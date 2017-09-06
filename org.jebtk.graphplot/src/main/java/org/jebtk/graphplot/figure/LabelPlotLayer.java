@@ -168,7 +168,7 @@ public class LabelPlotLayer extends PlotLayer {
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m) {
-		Point p = axes.toPlotXY1(mX, mY);
+		Point p = axes.toPlotX1Y1(mX, mY);
 
 		int x = p.x;
 		int y = p.y;

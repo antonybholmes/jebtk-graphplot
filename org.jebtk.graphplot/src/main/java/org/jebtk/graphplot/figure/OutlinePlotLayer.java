@@ -56,8 +56,8 @@ public class OutlinePlotLayer extends PlotLayer {
 		int x1 = 0; //axes.getMargins().getLeft();
 		int y1 = 0; //axes.getMargins().getTop();
 
-		int w = axes.getInternalPlotSize().getW();
-		int h = axes.getInternalPlotSize().getH();
+		int w = axes.getInternalSize().getW();
+		int h = axes.getInternalSize().getH();
 		
 		g2.setStroke(axes.getStyle().getLineStyle().getStroke());
 		g2.setColor(axes.getStyle().getLineStyle().getColor());

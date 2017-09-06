@@ -363,7 +363,7 @@ public class PlotFactory {
 	 */
 	public static void createBestFitLinePlot(Axes axes, 
 			XYSeries series) {
-		Plot plot = axes.getCurrentPlot();
+		Plot plot = axes.currentPlot();
 
 		plot.putZ(new ScatterBestFitPlotLayer(series.getName()));
 	}
@@ -425,7 +425,7 @@ public class PlotFactory {
 
 		axes.getX1Axis().setLimits(0, xs);
 
-		axes.setInternalPlotSize(xs * BOX_WHISKER_WIDTH, 600);
+		axes.setInternalSize(xs * BOX_WHISKER_WIDTH, 600);
 
 		List<String> labels = new ArrayList<String>();
 		List<Double> ticks = new ArrayList<Double>();
@@ -487,7 +487,7 @@ public class PlotFactory {
 
 		axes.getY1Axis().setLimits(0, xs);
 
-		axes.setInternalPlotSize(600, xs * BOX_WHISKER_WIDTH);
+		axes.setInternalSize(600, xs * BOX_WHISKER_WIDTH);
 
 		List<String> labels = new ArrayList<String>();
 		List<Double> ticks = new ArrayList<Double>();
@@ -549,7 +549,7 @@ public class PlotFactory {
 
 		axes.getX1Axis().setLimits(0, n);
 
-		axes.setInternalPlotSize(n * BOX_WHISKER_WIDTH, 600);
+		axes.setInternalSize(n * BOX_WHISKER_WIDTH, 600);
 		axes.getX1Axis().getTicks().setTicks(Linspace.evenlySpaced(0.5, n - 0.5, 1));
 		axes.getX1Axis().getTicks().getMajorTicks().setLabels(series);
 		axes.getX1Axis().getTicks().getMajorTicks().setRotation(Mathematics.HALF_PI);
@@ -645,7 +645,7 @@ public class PlotFactory {
 		axes.getY1Axis().setLimits(0, 1.5);
 		axes.getX1Axis().setLimits(0, 1.5);
 		
-		axes.setInternalPlotSize(500, 500);
+		axes.setInternalSize(500, 500);
 
 		// turn off most of the grid ui
 		axes.getX1Axis().getLineStyle().setVisible(false);
@@ -816,7 +816,7 @@ public class PlotFactory {
 		// set some limits, the width of the plot is 2 x n + 1 since
 		// we draw each box a 1,3,5 etc
 
-		axes.setInternalPlotSize(boxWhiskers.getCount() * BOX_WHISKER_WIDTH, Axes.DEFAULT_SIZE.getH());
+		axes.setInternalSize(boxWhiskers.getCount() * BOX_WHISKER_WIDTH, Axes.DEFAULT_SIZE.getH());
 
 		axes.getX1Axis().setLimits(0, boxWhiskers.getCount());
 		axes.getX1Axis().getTicks().setTicks(Linspace.evenlySpaced(0.5, boxWhiskers.getCount(), 1));
@@ -921,7 +921,7 @@ public class PlotFactory {
 			Cluster rowCluster, 
 			Cluster columnCluster) {
 
-		Axes axes = subFigure.getCurrentAxes();
+		Axes axes = subFigure.currentAxes();
 
 		Plot plot = axes.newPlot();
 
@@ -1007,10 +1007,10 @@ public class PlotFactory {
 
 		//plot.getColumnSeriesGroup().add(series);
 
-		axes.setInternalPlotSize(Math.min(maxWidth, m.getColumnCount() * DEFAULT_HEATMAP_SIZE), 
+		axes.setInternalSize(Math.min(maxWidth, m.getColumnCount() * DEFAULT_HEATMAP_SIZE), 
 				Math.min(maxHeight, m.getRowCount() * DEFAULT_HEATMAP_SIZE));
 
-		boolean fullView = axes.getInternalPlotSize().getW() >= m.getColumnCount() * DEFAULT_HEATMAP_SIZE;
+		boolean fullView = axes.getInternalSize().getW() >= m.getColumnCount() * DEFAULT_HEATMAP_SIZE;
 
 
 		axes.getX1Axis().setLimits(0, m.getColumnCount(), 1);
@@ -1032,7 +1032,7 @@ public class PlotFactory {
 		// If the height of the heatmap is less than the ideal height,
 		// turn off labels and the grid.
 
-		fullView = axes.getInternalPlotSize().getH() >= m.getRowCount() * DEFAULT_HEATMAP_SIZE;
+		fullView = axes.getInternalSize().getH() >= m.getRowCount() * DEFAULT_HEATMAP_SIZE;
 
 		axes.getY1Axis().setLimits(0, m.getRowCount(), 1);
 		axes.getY1Axis().setVisible(false);
@@ -1202,7 +1202,7 @@ public class PlotFactory {
 		axis.setLimits(0, 1);
 		axis.setVisible(false);
 
-		colorBarAxes.setInternalPlotSize(COLOR_BAR_WIDTH, 200);
+		colorBarAxes.setInternalSize(COLOR_BAR_WIDTH, 200);
 	
 		colorBarAxes.getChild(GridLocation.W).putZ(new MarginFillerH(20));
 	}
@@ -1318,6 +1318,6 @@ public class PlotFactory {
 	 * @param y the y
 	 */
 	public static void createLabel(Axes axes, String label, double x, double y) {
-		axes.getCurrentPlot().putZ(new LabelPlotLayer(label, x, y));
+		axes.currentPlot().putZ(new LabelPlotLayer(label, x, y));
 	}
 }

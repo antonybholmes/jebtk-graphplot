@@ -167,7 +167,7 @@ public class AxisLabelLayerY2 extends PlotLayer {
 			Graphics2D g2Temp = (Graphics2D)g2.create();
 
 			try {
-				g2Temp.translate(x, axes.getInternalPlotSize().getH() - (axes.getInternalPlotSize().getH() - g2.getFontMetrics().stringWidth(axis.getTitle().getText())) / 2);
+				g2Temp.translate(x, axes.getInternalSize().getH() - (axes.getInternalSize().getH() - g2.getFontMetrics().stringWidth(axis.getTitle().getText())) / 2);
 
 				// Default to drawing the label vertically
 				g2Temp.rotate(AxisLayerY.Y_ROTATION);

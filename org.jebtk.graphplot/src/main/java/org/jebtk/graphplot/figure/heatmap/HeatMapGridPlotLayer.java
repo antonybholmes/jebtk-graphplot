@@ -74,11 +74,11 @@ public class HeatMapGridPlotLayer extends PlotClippedLayer {
 			AnnotationMatrix m) {
 
 		int x1 = axes.getMargins().getLeft();
-		int x2 = x1 + axes.getInternalPlotSize().getW() - 1;
+		int x2 = x1 + axes.getInternalSize().getW() - 1;
 		
 
 		int y1 = axes.getMargins().getTop();
-		int y2 = y1 + axes.getInternalPlotSize().getH() - 1;
+		int y2 = y1 + axes.getInternalSize().getH() - 1;
 
 
 		if (mHashId == null || !mHashId.equals(subFigure.hashId())) {

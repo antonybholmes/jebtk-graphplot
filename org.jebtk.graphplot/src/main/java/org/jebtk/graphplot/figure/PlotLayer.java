@@ -40,13 +40,28 @@ public abstract class PlotLayer extends Layer {
 
 	/** The m buffered image. */
 	private BufferedImage mBufferedImage;
-
 	
+	private static final PlotClip CLIP = new PlotClipRect();
+	
+	private PlotClip mPlotClip = CLIP;
+
+
 	@Override
 	public String getType() {
 		return "Plot Layer";
 	}
 
+	/**
+	 * Set how the layer should be clipped.
+	 * 
+	 * @param plotClip
+	 */
+	public void setClip(PlotClip plotClip) {
+		mPlotClip = plotClip;
+		
+		setClipMode(true);
+	}
+	
 	/**
 	 * Plot.
 	 *
@@ -89,7 +104,7 @@ public abstract class PlotLayer extends Layer {
 		if (context == DrawingContext.SCREEN) {
 			screenPlotLayer(g2, context, figure, subFigure, axes, plot, m);
 		} else {
-			plotLayer(g2, context, figure, subFigure, axes, plot, m);
+			clipPlotLayer(g2, context, figure, subFigure, axes, plot, m);
 		} 
 	}
 
@@ -116,7 +131,7 @@ public abstract class PlotLayer extends Layer {
 		} else if (mAAMode) {
 			aaPlotLayer(g2, context, figure, subFigure, axes, plot, m);
 		} else {
-			plotLayer(g2, context, figure, subFigure, axes, plot, m);
+			clipPlotLayer(g2, context, figure, subFigure, axes, plot, m);
 		}
 	}
 
@@ -132,7 +147,7 @@ public abstract class PlotLayer extends Layer {
 		Graphics2D g2Temp = ImageUtils.createAAGraphics(g2);
 
 		try {
-			plotLayer(g2Temp, context, figure, subFigure, axes, plot, m);
+			clipPlotLayer(g2Temp, context, figure, subFigure, axes, plot, m);
 		} finally {
 			g2Temp.dispose();
 		}
@@ -171,7 +186,7 @@ public abstract class PlotLayer extends Layer {
 				if (mAAMode) {
 					aaPlotLayer(g2Temp, context, figure, subFigure, axes, plot, m);
 				} else {
-					plotLayer(g2Temp, context, figure, subFigure, axes, plot, m);
+					clipPlotLayer(g2Temp, context, figure, subFigure, axes, plot, m);
 				}
 			} finally {
 				g2Temp.dispose();
@@ -179,6 +194,31 @@ public abstract class PlotLayer extends Layer {
 		}
 
 		g2.drawImage(mBufferedImage, 0, 0, null);
+	}
+
+	public void clipPlotLayer(Graphics2D g2,
+			DrawingContext context,
+			Figure figure,
+			SubFigure subFigure,
+			Axes axes,
+			Plot plot, 
+			AnnotationMatrix m) {
+		if (mClipMode) {
+			Graphics2D g2Temp = mPlotClip.clip(g2, 
+					context, 
+					figure, 
+					subFigure, 
+					axes, 
+					plot);
+
+			try {
+				plotLayer(g2Temp, context, figure, subFigure, axes, plot, m);
+			} finally {
+				g2Temp.dispose();
+			}
+		} else {
+			plotLayer(g2, context, figure, subFigure, axes, plot, m);
+		}
 	}
 
 	/**

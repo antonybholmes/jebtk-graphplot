@@ -113,7 +113,7 @@ public class ClusterHeatMapFillPlotLayer extends HeatMapFillPlotLayer {
 				int y = axes.toPlotY1(mRowOrder[m.getRowCount() - i - 1]) - y1;
 
 
-				System.err.println("add y " + i + " " + y + " " + y1 + " " + axes.getInternalPlotSize() + " " +  axes.toPlotY1(m.getRowCount() - 1) + " " +  axes.toPlotY1(0));
+				System.err.println("add y " + i + " " + y + " " + y1 + " " + axes.getInternalSize() + " " +  axes.toPlotY1(m.getRowCount() - 1) + " " +  axes.toPlotY1(0));
 				
 				
 				mY.add(y);

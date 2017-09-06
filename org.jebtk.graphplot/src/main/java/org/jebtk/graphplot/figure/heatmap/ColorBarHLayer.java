@@ -126,7 +126,7 @@ SubFigure subFigure,
 			Axes axes,
 			Plot plot,
 			AnnotationMatrix m) {
-		int l = axes.getInternalPlotSize().getW() ;
+		int l = axes.getInternalSize().getW() ;
 		
 		if (l < 10) {
 			return;

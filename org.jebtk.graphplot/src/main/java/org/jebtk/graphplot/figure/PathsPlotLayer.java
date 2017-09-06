@@ -43,6 +43,11 @@ public abstract class PathsPlotLayer extends UniqueXYLayer {
 	 */
 	private KeyValuePair<UniqueXY, List<GeneralPath>> mPaths = null;
 
+	
+	public PathsPlotLayer(String series) {
+		this(series, false);
+	}
+	
 	/**
 	 * Instantiates a new path plot layer.
 	 *

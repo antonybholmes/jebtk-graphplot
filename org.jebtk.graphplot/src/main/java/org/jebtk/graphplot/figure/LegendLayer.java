@@ -76,10 +76,12 @@ public class LegendLayer extends AxesLayer {
 
 		Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
 
-		stack.push(this);
+		stack.push(axes);
 
 		while (!stack.isEmpty()) {
 			PlotBox p = stack.pop();
+			
+			//System.err.println("leggend " + p.getName() + " " + p);
 
 			if (p instanceof Plot) {
 				Plot plot = (Plot)p;
@@ -123,45 +125,89 @@ public class LegendLayer extends AxesLayer {
 		int x;
 		int y;
 
-		switch(axes.getLegend().getPosition()) {
-		case TOP_LEFT:
-			x = 0;
-			y = 0;
-			break;
-		case TOP_MIDDLE:
-			x = (axes.getPreferredSize().width - width) / 2;
-			y = 0;
-			break;
-		case CENTER_RIGHT:
-			x = axes.getPreferredSize().width - width;
-			y = (axes.getPreferredSize().height - height) / 2;
-			break;
-		case BOTTOM_RIGHT:
-			x = axes.getPreferredSize().width - width;
-			y = axes.getPreferredSize().height - height;
-			break;
-		case BOTTOM_MIDDLE:
-			x = (axes.getPreferredSize().width - width) / 2;
-			y = axes.getPreferredSize().height - height;
-			break;
-		case BOTTOM_LEFT:
-			x = 0;
-			y = axes.getPreferredSize().height - height;
-			break;
-		case CENTER_LEFT:
-			x = 0;
-			y = (axes.getPreferredSize().height - height) / 2;
-			break;
-		case CENTER:
-			x = (axes.getPreferredSize().width - width) / 2;
-			y = (axes.getPreferredSize().height - height) / 2;
-			break;
-		default:
-			//top right
-			x = axes.getPreferredSize().width - width;
-			y = 0;
-			break;
+		if (axes.getLegend().inside()) {
+			switch(axes.getLegend().getPosition()) {
+			case TOP_LEFT:
+				x = 0;
+				y = 0;
+				break;
+			case TOP_MIDDLE:
+				x = (axes.getInternalSize().getW() - width) / 2;
+				y = 0;
+				break;
+			case CENTER_RIGHT:
+				x = axes.getInternalSize().getW() - width;
+				y = (axes.getInternalSize().getH() - height) / 2;
+				break;
+			case BOTTOM_RIGHT:
+				x = axes.getInternalSize().getW() - width;
+				y = axes.getInternalSize().getH() - height;
+				break;
+			case BOTTOM_MIDDLE:
+				x = (axes.getInternalSize().getW() - width) / 2;
+				y = axes.getInternalSize().getH() - height;
+				break;
+			case BOTTOM_LEFT:
+				x = 0;
+				y = axes.getInternalSize().getH() - height;
+				break;
+			case CENTER_LEFT:
+				x = 0;
+				y = (axes.getInternalSize().getH() - height) / 2;
+				break;
+			case CENTER:
+				x = (axes.getInternalSize().getW() - width) / 2;
+				y = (axes.getInternalSize().getH() - height) / 2;
+				break;
+			default:
+				//top right
+				x = axes.getInternalSize().getW() - width;
+				y = 0;
+				break;
+			}
+		} else {
+			// Plot legend at boundaries of margins
+			switch(axes.getLegend().getPosition()) {
+			case TOP_LEFT:
+				x = -axes.getMargins().getLeft();
+				y = -axes.getMargins().getTop();
+				break;
+			case TOP_MIDDLE:
+				x = (axes.getInternalSize().getW() - width) / 2;
+				y = -axes.getMargins().getTop();
+				break;
+			case CENTER_RIGHT:
+				x = axes.getInternalSize().getW() + axes.getMargins().getRight() - width;
+				y = (axes.getInternalSize().getH() - height) / 2;
+				break;
+			case BOTTOM_RIGHT:
+				x = axes.getInternalSize().getW() + axes.getMargins().getRight() - width;
+				y = axes.getInternalSize().getH() + axes.getMargins().getBottom() - height;
+				break;
+			case BOTTOM_MIDDLE:
+				x = (axes.getInternalSize().getW() - width) / 2;
+				y = axes.getInternalSize().getH() + axes.getMargins().getBottom() - height;
+				break;
+			case BOTTOM_LEFT:
+				x = -axes.getMargins().getLeft();
+				y = axes.getInternalSize().getH() + axes.getMargins().getBottom() - height;
+				break;
+			case CENTER_LEFT:
+				x = -axes.getMargins().getLeft();
+				y = (axes.getInternalSize().getH() - height) / 2;
+				break;
+			case CENTER:
+				x = (axes.getInternalSize().getW() - width) / 2;
+				y = (axes.getInternalSize().getH() - height) / 2;
+				break;
+			default:
+				//top right
+				x = axes.getInternalSize().getW() + axes.getMargins().getRight() - width;
+				y = -axes.getMargins().getTop();
+				break;
+			}
 		}
+
 
 		if (axes.getLegend().getStyle().getFillStyle().getVisible()) {
 			g2.setColor(axes.getLegend().getStyle().getFillStyle().getColor());

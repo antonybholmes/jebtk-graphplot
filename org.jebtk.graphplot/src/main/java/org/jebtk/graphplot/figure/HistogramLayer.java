@@ -79,9 +79,9 @@ SubFigure subFigure,
 		for (HistBin bin : mHist) {
 			int y = bin.getCount();
 			
-			Point p1 = axes.toPlotXY1(bin.getX(), y);
+			Point p1 = axes.toPlotX1Y1(bin.getX(), y);
 
-			Point p2 = axes.toPlotXY1(bin.getX() + bin.getWidth(), y);
+			Point p2 = axes.toPlotX1Y1(bin.getX() + bin.getWidth(), y);
 
 			bwp = p2.x - p1.x;
 			
