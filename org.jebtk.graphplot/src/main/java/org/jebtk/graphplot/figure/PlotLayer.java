@@ -45,6 +45,13 @@ public abstract class PlotLayer extends Layer {
 	
 	private PlotClip mPlotClip = CLIP;
 
+	public PlotLayer() {
+		// Do nothing
+	}
+
+	public PlotLayer(String name) {
+		super(name);
+	}
 
 	@Override
 	public String getType() {

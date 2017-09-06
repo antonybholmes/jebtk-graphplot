@@ -35,6 +35,12 @@ public abstract class PlotClippedLayer extends PlotLayer  {
 		setClip(CLIP);
 	}
 	
+	public PlotClippedLayer(String name) {
+		super(name);
+
+		setClip(CLIP);
+	}
+
 	@Override
 	public String getType() {
 		return "Plot Clipped Layer";
