@@ -125,85 +125,85 @@ public class LegendLayer extends AxesLayer {
 		int x;
 		int y;
 
-		if (axes.getLegend().inside()) {
+		if (axes.getLegend().isInside()) {
 			switch(axes.getLegend().getPosition()) {
-			case TOP_LEFT:
+			case NW:
 				x = 0;
 				y = 0;
 				break;
-			case TOP_MIDDLE:
+			case N:
 				x = (axes.getInternalSize().getW() - width) / 2;
 				y = 0;
 				break;
-			case CENTER_RIGHT:
-				x = axes.getInternalSize().getW() - width;
-				y = (axes.getInternalSize().getH() - height) / 2;
-				break;
-			case BOTTOM_RIGHT:
-				x = axes.getInternalSize().getW() - width;
-				y = axes.getInternalSize().getH() - height;
-				break;
-			case BOTTOM_MIDDLE:
-				x = (axes.getInternalSize().getW() - width) / 2;
-				y = axes.getInternalSize().getH() - height;
-				break;
-			case BOTTOM_LEFT:
-				x = 0;
-				y = axes.getInternalSize().getH() - height;
-				break;
-			case CENTER_LEFT:
+			case W:
 				x = 0;
 				y = (axes.getInternalSize().getH() - height) / 2;
 				break;
-			case CENTER:
-				x = (axes.getInternalSize().getW() - width) / 2;
-				y = (axes.getInternalSize().getH() - height) / 2;
-				break;
-			default:
+			case NE:
 				//top right
 				x = axes.getInternalSize().getW() - width;
 				y = 0;
+				break;
+			case E:
+				x = axes.getInternalSize().getW() - width;
+				y = (axes.getInternalSize().getH() - height) / 2;
+				break;
+			case SW:
+				x = 0;
+				y = axes.getInternalSize().getH() - height;
+				break;
+			case S:
+				x = (axes.getInternalSize().getW() - width) / 2;
+				y = axes.getInternalSize().getH() - height;
+				break;
+			case SE:
+				x = axes.getInternalSize().getW() - width;
+				y = axes.getInternalSize().getH() - height;
+				break;
+			default:
+				x = (axes.getInternalSize().getW() - width) / 2;
+				y = (axes.getInternalSize().getH() - height) / 2;
 				break;
 			}
 		} else {
 			// Plot legend at boundaries of margins
 			switch(axes.getLegend().getPosition()) {
-			case TOP_LEFT:
+			case NW:
 				x = -axes.getMargins().getLeft();
 				y = -axes.getMargins().getTop();
 				break;
-			case TOP_MIDDLE:
+			case N:
 				x = (axes.getInternalSize().getW() - width) / 2;
 				y = -axes.getMargins().getTop();
 				break;
-			case CENTER_RIGHT:
-				x = axes.getInternalSize().getW() + axes.getMargins().getRight() - width;
-				y = (axes.getInternalSize().getH() - height) / 2;
-				break;
-			case BOTTOM_RIGHT:
-				x = axes.getInternalSize().getW() + axes.getMargins().getRight() - width;
-				y = axes.getInternalSize().getH() + axes.getMargins().getBottom() - height;
-				break;
-			case BOTTOM_MIDDLE:
-				x = (axes.getInternalSize().getW() - width) / 2;
-				y = axes.getInternalSize().getH() + axes.getMargins().getBottom() - height;
-				break;
-			case BOTTOM_LEFT:
-				x = -axes.getMargins().getLeft();
-				y = axes.getInternalSize().getH() + axes.getMargins().getBottom() - height;
-				break;
-			case CENTER_LEFT:
-				x = -axes.getMargins().getLeft();
-				y = (axes.getInternalSize().getH() - height) / 2;
-				break;
-			case CENTER:
-				x = (axes.getInternalSize().getW() - width) / 2;
-				y = (axes.getInternalSize().getH() - height) / 2;
-				break;
-			default:
+			case NE:
 				//top right
 				x = axes.getInternalSize().getW() + axes.getMargins().getRight() - width;
 				y = -axes.getMargins().getTop();
+				break;
+			case W:
+				x = -axes.getMargins().getLeft();
+				y = (axes.getInternalSize().getH() - height) / 2;
+				break;
+			case E:
+				x = axes.getInternalSize().getW() + axes.getMargins().getRight() - width;
+				y = (axes.getInternalSize().getH() - height) / 2;
+				break;
+			case SW:
+				x = -axes.getMargins().getLeft();
+				y = axes.getInternalSize().getH() + axes.getMargins().getBottom() - height;
+				break;
+			case S:
+				x = (axes.getInternalSize().getW() - width) / 2;
+				y = axes.getInternalSize().getH() + axes.getMargins().getBottom() - height;
+				break;
+			case SE:
+				x = axes.getInternalSize().getW() + axes.getMargins().getRight() - width;
+				y = axes.getInternalSize().getH() + axes.getMargins().getBottom() - height;
+				break;
+			default:
+				x = (axes.getInternalSize().getW() - width) / 2;
+				y = (axes.getInternalSize().getH() - height) / 2;
 				break;
 			}
 		}

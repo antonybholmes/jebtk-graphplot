@@ -17,7 +17,6 @@ package org.jebtk.graphplot.figure;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.util.Arrays;
 import java.util.Set;
 
 import org.jebtk.core.IntId;
@@ -344,7 +343,9 @@ public class Plot extends PlotBoxGraph implements MatrixEventListener, ChangeLis
 		}
 	}
 
-	public static void addStyle(Plot plot, String series, PlotStyle style) {
+	public static void addStyle(Plot plot, 
+			String series, 
+			PlotStyle style) {
 
 		System.err.println("add style " + style + " " + plot.getUid());
 

@@ -57,12 +57,8 @@ public abstract class PlotBoxStorage extends ChangeListeners implements Iterable
 		fireChanged();
 	}
 	
-	public void addChild(PlotBox plot) {
-		addChildByName(plot);
-	}
-	
-	public void addChild(PlotBox plot, int i) {
-		addChild(plot);
+	public void addChild(PlotBox plot, Object... params) {
+		addReserved(plot, params);
 	}
 	
 	/**
@@ -70,43 +66,21 @@ public abstract class PlotBoxStorage extends ChangeListeners implements Iterable
 	 * @param plot
 	 * @param i
 	 */
-	public void addReserved(PlotBox plot, int i) {
-		addChild(plot, i);
+	public void addReserved(PlotBox plot, Object... params) {
+		addChildByName(plot);
 	}
 	
-	public void addChild(PlotBox plot, int i, int j) {
-		addChild(plot);
+	public abstract PlotBox getChild(Object param, Object... params);
+	
+	public boolean remove(PlotBox plot) {
+		return false;
 	}
 	
-	public void addChild(PlotBox plot, GridLocation l) {
-		addChild(plot);
+	public boolean remove(Object param, Object... params) {
+		return false;
 	}
 	
-	public void addChild(PlotBox plot, IntPos2D p) {
-		addChild(plot);
-	}
-	
-	public void putZ(PlotBox plot, GridLocation l) {
-		addChild(plot, l);
-	}
-	
-	public PlotBox getChild(int i, int j) {
-		return getChild(i);
-	}
-	
-	public PlotBox getChild(int i) {
-		return null;
-	}
-	
-	public PlotBox getChild(GridLocation l) {
-		return getChild(0);
-	}
-
-	public PlotBox getChild(IntPos2D p) {
-		return getChild(0);
-	}
-	
-	public PlotBox getChild(String name) {
+	public PlotBox getChildByName(String name) {
 		return mNameMap.get(name);
 	}
 	
@@ -227,26 +201,4 @@ public abstract class PlotBoxStorage extends ChangeListeners implements Iterable
 	public void changed(ChangeEvent e) {
 		fireChanged();
 	}
-	
-	public void remove(int i) {
-		// Do nothing
-	}
-
-	public void remove(int i, int j) {
-		// Do nothing
-	}
-
-	public void remove(PlotBox plot) {
-		// Do nothing
-	}
-
-	public void remove(GridLocation l) {
-		// Do nothing
-	}
-
-	public void remove(IntPos2D l) {
-		// Do nothing
-	}
-
-	
 }

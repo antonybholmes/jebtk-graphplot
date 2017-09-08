@@ -71,7 +71,6 @@ public class LinesPlotLayer extends UniqueXYLayer {
 		g2.setColor(series.getStyle().getLineStyle().getColor());
 
 		for (Point p : xy) {
-
 			g2.drawLine(p.x, y1, p.x, p.y);
 		}
 	}

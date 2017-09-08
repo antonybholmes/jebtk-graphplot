@@ -43,7 +43,7 @@ public class GridProperties extends LineProperties {
 	 * Instantiates a new grid properties.
 	 */
 	public GridProperties() {
-		setStroke(StrokeStyle.DASHED, 1);
+		//setStroke(StrokeStyle.DASHED, 1);
 		setColor(GRID_COLOR);
 		
 		// Default to not being visible.

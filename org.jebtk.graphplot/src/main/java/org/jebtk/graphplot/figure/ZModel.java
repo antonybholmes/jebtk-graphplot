@@ -86,9 +86,9 @@ public class ZModel<T extends ZLayer> extends LayerCanvasListener implements Ite
 	 * @param <X> the generic type
 	 * @param layers the layers
 	 */
-	public <X extends Collection<T>> void putZ(X layers) {
+	public <X extends Collection<T>> void addChild(X layers) {
 		for (T layer : layers) {
-			putZ(layer);
+			addChild(layer);
 		}
 	}
 	
@@ -100,7 +100,7 @@ public class ZModel<T extends ZLayer> extends LayerCanvasListener implements Ite
 	 */
 	public <X extends ZModel<T>> void add(X zModel) {
 		for (int z : zModel) {
-			putZ(zModel.getChild(z));
+			addChild(zModel.getChild(z));
 		}
 	}
 	
@@ -109,8 +109,8 @@ public class ZModel<T extends ZLayer> extends LayerCanvasListener implements Ite
 	 *
 	 * @param layer the layer
 	 */
-	public void putZ(T layer) {
-		putZ(layer, getUnusedZ());
+	public void addChild(T layer) {
+		addChild(layer, getUnusedZ());
 	}
 	
 	/**
@@ -119,7 +119,7 @@ public class ZModel<T extends ZLayer> extends LayerCanvasListener implements Ite
 	 * @param layer the layer
 	 * @param z the z
 	 */
-	public void putZ(T layer, int z) {
+	public void addChild(T layer, int z) {
 		// the layer listens for events passed to it
 		addCanvasMouseListener(layer);
 		

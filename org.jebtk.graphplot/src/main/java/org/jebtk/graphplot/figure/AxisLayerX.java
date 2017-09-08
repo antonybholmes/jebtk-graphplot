@@ -196,17 +196,12 @@ public abstract class AxisLayerX extends AxesLayer {
 		// Axis label
 		//
 		
-		if (axis.getTitle().getFontStyle().getVisible()) {
-			g2.setFont(axis.getTitle().getFontStyle().getFont());
-			g2.setColor(axis.getTitle().getFontStyle().getColor());
-
-			x = (axes.getPreferredSize().width - g2.getFontMetrics().stringWidth(axes.getX1Axis().getTitle().getText())) / 2;
-
-			y = axes.getInternalSize().getH() + axes.getMargins().getBottom() - g2.getFontMetrics().getDescent();
-
-			g2.drawString(axis.getTitle().getText(), x, y);
-		}
+		drawTitle(g2, axes, axis);
 	}
+	
+	public abstract void drawTitle(Graphics2D g2,
+			Axes axes,
+			Axis axis);
 	
 	/**
 	 * Draw axis line.

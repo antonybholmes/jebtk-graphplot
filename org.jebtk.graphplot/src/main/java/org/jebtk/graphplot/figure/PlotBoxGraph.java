@@ -27,7 +27,6 @@ import java.util.Set;
 import org.jebtk.core.collections.ReverseIterator;
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
-import org.jebtk.core.geom.IntPos2D;
 import org.jebtk.graphplot.plotbox.PlotBox;
 import org.jebtk.graphplot.plotbox.PlotBoxContainer;
 import org.jebtk.graphplot.plotbox.PlotBoxLayout;
@@ -86,38 +85,17 @@ public abstract class PlotBoxGraph extends PlotBoxContainer { //LayoutLayer
 	}
 	
 	@Override
-	public PlotBox addChild(PlotBox plot) {
+	public PlotBox addChild(PlotBox plot, Object... params) {
 		cacheCurrent(plot);
 		
-		return super.addChild(plot);
+		return super.addChild(plot, params);
 	}
 	
 	@Override
-	public PlotBox addChild(PlotBox plot, int i) {
+	public PlotBox addReserved(PlotBox plot, Object... params) {
 		cacheCurrent(plot);
 		
-		return super.addChild(plot, i);
-	}
-	
-	@Override
-	public PlotBox addChild(PlotBox plot, int i, int j) {
-		cacheCurrent(plot);
-		
-		return super.addChild(plot, i, j);
-	}
-	
-	@Override
-	public PlotBox addChild(PlotBox plot, GridLocation l) {
-		cacheCurrent(plot);
-		
-		return super.addChild(plot, l);
-	}
-	
-	@Override
-	public PlotBox addChild(PlotBox plot, IntPos2D p) {
-		cacheCurrent(plot);
-		
-		return super.addChild(plot, p);
+		return super.addReserved(plot, params);
 	}
 	
 	@Override
@@ -172,9 +150,7 @@ public abstract class PlotBoxGraph extends PlotBoxContainer { //LayoutLayer
 		if (used.contains(this)) {
 			return;
 		}
-		
-		System.err.println("style plot graph " + this.getUid() + " " + getChildCount());
-		
+
 		Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
 		
 		stack.push(this);
@@ -186,12 +162,9 @@ public abstract class PlotBoxGraph extends PlotBoxContainer { //LayoutLayer
 			p.setStyle(used, style, styles);
 			
 			for (PlotBox c : p) {
-				System.err.println("style plot graph child " + c.getUid());
 				stack.push(c);
 			}
 		}
-		
-		System.err.println("==== fin style plot graph " + this.getName());
 	}
 
 	@Override

@@ -27,85 +27,125 @@ import java.util.TreeMap;
 public class PlotBoxZStorage extends PlotBoxStorage {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private Map<Integer, PlotBox> mMap =
 			new TreeMap<Integer, PlotBox>();
-	
+
 	private int mUnused = 0;
-	
+
 	@Override
-	public void addChild(PlotBox plot) {
-		addChild(plot, getUnusedZ());
+	public void addChild(PlotBox plot, Object... params) {
+		int z = 0;
+
+		if (params.length > 0 && params[0] instanceof Integer) {
+			z = (int)params[0];
+		} else {
+			z = getUnusedZ();
+		}
+		
+		
+		addChild(plot, z);
 	}
-	
-	@Override
+
 	public void addChild(PlotBox plot, int z) {
 		addReserved(plot, z);
-		
+
 		// keep track of where we can likely search from to find the next
 		// unused z
 		mUnused = z + 1;
 	}
-	
+
+	@Override
+	public void addReserved(PlotBox plot, Object... params) {
+		int z = 0;
+
+		if (params.length > 0 && params[0] instanceof Integer) {
+			z = (int)params[0];
+		}
+
+		addReserved(plot, z);
+	}
+
 	public void addReserved(PlotBox plot, int z) {
 		mMap.put(z, plot);
-	
+
 		addChildByName(plot);
 	}
-	
+
+	@Override
+	public PlotBox getChild(Object param, Object... params) {
+		return mMap.get(param);
+	}
+
 	@Override
 	public int getUnusedZ() {
 		for (int i = mUnused; i < Integer.MAX_VALUE; ++i) {
 			if (!mMap.containsKey(i)) {
-				
 				return i;
 			}
 		}
-		
+
 		return 0;
 	}
-	
+
 	@Override
 	public Iterable<Integer> getZ() {
 		return mMap.keySet();
 	}
-	
-	@Override
-	public PlotBox getChild(int z) {
-		return mMap.get(z);
-	}
-	
+
+
+
 	@Override
 	public Iterator<PlotBox> iterator() {
 		return mMap.values().iterator();
 	}
-	
+
 	@Override
 	public void clear() {
-		//System.err.println("clear z");
 		mMap.clear();
 
 		super.clear();
 	}
 	
 	@Override
-	public void remove(PlotBox plot) {
-		int ri = -1;
-		
-		for (int i : mMap.keySet()) {
-			if (mMap.get(i).equals(plot)) {
-				ri = i;
+	public boolean remove(PlotBox plot) {
+		int z = 0;
+
+		boolean found = false;
+
+		for (int l : mMap.keySet()) {
+			if (mMap.get(l).equals(plot)) {
+				z = l;
+				found = true;
 				break;
 			}
 		}
-		
-		if (ri != -1) {
-			remove(ri);
+
+		if (found) {
+			remove(z);
 		}
+		
+		return true;
 	}
-	
+
 	@Override
+	public boolean remove(Object param, Object... params) {
+		remove(parseZ(param, params));
+
+		return true;
+	}
+
 	public void remove(int i) {
 		mMap.remove(i);
+	}
+
+	private static int parseZ(Object param, Object... params) {
+		int z = 0;
+
+		if (param instanceof Integer) {
+			z = (int)param;
+		}
+
+		return z;
 	}
 }

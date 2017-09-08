@@ -21,7 +21,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.jebtk.core.collections.CollectionUtils;
-import org.jebtk.core.geom.IntPos2D;
 import org.jebtk.graphplot.figure.GridLocation;
 
 
@@ -54,32 +53,12 @@ public class PlotBoxDimStorage extends PlotBoxStorage {
 	 * @param plotBox the plot box
 	 */
 	@Override
-	public void addChild(PlotBox plot) {
+	public void addReserved(PlotBox plot, Object... params) {
 		mChildren.add(plot);
 
-		addChildByName(plot);
+		super.addReserved(plot, params);
 	}
 	
-	@Override
-	public void addChild(PlotBox plot, int i) {
-		addChild(plot);
-	}
-	
-	@Override
-	public void addChild(PlotBox plot, int i, int j) {
-		addChild(plot);
-	}
-	
-	@Override
-	public void addChild(PlotBox plot, GridLocation l) {
-		addChild(plot);
-	}
-	
-	@Override
-	public void addChild(PlotBox plot, IntPos2D p) {
-		addChild(plot);
-	}
-
 	/**
 	 * Gets the child.
 	 *
@@ -87,12 +66,40 @@ public class PlotBoxDimStorage extends PlotBoxStorage {
 	 * @return the child
 	 */
 	@Override
+	public PlotBox getChild(Object param, Object... params) {
+		int i = 0;
+		
+		if (param instanceof Integer) {
+			i = (int)param;
+		} else {
+			i = 0;
+		}
+		
+		return getChild(i);
+	}
+	
 	public PlotBox getChild(int index) {
 		if (CollectionUtils.inBounds(index, mChildren)) {
 			return mChildren.get(index);
 		} else {
 			return null;
 		}
+	}
+	
+	@Override
+	public boolean remove(PlotBox plot) {
+		mChildren.remove(plot);
+		
+		return true;
+	}
+	
+	@Override
+	public boolean remove(Object param, Object... params) {
+		if (param instanceof Integer) {
+			mChildren.remove((int)param);
+		}
+		
+		return true;
 	}
 	
 	/**
@@ -115,13 +122,5 @@ public class PlotBoxDimStorage extends PlotBoxStorage {
 		return mChildren.size();
 	}
 	
-	@Override
-	public void remove(PlotBox plot) {
-		mChildren.remove(plot);
-	}
-	
-	@Override
-	public void remove(int i) {
-		mChildren.remove(i);
-	}
+
 }

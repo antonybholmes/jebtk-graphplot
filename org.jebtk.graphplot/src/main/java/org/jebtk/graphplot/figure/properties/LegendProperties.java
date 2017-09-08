@@ -17,6 +17,7 @@ package org.jebtk.graphplot.figure.properties;
 
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
+import org.jebtk.graphplot.figure.GridLocation;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -25,18 +26,14 @@ import org.jebtk.core.event.ChangeListener;
  * @author Antony Holmes Holmes
  *
  */
-public class LegendProperties extends VisibleProperties implements ChangeListener {
+public class LegendProperties extends LocationProperties implements ChangeListener {
 	
 	/**
 	 * The constant serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * The member position.
-	 */
-	private LegendPosition mPosition = LegendPosition.TOP_RIGHT;
-	
+
 	/**
 	 * The member style.
 	 */
@@ -47,8 +44,7 @@ public class LegendProperties extends VisibleProperties implements ChangeListene
 	 */
 	private FontProperties mFont = new FontProperties();
 	
-	private boolean mInside = true;
-	
+
 	/**
 	 * Instantiates a new legend properties.
 	 */
@@ -56,53 +52,14 @@ public class LegendProperties extends VisibleProperties implements ChangeListene
 		mStyle.addChangeListener(this);
 		mFont.addChangeListener(this);
 		
-		setVisible(false);
-		
 		// Default to a black outline around the legend
 		mStyle.getLineStyle().setVisible(false); //setColor(Color.BLACK);
 		mStyle.getFillStyle().setVisible(false);
-	}
-	
-	/**
-	 * Sets the position.
-	 *
-	 * @param position the new position
-	 */
-	public void setPosition(LegendPosition position) {
-		mPosition = position;
 		
-		fireChanged();
-	}
-	
-	/**
-	 * Set whether to plot the legend inside the boundaries of the axes or
-	 * not.
-	 * 
-	 * @param inside
-	 */
-	public void setInside(boolean inside) {
-		mInside = inside;
+		setInside(true);
+		setPosition(GridLocation.NE);
 		
-		fireChanged();
-	}
-	
-	/**
-	 * Returns true if the legend should be plotted inside the boundaries of
-	 * the axes.
-	 * 
-	 * @return
-	 */
-	public boolean inside() {
-		return mInside;
-	}
-	
-	/**
-	 * Gets the position.
-	 *
-	 * @return the position
-	 */
-	public LegendPosition getPosition() {
-		return mPosition;
+		setVisible(false);
 	}
 	
 	/**
@@ -123,9 +80,6 @@ public class LegendProperties extends VisibleProperties implements ChangeListene
 		return mFont;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.abh.lib.event.ChangeListener#changed(org.abh.lib.event.ChangeEvent)
-	 */
 	@Override
 	public void changed(ChangeEvent e) {
 		fireChanged();

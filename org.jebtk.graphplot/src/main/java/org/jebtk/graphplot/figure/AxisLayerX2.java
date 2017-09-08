@@ -18,6 +18,7 @@ package org.jebtk.graphplot.figure;
 import java.awt.Graphics2D;
 
 import org.jebtk.core.collections.UniqueArrayList;
+import org.jebtk.modern.widget.ModernWidget;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -71,6 +72,22 @@ public class AxisLayerX2 extends AxisLayerX {
 						x,
 						y + axes.getInternalSize().getH() - 1);
 			}
+		}
+	}
+	
+	@Override
+	public void drawTitle(Graphics2D g2,
+			Axes axes,
+			Axis axis) {
+		if (axis.getTitle().getFontStyle().getVisible()) {
+			g2.setFont(axis.getTitle().getFontStyle().getFont());
+			g2.setColor(axis.getTitle().getFontStyle().getColor());
+
+			int x = (axes.getInternalSize().getW() - g2.getFontMetrics().stringWidth(axes.getX1Axis().getTitle().getText())) / 2;
+
+			int y = -axes.getMargins().getTop() + ModernWidget.getStringHeight(g2);
+
+			g2.drawString(axis.getTitle().getText(), x, y);
 		}
 	}
 

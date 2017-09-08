@@ -208,7 +208,7 @@ public class SubFigure extends PlotBoxGraph { //LayoutLayer
 	
 	
 	
-	//public void putZ(Axes axes, GridLocation l) {
+	//public void addChild(Axes axes, GridLocation l) {
 	//	addChild(axes, l);
 	//}
 	

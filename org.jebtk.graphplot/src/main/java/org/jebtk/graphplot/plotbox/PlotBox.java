@@ -33,6 +33,7 @@ import org.jebtk.core.IdProperty;
 import org.jebtk.core.IntId;
 import org.jebtk.core.NameProperty;
 import org.jebtk.core.UidProperty;
+import org.jebtk.core.collections.CollectionUtils;
 import org.jebtk.core.event.ChangeListeners;
 import org.jebtk.core.geom.IntPos2D;
 import org.jebtk.core.sys.SysUtils;
@@ -58,7 +59,7 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 
 	public static final Iterable<PlotBox> NO_CHILDREN = 
 			Collections.emptyList();
-	
+
 	private String mName;
 	private String mPlotName;
 
@@ -73,28 +74,28 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 	private boolean mVisible = true;
 
 	private static final IntId NEXT_ID = new IntId();
-	
+
 	private int mId;
-	
+
 	public PlotBox() {
 		mId = NEXT_ID.getNextId();
-		
+
 		mPlotName = createId(getType(), mId);
-		
+
 		setName(mPlotName);
 	}
-	
+
 	public PlotBox(String name) {
 		this();
-		
+
 		setName(name);
 	}
-	
+
 	@Override
 	public int getId() {
 		return mId;
 	}
-	
+
 	/**
 	 * Returns the plot name such as Figure 1. This is immutable and set once
 	 * when the object is created. {@code getName()} will return the same 
@@ -105,7 +106,7 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 	public String getPlotName() {
 		return mPlotName;
 	}
-	
+
 	/**
 	 * Allows the plot to have a secondary name that can be more human readable
 	 * instead of Sub Figure 1 etc. This is designed so that complex layouts
@@ -114,7 +115,7 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 	 */
 	public void setName(String name) {
 		mName = name;
-		
+
 		fireChanged();
 	}
 
@@ -126,12 +127,12 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 	public String getName() {
 		return mName;
 	}
-	
+
 	@Override
 	public String getUid() {
 		return getUid(this);
 	}
-	
+
 	/**
 	 * Generate an id from the plot box using the graph from the root to this
 	 * leaf to create a unique id.
@@ -141,71 +142,71 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 	 */
 	private static String getUid(PlotBox plotBox) {
 		List<String> stack = new ArrayList<String>(10);
-		
+
 		PlotBox p = plotBox;
-		
+
 		while (true) {
 			stack.add(TextUtils.squareBrackets(p.getName()));
-			
+
 			p = p.getParent();
-			
+
 			if (p == null) {
 				break;
 			}
 		}
-		
+
 		// Print in order from root to leaf.
 		Collections.reverse(stack);
-		
+
 		return Join.onColon().values(stack).toString();
 	}
 
 	public void setParent(PlotBox parent) {
 		mParent = parent;
 	}
-	
+
 	public PlotBox getParent() {
 		return mParent;
 	}
-	
+
 	public void setStorage(PlotBoxStorage s) {
-		
+
 	}
-	
+
 	public PlotBoxStorage getStorage() {
 		return null;
 	}
-	
+
 	public void setLayout(PlotBoxLayout layout) {
-		
+
 	}
-	
+
 	public PlotBoxLayout getPlotBoxLayout() {
 		return null;
 	}
-	
+
 	public MarginProperties getMargins() {
 		return MarginProperties.DEFAULT_MARGIN;
 	}
-	
+
 	/**
 	 * Sets the left margin.
 	 *
 	 * @param margin the new left margin
 	 */
 	public void setLeftMargin(int margin) {
-		
+
 	}
-	
+
 	/**
 	 * Sets the bottom margin.
 	 *
 	 * @param margin the new bottom margin
 	 */
 	public void setBottomMargin(int margin) {
-		
+
 	}
-	
+
 	/**
 	 * Sets the margins.
 	 *
@@ -214,7 +215,7 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 	public void setMargins(int s) {
 		setMargins(s, s, s, s);
 	}
-	
+
 	/**
 	 * Sets the margins.
 	 *
@@ -226,7 +227,7 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 	public void setMargins(int t, int l, int b, int r) {
 		setMargins(new MarginProperties(t, l, b, r));
 	}
-	
+
 	/**
 	 * Sets the margins.
 	 *
@@ -234,10 +235,10 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 	 */
 	public void setMargins(MarginProperties margins) {
 		updateMargins(margins);
-		
+
 		fireChanged();
 	}
-	
+
 	/**
 	 * Update margins.
 	 *
@@ -247,7 +248,7 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 	public boolean updateMargins(MarginProperties margins) {
 		return false;
 	}
-	
+
 	/**
 	 * Sets whether to show the layer with anti-aliasing switched on. This
 	 * options only affects on screen rendering.
@@ -255,7 +256,7 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 	 */
 	public void setAAMode(boolean on) {
 		mAAMode = on;
-		
+
 		fireChanged();
 	}
 
@@ -267,10 +268,10 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 	 */
 	public void setRasterMode(boolean on) {
 		mRasterMode = on;
-		
+
 		fireChanged();
 	}
-	
+
 	/**
 	 * Sets whether the layer should clip on the boundaries.
 	 * 
@@ -278,7 +279,7 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 	 */
 	public void setClipMode(boolean on) {
 		mClipMode = on;
-		
+
 		fireChanged();
 	}
 
@@ -289,7 +290,7 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 			plot(g2, new Dimension(0, 0), context, params);
 		}
 	}
-	
+
 	public void plot(Graphics2D g2, 
 			Dimension offset,
 			DrawingContext context,
@@ -297,7 +298,7 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 
 		plotContext(g2, offset, context, params);
 	}
-	
+
 	public void plotContext(Graphics2D g2,
 			Dimension offset,
 			DrawingContext context,
@@ -366,9 +367,9 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 		// up operations
 		if (mBufferedImage == null) {
 			// The canvas need only be the size of the available display
-			
+
 			Dimension s = getPreferredSize();
-			
+
 			// Make it one pixel bigger to account for borders being drawn
 			mBufferedImage = ImageUtils.createImage(s.width + 1, s.height + 1);
 
@@ -389,7 +390,7 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 		}
 
 		g2.drawImage(mBufferedImage, 0, 0, null);
-		
+
 		plotSize(offset);
 	}
 
@@ -409,90 +410,65 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 			Object... params) {
 		plotSize(offset);
 	}
-	
-	public PlotBox addChild(PlotBox plot) {
-		plot.setParent(this);
-		
+
+	public PlotBox addChild(PlotBox plot, Object... params) {
+		return addReserved(plot, params);
+	}
+
+	/**
+	 * Add a child to a reserved location.
+	 * @param plot
+	 * @param i
+	 * @return 
+	 */
+	public PlotBox addReserved(PlotBox plot, Object... params) {
 		return this;
 	}
-	
-	public PlotBox addChild(PlotBox plot, int i) {
-		plot.setParent(this);
-		
-		return this;
+
+	public PlotBox getChild(Object param, Object... params) {
+		return null;
 	}
-	
-	public PlotBox addChild(PlotBox plot, int i, int j) {
-		plot.setParent(this);
-		return this;
+
+	public boolean remove(PlotBox plot) {
+		return false;
 	}
-	
-	public PlotBox addChild(PlotBox plot, GridLocation l) {
-		plot.setParent(this);
-		return this;
+
+	public boolean remove(Object param, Object... params) {
+		return false;
 	}
-	
-	public PlotBox addChild(PlotBox plot, IntPos2D p) {
-		plot.setParent(this);
-		return this;
+
+	public PlotBox getChildByName(String name) {
+		return null;
 	}
-	
-	public PlotBox addReserved(PlotBox plot, int i) {
-		return addChild(plot, i);
+
+	public PlotBox getChildById(int id) {
+		return null;
 	}
-	
-	public PlotBox putZ(PlotBox plot) {
-		return addChild(plot);
-	}
-	
-	public PlotBox putZ(PlotBox plot, GridLocation l) {
-		return addChild(plot, l);
-	}
-	
+
 	public <T extends PlotBox> PlotBox setChildren(List<T> plots) {
 		for (T plot : plots) {
 			plot.setParent(this);
 		}
-		
+
 		return this;
 	}
-	
-	public PlotBox getChild(int i, int j) {
-		return null;
-	}
-	
-	public PlotBox getChild(int i) {
-		return null;
-	}
-	
-	public PlotBox getChild(GridLocation l) {
-		return null;
-	}
 
-	public PlotBox getChild(IntPos2D p) {
-		return null;
-	}
-	
-	public PlotBox getChild(String name) {
-		return null;
-	}
-	
 	public Iterable<IntPos2D> getPositions() {
 		return null;
 	}
-	
+
 	public Iterable<GridLocation> getLocations() {
 		return GridLocation.LOCATIONS_LIST;
 	}
-	
+
 	public String getType() {
 		return "Plot Box";
 	}
-	
+
 	public int getChildCount() {
 		return 0;
 	}
-	
+
 	/**
 	 * Returns the next available z layer.
 	 * 
@@ -501,72 +477,70 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 	public int getUnusedZ() {
 		return -1;
 	}
-	
+
 	public Iterable<Integer> getZ() {
 		return null;
 	}
-	
+
 	public void clear() {
-		
+
 	}
-	
+
 	@Override
 	public Iterator<PlotBox> iterator() {
 		return NO_CHILDREN.iterator();
 	}
-	
+
 	/**
 	 * Create a unique hash string for this plot box.
 	 * @return
 	 */
 	@Override
 	public abstract String hashId();
-	
+
 
 	public final void setFont(Font font, Color color) {
 		Set<PlotBox> used = new HashSet<PlotBox>();
-		
+
 		setFont(used, font, color);
 	}
-	
+
 	public void setFont(Set<PlotBox> used, Font font, Color color) {
-		
+
 	}
-	
+
 
 	public void setStyle(String name, PlotStyle style, PlotStyle... styles) {
 		// TODO Auto-generated method stub
 	}
-	
+
 	/**
 	 * Sets the style.
 	 *
 	 * @param style the new style
 	 */
 	public final void setStyle(PlotStyle style, PlotStyle... styles) {
-		System.err.println("style " + this.getName());
-		
 		Set<PlotBox> used = new HashSet<PlotBox>();
-		
+
 		setStyle(used, style, styles);
 	}
-	
+
 	public void setStyle(Set<PlotBox> used, PlotStyle style, PlotStyle... styles) {
-		
+
 	}
-	
+
 	public void addStyle(String name, PlotStyle style, PlotStyle... styles) {
 		// TODO Auto-generated method stub
 	}
 
 	public final void addStyle(PlotStyle style, PlotStyle... styles) {
 		Set<PlotBox> used = new HashSet<PlotBox>();
-		
+
 		addStyle(used, style, styles);
 	}
-	
+
 	public void addStyle(Set<PlotBox> used, PlotStyle style, PlotStyle... styles) {
-		
+
 	}
 
 	public void setMatrix(AnnotationMatrix m) {
@@ -576,17 +550,17 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 	public void setColorMap(ColorMap colorMap) {
 		// TODO Auto-generated method stub
 	}
-	
+
 	public void setVisible(boolean visible) {
 		mVisible = visible;
-		
+
 		fireChanged();
 	}
-	
+
 	public boolean getVisible() {
 		return mVisible;
 	}
-	
+
 	/**
 	 * Find a plotBox in the graph by name.
 	 * 
@@ -594,98 +568,170 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 	 * @return
 	 */
 	public PlotBox findByName(String name) {
+		return findByName(this, name);
+	}
+
+	public static PlotBox findByName(PlotBox plot, String name) {
 		String ls = name.toLowerCase();
-		
+
 		Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
-		
-		stack.push(this);
-		
+
+		stack.push(plot);
+
 		while (!stack.isEmpty()) {
 			PlotBox p = stack.pop();
-			
+
+			//System.err.println("Find " + p.getName());
+
 			if (p.getName().toLowerCase().contains(ls)) {
 				return p;
 			}
-			
+
 			for (PlotBox c : p) {
 				stack.push(c);
 			}
 		}
 
 		// If this fails, try searching by plot name.
-		return findByPlotName(name);
+		return findByPlotName(plot, name);
 	}
-	
+
 	public PlotBox findByPlotName(String name) {
+		return findByPlotName(this, name);
+	}
+
+	public static PlotBox findByPlotName(PlotBox plot, String name) {
 		String ls = name.toLowerCase();
-		
+
 		Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
-		
-		stack.push(this);
-		
+
+		stack.push(plot);
+
 		while (!stack.isEmpty()) {
 			PlotBox p = stack.pop();
-			
+
 			if (p.getPlotName().toLowerCase().contains(ls)) {
 				return p;
 			}
-			
+
 			for (PlotBox c : p) {
 				stack.push(c);
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	public PlotBox findByType(String type) {
+		return findByType(this, type);
+	}
+
+	public static PlotBox findByType(PlotBox plot, String type) {
 		String ls = type.toLowerCase();
-		
+
 		PlotBox ret = null;
-		
+
 		Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
-		
-		stack.push(this);
-		
+
+		stack.push(plot);
+
 		while (!stack.isEmpty()) {
 			PlotBox p = stack.pop();
-			
+
 			if (p.getType().toLowerCase().contains(ls)) {
 				ret = p;
 				break;
 			}
-			
+
 			for (PlotBox c : p) {
 				stack.push(c);
 			}
 		}
-		
+
 		return ret;
 	}
-	
+
 	public List<PlotBox> getByType(String type) {
+		return getByType(this, type);
+	}
+
+	public static List<PlotBox> getByType(PlotBox plot, String type) {
 		String ls = type.toLowerCase();
-		
+
 		List<PlotBox> ret = new ArrayList<PlotBox>(100);
-		
+
 		Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
-		
-		stack.push(this);
-		
+
+		stack.push(plot);
+
 		while (!stack.isEmpty()) {
 			PlotBox p = stack.pop();
-			
+
 			if (p.getType().toLowerCase().contains(ls)) {
 				ret.add(p);
 				break;
 			}
-			
+
 			for (PlotBox c : p) {
 				stack.push(c);
 			}
 		}
-		
+
 		return ret;
+	}
+
+	/**
+	 * Apply a function to all a plot box and all children matching a 
+	 * given name (case insensitive).
+	 * 
+	 * @param name
+	 * @param f
+	 */
+	public void applyByName(ApplyFunc f, String name, String... names) {
+		applyByName(this, f, name, names);
+	}
+
+	/**
+	 * Apply a function to all plot boxes matching a given name
+	 * (case insensitive).
+	 * 
+	 * @param plot
+	 * @param name
+	 * @param f
+	 */
+	public static void applyByName(PlotBox plot, 
+			ApplyFunc f,
+			String name,
+			String... names) {
+
+		List<String> ls = new ArrayList<String>(1 + names.length);
+		
+		ls.add(name.toLowerCase());
+		
+		if (names.length > 0) {
+			ls.addAll(TextUtils.toLowerCase(names));
+		}
+
+		Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
+
+		stack.push(plot);
+
+		while (!stack.isEmpty()) {
+			PlotBox p = stack.pop();
+
+			String n = p.getName().toLowerCase();
+			
+			for (String s : ls) {
+				if (n.contains(s)) {
+					f.apply(p);
+					break;
+				}
+			}
+
+			for (PlotBox c : p) {
+				stack.push(c);
+			}
+		}
 	}
 
 	/* (non-Javadoc)
@@ -700,25 +746,25 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 
 		return dim;
 	}
-	
+
 	public void plotSize(Dimension d) {
 		// Do nothing
 	}
-	
+
 	public void removeByName(String name) {
-		
+
 	}
-	
+
 	//public String getUid() {
 	//	return mUuid;
 	//}
-	
+
 	/*
 	@Override
 	public int compareTo(PlotBox plot) {
 		return mName.compareTo(plot.mName);
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof PlotBox) {
@@ -727,13 +773,13 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 			return false;
 		}
 	}
-	
+
 	@Override
 	public String toString() {
 		return mName;
 	}
-	*/
-	
+	 */
+
 
 	/**
 	 * Produce a stack trace for the plot box.
@@ -744,42 +790,42 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 		System.err.println("--------");
 		System.err.println(plot.getName());
 		System.err.println("--------");
-		
+
 		Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
 		Deque<Integer> levelStack = new ArrayDeque<Integer>(100);
-		
+
 		for (PlotBox c : plot) {
 			stack.push(c);
 			levelStack.push(1);
 		}
-		
+
 		while (!stack.isEmpty()) {
 			PlotBox p = stack.pop();
 			int level = levelStack.pop();
-			
+
 			SysUtils.err().println(level, p.getName());
-			
+
 			int nlevel = level + 1;
-			
+
 			for (PlotBox c : p) {
 				SysUtils.err().println(c + " my child");
 				stack.push(c);
 				levelStack.push(nlevel);
 			}
 		}
-		
+
 		System.err.println("========");
 	}
-	
+
 	public static void childStack(PlotBox plot) {
 		System.err.println("--------");
 		System.err.println(plot.getName() + plot  + " " + plot.getStorage());
 		System.err.println("--------");
-		
+
 		for (PlotBox c : plot) {
 			SysUtils.err().println(c.getName() + " " + c);
 		}
-		
+
 		System.err.println("========");
 	}
 
@@ -796,7 +842,7 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 
 	public static boolean checkName(String name, PlotBox plot) {
 		String ln = name.toLowerCase();
-		
+
 		return plot.getName().toLowerCase().equals(ln) || plot.getPlotName().toLowerCase().equals(ln);
 	}
 }

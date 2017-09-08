@@ -77,8 +77,6 @@ public class Grid2dLayer extends AxesLayer {
 	private static void drawYAxis(Graphics2D g2, Axes axes, Axis axis) {
 		if (axis.getGrid().getVisible()) {
 			
-			System.err.println("g2 layer " + axis.getName());
-			
 			g2.setColor(axis.getGrid().getColor());
 			g2.setStroke(axis.getGrid().getStroke());
 

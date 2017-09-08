@@ -57,7 +57,7 @@ public class SplineLinePlotLayer extends SplinePlotLayer {
 	
 	@Override
 	public String getType() {
-		return "Spline Plot Layer";
+		return "Spline Line Layer";
 	}
 
 	/* (non-Javadoc)

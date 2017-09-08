@@ -237,93 +237,39 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
 	}
 	
 	@Override
-	public PlotBox addChild(PlotBox plot) {
-		mStorage.addChild(plot);
+	public PlotBox addChild(PlotBox plot, Object... params) {
+		mStorage.addChild(plot, params);
 		
-		return super.addChild(plot);
+		return this;
 	}
 	
+	/**
+	 * Add a child to a reserved location.
+	 * @param plot
+	 * @param i
+	 * @return 
+	 */
 	@Override
-	public PlotBox addChild(PlotBox plot, int i) {
-		mStorage.addChild(plot, i);
+	public PlotBox addReserved(PlotBox plot, Object... params) {
+		mStorage.addReserved(plot, params);
 		
-		return super.addChild(plot, i);
+		return this;
 	}
 	
 	@Override
-	public PlotBox addReserved(PlotBox plot, int i) {
-		mStorage.addReserved(plot, i);
-		
-		return super.addChild(plot, i);
+	public PlotBox getChild(Object param, Object... params) {
+		return mStorage.getChild(param, params);
 	}
 	
 	@Override
-	public PlotBox addChild(PlotBox plot, int i, int j) {
-		mStorage.addChild(plot, i, j);
-		
-		return super.addChild(plot, i, j);
+	public PlotBox getChildByName(String name) {
+		return mStorage.getChildByName(name);
 	}
 	
 	@Override
-	public PlotBox addChild(PlotBox plot, GridLocation l) {
-		mStorage.addChild(plot, l);
-		
-		return super.addChild(plot, l);
-	}
-	
-	@Override
-	public PlotBox addChild(PlotBox plot, IntPos2D p) {
-		mStorage.addChild(plot, p);
-		
-		return super.addChild(plot, p);
-	}
-	
-	@Override
-	public PlotBox putZ(PlotBox plot) {
-		return addChild(plot);
-	}
-	
-	@Override
-	public PlotBox putZ(PlotBox plot, GridLocation l) {
-		return addChild(plot, l);
-	}
-	
-	public PlotBox getChild(int i, int j) {
-		return mStorage.getChild(i, j);
-	}
-	
-	public PlotBox getChild(int i) {
-		return mStorage.getChild(i);
-	}
-	
-	public PlotBox getChild(GridLocation l) {
-		return mStorage.getChild(l);
-	}
-
-
-	public PlotBox getChild(IntPos2D p) {
-		return mStorage.getChild(p);
-	}
-	
-	public PlotBox getChild(String name) {
-		return mStorage.getChild(name);
-	}
-	
 	public PlotBox getChildById(int id) {
 		return mStorage.getChildById(id);
 	}
-	
-	/*
-	public void setPosition(IntPos2D p) {
-		mPos = p;
-		
-		fireCanvasChanged();
-	}
-	
-	public IntPos2D getPosition() {
-		return mPos;
-	}
-	*/
 	
 	@Override
 	public Iterable<IntPos2D> getPositions() {
@@ -380,12 +326,19 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
 				.toString();
 	}
 	
+	@Override
 	public void removeByName(String name) {
 		mStorage.removeByName(name);
 	}
 	
-	public void remove(PlotBox plot) {
-		mStorage.remove(plot);
+	@Override
+	public boolean remove(PlotBox plot) {
+		return mStorage.remove(plot);
+	}
+	
+	@Override
+	public boolean remove(Object param, Object... params) {
+		return mStorage.remove(param, params);
 	}
 	
 	/**
@@ -395,7 +348,6 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
 	 */
 	public static Iterable<String> getNames(PlotBox figure) {
 		return Stream.stream(figure).map(new Function<PlotBox, String>() {
-
 			@Override
 			public String apply(PlotBox item) {
 				return item.getName();

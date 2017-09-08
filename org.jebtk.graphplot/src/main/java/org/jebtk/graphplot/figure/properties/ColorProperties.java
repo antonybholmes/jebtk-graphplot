@@ -70,8 +70,6 @@ public abstract class ColorProperties extends VisibleProperties {
 	 * @param color		Font color.
 	 */
 	public void setColor(Color color) {
-		System.err.println("color properties " + color + " " + this);
-		
 		updateColor(color);
 		
 		if (color == null) {

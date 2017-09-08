@@ -19,6 +19,7 @@ import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
 import org.jebtk.core.event.ChangeListeners;
 import org.jebtk.core.text.TextUtils;
+import org.jebtk.graphplot.figure.GridLocation;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -27,7 +28,7 @@ import org.jebtk.core.text.TextUtils;
  * @author Antony Holmes Holmes
  *
  */
-public class TitleProperties extends ChangeListeners implements ChangeListener {
+public class TitleProperties extends LocationProperties implements ChangeListener {
 	
 	/**
 	 * The constant serialVersionUID.
@@ -43,13 +44,16 @@ public class TitleProperties extends ChangeListeners implements ChangeListener {
 	 * The member name.
 	 */
 	private String mName = TextUtils.EMPTY_STRING;
-	
+
 	/**
 	 * Instantiates a new title properties.
 	 */
 	public TitleProperties() {
 		mFont.setVisible(false);
 		mFont.addChangeListener(this);
+		
+		setInside(false);
+		setPosition(GridLocation.N);
 	}
 	
 	/**
@@ -62,8 +66,12 @@ public class TitleProperties extends ChangeListeners implements ChangeListener {
 		mFont.copy(title.mFont);
 		
 		setText(title.mName);
+		
+		setPosition(title.getPosition());
+		
+		setInside(title.isInside());
 	}
-
+	
 	/**
 	 * Sets the text.
 	 *
@@ -113,10 +121,12 @@ public class TitleProperties extends ChangeListeners implements ChangeListener {
 	 *
 	 * @param visible the new visible
 	 */
+	@Override
 	public void setVisible(boolean visible) {
 		mFont.setVisible(visible);
 	}
 	
+	@Override
 	public boolean getVisible() {
 		return mFont.getVisible();
 	}

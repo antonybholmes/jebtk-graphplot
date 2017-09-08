@@ -200,8 +200,6 @@ public class AxisLayerY2 extends AxisLayerY {
 			int x,
 			DrawingContext context) {
 
-		System.err.println("y2 x " + x);
-		
 		if (ticks.getLineStyle().getVisible()) {
 			if (drawInside) {
 				x -= (ticks.getTickSize() - 1);

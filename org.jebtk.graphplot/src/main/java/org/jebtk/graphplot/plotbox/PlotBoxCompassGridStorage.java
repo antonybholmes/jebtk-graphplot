@@ -35,38 +35,45 @@ public class PlotBoxCompassGridStorage extends PlotBoxStorage {
 		{{GridLocation.NW, GridLocation.N, GridLocation.NE}, 
 				{GridLocation.W, GridLocation.CENTER, GridLocation.E}, 
 				{GridLocation.SW, GridLocation.S, GridLocation.SE}};
-	
-	
+
+
 	private Map<GridLocation, PlotBox> mMap =
 			new TreeMap<GridLocation, PlotBox>();
 
 	@Override
-	public void addChild(PlotBox plot, GridLocation l) {
+	public void addReserved(PlotBox plot, Object... params) {
+		GridLocation l = GridLocation.CENTER;
+
+		if (params.length > 0) {
+			if (params[0] instanceof GridLocation) {
+				l = (GridLocation)params[0];
+			} else {
+				if (params.length > 1) {
+					if (params[0] instanceof Integer && params[1] instanceof Integer) {
+						l = ROWS[(int)params[0]][(int)params[1]];
+					}
+				}
+			}
+		}
+
+		addReserved(plot, l);
+	}
+
+	public void addReserved(PlotBox plot, GridLocation l) {
 		mMap.put(l, plot);
-		
+
 		addChildByName(plot);
 	}
-	
+
 	@Override
-	public void addChild(PlotBox plot) {
-		addChild(plot, GridLocation.CENTER);
+	public PlotBox getChild(Object param, Object... params) {
+		return getChild(parseLocation(param, params));
 	}
-	
-	@Override
-	public PlotBox getChild(int i) {
-		return getChild(GridLocation.CENTER);
-	}
-	
-	@Override
-	public PlotBox getChild(int i, int j) {
-		return getChild(ROWS[i][j]);
-	}
-	
-	@Override
+
 	public PlotBox getChild(GridLocation l) {
 		return mMap.get(l);
 	}
-	
+
 	@Override
 	public Iterator<PlotBox> iterator() {
 		return mMap.values().iterator();
@@ -76,29 +83,52 @@ public class PlotBoxCompassGridStorage extends PlotBoxStorage {
 	public int getChildCount() {
 		return mMap.size();
 	}
-	
+
 	@Override
-	public void remove(PlotBox plot) {
+	public boolean remove(PlotBox plot) {
+		GridLocation rl = GridLocation.CENTER;
+
 		boolean found = false;
-		
-		GridLocation rl = null;
-		
+
 		for (GridLocation l : mMap.keySet()) {
 			if (mMap.get(l).equals(plot)) {
 				rl = l;
 				found = true;
-				
 				break;
 			}
 		}
-		
+
 		if (found) {
 			remove(rl);
 		}
+		
+		return true;
 	}
-	
+
 	@Override
+	public boolean remove(Object param, Object... params) {
+		remove(parseLocation(param, params));
+
+		return true;
+	}
+
 	public void remove(GridLocation l) {
 		mMap.remove(l);
+	}
+
+	private static GridLocation parseLocation(Object param, Object... params) {
+		GridLocation l = GridLocation.CENTER;
+
+		if (param instanceof GridLocation) {
+			l = (GridLocation)param;
+		} else {
+			if (params.length > 0) {
+				if (param instanceof Integer && params[0] instanceof Integer) {
+					l = ROWS[(int)param][(int)params[0]];
+				}
+			}
+		}
+
+		return l;
 	}
 }
