@@ -335,8 +335,6 @@ public class PlotFactory {
 
 		plot.setMatrix(m);
 		
-		SysUtils.err().println("scatter factory", m.getRowCount(), series.getName(), plot.getName());
-
 		plot.getAllSeries().add(series);
 
 		plot.setStyle(series.getName(), PlotStyle.SCATTER);

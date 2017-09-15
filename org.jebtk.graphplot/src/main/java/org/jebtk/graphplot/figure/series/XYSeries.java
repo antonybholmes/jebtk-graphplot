@@ -320,7 +320,7 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 	public void setMarker(ShapeStyle marker) {
 		changeMarker(marker);
 
-		fireChanged();
+		mMarkerStyle.setVisible(true);
 	}
 
 	/**

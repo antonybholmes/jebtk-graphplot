@@ -70,7 +70,6 @@ public class LegendLayer extends AxesLayer {
 
 		// In case there are repetitive series within groups (e.g. grouped
 		// bars), try to extract only the unique names.
-
 		Map<String, XYSeries> uniqueSeries = new TreeMap<String, XYSeries>();
 
 
@@ -238,6 +237,7 @@ public class LegendLayer extends AxesLayer {
 		for (String name : uniqueSeries.keySet()) {
 			XYSeries s = uniqueSeries.get(name);
 
+			
 			if (s.getStyle().getLineStyle().getVisible()) {
 				Graphics2D g2Temp = (Graphics2D)g2.create();
 
