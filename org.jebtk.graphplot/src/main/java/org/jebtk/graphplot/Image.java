@@ -96,8 +96,6 @@ public class Image {
 			g2.setFont(ModernPlotCanvas.PLOT_FONT);
 			g2.setSVGCanvasSize(IntDim.toDimension(d));
 
-			System.err.println("Image size " + g2.getSVGCanvasSize());
-
 			// Canvases should be using this method for correctly off setting
 			// images. Since we don't want to do that for saving the SVG,
 			// we call the method directory so that drawCanvasForeground is
@@ -312,6 +310,8 @@ public class Image {
 
 		BufferedImage bufferedImage;
 
+		System.err.println("png " + canvas.getPreferredSize() + " " + canvas.getAbsPreferredSize());
+		
 		if (type.equals("png")) {
 			bufferedImage = new BufferedImage(d.getW(), 
 					d.getH(),
