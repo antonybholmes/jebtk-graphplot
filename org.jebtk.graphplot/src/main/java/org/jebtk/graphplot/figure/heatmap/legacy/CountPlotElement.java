@@ -64,6 +64,20 @@ public class CountPlotElement extends RowMatrixPlotElement {
 
 		mCountGroups = countGroups;
 		mColor = color;
+		
+		setWidth();
+	}
+
+	private void setWidth() {
+		int w = 0;
+		
+		for (CountGroup countGroup : mCountGroups) {
+			if (countGroup.size() > 0) {
+				w = Math.max(w, countGroup.toString().length() * 12);
+			}
+		}
+		
+		setWidth(w);
 	}
 
 	/* (non-Javadoc)

@@ -107,7 +107,10 @@ public class ColorBar extends PlotElementFixedSize {
 	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
 	 */
 	@Override
-	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Object... params) {
+	public void plot(Graphics2D g2, 
+			Dimension offset, 
+			DrawingContext context, 
+			Object... params) {
 		NumberFormatter nf = Formatter.number().dp(2);
 		
 		int l1 = g2.getFontMetrics().stringWidth(nf.format(mMin));

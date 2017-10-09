@@ -35,7 +35,7 @@ public class PlotBoxPanel extends ModernPlotCanvas implements ChangeListener {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private PlotBoxContainer mPlot;
+	private PlotBox mPlot;
 
 	private Dimension mS;
 	
@@ -44,7 +44,7 @@ public class PlotBoxPanel extends ModernPlotCanvas implements ChangeListener {
 	 *
 	 * @param renderer the renderer
 	 */
-	public PlotBoxPanel(PlotBoxContainer plot) {
+	public PlotBoxPanel(PlotBox plot) {
 		mPlot = plot;
 		mPlot.addChangeListener(this);
 		
