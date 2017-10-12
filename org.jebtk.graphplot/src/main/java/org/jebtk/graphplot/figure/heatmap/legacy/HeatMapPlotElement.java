@@ -25,7 +25,7 @@ import java.util.Map;
 
 import org.jebtk.core.Mathematics;
 import org.jebtk.core.geom.IntDim;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.ImageUtils;
 import org.jebtk.modern.graphics.colormap.ColorMap;
@@ -79,7 +79,7 @@ public class HeatMapPlotElement extends MatrixPlotElement {
 	 * @param colorMap the color map
 	 * @param aspectRatio the aspect ratio
 	 */
-	public HeatMapPlotElement(AnnotationMatrix matrix, 
+	public HeatMapPlotElement(DataFrame matrix, 
 			ColorMap colorMap, 
 			IntDim aspectRatio) {
 		super(matrix, aspectRatio);

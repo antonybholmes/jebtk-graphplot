@@ -19,7 +19,7 @@ import java.awt.Graphics2D;
 import java.util.List;
 
 import org.jebtk.core.collections.UniqueArrayList;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
 // TODO: Auto-generated Javadoc
@@ -68,7 +68,7 @@ public class AxisLabelLayerY2 extends PlotLayer {
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
-			AnnotationMatrix m) {
+			DataFrame m) {
 		Axis axis = axes.getY2Axis();
 
 		// Cache positions if not already done so

@@ -21,7 +21,7 @@ import java.util.List;
 
 import org.jebtk.core.KeyValuePair;
 import org.jebtk.graphplot.figure.series.XYSeries;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
 // TODO: Auto-generated Javadoc
@@ -60,7 +60,7 @@ public abstract class PathsPlotLayer extends UniqueXYLayer {
 	}
 
 	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXYLayer#plotLayer(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.AnnotationMatrix, edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries, edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXY)
+	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXYLayer#plotLayer(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.DataFrame, edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries, edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXY)
 	 */
 	@Override
 	public final void plotLayer(Graphics2D g2,
@@ -69,7 +69,7 @@ public abstract class PathsPlotLayer extends UniqueXYLayer {
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
-			AnnotationMatrix m,
+			DataFrame m,
 			XYSeries series,
 			UniqueXY xy) {
 
@@ -111,7 +111,7 @@ public abstract class PathsPlotLayer extends UniqueXYLayer {
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
-			AnnotationMatrix m,
+			DataFrame m,
 			XYSeries series,
 			UniqueXY xy,
 			List<GeneralPath> path);
@@ -130,7 +130,7 @@ public abstract class PathsPlotLayer extends UniqueXYLayer {
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
-			AnnotationMatrix m,
+			DataFrame m,
 			XYSeries series,
 			UniqueXY xy) {
 		if (mPaths == null || !mPaths.getKey().equals(xy)) {
@@ -153,7 +153,7 @@ public abstract class PathsPlotLayer extends UniqueXYLayer {
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
-			AnnotationMatrix m,
+			DataFrame m,
 			XYSeries series,
 			UniqueXY xy);
 }

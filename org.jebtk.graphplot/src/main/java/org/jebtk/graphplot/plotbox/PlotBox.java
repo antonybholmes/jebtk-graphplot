@@ -43,7 +43,7 @@ import org.jebtk.graphplot.figure.GridLocation;
 import org.jebtk.graphplot.figure.PlotHashProperty;
 import org.jebtk.graphplot.figure.PlotStyle;
 import org.jebtk.graphplot.figure.properties.MarginProperties;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.ImageUtils;
 import org.jebtk.modern.graphics.colormap.ColorMap;
@@ -543,7 +543,7 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 
 	}
 
-	public void setMatrix(AnnotationMatrix m) {
+	public void setMatrix(DataFrame m) {
 		// TODO Auto-generated method stub
 	}
 

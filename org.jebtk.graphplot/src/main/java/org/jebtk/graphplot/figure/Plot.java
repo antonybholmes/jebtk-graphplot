@@ -29,7 +29,7 @@ import org.jebtk.graphplot.figure.series.XYSeriesGroup;
 import org.jebtk.graphplot.plotbox.PlotBox;
 import org.jebtk.graphplot.plotbox.PlotBoxZLayout;
 import org.jebtk.graphplot.plotbox.PlotBoxZStorage;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.math.matrix.MatrixEventListener;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.colormap.ColorMap;
@@ -73,7 +73,7 @@ public class Plot extends PlotBoxGraph implements MatrixEventListener, ChangeLis
 	/**
 	 * The member m.
 	 */
-	private AnnotationMatrix mM;
+	private DataFrame mM;
 
 	/**
 	 * The member bar width.
@@ -146,7 +146,7 @@ public class Plot extends PlotBoxGraph implements MatrixEventListener, ChangeLis
 	 *
 	 * @return the matrix
 	 */
-	public AnnotationMatrix getMatrix() {
+	public DataFrame getMatrix() {
 		return mM;
 	}
 
@@ -156,7 +156,7 @@ public class Plot extends PlotBoxGraph implements MatrixEventListener, ChangeLis
 	 * @param m the new matrix
 	 */
 	@Override
-	public void setMatrix(AnnotationMatrix m) {
+	public void setMatrix(DataFrame m) {
 		if (m != null) {
 			mM = m;
 

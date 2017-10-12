@@ -20,7 +20,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 
 import org.jebtk.core.geom.IntDim;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
 // TODO: Auto-generated Javadoc
@@ -61,7 +61,7 @@ public class UpDownDiffExpPlotElement extends RowMatrixPlotElement {
 	 * @param aspectRatio the aspect ratio
 	 * @param color the color
 	 */
-	public UpDownDiffExpPlotElement(AnnotationMatrix matrix,
+	public UpDownDiffExpPlotElement(DataFrame matrix,
 			int width, 
 			IntDim aspectRatio,
 			Color color) {

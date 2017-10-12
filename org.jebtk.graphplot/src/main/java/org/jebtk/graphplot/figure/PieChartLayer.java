@@ -23,7 +23,7 @@ import org.jebtk.core.Mathematics;
 import org.jebtk.core.text.Formatter;
 import org.jebtk.graphplot.figure.series.XYSeries;
 import org.jebtk.graphplot.figure.series.XYSeriesGroup;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.math.matrix.DoubleMatrix;
 import org.jebtk.math.matrix.MatrixGroup;
 import org.jebtk.modern.graphics.DrawingContext;
@@ -50,7 +50,7 @@ public class PieChartLayer extends PlotLayer {
 	}
 
 	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotClippedLayer#plotLayer(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.AnnotationMatrix)
+	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotClippedLayer#plotLayer(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.DataFrame)
 	 */
 	@Override
 	public void plotLayer(Graphics2D g2,
@@ -59,7 +59,7 @@ public class PieChartLayer extends PlotLayer {
 SubFigure subFigure,
 			Axes axes,
 			Plot plot,
-			AnnotationMatrix m) {
+			DataFrame m) {
 		drawCircle(g2,
 				m,
 				axes,
@@ -80,7 +80,7 @@ SubFigure subFigure,
 	 * @param sc the sc
 	 */
 	private void drawCircle(Graphics2D g2,
-			AnnotationMatrix m,
+			DataFrame m,
 			Axes axes,
 			XYSeriesGroup sc) {
 
@@ -135,7 +135,7 @@ SubFigure subFigure,
 	 * @param sc the sc
 	 */
 	private void drawLabels(Graphics2D g2,
-			AnnotationMatrix m,
+			DataFrame m,
 			Axes axes,
 			XYSeriesGroup sc) {
 		

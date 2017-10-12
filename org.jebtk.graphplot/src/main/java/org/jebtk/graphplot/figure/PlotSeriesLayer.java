@@ -20,7 +20,7 @@ import java.awt.Graphics2D;
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
 import org.jebtk.graphplot.figure.series.XYSeries;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
 // TODO: Auto-generated Javadoc
@@ -68,7 +68,7 @@ public abstract class PlotSeriesLayer extends PlotClippedLayer implements Change
 	}
 
 	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotClippedLayer#plotLayer(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.AnnotationMatrix)
+	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotClippedLayer#plotLayer(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.DataFrame)
 	 */
 	@Override
 	public final void plotLayer(Graphics2D g2,
@@ -77,7 +77,7 @@ public abstract class PlotSeriesLayer extends PlotClippedLayer implements Change
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
-			AnnotationMatrix m) {
+			DataFrame m) {
 
 		if (m == null) {
 			return;
@@ -115,7 +115,7 @@ public abstract class PlotSeriesLayer extends PlotClippedLayer implements Change
 			SubFigure subFigure, 
 			Axes axes,
 			Plot plot,
-			AnnotationMatrix m, 
+			DataFrame m, 
 			XYSeries series);
 
 	/* (non-Javadoc)

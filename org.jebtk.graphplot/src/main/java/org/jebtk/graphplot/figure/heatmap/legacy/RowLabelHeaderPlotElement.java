@@ -20,7 +20,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 
 import org.jebtk.core.geom.IntDim;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
 
@@ -54,7 +54,7 @@ public class RowLabelHeaderPlotElement extends MatrixPlotElement {
 	 * @param name the name
 	 * @param width the width
 	 */
-	public RowLabelHeaderPlotElement(AnnotationMatrix matrix,
+	public RowLabelHeaderPlotElement(DataFrame matrix,
 			IntDim aspectRatio,
 			String name,
 			int width) {

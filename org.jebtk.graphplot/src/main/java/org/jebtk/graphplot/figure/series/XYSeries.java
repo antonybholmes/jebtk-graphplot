@@ -41,7 +41,7 @@ import org.jebtk.graphplot.ColorCycle;
 import org.jebtk.graphplot.figure.properties.FontProperties;
 import org.jebtk.graphplot.figure.properties.StyleProperties;
 import org.jebtk.graphplot.icons.ShapeStyle;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.math.matrix.MatrixGroup;
 import org.jebtk.math.statistics.Statistics;
 
@@ -80,7 +80,7 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 	private Marker mMarker = new MarkerSquare();
 
 	/** The m M. */
-	private AnnotationMatrix mM = null;
+	private DataFrame mM = null;
 
 	/**
 	 * The constant NEXT_ID.
@@ -256,7 +256,7 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 	 *
 	 * @return the matrix
 	 */
-	public AnnotationMatrix getMatrix() {
+	public DataFrame getMatrix() {
 		return mM;
 	}
 	
@@ -265,7 +265,7 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 	 *
 	 * @param m the new matrix
 	 */
-	public void setMatrix(AnnotationMatrix m) {
+	public void setMatrix(DataFrame m) {
 		if (m != null) {
 			mM = m;
 
@@ -388,7 +388,7 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 	 * @param series the series
 	 * @return the list
 	 */
-	public static List<Double> values(AnnotationMatrix m, 
+	public static List<Double> values(DataFrame m, 
 			XYSeries series) {
 		return xValues(m, series);
 	}
@@ -400,7 +400,7 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 	 * @param series the series
 	 * @return the list
 	 */
-	public static List<Double> xValues(AnnotationMatrix m, XYSeries series) {
+	public static List<Double> xValues(DataFrame m, XYSeries series) {
 		List<Double> values = new ArrayList<Double>();
 
 		List<Integer> columns = MatrixGroup.findColumnIndices(m, series);
@@ -421,7 +421,7 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 	 * @param series the series
 	 * @return the list
 	 */
-	public static List<Double> yValues(AnnotationMatrix m, XYSeries series) {
+	public static List<Double> yValues(DataFrame m, XYSeries series) {
 		List<Double> values = new ArrayList<Double>();
 
 		List<Integer> columns = MatrixGroup.findColumnIndices(m, series);
@@ -442,7 +442,7 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 	 * @param series the series
 	 * @return the x max
 	 */
-	public static double getXMax(AnnotationMatrix m, XYSeries series) {
+	public static double getXMax(DataFrame m, XYSeries series) {
 		double ret = Double.MIN_VALUE;
 
 		List<Integer> columns = MatrixGroup.findColumnIndices(m, series);
@@ -469,7 +469,7 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 	 * @param series the series
 	 * @return the y max
 	 */
-	public static double getYMax(AnnotationMatrix m, XYSeries series) {
+	public static double getYMax(DataFrame m, XYSeries series) {
 		double ret = Double.MIN_VALUE;
 
 		List<Integer> columns = MatrixGroup.findColumnIndices(m, series);
@@ -492,7 +492,7 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 	 * @param series the series
 	 * @return the y sum
 	 */
-	public static double getYSum(AnnotationMatrix m, XYSeries series) {
+	public static double getYSum(DataFrame m, XYSeries series) {
 		double ret = 0;
 
 		List<Integer> columns = MatrixGroup.findColumnIndices(m, series);
@@ -513,7 +513,7 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 	 * @param series the series
 	 * @return the x min
 	 */
-	public static double getXMin(AnnotationMatrix m, XYSeries series) {
+	public static double getXMin(DataFrame m, XYSeries series) {
 		double ret = Double.MAX_VALUE;
 
 		List<Integer> columns = MatrixGroup.findColumnIndices(m, series);
@@ -534,7 +534,7 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 	 * @param series the series
 	 * @return the y min
 	 */
-	public static double getYMin(AnnotationMatrix m, XYSeries series) {
+	public static double getYMin(DataFrame m, XYSeries series) {
 		double ret = Double.MAX_VALUE;
 
 		List<Integer> columns = MatrixGroup.findColumnIndices(m, series);
@@ -555,7 +555,7 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 	 * @param series the series
 	 * @return the double
 	 */
-	public static double mean(AnnotationMatrix m, XYSeries series) {
+	public static double mean(DataFrame m, XYSeries series) {
 		List<Integer> columns = MatrixGroup.findColumnIndices(m, series);
 		
 		int c = columns.get(0);
@@ -576,7 +576,7 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 	 * @param series the series
 	 * @return the double
 	 */
-	public static double sd(AnnotationMatrix m, XYSeries series) {
+	public static double sd(DataFrame m, XYSeries series) {
 		List<Integer> columns = MatrixGroup.findColumnIndices(m, series);
 		
 		int c = columns.get(0);
@@ -601,7 +601,7 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 	 * @param series the series
 	 * @return the XY points
 	 */
-	public static List<DoublePos2D> getXYPoints(AnnotationMatrix m, XYSeries series) {
+	public static List<DoublePos2D> getXYPoints(DataFrame m, XYSeries series) {
 		List<Integer> columns = MatrixGroup.findColumnIndices(m, series);
 		
 		if (columns.size() < 2) {
@@ -674,7 +674,7 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static List<XYSeries> loadSeries(Path file, 
-			AnnotationMatrix matrix) throws IOException {
+			DataFrame matrix) throws IOException {
 		if (file == null) {
 			return Collections.emptyList();
 		}
@@ -698,7 +698,7 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static List<XYSeries> loadSeries1(Path file, 
-			AnnotationMatrix matrix) throws IOException {
+			DataFrame matrix) throws IOException {
 		List<XYSeries> groups = new ArrayList<XYSeries>();
 		
 		String line;
@@ -778,7 +778,7 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static List<XYSeries> loadSeries2(Path file, 
-			AnnotationMatrix matrix) throws IOException {
+			DataFrame matrix) throws IOException {
 		if (file == null || !PathUtils.getFileExt(file).equals("mgrp2")) {
 			return Collections.emptyList();
 		}

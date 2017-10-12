@@ -26,7 +26,7 @@ import org.jebtk.graphplot.figure.Plot;
 import org.jebtk.graphplot.figure.SubFigure;
 import org.jebtk.graphplot.figure.series.XYSeriesGroup;
 import org.jebtk.math.cluster.Cluster;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
 
@@ -79,7 +79,7 @@ public class ColumnHierarchicalTreeLayer extends HierarchicalTreeLayer {
 	}
 
 	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.subFigure.PlotLayer#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.subFigure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.subFigure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.subFigure.Plot, org.abh.lib.math.matrix.AnnotationMatrix)
+	 * @see edu.columbia.rdf.lib.bioinformatics.plot.subFigure.PlotLayer#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.subFigure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.subFigure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.subFigure.Plot, org.abh.lib.math.matrix.DataFrame)
 	 */
 	@Override
 	public void plot(Graphics2D g2,
@@ -91,10 +91,10 @@ public class ColumnHierarchicalTreeLayer extends HierarchicalTreeLayer {
 		Axes axes = (Axes)params[2];
 		Plot plot = (Plot)params[3];
 
-		AnnotationMatrix m = null;
+		DataFrame m = null;
 
 		if (params.length > 3) {
-			m = (AnnotationMatrix)params[3];
+			m = (DataFrame)params[3];
 		} else {
 			m = plot.getMatrix();
 		}
@@ -140,7 +140,7 @@ Figure figure,
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
-			AnnotationMatrix m) {
+			DataFrame m) {
 		
 		g2.setColor(mColor);
 
@@ -202,7 +202,7 @@ Figure figure,
 	 * @param m the m
 	 */
 	public void maxRows(Plot plot,
-			AnnotationMatrix m) {
+			DataFrame m) {
 		if (mGroupMap == null) {
 			mGroupMap = XYSeriesGroup.arrangeGroupsByCluster(m, plot.getAllSeries(), mRootCluster);
 			
@@ -217,7 +217,7 @@ Figure figure,
 			DrawingContext context,
 			Axes axes,
 			Plot plot,
-			AnnotationMatrix m) {
+			DataFrame m) {
 		
 		int w = axes.toPlotX1(1) - axes.toPlotX1(0);
 

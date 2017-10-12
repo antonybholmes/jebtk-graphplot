@@ -18,7 +18,7 @@ package org.jebtk.graphplot.figure.heatmap.legacy;
 import java.awt.Dimension;
 
 import org.jebtk.core.geom.IntDim;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 
 
 // TODO: Auto-generated Javadoc
@@ -43,7 +43,7 @@ public abstract class ColumnMatrixPlotElement extends MatrixPlotElement {
 	 * @param aspectRatio the aspect ratio
 	 * @param height the height
 	 */
-	public ColumnMatrixPlotElement(AnnotationMatrix matrix, 
+	public ColumnMatrixPlotElement(DataFrame matrix, 
 			IntDim aspectRatio,
 			int height) {
 		super(matrix, aspectRatio);

@@ -23,7 +23,7 @@ import org.jebtk.core.text.Formatter;
 import org.jebtk.graphplot.figure.heatmap.legacy.RowLabelProperties;
 import org.jebtk.graphplot.figure.heatmap.legacy.RowLabelsPlotElement;
 import org.jebtk.math.cluster.Cluster;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.math.matrix.Matrix;
 
 
@@ -48,7 +48,7 @@ public class RowHierarchicalLabelPlotElement extends RowLabelsPlotElement {
 	 * @param aspectRatio the aspect ratio
 	 * @param charWidth the char width
 	 */
-	public RowHierarchicalLabelPlotElement(AnnotationMatrix matrix,
+	public RowHierarchicalLabelPlotElement(DataFrame matrix,
 			Cluster rootCluster,
 			RowLabelProperties properties,
 			IntDim aspectRatio,

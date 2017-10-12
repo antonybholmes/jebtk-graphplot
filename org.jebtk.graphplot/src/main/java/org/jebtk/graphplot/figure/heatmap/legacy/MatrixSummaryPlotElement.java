@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.jebtk.core.geom.IntDim;
 import org.jebtk.core.text.Formatter;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
 // TODO: Auto-generated Javadoc
@@ -57,7 +57,7 @@ public class MatrixSummaryPlotElement extends RowMatrixPlotElement {
 	 * @param aspectRatio the aspect ratio
 	 * @param width the width
 	 */
-	public MatrixSummaryPlotElement(AnnotationMatrix matrix, 
+	public MatrixSummaryPlotElement(DataFrame matrix, 
 			IntDim aspectRatio,
 			int width) {
 		this(matrix, aspectRatio, width, Color.BLACK);
@@ -71,7 +71,7 @@ public class MatrixSummaryPlotElement extends RowMatrixPlotElement {
 	 * @param aspectRatio the aspect ratio
 	 * @param width the width
 	 */
-	public MatrixSummaryPlotElement(AnnotationMatrix matrix,
+	public MatrixSummaryPlotElement(DataFrame matrix,
 			List<String> history,
 			IntDim aspectRatio,
 			int width) {
@@ -86,7 +86,7 @@ public class MatrixSummaryPlotElement extends RowMatrixPlotElement {
 	 * @param width the width
 	 * @param color the color
 	 */
-	public MatrixSummaryPlotElement(AnnotationMatrix matrix, 
+	public MatrixSummaryPlotElement(DataFrame matrix, 
 			IntDim aspectRatio,
 			int width,
 			Color color) {
@@ -102,7 +102,7 @@ public class MatrixSummaryPlotElement extends RowMatrixPlotElement {
 	 * @param width the width
 	 * @param color the color
 	 */
-	public MatrixSummaryPlotElement(AnnotationMatrix matrix,
+	public MatrixSummaryPlotElement(DataFrame matrix,
 			List<String> history,
 			IntDim aspectRatio,
 			int width,

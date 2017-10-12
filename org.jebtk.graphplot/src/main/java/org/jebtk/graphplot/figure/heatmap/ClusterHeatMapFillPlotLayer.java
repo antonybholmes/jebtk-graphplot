@@ -29,7 +29,7 @@ import org.jebtk.graphplot.figure.Figure;
 import org.jebtk.graphplot.figure.Plot;
 import org.jebtk.graphplot.figure.SubFigure;
 import org.jebtk.math.cluster.Cluster;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
 
@@ -83,7 +83,7 @@ public class ClusterHeatMapFillPlotLayer extends HeatMapFillPlotLayer {
 
 
 	/* (non-Javadoc)
-	 * @see org.graphplot.figure.heatmap.HeatMapFillPlotLayer#cache(org.abh.common.ui.graphics.DrawingContext, org.graphplot.figure.SubFigure, org.graphplot.figure.Axes, org.graphplot.figure.Plot, org.abh.common.math.matrix.AnnotationMatrix, int, int, int, int)
+	 * @see org.graphplot.figure.heatmap.HeatMapFillPlotLayer#cache(org.abh.common.ui.graphics.DrawingContext, org.graphplot.figure.SubFigure, org.graphplot.figure.Axes, org.graphplot.figure.Plot, org.abh.common.math.matrix.DataFrame, int, int, int, int)
 	 */
 	@Override
 	protected void cache(DrawingContext context,
@@ -91,7 +91,7 @@ public class ClusterHeatMapFillPlotLayer extends HeatMapFillPlotLayer {
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
-			AnnotationMatrix m,
+			DataFrame m,
 			int x1,
 			int y1,
 			int w,
@@ -184,7 +184,7 @@ public class ClusterHeatMapFillPlotLayer extends HeatMapFillPlotLayer {
 	 * @param x1 the x 1
 	 * @param y1 the y 1
 	 */
-	private void newIndices(final AnnotationMatrix m, final Axes axes, int x1, int y1) {
+	private void newIndices(final DataFrame m, final Axes axes, int x1, int y1) {
 		mRowOrder = new int[m.getRowCount()];
 		mColumnOrder = new int[m.getColumnCount()];
 

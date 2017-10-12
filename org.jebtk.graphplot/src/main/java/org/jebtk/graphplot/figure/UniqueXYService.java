@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.jebtk.graphplot.figure.series.XYSeries;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -70,7 +70,7 @@ public class UniqueXYService {
 	public UniqueXY get(Figure figure,
 			SubFigure subFigure, 
 			Axes axes, 
-			AnnotationMatrix m,
+			DataFrame m,
 			XYSeries series,
 			boolean zeroEnds) {
 		String id = getId(figure,
@@ -102,7 +102,7 @@ public class UniqueXYService {
 	private static String getId(Figure figure,
 			SubFigure subFigure, 
 			Axes axes, 
-			AnnotationMatrix m,
+			DataFrame m,
 			XYSeries series,
 			boolean zeroEnds) {
 		return m.hashCode() + Boolean.toString(zeroEnds);

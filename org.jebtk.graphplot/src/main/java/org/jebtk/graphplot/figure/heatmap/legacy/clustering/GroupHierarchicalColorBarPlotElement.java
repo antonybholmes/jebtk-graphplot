@@ -24,7 +24,7 @@ import org.jebtk.graphplot.figure.heatmap.legacy.ColumnMatrixPlotElement;
 import org.jebtk.graphplot.figure.heatmap.legacy.GroupProperties;
 import org.jebtk.graphplot.figure.series.XYSeriesGroup;
 import org.jebtk.math.cluster.Cluster;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
 
@@ -73,7 +73,7 @@ public class GroupHierarchicalColorBarPlotElement extends ColumnMatrixPlotElemen
 	 * @param groups the groups
 	 * @param properties the properties
 	 */
-	public GroupHierarchicalColorBarPlotElement(AnnotationMatrix matrix,
+	public GroupHierarchicalColorBarPlotElement(DataFrame matrix,
 			IntDim aspectRatio,
 			int height,
 			Cluster rootCluster,

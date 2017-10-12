@@ -20,7 +20,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 
 import org.jebtk.core.geom.IntDim;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
 // TODO: Auto-generated Javadoc
@@ -55,7 +55,7 @@ public class CountPlotElement extends RowMatrixPlotElement {
 	 * @param aspectRatio the aspect ratio
 	 * @param color the color
 	 */
-	public CountPlotElement(AnnotationMatrix matrix,
+	public CountPlotElement(DataFrame matrix,
 			CountGroups countGroups,
 			int width,
 			IntDim aspectRatio,

@@ -22,7 +22,7 @@ import java.util.Map;
 import org.jebtk.core.geom.IntDim;
 import org.jebtk.graphplot.figure.heatmap.legacy.RowMatrixPlotElement;
 import org.jebtk.graphplot.figure.series.XYSeriesGroup;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
 
@@ -52,7 +52,7 @@ public class RowGroupColorBarPlotElement extends RowMatrixPlotElement {
 	 * @param width the width
 	 * @param aspectRatio the aspect ratio
 	 */
-	public RowGroupColorBarPlotElement(AnnotationMatrix m,
+	public RowGroupColorBarPlotElement(DataFrame m,
 			XYSeriesGroup groups,
 			int width, 
 			IntDim aspectRatio) {

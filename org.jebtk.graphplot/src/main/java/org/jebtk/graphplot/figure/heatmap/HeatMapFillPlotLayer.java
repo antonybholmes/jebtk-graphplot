@@ -32,7 +32,7 @@ import org.jebtk.graphplot.figure.Figure;
 import org.jebtk.graphplot.figure.Plot;
 import org.jebtk.graphplot.figure.PlotClippedLayer;
 import org.jebtk.graphplot.figure.SubFigure;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.colormap.ColorMap;
 
@@ -66,7 +66,7 @@ public class HeatMapFillPlotLayer extends PlotClippedLayer {
 	protected ColorMap mColorMap = null;
 
 	/** The m M. */
-	protected AnnotationMatrix mM;
+	protected DataFrame mM;
 
 	/** The m hash id. */
 	protected String mHashId;
@@ -77,7 +77,7 @@ public class HeatMapFillPlotLayer extends PlotClippedLayer {
 	}
 
 	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotClippedLayer#plotLayer(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.AnnotationMatrix)
+	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotClippedLayer#plotLayer(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.DataFrame)
 	 */
 	@Override
 	public void plotLayer(Graphics2D g2,
@@ -86,7 +86,7 @@ public class HeatMapFillPlotLayer extends PlotClippedLayer {
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
-			AnnotationMatrix m) {
+			DataFrame m) {
 
 		int w = Math.max(1, axes.toPlotX1(1) - axes.toPlotX1(0));
 		int h = Math.max(1, axes.toPlotY1(0) - axes.toPlotY1(1));
@@ -146,7 +146,7 @@ Figure figure,
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
-			AnnotationMatrix m,
+			DataFrame m,
 			int x1,
 			int y1,
 			int w,

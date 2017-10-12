@@ -19,7 +19,7 @@ import org.jebtk.core.geom.IntDim;
 import org.jebtk.core.settings.SettingsService;
 import org.jebtk.graphplot.AspectRatio;
 import org.jebtk.graphplot.PlotElement;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 
 
 // TODO: Auto-generated Javadoc
@@ -50,7 +50,7 @@ public abstract class MatrixPlotElement extends PlotElement {
 	/**
 	 * The member matrix.
 	 */
-	protected AnnotationMatrix mMatrix;
+	protected DataFrame mMatrix;
 
 	//protected Matrix mIM;
 
@@ -61,7 +61,7 @@ public abstract class MatrixPlotElement extends PlotElement {
 	 * @param matrix the matrix
 	 * @param aspectRatio the aspect ratio
 	 */
-	public MatrixPlotElement(AnnotationMatrix matrix, IntDim aspectRatio) {
+	public MatrixPlotElement(DataFrame matrix, IntDim aspectRatio) {
 		super("matrix");
 		
 		mMatrix = matrix;
@@ -76,7 +76,7 @@ public abstract class MatrixPlotElement extends PlotElement {
 	 *
 	 * @return the matrix
 	 */
-	public AnnotationMatrix getMatrix() {
+	public DataFrame getMatrix() {
 		return mMatrix;
 	}
 	

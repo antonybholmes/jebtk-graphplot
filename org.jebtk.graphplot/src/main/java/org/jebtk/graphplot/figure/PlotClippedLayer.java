@@ -54,7 +54,7 @@ public abstract class PlotClippedLayer extends PlotLayer  {
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
-			AnnotationMatrix m) {
+			DataFrame m) {
 		Graphics2D g2Temp = ImageUtils.clone(g2);
 
 		try {

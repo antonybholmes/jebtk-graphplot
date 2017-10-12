@@ -29,7 +29,7 @@ import java.util.Map;
 import org.jebtk.core.geom.IntDim;
 import org.jebtk.graphplot.figure.heatmap.legacy.RowMatrixPlotElement;
 import org.jebtk.math.cluster.Cluster;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
 
@@ -63,7 +63,7 @@ public class RowHTreeLeftPlotElement extends RowMatrixPlotElement {
 	 * @param rootCluster the root cluster
 	 * @param color the color
 	 */
-	public RowHTreeLeftPlotElement(AnnotationMatrix matrix,
+	public RowHTreeLeftPlotElement(DataFrame matrix,
 			int width, 
 			IntDim aspectRatio,
 			Cluster rootCluster,

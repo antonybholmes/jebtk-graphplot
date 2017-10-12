@@ -18,7 +18,7 @@ package org.jebtk.graphplot.figure.series;
 import org.jebtk.core.StringId;
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 
 
 // TODO: Auto-generated Javadoc
@@ -102,7 +102,7 @@ public class XYAxesGroup extends Group<XYSeriesGroup> implements ChangeListener 
 	 * @param group the group
 	 * @return the x max
 	 */
-	public static double getXMax(AnnotationMatrix m, XYAxesGroup group) {
+	public static double getXMax(DataFrame m, XYAxesGroup group) {
 		double ret = Double.MIN_VALUE;
 		
 		for (XYSeriesGroup p : group) {
@@ -123,7 +123,7 @@ public class XYAxesGroup extends Group<XYSeriesGroup> implements ChangeListener 
 	 * @param group the group
 	 * @return the y max
 	 */
-	public static double getYMax(AnnotationMatrix m, XYAxesGroup group) {
+	public static double getYMax(DataFrame m, XYAxesGroup group) {
 		double ret = Double.MIN_VALUE;
 		
 		for (XYSeriesGroup p : group) {
@@ -144,7 +144,7 @@ public class XYAxesGroup extends Group<XYSeriesGroup> implements ChangeListener 
 	 * @param group the group
 	 * @return the x min
 	 */
-	public static double getXMin(AnnotationMatrix m, XYAxesGroup group) {
+	public static double getXMin(DataFrame m, XYAxesGroup group) {
 		double ret = Double.MAX_VALUE;
 		
 		for (XYSeriesGroup p : group) {
@@ -165,7 +165,7 @@ public class XYAxesGroup extends Group<XYSeriesGroup> implements ChangeListener 
 	 * @param group the group
 	 * @return the y min
 	 */
-	public static double getYMin(AnnotationMatrix m, XYAxesGroup group) {
+	public static double getYMin(DataFrame m, XYAxesGroup group) {
 		double ret = Double.MAX_VALUE;
 		
 		for (XYSeriesGroup p : group) {
@@ -186,7 +186,7 @@ public class XYAxesGroup extends Group<XYSeriesGroup> implements ChangeListener 
 	 * @param group the group
 	 * @return the y sum
 	 */
-	public static double getYSum(AnnotationMatrix m, XYAxesGroup group) {
+	public static double getYSum(DataFrame m, XYAxesGroup group) {
 		double ret = 0;
 		
 		for (XYSeriesGroup s : group) {
@@ -203,7 +203,7 @@ public class XYAxesGroup extends Group<XYSeriesGroup> implements ChangeListener 
 	 * @param group the group
 	 * @return the y max sum
 	 */
-	public static double getYMaxSum(AnnotationMatrix m, XYAxesGroup group) {
+	public static double getYMaxSum(DataFrame m, XYAxesGroup group) {
 		double ret = Double.MIN_VALUE;
 		
 		for (XYSeriesGroup p : group) {

@@ -26,7 +26,7 @@ import org.jebtk.core.geom.IntDim;
 import org.jebtk.core.text.TextUtils;
 import org.jebtk.graphplot.figure.heatmap.legacy.ColumnMatrixPlotElement;
 import org.jebtk.math.cluster.Cluster;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
 
@@ -64,7 +64,7 @@ public class ColumnHLabelBottomPlotElement extends ColumnMatrixPlotElement {
 	 * @param charWidth the char width
 	 * @param maxRowChars the max row chars
 	 */
-	public ColumnHLabelBottomPlotElement(AnnotationMatrix matrix,
+	public ColumnHLabelBottomPlotElement(DataFrame matrix,
 			IntDim aspectRatio,
 			Cluster rootCluster,
 			Color color,

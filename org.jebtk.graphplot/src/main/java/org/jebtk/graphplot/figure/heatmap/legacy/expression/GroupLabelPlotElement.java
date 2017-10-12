@@ -29,7 +29,7 @@ import org.jebtk.core.geom.IntDim;
 import org.jebtk.graphplot.figure.heatmap.legacy.ColumnMatrixPlotElement;
 import org.jebtk.graphplot.figure.heatmap.legacy.GroupProperties;
 import org.jebtk.graphplot.figure.series.XYSeriesGroup;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.math.matrix.MatrixGroup;
 import org.jebtk.modern.graphics.DrawingContext;
 
@@ -75,7 +75,7 @@ public class GroupLabelPlotElement extends ColumnMatrixPlotElement {
 	 * @param groups the groups
 	 * @param properties the properties
 	 */
-	public GroupLabelPlotElement(AnnotationMatrix matrix,
+	public GroupLabelPlotElement(DataFrame matrix,
 			IntDim aspectRatio,
 			XYSeriesGroup groups,
 			GroupProperties properties) {

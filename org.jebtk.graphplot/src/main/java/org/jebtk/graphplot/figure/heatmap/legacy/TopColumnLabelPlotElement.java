@@ -24,7 +24,7 @@ import org.jebtk.core.Properties;
 import org.jebtk.core.geom.IntDim;
 import org.jebtk.core.text.TextUtils;
 import org.jebtk.graphplot.figure.series.XYSeriesGroup;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.widget.ModernWidget;
 
@@ -59,7 +59,7 @@ public class TopColumnLabelPlotElement extends ColumnMatrixPlotElement {
 	 * @param aspectRatio the aspect ratio
 	 * @param properties the properties
 	 */
-	public TopColumnLabelPlotElement(AnnotationMatrix matrix,
+	public TopColumnLabelPlotElement(DataFrame matrix,
 			XYSeriesGroup groups,
 			IntDim aspectRatio,
 			Properties properties) {
@@ -77,7 +77,7 @@ public class TopColumnLabelPlotElement extends ColumnMatrixPlotElement {
 	 * @param charWidth the char width
 	 * @param maxChars the max chars
 	 */
-	public TopColumnLabelPlotElement(AnnotationMatrix matrix,
+	public TopColumnLabelPlotElement(DataFrame matrix,
 			XYSeriesGroup groups,
 			IntDim aspectRatio,
 			Properties properties,

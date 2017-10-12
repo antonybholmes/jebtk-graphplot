@@ -21,7 +21,7 @@ import java.awt.Graphics2D;
 
 import org.jebtk.core.geom.IntDim;
 import org.jebtk.core.text.TextUtils;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.widget.ModernWidget;
 
@@ -48,7 +48,7 @@ public class BottomColumnLabelPlotElement extends ColumnMatrixPlotElement {
 	 * @param matrix the matrix
 	 * @param aspectRatio the aspect ratio
 	 */
-	public BottomColumnLabelPlotElement(AnnotationMatrix matrix,
+	public BottomColumnLabelPlotElement(DataFrame matrix,
 			IntDim aspectRatio) {
 		this(matrix, aspectRatio, Color.BLACK, 10, 50);
 	}
@@ -62,7 +62,7 @@ public class BottomColumnLabelPlotElement extends ColumnMatrixPlotElement {
 	 * @param charWidth the char width
 	 * @param maxChars the max chars
 	 */
-	public BottomColumnLabelPlotElement(AnnotationMatrix matrix,
+	public BottomColumnLabelPlotElement(DataFrame matrix,
 			IntDim aspectRatio,
 			Color color,
 			int charWidth,

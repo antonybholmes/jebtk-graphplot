@@ -31,7 +31,7 @@ import org.jebtk.graphplot.plotbox.PlotBox;
 import org.jebtk.graphplot.plotbox.PlotBoxContainer;
 import org.jebtk.graphplot.plotbox.PlotBoxLayout;
 import org.jebtk.graphplot.plotbox.PlotBoxStorage;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.colormap.ColorMap;
 
@@ -249,7 +249,7 @@ public abstract class PlotBoxGraph extends PlotBoxContainer { //LayoutLayer
 	 *
 	 * @param m the new matrix
 	 */
-	public void setMatrix(AnnotationMatrix m) {
+	public void setMatrix(DataFrame m) {
 		for (PlotBox c : this) {
 			c.setMatrix(m);
 		}

@@ -21,7 +21,7 @@ import java.util.List;
 import org.jebtk.core.Mathematics;
 import org.jebtk.core.collections.UniqueArrayList;
 import org.jebtk.graphplot.figure.properties.TickMarkProperties;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.ImageUtils;
 import org.jebtk.modern.widget.ModernWidget;
@@ -66,7 +66,7 @@ public class AxisLabelLayerX1 extends PlotLayer {
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
-			AnnotationMatrix m) {
+			DataFrame m) {
 		Axis axis = axes.getX1Axis();
 
 		if (mHashId == null || !mHashId.equals(axes.hashId())) {

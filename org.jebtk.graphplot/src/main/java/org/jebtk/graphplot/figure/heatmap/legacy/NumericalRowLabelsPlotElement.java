@@ -22,7 +22,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 import org.jebtk.core.geom.IntDim;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
 
@@ -70,7 +70,7 @@ public class NumericalRowLabelsPlotElement extends RowMatrixPlotElement {
 	 * @param width the width
 	 * @param aspectRatio the aspect ratio
 	 */
-	public NumericalRowLabelsPlotElement(AnnotationMatrix matrix, 
+	public NumericalRowLabelsPlotElement(DataFrame matrix, 
 			List<Double> values,
 			int width, 
 			IntDim aspectRatio) {
@@ -87,7 +87,7 @@ public class NumericalRowLabelsPlotElement extends RowMatrixPlotElement {
 	 * @param aspectRatio the aspect ratio
 	 * @param color the color
 	 */
-	public NumericalRowLabelsPlotElement(AnnotationMatrix matrix,
+	public NumericalRowLabelsPlotElement(DataFrame matrix,
 			String title,
 			List<Double> values, 
 			int width, 
@@ -113,7 +113,7 @@ public class NumericalRowLabelsPlotElement extends RowMatrixPlotElement {
 	 * @param color the color
 	 * @param format the format
 	 */
-	public NumericalRowLabelsPlotElement(AnnotationMatrix matrix,
+	public NumericalRowLabelsPlotElement(DataFrame matrix,
 			String title,
 			List<Double> values, 
 			int width, 

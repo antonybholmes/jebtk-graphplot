@@ -25,7 +25,7 @@ import org.jebtk.graphplot.figure.heatmap.legacy.MatrixPlotElement;
 import org.jebtk.graphplot.figure.series.XYSeries;
 import org.jebtk.graphplot.figure.series.XYSeriesGroup;
 import org.jebtk.math.cluster.Cluster;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
 
@@ -69,7 +69,7 @@ public class GroupsHierarchicalPlotElement extends MatrixPlotElement {
 	 * @param rootCluster the root cluster
 	 * @param groups the groups
 	 */
-	public GroupsHierarchicalPlotElement(AnnotationMatrix matrix,
+	public GroupsHierarchicalPlotElement(DataFrame matrix,
 			IntDim aspectRatio,
 			int width,
 			Cluster rootCluster,

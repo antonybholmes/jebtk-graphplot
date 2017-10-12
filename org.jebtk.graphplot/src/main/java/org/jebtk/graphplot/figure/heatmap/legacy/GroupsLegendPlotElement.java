@@ -25,7 +25,7 @@ import org.jebtk.core.collections.CollectionUtils;
 import org.jebtk.core.geom.IntDim;
 import org.jebtk.graphplot.figure.series.XYSeries;
 import org.jebtk.graphplot.figure.series.XYSeriesGroup;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.math.matrix.MatrixGroup;
 import org.jebtk.modern.graphics.DrawingContext;
 
@@ -74,7 +74,7 @@ public class GroupsLegendPlotElement extends MatrixPlotElement {
 	 * @param width the width
 	 * @param groups the groups
 	 */
-	public GroupsLegendPlotElement(AnnotationMatrix matrix,
+	public GroupsLegendPlotElement(DataFrame matrix,
 			IntDim aspectRatio,
 			int width, 
 			XYSeriesGroup groups) {

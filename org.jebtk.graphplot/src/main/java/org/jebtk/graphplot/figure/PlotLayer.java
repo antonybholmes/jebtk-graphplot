@@ -20,7 +20,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import org.jebtk.core.text.TextUtils;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.ImageUtils;
 
@@ -90,10 +90,10 @@ public abstract class PlotLayer extends Layer {
 		Axes axes = (Axes)params[2];
 		Plot plot = (Plot)params[3];
 
-		AnnotationMatrix m = null;
+		DataFrame m = null;
 
 		if (params.length > 4) {
-			m = (AnnotationMatrix)params[4];
+			m = (DataFrame)params[4];
 		} else {
 			m = plot.getMatrix();
 		}
@@ -107,7 +107,7 @@ public abstract class PlotLayer extends Layer {
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
-			AnnotationMatrix m) {
+			DataFrame m) {
 		if (context == DrawingContext.SCREEN) {
 			screenPlotLayer(g2, context, figure, subFigure, axes, plot, m);
 		} else {
@@ -131,7 +131,7 @@ public abstract class PlotLayer extends Layer {
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
-			AnnotationMatrix m) {
+			DataFrame m) {
 
 		if (mRasterMode) {
 			rasterPlotLayer(g2, context, figure, subFigure, axes, plot, m);
@@ -148,7 +148,7 @@ public abstract class PlotLayer extends Layer {
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
-			AnnotationMatrix m) {
+			DataFrame m) {
 
 		// Anti-alias by default
 		Graphics2D g2Temp = ImageUtils.createAAGraphics(g2);
@@ -176,7 +176,7 @@ public abstract class PlotLayer extends Layer {
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot, 
-			AnnotationMatrix m) {
+			DataFrame m) {
 		// Create an image version of the canvas and draw that to spped
 		// up operations
 		if (mBufferedImage == null ||
@@ -209,7 +209,7 @@ public abstract class PlotLayer extends Layer {
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot, 
-			AnnotationMatrix m) {
+			DataFrame m) {
 		if (mClipMode) {
 			Graphics2D g2Temp = mPlotClip.clip(g2, 
 					context, 
@@ -244,7 +244,7 @@ public abstract class PlotLayer extends Layer {
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot, 
-			AnnotationMatrix m) {
+			DataFrame m) {
 		// Do nothing
 	}
 
@@ -256,7 +256,7 @@ public abstract class PlotLayer extends Layer {
 	 * @param axes the axes
 	 * @return the id
 	 */
-	protected static String getId(AnnotationMatrix m,
+	protected static String getId(DataFrame m,
 			Axes axes) {
 		return TextUtils.join(TextUtils.COLON_DELIMITER, 
 				m.hashCode(),

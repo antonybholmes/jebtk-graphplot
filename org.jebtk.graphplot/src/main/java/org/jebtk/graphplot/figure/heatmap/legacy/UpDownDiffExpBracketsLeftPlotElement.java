@@ -20,7 +20,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 
 import org.jebtk.core.geom.IntDim;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
 // TODO: Auto-generated Javadoc
@@ -49,7 +49,7 @@ public class UpDownDiffExpBracketsLeftPlotElement extends RowMatrixPlotElement {
 	 * @param width the width
 	 * @param aspectRatio the aspect ratio
 	 */
-	public UpDownDiffExpBracketsLeftPlotElement(AnnotationMatrix matrix,
+	public UpDownDiffExpBracketsLeftPlotElement(DataFrame matrix,
 			int width, 
 			IntDim aspectRatio) {
 		super(matrix, width, aspectRatio);

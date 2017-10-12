@@ -30,7 +30,7 @@ import org.jebtk.core.collections.SetMultiMap;
 import org.jebtk.core.geom.IntPos2D;
 import org.jebtk.graphplot.figure.series.XYSeries;
 import org.jebtk.math.Geometry;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
 // TODO: Auto-generated Javadoc
@@ -123,7 +123,7 @@ public class BoxWhiskerScatterLayer2 extends PlotClippedLayer {
 			SubFigure subFigure,
 			Axes axes,
 			Plot plot,
-			AnnotationMatrix m) {
+			DataFrame m) {
 
 		// the width of the arms of the plot
 		int y;

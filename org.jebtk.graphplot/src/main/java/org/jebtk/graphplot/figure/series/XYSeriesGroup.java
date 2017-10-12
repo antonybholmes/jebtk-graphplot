@@ -38,7 +38,7 @@ import org.jebtk.core.io.FileUtils;
 import org.jebtk.core.io.Io;
 import org.jebtk.core.text.TextUtils;
 import org.jebtk.math.cluster.Cluster;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.math.matrix.MatrixGroup;
 
 // TODO: Auto-generated Javadoc
@@ -122,7 +122,7 @@ public class XYSeriesGroup extends Group<XYSeries> implements ChangeListener {
 	 * @param seriesGroup the series group
 	 * @return the x max
 	 */
-	public static double getXMax(AnnotationMatrix m, XYSeriesGroup seriesGroup) {
+	public static double getXMax(DataFrame m, XYSeriesGroup seriesGroup) {
 		double ret = Double.MIN_VALUE;
 		
 		for (XYSeries p : seriesGroup) {
@@ -143,7 +143,7 @@ public class XYSeriesGroup extends Group<XYSeries> implements ChangeListener {
 	 * @param collection the collection
 	 * @return the y max
 	 */
-	public static double getYMax(AnnotationMatrix m, XYSeriesGroup collection) {
+	public static double getYMax(DataFrame m, XYSeriesGroup collection) {
 		double ret = Double.MIN_VALUE;
 		
 		for (XYSeries p : collection) {
@@ -166,7 +166,7 @@ public class XYSeriesGroup extends Group<XYSeries> implements ChangeListener {
 	 * @param collection the collection
 	 * @return the x min
 	 */
-	public static double getXMin(AnnotationMatrix m, XYSeriesGroup collection) {
+	public static double getXMin(DataFrame m, XYSeriesGroup collection) {
 		double ret = Double.MAX_VALUE;
 		
 		for (XYSeries p : collection) {
@@ -187,7 +187,7 @@ public class XYSeriesGroup extends Group<XYSeries> implements ChangeListener {
 	 * @param collection the collection
 	 * @return the y min
 	 */
-	public static double getYMin(AnnotationMatrix m, XYSeriesGroup collection) {
+	public static double getYMin(DataFrame m, XYSeriesGroup collection) {
 		double ret = Double.MAX_VALUE;
 		
 		for (XYSeries p : collection) {
@@ -208,7 +208,7 @@ public class XYSeriesGroup extends Group<XYSeries> implements ChangeListener {
 	 * @param seriesGroup the series group
 	 * @return the y sum
 	 */
-	public static double getYSum(AnnotationMatrix m, XYSeriesGroup seriesGroup) {
+	public static double getYSum(DataFrame m, XYSeriesGroup seriesGroup) {
 		double ret = 0;
 		
 		for (XYSeries s : seriesGroup) {
@@ -293,7 +293,7 @@ public class XYSeriesGroup extends Group<XYSeries> implements ChangeListener {
 	 * @param rootCluster the root cluster
 	 * @return the map
 	 */
-	public static Map<Integer, XYSeriesGroup> arrangeGroupsByCluster(AnnotationMatrix m,
+	public static Map<Integer, XYSeriesGroup> arrangeGroupsByCluster(DataFrame m,
 			XYSeriesGroup groups,
 			Cluster rootCluster) {
 		if (groups == null || groups.getCount() == 0 || rootCluster == null) {
@@ -345,7 +345,7 @@ public class XYSeriesGroup extends Group<XYSeries> implements ChangeListener {
 	 * @param groups the groups
 	 * @return the map
 	 */
-	public static Map<Integer, XYSeriesGroup> arrangeGroupsByIndex(AnnotationMatrix m,
+	public static Map<Integer, XYSeriesGroup> arrangeGroupsByIndex(DataFrame m,
 			XYSeriesGroup groups) {
 		
 		Map<Integer, XYSeriesGroup> orderedGroups = 
@@ -374,7 +374,7 @@ public class XYSeriesGroup extends Group<XYSeries> implements ChangeListener {
 	 * @param groups the groups
 	 * @return the list
 	 */
-	public static List<List<Integer>> findColumnIndices(AnnotationMatrix matrix, 
+	public static List<List<Integer>> findColumnIndices(DataFrame matrix, 
 			XYSeriesGroup groups) {
 		return findIndices(matrix.getColumnNames(), groups);
 	}
@@ -443,7 +443,7 @@ public class XYSeriesGroup extends Group<XYSeries> implements ChangeListener {
 	 * @param groups the groups
 	 * @return the XY series group
 	 */
-	public static XYSeriesGroup orderGroups(AnnotationMatrix m, 
+	public static XYSeriesGroup orderGroups(DataFrame m, 
 			XYSeriesGroup groups) {
 		Map<Integer, XYSeriesGroup> orderedGroups = arrangeGroupsByIndex(m, groups);
 		
@@ -460,7 +460,7 @@ public class XYSeriesGroup extends Group<XYSeries> implements ChangeListener {
 	 * @return the XY series group
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public static XYSeriesGroup createRowGroupsByName(Path file, AnnotationMatrix matrix) throws IOException {
+	public static XYSeriesGroup createRowGroupsByName(Path file, DataFrame matrix) throws IOException {
 		XYSeriesGroup groups = new XYSeriesGroup();
 		
 		String line;

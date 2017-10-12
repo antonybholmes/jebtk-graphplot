@@ -20,7 +20,7 @@ import java.awt.Graphics2D;
 
 import org.jebtk.core.geom.IntDim;
 import org.jebtk.math.cluster.Cluster;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.widget.ModernWidget;
 
 
@@ -47,7 +47,7 @@ public class ColumnHLabelTopPlotElement extends ColumnHLabelBottomPlotElement {
 	 * @param charWidth the char width
 	 * @param maxRowChars the max row chars
 	 */
-	public ColumnHLabelTopPlotElement(AnnotationMatrix matrix, 
+	public ColumnHLabelTopPlotElement(DataFrame matrix, 
 			IntDim aspectRatio, 
 			Cluster rootCluster,
 			Color color, 

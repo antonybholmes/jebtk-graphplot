@@ -27,7 +27,7 @@ import java.util.Map;
 
 import org.jebtk.core.geom.IntDim;
 import org.jebtk.math.cluster.Cluster;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 
 
 // TODO: Auto-generated Javadoc
@@ -49,7 +49,7 @@ public class RowHTreeRightPlotElement extends RowHTreeLeftPlotElement {
 	 * @param rootCluster the root cluster
 	 * @param color the color
 	 */
-	public RowHTreeRightPlotElement(AnnotationMatrix matrix, 
+	public RowHTreeRightPlotElement(DataFrame matrix, 
 			int width, 
 			IntDim aspectRatio, 
 			Cluster rootCluster,

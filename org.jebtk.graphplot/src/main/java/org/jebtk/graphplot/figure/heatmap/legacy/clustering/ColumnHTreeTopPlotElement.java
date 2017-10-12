@@ -31,7 +31,7 @@ import org.jebtk.core.geom.IntDim;
 import org.jebtk.graphplot.figure.heatmap.legacy.ColumnMatrixPlotElement;
 import org.jebtk.graphplot.figure.series.XYSeriesGroup;
 import org.jebtk.math.cluster.Cluster;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
 
@@ -92,7 +92,7 @@ public class ColumnHTreeTopPlotElement extends ColumnMatrixPlotElement {
 	 * @param rootCluster the root cluster
 	 * @param color the color
 	 */
-	public ColumnHTreeTopPlotElement(AnnotationMatrix matrix, 
+	public ColumnHTreeTopPlotElement(DataFrame matrix, 
 			IntDim aspectRatio,
 			int height,
 			Cluster rootCluster,
@@ -113,7 +113,7 @@ public class ColumnHTreeTopPlotElement extends ColumnMatrixPlotElement {
 	 * @param rootCluster the root cluster
 	 * @param properties the properties
 	 */
-	public ColumnHTreeTopPlotElement(AnnotationMatrix matrix, 
+	public ColumnHTreeTopPlotElement(DataFrame matrix, 
 			XYSeriesGroup groups, 
 			IntDim aspectRatio,
 			int height, 

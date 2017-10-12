@@ -21,7 +21,7 @@ import java.util.List;
 import org.jebtk.graphplot.figure.series.Marker;
 import org.jebtk.graphplot.figure.series.MarkerCircle;
 import org.jebtk.graphplot.figure.series.XYSeries;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.math.statistics.Statistics;
 
 // TODO: Auto-generated Javadoc
@@ -95,7 +95,7 @@ public class BoxWhiskerSummary extends XYSeries {
 	 * @param m the m
 	 * @param series the series
 	 */
-	public BoxWhiskerSummary(AnnotationMatrix m, XYSeries series) {
+	public BoxWhiskerSummary(DataFrame m, XYSeries series) {
 		super(series.getName(), series.getColor());
 
 		List<Double> values = XYSeries.xValues(m, series);

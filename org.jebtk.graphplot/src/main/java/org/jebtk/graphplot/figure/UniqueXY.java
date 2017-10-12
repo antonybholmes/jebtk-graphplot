@@ -25,7 +25,7 @@ import java.util.TreeMap;
 
 import org.jebtk.core.geom.DoublePos2D;
 import org.jebtk.graphplot.figure.series.XYSeries;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.math.matrix.MatrixGroup;
 
 // TODO: Auto-generated Javadoc
@@ -63,7 +63,7 @@ public class UniqueXY implements Iterable<Point>, Comparable<UniqueXY> {
 	 * @param series the series
 	 * @param space the space
 	 */
-	public UniqueXY(AnnotationMatrix m,
+	public UniqueXY(DataFrame m,
 			XYSeries series,
 			Axes space) {
 
@@ -78,7 +78,7 @@ public class UniqueXY implements Iterable<Point>, Comparable<UniqueXY> {
 	 * @param axes the axes
 	 * @param zeroEnds the zero ends
 	 */
-	public UniqueXY(AnnotationMatrix m,
+	public UniqueXY(DataFrame m,
 			XYSeries series,
 			Axes axes,
 			boolean zeroEnds) {

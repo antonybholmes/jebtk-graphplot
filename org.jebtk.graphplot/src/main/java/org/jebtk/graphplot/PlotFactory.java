@@ -64,7 +64,7 @@ import org.jebtk.graphplot.figure.series.XYSeriesGroup;
 import org.jebtk.graphplot.plotbox.PlotBoxColumnLayout;
 import org.jebtk.math.Linspace;
 import org.jebtk.math.cluster.Cluster;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.math.matrix.utils.MatrixOperations;
 import org.jebtk.math.matrix.utils.MatrixUtils;
 import org.jebtk.math.statistics.HistBin;
@@ -106,7 +106,7 @@ public class PlotFactory {
 	 * @param axes the axes
 	 * @param series the series
 	 */
-	public static void createLinePlot(AnnotationMatrix m,
+	public static void createLinePlot(DataFrame m,
 			Axes axes,
 			XYSeries series) {
 		// First summarize each series
@@ -131,7 +131,7 @@ public class PlotFactory {
 	 * @param axes the axes
 	 * @param series the series
 	 */
-	public static void createLinesPlot(AnnotationMatrix m,
+	public static void createLinesPlot(DataFrame m,
 			Axes axes,
 			XYSeries series) {
 		// First summarize each series
@@ -156,7 +156,7 @@ public class PlotFactory {
 	 * @param axes the axes
 	 * @param series the series
 	 */
-	public static void createSegmentsPlot(AnnotationMatrix m,
+	public static void createSegmentsPlot(DataFrame m,
 			Axes axes,
 			XYSeries series) {
 		// First summarize each series
@@ -181,7 +181,7 @@ public class PlotFactory {
 	 * @param axes the axes
 	 * @param series the series
 	 */
-	public static void createSplineLinePlot(AnnotationMatrix m,
+	public static void createSplineLinePlot(DataFrame m,
 			Axes axes,
 			XYSeries series) {
 		// First summarize each series
@@ -208,7 +208,7 @@ public class PlotFactory {
 	 * @param axes the axes
 	 * @param series the series
 	 */
-	public static void createFilledLinePlot(AnnotationMatrix m,
+	public static void createFilledLinePlot(DataFrame m,
 			Axes axes,
 			XYSeries series) {
 		Plot plot = axes.newPlot();
@@ -235,7 +235,7 @@ public class PlotFactory {
 	 * @param axes the axes
 	 * @param series the series
 	 */
-	public static void createFilledPlot(AnnotationMatrix m,
+	public static void createFilledPlot(DataFrame m,
 			Axes axes,
 			XYSeries series) {
 		Plot plot = axes.newPlot();
@@ -256,7 +256,7 @@ public class PlotFactory {
 	 * @param axes the axes
 	 * @param series the series
 	 */
-	public static void createFilledTrapezoidPlot(AnnotationMatrix m,
+	public static void createFilledTrapezoidPlot(DataFrame m,
 			Axes axes,
 			XYSeries series) {
 		Plot plot = axes.newPlot();
@@ -278,7 +278,7 @@ public class PlotFactory {
 	 * @param axes the axes
 	 * @param series the series
 	 */
-	public static void createFilledTrapezoidLinePlot(AnnotationMatrix m,
+	public static void createFilledTrapezoidLinePlot(DataFrame m,
 			Axes axes,
 			XYSeries series) {
 		Plot plot = axes.newPlot();
@@ -301,7 +301,7 @@ public class PlotFactory {
 	 * @param axes the axes
 	 * @param series the series
 	 */
-	public static void createSplineFilledLinePlot(AnnotationMatrix m,
+	public static void createSplineFilledLinePlot(DataFrame m,
 			Axes axes,
 			XYSeries series) {
 		Plot plot = axes.newPlot();
@@ -328,7 +328,7 @@ public class PlotFactory {
 	 * @param axes the axes
 	 * @param series the series
 	 */
-	public static void createScatterPlot(AnnotationMatrix m,
+	public static void createScatterPlot(DataFrame m,
 			Axes axes, 
 			XYSeries series) {
 		Plot plot = axes.newPlot();
@@ -373,7 +373,7 @@ public class PlotFactory {
 	 * @param axes the axes
 	 * @param series the series
 	 */
-	public static void createScatterLinePlot(AnnotationMatrix m,
+	public static void createScatterLinePlot(DataFrame m,
 			Axes axes,
 			XYSeries series) {
 		Plot plot = axes.newPlot();
@@ -402,7 +402,7 @@ public class PlotFactory {
 	 * @param axes the axes
 	 * @param series the series
 	 */
-	public static void createBarPlot(AnnotationMatrix m,
+	public static void createBarPlot(DataFrame m,
 			Axes axes,
 			XYSeriesGroup series) {
 		Plot plot = axes.newPlot();
@@ -468,7 +468,7 @@ public class PlotFactory {
 	 * @param axes the axes
 	 * @param series the series
 	 */
-	public static void createBarPlotH(AnnotationMatrix m,
+	public static void createBarPlotH(DataFrame m,
 			Axes axes,
 			XYSeriesGroup series) {
 		Plot plot = axes.newPlot();
@@ -532,7 +532,7 @@ public class PlotFactory {
 	 * @param axes the axes
 	 * @param series the series
 	 */
-	public static void createStackedBarPlot(AnnotationMatrix m,
+	public static void createStackedBarPlot(DataFrame m,
 			Axes axes,
 			XYSeriesGroup series) {
 		Plot plot = axes.newPlot();
@@ -574,7 +574,7 @@ public class PlotFactory {
 	 * @param hist the hist
 	 */
 	/*
-	public static void createHistogram(AnnotationMatrix m,
+	public static void createHistogram(DataFrame m,
 			Axes axes,
 			XYSeries series,
 			List<HistBin> hist) {
@@ -593,7 +593,7 @@ public class PlotFactory {
 	}
 	*/
 	
-	public static void createHistogram(AnnotationMatrix m,
+	public static void createHistogram(DataFrame m,
 			Axes axes,
 			XYSeries series,
 			HistBin[] hist) {
@@ -628,7 +628,7 @@ public class PlotFactory {
 	 * @param axes the axes
 	 * @param series the series
 	 */
-	public static void createPiePlot(AnnotationMatrix m,
+	public static void createPiePlot(DataFrame m,
 			Axes axes,
 			XYSeriesGroup series) {
 		Plot plot = axes.newPlot();
@@ -668,7 +668,7 @@ public class PlotFactory {
 	 * @param axes the axes
 	 * @param series the series
 	 */
-	public static void createBoxWhiskerSummaryPlot(AnnotationMatrix m,
+	public static void createBoxWhiskerSummaryPlot(DataFrame m,
 			Axes axes,
 			XYSeriesGroup series) {
 		Plot plot = axes.newPlot();
@@ -709,7 +709,7 @@ public class PlotFactory {
 	 * @param axes the axes
 	 * @param seriesGroup the series group
 	 */
-	public static void createBoxWhiskerPlot(AnnotationMatrix m,
+	public static void createBoxWhiskerPlot(DataFrame m,
 			Axes axes,
 			XYSeriesGroup seriesGroup) {
 		createBoxWhiskerPlot(m,
@@ -730,7 +730,7 @@ public class PlotFactory {
 	 * @param axes the axes
 	 * @param seriesGroup the series group
 	 */
-	public static void createBoxWhiskerScatterPlot(AnnotationMatrix m,
+	public static void createBoxWhiskerScatterPlot(DataFrame m,
 			Axes axes,
 			XYSeriesGroup seriesGroup) {
 
@@ -754,7 +754,7 @@ public class PlotFactory {
 	 * @param showBox the show box
 	 * @param showScatter the show scatter
 	 */
-	public static void createBoxWhiskerPlot(AnnotationMatrix m,
+	public static void createBoxWhiskerPlot(DataFrame m,
 			Axes axes,
 			XYSeriesGroup seriesGroup,
 			boolean showWhiskers,
@@ -794,7 +794,7 @@ public class PlotFactory {
 	 * @param axes the axes
 	 * @param boxWhiskers the box whiskers
 	 */
-	private static void formatBoxWhiskerAxes(AnnotationMatrix m,
+	private static void formatBoxWhiskerAxes(DataFrame m,
 			Axes axes,
 			XYSeriesGroup boxWhiskers) {
 
@@ -855,7 +855,7 @@ public class PlotFactory {
 	 * @param subFigure the sub figure
 	 * @param axes the axes
 	 */
-	public static void createHeatMap(AnnotationMatrix m,
+	public static void createHeatMap(DataFrame m,
 			SubFigure subFigure,
 			Axes axes) {
 		createHeatMap(m, subFigure, axes, XYSeriesGroup.EMPTY_GROUP);
@@ -869,7 +869,7 @@ public class PlotFactory {
 	 * @param axes the axes
 	 * @param seriesGroup the series group
 	 */
-	public static void createHeatMap(AnnotationMatrix m,
+	public static void createHeatMap(DataFrame m,
 			SubFigure subFigure,
 			Axes axes,
 			XYSeriesGroup seriesGroup) {
@@ -885,7 +885,7 @@ public class PlotFactory {
 	 * @param seriesGroup the series group
 	 * @param colorMap the color map
 	 */
-	public static void createHeatMap(AnnotationMatrix m,
+	public static void createHeatMap(DataFrame m,
 			SubFigure subFigure,
 			Axes axes,
 			XYSeriesGroup seriesGroup,
@@ -913,7 +913,7 @@ public class PlotFactory {
 	 * @param rowCluster the row cluster
 	 * @param columnCluster the column cluster
 	 */
-	public static void createClusterHeatMap(AnnotationMatrix m,
+	public static void createClusterHeatMap(DataFrame m,
 			SubFigure subFigure,
 			XYSeriesGroup seriesGroup,
 			Cluster rowCluster, 
@@ -996,7 +996,7 @@ public class PlotFactory {
 	 * @param maxWidth the max width
 	 * @param maxHeight the max height
 	 */
-	private static void createHeatMapCommon(AnnotationMatrix m,
+	private static void createHeatMapCommon(DataFrame m,
 			SubFigure subFigure,
 			Plot plot, 
 			Axes axes,

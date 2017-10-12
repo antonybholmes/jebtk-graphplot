@@ -28,7 +28,7 @@ import org.jebtk.core.settings.SettingsService;
 import org.jebtk.core.text.Formatter;
 import org.jebtk.core.text.Join;
 import org.jebtk.core.text.TextUtils;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.math.matrix.Matrix;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.widget.ModernWidget;
@@ -88,7 +88,7 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
 	 * @param aspectRatio the aspect ratio
 	 * @param charWidth the char width
 	 */
-	public RowLabelsPlotElement(AnnotationMatrix matrix,
+	public RowLabelsPlotElement(DataFrame matrix,
 			RowLabelProperties properties,
 			IntDim aspectRatio,
 			int charWidth) {
@@ -254,7 +254,7 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
 	 * @param properties the properties
 	 * @return the label
 	 */
-	public static String getLabel(AnnotationMatrix matrix,
+	public static String getLabel(DataFrame matrix,
 			int row,
 			RowLabelProperties properties) {
 		List<String> annotations = new ArrayList<String>();

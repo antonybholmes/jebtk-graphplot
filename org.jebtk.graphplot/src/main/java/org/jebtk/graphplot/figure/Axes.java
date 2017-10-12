@@ -45,7 +45,7 @@ import org.jebtk.graphplot.figure.series.XYSeries;
 import org.jebtk.graphplot.plotbox.PlotBox;
 import org.jebtk.graphplot.plotbox.PlotBoxZLayout;
 import org.jebtk.graphplot.plotbox.PlotBoxZStorage;
-import org.jebtk.math.matrix.AnnotationMatrix;
+import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.math.matrix.MatrixGroup;
 import org.jebtk.modern.graphics.DrawingContext;
 
@@ -789,7 +789,7 @@ public class Axes extends PlotBoxGraph {
 	 * @param s the s
 	 * @return the list
 	 */
-	public List<Point> toPlotX1Y1(AnnotationMatrix m, XYSeries s) {
+	public List<Point> toPlotX1Y1(DataFrame m, XYSeries s) {
 		int n = m.getRowCount();
 
 		List<Integer> columns = MatrixGroup.findColumnIndices(m, s);
