@@ -20,7 +20,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.List;
 
-import org.jebtk.core.geom.IntDim;
+import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.core.text.Formatter;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
@@ -58,7 +58,7 @@ public class MatrixSummaryPlotElement extends RowMatrixPlotElement {
 	 * @param width the width
 	 */
 	public MatrixSummaryPlotElement(DataFrame matrix, 
-			IntDim aspectRatio,
+			DoubleDim aspectRatio,
 			int width) {
 		this(matrix, aspectRatio, width, Color.BLACK);
 	}
@@ -73,7 +73,7 @@ public class MatrixSummaryPlotElement extends RowMatrixPlotElement {
 	 */
 	public MatrixSummaryPlotElement(DataFrame matrix,
 			List<String> history,
-			IntDim aspectRatio,
+			DoubleDim aspectRatio,
 			int width) {
 		this(matrix, history, aspectRatio, width, Color.BLACK);
 	}
@@ -87,7 +87,7 @@ public class MatrixSummaryPlotElement extends RowMatrixPlotElement {
 	 * @param color the color
 	 */
 	public MatrixSummaryPlotElement(DataFrame matrix, 
-			IntDim aspectRatio,
+			DoubleDim aspectRatio,
 			int width,
 			Color color) {
 		this(matrix, null, aspectRatio, width, color);
@@ -104,7 +104,7 @@ public class MatrixSummaryPlotElement extends RowMatrixPlotElement {
 	 */
 	public MatrixSummaryPlotElement(DataFrame matrix,
 			List<String> history,
-			IntDim aspectRatio,
+			DoubleDim aspectRatio,
 			int width,
 			Color color) {
 		super(matrix, width, aspectRatio);

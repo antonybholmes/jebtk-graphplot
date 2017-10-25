@@ -21,7 +21,7 @@ import java.awt.Graphics2D;
 import java.util.Map;
 
 import org.jebtk.core.Properties;
-import org.jebtk.core.geom.IntDim;
+import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.core.text.TextUtils;
 import org.jebtk.graphplot.figure.series.XYSeriesGroup;
 import org.jebtk.math.matrix.DataFrame;
@@ -61,7 +61,7 @@ public class TopColumnLabelPlotElement extends ColumnMatrixPlotElement {
 	 */
 	public TopColumnLabelPlotElement(DataFrame matrix,
 			XYSeriesGroup groups,
-			IntDim aspectRatio,
+			DoubleDim aspectRatio,
 			Properties properties) {
 		this(matrix, groups, aspectRatio, properties, Color.BLACK, 10, 50);
 	}
@@ -79,7 +79,7 @@ public class TopColumnLabelPlotElement extends ColumnMatrixPlotElement {
 	 */
 	public TopColumnLabelPlotElement(DataFrame matrix,
 			XYSeriesGroup groups,
-			IntDim aspectRatio,
+			DoubleDim aspectRatio,
 			Properties properties,
 			Color color,
 			int charWidth,
@@ -114,7 +114,7 @@ public class TopColumnLabelPlotElement extends ColumnMatrixPlotElement {
 		g2.setColor(mColor);
 
 		 //(mBlockSize.getW() + g2.getFontMetrics().getAscent()) / 2;
-		int xd = (mBlockSize.getW() - ModernWidget.getStringHeight(g2)) / 2;
+		int xd = (int)((mBlockSize.getW() - ModernWidget.getStringHeight(g2)) / 2);
 		
 		int x = BLOCK_SIZE + xd;
 		

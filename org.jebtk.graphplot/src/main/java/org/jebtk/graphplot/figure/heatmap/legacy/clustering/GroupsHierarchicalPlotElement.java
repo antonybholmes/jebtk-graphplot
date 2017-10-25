@@ -20,7 +20,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.List;
 
-import org.jebtk.core.geom.IntDim;
+import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.graphplot.figure.heatmap.legacy.MatrixPlotElement;
 import org.jebtk.graphplot.figure.series.XYSeries;
 import org.jebtk.graphplot.figure.series.XYSeriesGroup;
@@ -70,7 +70,7 @@ public class GroupsHierarchicalPlotElement extends MatrixPlotElement {
 	 * @param groups the groups
 	 */
 	public GroupsHierarchicalPlotElement(DataFrame matrix,
-			IntDim aspectRatio,
+			DoubleDim aspectRatio,
 			int width,
 			Cluster rootCluster,
 			XYSeriesGroup groups) {

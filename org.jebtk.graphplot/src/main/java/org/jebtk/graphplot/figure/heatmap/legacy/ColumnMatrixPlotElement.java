@@ -17,7 +17,7 @@ package org.jebtk.graphplot.figure.heatmap.legacy;
 
 import java.awt.Dimension;
 
-import org.jebtk.core.geom.IntDim;
+import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.math.matrix.DataFrame;
 
 
@@ -34,7 +34,7 @@ public abstract class ColumnMatrixPlotElement extends MatrixPlotElement {
 	 * The constant serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-	private int mHeight;
+	private double mHeight;
 	
 	/**
 	 * Instantiates a new column matrix plot element.
@@ -44,7 +44,7 @@ public abstract class ColumnMatrixPlotElement extends MatrixPlotElement {
 	 * @param height the height
 	 */
 	public ColumnMatrixPlotElement(DataFrame matrix, 
-			IntDim aspectRatio,
+			DoubleDim aspectRatio,
 			int height) {
 		super(matrix, aspectRatio);
 		
@@ -56,13 +56,13 @@ public abstract class ColumnMatrixPlotElement extends MatrixPlotElement {
 	 *
 	 * @param height the new height
 	 */
-	public void setHeight(int height) {
+	public void setHeight(double height) {
 		mHeight = height;
 	}
 	
 	@Override
 	public void plotSize(Dimension d) {
 		d.width += mMatrix.getColumnCount() * mBlockSize.getW();
-		d.height += mHeight;
+		d.height += (int)mHeight;
 	}
 }

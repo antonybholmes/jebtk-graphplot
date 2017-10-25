@@ -20,7 +20,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import org.jebtk.core.IntId;
 import org.jebtk.core.geom.IntDim;
 
 

@@ -19,7 +19,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
-import org.jebtk.core.geom.IntDim;
+import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
@@ -55,7 +55,7 @@ public class CountBracketLeftPlotElement extends RowMatrixPlotElement {
 	 */
 	public CountBracketLeftPlotElement(DataFrame matrix,
 			int width, 
-			IntDim aspectRatio,
+			DoubleDim aspectRatio,
 			Color color) {
 		super(matrix, width, aspectRatio);
 		mColor = color;
@@ -74,11 +74,11 @@ public class CountBracketLeftPlotElement extends RowMatrixPlotElement {
 		
 		g2.drawLine(0, y, w, y);
 		
-		y = count * mBlockSize.getH();
+		y = (int)(count * mBlockSize.getH());
 		
 		g2.drawLine(0, y, w, y);
 		
-		y = mMatrix.getRowCount() * mBlockSize.getH();
+		y = (int)(mMatrix.getRowCount() * mBlockSize.getH());
 		
 		g2.drawLine(0, y, w, y);
 		

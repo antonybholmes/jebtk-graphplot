@@ -28,7 +28,6 @@ import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
 import org.jebtk.core.event.ChangeListeners;
 import org.jebtk.core.geom.IntPos2D;
-import org.jebtk.graphplot.figure.GridLocation;
 
 
 // TODO: Auto-generated Javadoc

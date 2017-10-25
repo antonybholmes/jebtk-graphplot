@@ -18,7 +18,7 @@ package org.jebtk.graphplot.figure.heatmap.legacy.clustering;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import org.jebtk.core.geom.IntDim;
+import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.math.cluster.Cluster;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.widget.ModernWidget;
@@ -48,7 +48,7 @@ public class ColumnHLabelTopPlotElement extends ColumnHLabelBottomPlotElement {
 	 * @param maxRowChars the max row chars
 	 */
 	public ColumnHLabelTopPlotElement(DataFrame matrix, 
-			IntDim aspectRatio, 
+			DoubleDim aspectRatio, 
 			Cluster rootCluster,
 			Color color, 
 			int charWidth, 

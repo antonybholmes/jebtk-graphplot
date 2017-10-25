@@ -21,7 +21,6 @@ import java.util.List;
 
 import org.jebtk.core.Mathematics;
 import org.jebtk.core.settings.SettingsService;
-import org.jebtk.core.sys.SysUtils;
 import org.jebtk.core.text.TextUtils;
 import org.jebtk.graphplot.figure.Axes;
 import org.jebtk.graphplot.figure.Axis;

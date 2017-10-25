@@ -19,7 +19,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
-import org.jebtk.core.geom.IntDim;
+import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
@@ -58,7 +58,7 @@ public class CountPlotElement extends RowMatrixPlotElement {
 	public CountPlotElement(DataFrame matrix,
 			CountGroups countGroups,
 			int width,
-			IntDim aspectRatio,
+			DoubleDim aspectRatio,
 			Color color) {
 		super(matrix, width, aspectRatio);
 
@@ -94,8 +94,8 @@ public class CountPlotElement extends RowMatrixPlotElement {
 
 		for (CountGroup countGroup : mCountGroups) {
 			if (countGroup.size() > 0) {
-				y1 = countGroup.getStart() * mBlockSize.getH();
-				y2 = (countGroup.getEnd() + 1) * mBlockSize.getH();
+				y1 = (int)(countGroup.getStart() * mBlockSize.getH());
+				y2 = (int)((countGroup.getEnd() + 1) * mBlockSize.getH());
 
 				g2.drawString(countGroup.toString(), 0, (y1 + y2) / 2 + o);
 			}

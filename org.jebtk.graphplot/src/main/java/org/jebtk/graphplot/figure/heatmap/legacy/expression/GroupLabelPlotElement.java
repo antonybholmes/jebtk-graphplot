@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.jebtk.core.collections.CollectionUtils;
-import org.jebtk.core.geom.IntDim;
+import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.graphplot.figure.heatmap.legacy.ColumnMatrixPlotElement;
 import org.jebtk.graphplot.figure.heatmap.legacy.GroupProperties;
 import org.jebtk.graphplot.figure.series.XYSeriesGroup;
@@ -76,7 +76,7 @@ public class GroupLabelPlotElement extends ColumnMatrixPlotElement {
 	 * @param properties the properties
 	 */
 	public GroupLabelPlotElement(DataFrame matrix,
-			IntDim aspectRatio,
+			DoubleDim aspectRatio,
 			XYSeriesGroup groups,
 			GroupProperties properties) {
 		super(matrix, aspectRatio, -1);

@@ -19,7 +19,7 @@ import java.awt.Graphics2D;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-import org.jebtk.core.geom.IntDim;
+import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.graphplot.figure.heatmap.legacy.HeatMapPlotElement;
 import org.jebtk.math.cluster.Cluster;
 import org.jebtk.math.matrix.DataFrame;
@@ -61,7 +61,7 @@ public class ClusterHeatMapPlotElement extends HeatMapPlotElement {
 	 */
 	public ClusterHeatMapPlotElement(DataFrame matrix,
 			ColorMap colorMap,
-			IntDim aspectRatio) {
+			DoubleDim aspectRatio) {
 		super(matrix, colorMap, aspectRatio);
 
 		setup();
@@ -80,7 +80,7 @@ public class ClusterHeatMapPlotElement extends HeatMapPlotElement {
 			ColorMap colorMap, 
 			Cluster rowCluster, 
 			Cluster columnCluster,
-			IntDim aspectRatio) {
+			DoubleDim aspectRatio) {
 		super(matrix, colorMap, aspectRatio);
 
 		setup();

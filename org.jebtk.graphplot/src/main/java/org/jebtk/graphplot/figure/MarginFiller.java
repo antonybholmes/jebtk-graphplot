@@ -17,7 +17,6 @@ package org.jebtk.graphplot.figure;
 
 import java.awt.Dimension;
 
-import org.jebtk.core.StringId;
 import org.jebtk.core.geom.IntDim;
 
 // TODO: Auto-generated Javadoc

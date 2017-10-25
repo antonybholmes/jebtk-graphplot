@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.jebtk.core.collections.CollectionUtils;
-import org.jebtk.core.geom.IntDim;
+import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.graphplot.figure.series.XYSeries;
 import org.jebtk.graphplot.figure.series.XYSeriesGroup;
 import org.jebtk.math.matrix.DataFrame;
@@ -75,7 +75,7 @@ public class GroupsLegendPlotElement extends MatrixPlotElement {
 	 * @param groups the groups
 	 */
 	public GroupsLegendPlotElement(DataFrame matrix,
-			IntDim aspectRatio,
+			DoubleDim aspectRatio,
 			int width, 
 			XYSeriesGroup groups) {
 		super(matrix, aspectRatio);

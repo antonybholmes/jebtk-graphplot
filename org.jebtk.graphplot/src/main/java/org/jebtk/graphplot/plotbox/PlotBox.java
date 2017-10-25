@@ -33,7 +33,6 @@ import org.jebtk.core.IdProperty;
 import org.jebtk.core.IntId;
 import org.jebtk.core.NameProperty;
 import org.jebtk.core.UidProperty;
-import org.jebtk.core.collections.CollectionUtils;
 import org.jebtk.core.event.ChangeListeners;
 import org.jebtk.core.geom.IntPos2D;
 import org.jebtk.core.sys.SysUtils;
@@ -369,6 +368,8 @@ public abstract class PlotBox extends ChangeListeners implements Iterable<PlotBo
 			// The canvas need only be the size of the available display
 
 			Dimension s = getPreferredSize();
+			
+			System.err.println("raster " + getName() + " " + getClass() + " " + s);
 
 			// Make it one pixel bigger to account for borders being drawn
 			mBufferedImage = ImageUtils.createImage(s.width + 1, s.height + 1);

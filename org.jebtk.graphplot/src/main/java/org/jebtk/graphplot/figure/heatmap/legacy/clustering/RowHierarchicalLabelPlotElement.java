@@ -18,7 +18,7 @@ package org.jebtk.graphplot.figure.heatmap.legacy.clustering;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-import org.jebtk.core.geom.IntDim;
+import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.core.text.Formatter;
 import org.jebtk.graphplot.figure.heatmap.legacy.RowLabelProperties;
 import org.jebtk.graphplot.figure.heatmap.legacy.RowLabelsPlotElement;
@@ -51,7 +51,7 @@ public class RowHierarchicalLabelPlotElement extends RowLabelsPlotElement {
 	public RowHierarchicalLabelPlotElement(DataFrame matrix,
 			Cluster rootCluster,
 			RowLabelProperties properties,
-			IntDim aspectRatio,
+			DoubleDim aspectRatio,
 			int charWidth) {
 		super(matrix, properties, aspectRatio, charWidth);
 		

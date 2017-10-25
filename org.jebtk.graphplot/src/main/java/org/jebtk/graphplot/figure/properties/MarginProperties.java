@@ -15,8 +15,6 @@
  */
 package org.jebtk.graphplot.figure.properties;
 
-import java.io.IOException;
-
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
 import org.jebtk.core.event.ChangeListeners;

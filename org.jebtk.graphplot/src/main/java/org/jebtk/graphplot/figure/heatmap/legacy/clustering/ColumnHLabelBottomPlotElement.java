@@ -22,7 +22,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 
-import org.jebtk.core.geom.IntDim;
+import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.core.text.TextUtils;
 import org.jebtk.graphplot.figure.heatmap.legacy.ColumnMatrixPlotElement;
 import org.jebtk.math.cluster.Cluster;
@@ -65,7 +65,7 @@ public class ColumnHLabelBottomPlotElement extends ColumnMatrixPlotElement {
 	 * @param maxRowChars the max row chars
 	 */
 	public ColumnHLabelBottomPlotElement(DataFrame matrix,
-			IntDim aspectRatio,
+			DoubleDim aspectRatio,
 			Cluster rootCluster,
 			Color color,
 			int charWidth,

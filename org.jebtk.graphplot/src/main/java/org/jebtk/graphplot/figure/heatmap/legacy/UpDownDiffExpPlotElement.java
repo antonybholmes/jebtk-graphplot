@@ -19,7 +19,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
-import org.jebtk.core.geom.IntDim;
+import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
@@ -63,7 +63,7 @@ public class UpDownDiffExpPlotElement extends RowMatrixPlotElement {
 	 */
 	public UpDownDiffExpPlotElement(DataFrame matrix,
 			int width, 
-			IntDim aspectRatio,
+			DoubleDim aspectRatio,
 			Color color) {
 		super(matrix, width, aspectRatio);
 
@@ -90,7 +90,7 @@ public class UpDownDiffExpPlotElement extends RowMatrixPlotElement {
 		int y;
 
 		if (up > 0) {
-			y = (up * mBlockSize.getH() + g2.getFontMetrics().getAscent() - g2.getFontMetrics().getDescent()) / 2;
+			y = (int)((up * mBlockSize.getH() + g2.getFontMetrics().getAscent() - g2.getFontMetrics().getDescent()) / 2);
 
 			String t = Integer.toString(up) + " up";
 
@@ -98,7 +98,7 @@ public class UpDownDiffExpPlotElement extends RowMatrixPlotElement {
 		}
 
 		if (down > 0) {
-			y = up * mBlockSize.getH() + (down * mBlockSize.getH() + g2.getFontMetrics().getAscent() - g2.getFontMetrics().getDescent()) / 2;
+			y = (int) (up * mBlockSize.getH() + (down * mBlockSize.getH() + g2.getFontMetrics().getAscent() - g2.getFontMetrics().getDescent()) / 2);
 
 			String t = Integer.toString(down) + " down";
 

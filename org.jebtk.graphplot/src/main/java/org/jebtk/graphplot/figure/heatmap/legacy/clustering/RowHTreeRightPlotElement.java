@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.jebtk.core.geom.IntDim;
+import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.math.cluster.Cluster;
 import org.jebtk.math.matrix.DataFrame;
 
@@ -51,14 +51,11 @@ public class RowHTreeRightPlotElement extends RowHTreeLeftPlotElement {
 	 */
 	public RowHTreeRightPlotElement(DataFrame matrix, 
 			int width, 
-			IntDim aspectRatio, 
+			DoubleDim aspectRatio, 
 			Cluster rootCluster,
 			Color color) {
 		super(matrix, width, aspectRatio, rootCluster, color);
 	}
-
-
-	
 	
 	/**
 	 * Draw tree.
@@ -80,7 +77,7 @@ public class RowHTreeRightPlotElement extends RowHTreeLeftPlotElement {
 
 		Map<Integer, Integer> offsetMap = new HashMap<Integer, Integer>();
 		
-		int y = mBlockSize.getH() / 2;
+		int y = (int) (mBlockSize.getH() / 2);
 		
 		while (!stack.isEmpty()) {
 			Cluster cluster = stack.pop();

@@ -19,7 +19,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
-import org.jebtk.core.geom.IntDim;
+import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.core.text.TextUtils;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
@@ -49,7 +49,7 @@ public class BottomColumnLabelPlotElement extends ColumnMatrixPlotElement {
 	 * @param aspectRatio the aspect ratio
 	 */
 	public BottomColumnLabelPlotElement(DataFrame matrix,
-			IntDim aspectRatio) {
+			DoubleDim aspectRatio) {
 		this(matrix, aspectRatio, Color.BLACK, 10, 50);
 	}
 
@@ -63,7 +63,7 @@ public class BottomColumnLabelPlotElement extends ColumnMatrixPlotElement {
 	 * @param maxChars the max chars
 	 */
 	public BottomColumnLabelPlotElement(DataFrame matrix,
-			IntDim aspectRatio,
+			DoubleDim aspectRatio,
 			Color color,
 			int charWidth,
 			int maxChars) {
@@ -92,7 +92,7 @@ public class BottomColumnLabelPlotElement extends ColumnMatrixPlotElement {
 	private void drawLabels(Graphics2D g2) {
 		g2.setColor(mColor);
 
-		int xd = (mBlockSize.getW() - ModernWidget.getStringHeight(g2)) / 2;
+		int xd = (int) ((mBlockSize.getW() - ModernWidget.getStringHeight(g2)) / 2);
 
 		int x = xd;
 		

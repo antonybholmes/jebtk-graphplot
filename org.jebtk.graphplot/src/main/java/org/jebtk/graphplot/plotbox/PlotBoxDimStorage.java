@@ -21,7 +21,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.jebtk.core.collections.CollectionUtils;
-import org.jebtk.graphplot.figure.GridLocation;
 
 
 // TODO: Auto-generated Javadoc

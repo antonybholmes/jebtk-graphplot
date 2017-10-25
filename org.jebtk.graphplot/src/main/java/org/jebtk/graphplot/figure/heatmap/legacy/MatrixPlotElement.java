@@ -15,11 +15,13 @@
  */
 package org.jebtk.graphplot.figure.heatmap.legacy;
 
+import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.core.geom.IntDim;
 import org.jebtk.core.settings.SettingsService;
 import org.jebtk.graphplot.AspectRatio;
 import org.jebtk.graphplot.PlotElement;
 import org.jebtk.math.matrix.DataFrame;
+import org.jebtk.math.matrix.MatrixDim;
 
 
 // TODO: Auto-generated Javadoc
@@ -43,7 +45,8 @@ public abstract class MatrixPlotElement extends PlotElement {
 			SettingsService.getInstance().getAsInt("graphplot.plot.block-size");
 	
 	
-	public static IntDim DEFAULT_BLOCK = new IntDim(BLOCK_SIZE, BLOCK_SIZE);
+	public static IntDim DEFAULT_BLOCK = 
+			new IntDim(BLOCK_SIZE, BLOCK_SIZE);
 	
 	protected IntDim mBlockSize = DEFAULT_BLOCK;
 	
@@ -51,6 +54,14 @@ public abstract class MatrixPlotElement extends PlotElement {
 	 * The member matrix.
 	 */
 	protected DataFrame mMatrix;
+
+	protected boolean mScaleYMode = false;
+
+	protected MatrixDim mDrawingDim;
+
+	protected IntDim mRatio;
+
+	protected boolean mScaleXMode = false;
 
 	//protected Matrix mIM;
 
@@ -61,13 +72,13 @@ public abstract class MatrixPlotElement extends PlotElement {
 	 * @param matrix the matrix
 	 * @param aspectRatio the aspect ratio
 	 */
-	public MatrixPlotElement(DataFrame matrix, IntDim aspectRatio) {
+	public MatrixPlotElement(DataFrame matrix, DoubleDim aspectRatio) {
 		super("matrix");
 		
 		mMatrix = matrix;
 		
 		//mIM = matrix.getInnerMatrix();
-		
+			
 		setAspectRatio(aspectRatio);
 	}
 	
@@ -86,16 +97,51 @@ public abstract class MatrixPlotElement extends PlotElement {
 	 * @param aspectRatio the new aspect ratio
 	 */
 	public void setAspectRatio(AspectRatio aspectRatio) {
-		setBlockSize(new IntDim((int)(BLOCK_SIZE * aspectRatio.getX()),
-				(int)(BLOCK_SIZE * aspectRatio.getY())));
+		setBlockSize(new DoubleDim(BLOCK_SIZE * aspectRatio.getX(),
+				BLOCK_SIZE * aspectRatio.getY()));
 	}
 	
-	public void setAspectRatio(IntDim dim) {
+	public void setAspectRatio(DoubleDim dim) {
 		setBlockSize(dim);
 	}
 	
-	public void setBlockSize(IntDim dim) {
-		mBlockSize = dim;
+	public void setBlockSize(DoubleDim dim) {
+		int rows;
+		int cols;
+		
+		int yRatio;
+		
+		if (dim.getH() < 1) {
+			mScaleYMode = true;
+			
+			int r = getMatrix().getRowCount();
+			
+			rows = (int)Math.max(1, r * dim.getH());
+			
+			yRatio = (int)((r << 16) / rows) + 1;
+		} else {
+			rows = getMatrix().getRowCount();
+			yRatio = 1;
+		}
+		
+		int xRatio;
+		
+		if (dim.getW() < 1) {
+			mScaleXMode = true;
+			
+			int c = getMatrix().getColumnCount();
+			cols = (int)Math.max(1, c * dim.getW());
+			
+			xRatio = (int)((c << 16) / cols) + 1;
+		} else {
+			cols = getMatrix().getColumnCount();
+			xRatio = 1;
+		}
+		
+		mDrawingDim = new MatrixDim(rows, cols);
+		mRatio = new IntDim(xRatio, yRatio);
+		
+		mBlockSize = new IntDim((int)Math.max(1, dim.getW()), (int)Math.max(1, dim.getH()));
 	}
 	
 	

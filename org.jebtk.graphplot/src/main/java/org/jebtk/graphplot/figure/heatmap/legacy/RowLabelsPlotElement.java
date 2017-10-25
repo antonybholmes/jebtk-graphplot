@@ -23,7 +23,7 @@ import java.util.Map;
 
 import org.jebtk.core.Mathematics;
 import org.jebtk.core.collections.CollectionUtils;
-import org.jebtk.core.geom.IntDim;
+import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.core.settings.SettingsService;
 import org.jebtk.core.text.Formatter;
 import org.jebtk.core.text.Join;
@@ -90,7 +90,7 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
 	 */
 	public RowLabelsPlotElement(DataFrame matrix,
 			RowLabelProperties properties,
-			IntDim aspectRatio,
+			DoubleDim aspectRatio,
 			int charWidth) {
 		super(matrix, -1, aspectRatio);
 
@@ -296,7 +296,7 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
 		g2.setColor(mProperties.color);
 
 		int x = 0;
-		int y = -mBlockSize.getH();
+		int y = (int) -mBlockSize.getH();
 		
 		for (int i = 0; i < mTitles.length; ++i) {
 			String title = mTitles[i];
@@ -314,7 +314,7 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
 		//	g2.drawString(mTitle, (getPreferredSize().width - g2.getFontMetrics().stringWidth(mTitle)), -mBlockSize.getH());
 		//}
 
-		y = (mBlockSize.getH() + g2.getFontMetrics().getAscent() - g2.getFontMetrics().getDescent()) / 2;
+		y = (int) ((mBlockSize.getH() + g2.getFontMetrics().getAscent() - g2.getFontMetrics().getDescent()) / 2);
 
 		for (int r = 0; r < mLabels.length; ++r) {
 			x = 0;

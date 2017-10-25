@@ -17,7 +17,7 @@ package org.jebtk.graphplot.figure.heatmap.legacy;
 
 import java.awt.Dimension;
 
-import org.jebtk.core.geom.IntDim;
+import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.math.matrix.DataFrame;
 
 
@@ -42,7 +42,7 @@ public abstract class RowMatrixPlotElement extends MatrixPlotElement {
 	 */
 	public RowMatrixPlotElement(DataFrame matrix, 
 			int width, 
-			IntDim aspectRatio) {
+			DoubleDim aspectRatio) {
 		super(matrix, aspectRatio);
 		
 		setWidth(width);

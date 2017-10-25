@@ -19,7 +19,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
-import org.jebtk.core.geom.IntDim;
+import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
@@ -55,13 +55,13 @@ public class RowLabelHeaderPlotElement extends MatrixPlotElement {
 	 * @param width the width
 	 */
 	public RowLabelHeaderPlotElement(DataFrame matrix,
-			IntDim aspectRatio,
+			DoubleDim aspectRatio,
 			String name,
 			int width) {
 		super(matrix, aspectRatio);
 		
 		mWidth = width;
-		mHeight = mBlockSize.getH();
+		mHeight = (int) mBlockSize.getH();
 	}
 	
 	/* (non-Javadoc)

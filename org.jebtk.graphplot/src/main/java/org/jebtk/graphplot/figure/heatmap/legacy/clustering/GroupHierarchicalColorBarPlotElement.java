@@ -19,7 +19,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.Map;
 
-import org.jebtk.core.geom.IntDim;
+import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.graphplot.figure.heatmap.legacy.ColumnMatrixPlotElement;
 import org.jebtk.graphplot.figure.heatmap.legacy.GroupProperties;
 import org.jebtk.graphplot.figure.series.XYSeriesGroup;
@@ -74,7 +74,7 @@ public class GroupHierarchicalColorBarPlotElement extends ColumnMatrixPlotElemen
 	 * @param properties the properties
 	 */
 	public GroupHierarchicalColorBarPlotElement(DataFrame matrix,
-			IntDim aspectRatio,
+			DoubleDim aspectRatio,
 			int height,
 			Cluster rootCluster,
 			XYSeriesGroup groups,
@@ -135,11 +135,11 @@ public class GroupHierarchicalColorBarPlotElement extends ColumnMatrixPlotElemen
 				
 				g2.setColor(mGroupMap.get(column).get(r).getColor());
 				
-				g2.fillRect(x, y, mBlockSize.getW(), mBlockSize.getH());
+				g2.fillRect(x, y, (int)mBlockSize.getW(), (int)mBlockSize.getH());
 				
 				if (mProperties.showGrid) {
 					g2.setColor(mProperties.gridColor);
-					g2.drawRect(x, y, mBlockSize.getW(), mBlockSize.getH());
+					g2.drawRect(x, y, (int)mBlockSize.getW(), (int)mBlockSize.getH());
 				}
 				
 				y += h;

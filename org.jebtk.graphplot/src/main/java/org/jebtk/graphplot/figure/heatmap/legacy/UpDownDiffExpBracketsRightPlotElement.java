@@ -19,7 +19,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
-import org.jebtk.core.geom.IntDim;
+import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
@@ -51,7 +51,7 @@ public class UpDownDiffExpBracketsRightPlotElement extends RowMatrixPlotElement 
 	 */
 	public UpDownDiffExpBracketsRightPlotElement(DataFrame matrix,
 			int width, 
-			IntDim aspectRatio) {
+			DoubleDim aspectRatio) {
 		super(matrix, width, aspectRatio);
 
 		double[] zscores = matrix.getRowAnnotationValues("Z-score");
@@ -75,11 +75,11 @@ public class UpDownDiffExpBracketsRightPlotElement extends RowMatrixPlotElement 
 
 		g2.drawLine(0, y, w, y);
 
-		y = up * mBlockSize.getH();
+		y = (int)(up * mBlockSize.getH());
 
 		g2.drawLine(0, y, w, y);
 
-		y = mMatrix.getRowCount() * mBlockSize.getH();
+		y = (int)(mMatrix.getRowCount() * mBlockSize.getH());
 
 		g2.drawLine(0, y, w, y);
 

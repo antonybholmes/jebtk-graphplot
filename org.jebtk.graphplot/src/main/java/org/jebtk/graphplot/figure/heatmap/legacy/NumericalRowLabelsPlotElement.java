@@ -21,7 +21,7 @@ import java.awt.Graphics2D;
 import java.text.DecimalFormat;
 import java.util.List;
 
-import org.jebtk.core.geom.IntDim;
+import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
@@ -73,7 +73,7 @@ public class NumericalRowLabelsPlotElement extends RowMatrixPlotElement {
 	public NumericalRowLabelsPlotElement(DataFrame matrix, 
 			List<Double> values,
 			int width, 
-			IntDim aspectRatio) {
+			DoubleDim aspectRatio) {
 		this(matrix, null, values, width, aspectRatio, Color.BLACK, FORMAT);
 	}
 	
@@ -91,7 +91,7 @@ public class NumericalRowLabelsPlotElement extends RowMatrixPlotElement {
 			String title,
 			List<Double> values, 
 			int width, 
-			IntDim aspectRatio,
+			DoubleDim aspectRatio,
 			Color color) {
 		this(matrix,
 				title,
@@ -117,7 +117,7 @@ public class NumericalRowLabelsPlotElement extends RowMatrixPlotElement {
 			String title,
 			List<Double> values, 
 			int width, 
-			IntDim aspectRatio,
+			DoubleDim aspectRatio,
 			Color color,
 			String format) {
 		super(matrix, width, aspectRatio);
@@ -149,10 +149,10 @@ public class NumericalRowLabelsPlotElement extends RowMatrixPlotElement {
 		
 	
 		if (mTitle != null) {
-			g2.drawString(mTitle, x, -mBlockSize.getH());
+			g2.drawString(mTitle, x, (int) -mBlockSize.getH());
 		}
 		
-		int y = (mBlockSize.getH() + g2.getFontMetrics().getAscent() - g2.getFontMetrics().getDescent()) / 2;
+		int y = (int) ((mBlockSize.getH() + g2.getFontMetrics().getAscent() - g2.getFontMetrics().getDescent()) / 2);
 		
 		
 		for (double v : mValues) {

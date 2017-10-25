@@ -19,7 +19,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
-import org.jebtk.core.geom.IntDim;
+import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
@@ -42,7 +42,7 @@ public class MatrixBorderPlotElement extends MatrixPlotElement {
 	 * @param aspectRatio the aspect ratio
 	 */
 	public MatrixBorderPlotElement(DataFrame matrix, 
-			IntDim aspectRatio) {
+			DoubleDim aspectRatio) {
 		super(matrix, aspectRatio);
 	}
 	

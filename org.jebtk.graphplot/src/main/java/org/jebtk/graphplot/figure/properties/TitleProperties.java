@@ -17,7 +17,6 @@ package org.jebtk.graphplot.figure.properties;
 
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
-import org.jebtk.core.event.ChangeListeners;
 import org.jebtk.core.text.TextUtils;
 import org.jebtk.graphplot.figure.GridLocation;
 

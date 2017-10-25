@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.jebtk.core.Mathematics;
-import org.jebtk.core.geom.IntDim;
+import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.ImageUtils;
@@ -71,7 +71,6 @@ public class HeatMapPlotElement extends MatrixPlotElement {
 	private BufferedImage mBlankImage;
 
 
-
 	/**
 	 * Instantiates a new heat map plot element.
 	 *
@@ -81,15 +80,16 @@ public class HeatMapPlotElement extends MatrixPlotElement {
 	 */
 	public HeatMapPlotElement(DataFrame matrix, 
 			ColorMap colorMap, 
-			IntDim aspectRatio) {
+			DoubleDim aspectRatio) {
 		super(matrix, aspectRatio);
 
 		setColorMap(colorMap);
 
-		setAspectRatio(aspectRatio);
+		///setAspectRatio(aspectRatio);
 		
 		setRasterMode(true);
 	}
+	
 
 	/**
 	 * Sets the color map.
@@ -166,13 +166,15 @@ public class HeatMapPlotElement extends MatrixPlotElement {
 		int y = 0;
 
 		//System.err.println("create matrix " + matrix.getRowCount() + " " + matrix.getColumnCount());
-
+		int w = mBlockSize.getW();
+		int h = mBlockSize.getH();
+		
 		if (context == DrawingContext.SCREEN) {
-			for (int i = 0; i < mMatrix.getRowCount(); ++i) {
+			for (int i = 0; i < mDrawingDim.mRows; ++i) {
 				int x = 0;
 
-				for (int j = 0; j < mMatrix.getColumnCount(); ++j) {
-					double v = mMatrix.getValue(i, j);
+				for (int j = 0; j < mDrawingDim.mCols; ++j) {
+					double v = getValue(i, j);
 
 					if (Mathematics.isValidNumber(v)) {
 						g2.drawImage(cacheCell(mColorMap.getColor(v)), x, y, null);
@@ -180,34 +182,46 @@ public class HeatMapPlotElement extends MatrixPlotElement {
 						g2.drawImage(cacheBlankCell(), x, y, null);
 					}
 
-					x += mBlockSize.getW();
+					x += w;
 				}
 
-				y += mBlockSize.getH();
+				y += h;
 			}
 		} else {
-			for (int i = 0; i < mMatrix.getRowCount(); ++i) {
+			for (int i = 0; i < mDrawingDim.mRows; ++i) {
 				int x = 0;
 
-				for (int j = 0; j < mMatrix.getColumnCount(); ++j) {
+				for (int j = 0; j < mDrawingDim.mCols; ++j) {
 					//System.err.println("hmm " + i + " " + j + " " + mMatrix.getText(i, j) + " " + mMatrix.getValue(i, j));
 
-					double v = mMatrix.getValue(i, j);
+					double v = getValue(i, j);
 
 					if (Mathematics.isValidNumber(v)) {
 						g2.setColor(mColorMap.getColor(v));
-						g2.fillRect(x, y, mBlockSize.getW(), mBlockSize.getH());
+						g2.fillRect(x, y, w, h);
 					} else {
 						g2.setColor(ModernWidget.DARK_LINE_COLOR);
-						g2.drawLine(x, y + mBlockSize.getH(), x + mBlockSize.getW(), y);
+						g2.drawLine(x, y + h, x + w, y);
 					}
 
-					x += mBlockSize.getW();
+					x += w;
 				}
 
-				y += mBlockSize.getH();
+				y += h;
 			}
 		}
+	}
+	
+	private double getValue(int i, int j) {
+		if (mScaleYMode) {
+			i = (i * mRatio.mH) >> 16;
+		}
+		
+		if (mScaleXMode) {
+			j = (j * mRatio.mW) >> 16;
+		}
+		
+		return mMatrix.getValue(i, j);
 	}
 
 	/**
@@ -222,7 +236,7 @@ public class HeatMapPlotElement extends MatrixPlotElement {
 
 			Graphics g = image.getGraphics();
 			g.setColor(color);
-			g.fillRect(0, 0, mBlockSize.getW(), mBlockSize.getH());
+			g.fillRect(0, 0, (int)mBlockSize.getW(), (int)mBlockSize.getH());
 
 			mCellImageCache.put(color, image);
 		}
@@ -242,7 +256,7 @@ public class HeatMapPlotElement extends MatrixPlotElement {
 			Graphics g = mBlankImage.getGraphics();
 			Graphics2D g2 = ImageUtils.createAAGraphics(g);
 			g2.setColor(ModernWidget.DARK_LINE_COLOR);
-			g2.drawLine(0, mBlockSize.getH(), mBlockSize.getW(), 0);
+			g2.drawLine(0, (int)mBlockSize.getH(), (int)mBlockSize.getW(), 0);
 		}
 
 		return mBlankImage;
@@ -265,18 +279,21 @@ public class HeatMapPlotElement extends MatrixPlotElement {
 
 		int y = 0;
 
-		for (int i = 0; i <= mMatrix.getRowCount(); ++i) {
+		int w2 = mBlockSize.getW();
+		int h2 = mBlockSize.getH();
+		
+		for (int i = 0; i <= mDrawingDim.mRows; ++i) {
 			g2.drawLine(0, y, w, y);
 
-			y += mBlockSize.getH();
+			y += h2;
 		}
 
 		int x = 0;
 
-		for (int i = 0; i <= mMatrix.getColumnCount(); ++i) {
+		for (int i = 0; i <= mDrawingDim.mCols; ++i) {
 			g2.drawLine(x, 0, x, h);
 
-			x += mBlockSize.getW();
+			x += w2;
 		}
 
 	}
@@ -295,16 +312,19 @@ public class HeatMapPlotElement extends MatrixPlotElement {
 
 		int y = 0;
 
-		for (int i = 0; i < mMatrix.getRowCount(); ++i) {
+		int w = mBlockSize.getW();
+		int h = mBlockSize.getH();
+		
+		for (int i = 0; i < mDrawingDim.mRows; ++i) {
 			int x = 0;
 
-			for (int j = 0; j < mMatrix.getColumnCount(); ++j) {
-				g2.drawRect(x, y, mBlockSize.getW(), mBlockSize.getH());
+			for (int j = 0; j < mDrawingDim.mCols; ++j) {
+				g2.drawRect(x, y, w, h);
 
-				x += mBlockSize.getW();
+				x += w;
 			}
 
-			y += mBlockSize.getH();
+			y += h;
 		}
 	}
 
@@ -332,7 +352,7 @@ public class HeatMapPlotElement extends MatrixPlotElement {
 	 */
 	@Override
 	public void plotSize(Dimension d) {
-		d.width += mMatrix.getColumnCount() * mBlockSize.getW();
-		d.height += mMatrix.getRowCount() * mBlockSize.getH();
+		d.width += mDrawingDim.mCols * mBlockSize.getW();
+		d.height += mDrawingDim.mRows * mBlockSize.getH(); //  mMatrix.getRowCount()
 	}
 }
