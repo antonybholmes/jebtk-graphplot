@@ -92,10 +92,12 @@ public class CountPlotElement extends RowMatrixPlotElement {
 
 		int o = (g2.getFontMetrics().getAscent() - g2.getFontMetrics().getDescent()) / 2;
 
+		double r = mAspectRatio.getH();
+		
 		for (CountGroup countGroup : mCountGroups) {
 			if (countGroup.size() > 0) {
-				y1 = (int)(countGroup.getStart() * mBlockSize.getH());
-				y2 = (int)((countGroup.getEnd() + 1) * mBlockSize.getH());
+				y1 = (int)(countGroup.getStart() * r);
+				y2 = (int)((countGroup.getEnd() + 1) * r);
 
 				g2.drawString(countGroup.toString(), 0, (y1 + y2) / 2 + o);
 			}

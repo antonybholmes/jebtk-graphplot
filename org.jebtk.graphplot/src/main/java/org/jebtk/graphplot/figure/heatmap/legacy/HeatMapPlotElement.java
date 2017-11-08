@@ -352,7 +352,7 @@ public class HeatMapPlotElement extends MatrixPlotElement {
 	 */
 	@Override
 	public void plotSize(Dimension d) {
-		d.width += mDrawingDim.mCols * mBlockSize.getW();
-		d.height += mDrawingDim.mRows * mBlockSize.getH(); //  mMatrix.getRowCount()
+		d.width += mDrawingDim.mCols * mBlockSize.getW() + 1;
+		d.height += mDrawingDim.mRows * mBlockSize.getH() + 1; //  mMatrix.getRowCount()
 	}
 }

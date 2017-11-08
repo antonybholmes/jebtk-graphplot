@@ -61,6 +61,6 @@ public abstract class RowMatrixPlotElement extends MatrixPlotElement {
 	@Override
 	public void plotSize(Dimension d) {
 		d.width += mWidth;
-		d.height += mMatrix.getRowCount() * mBlockSize.getH();
+		d.height += mDrawingDim.mRows * mBlockSize.getH();
 	}
 }

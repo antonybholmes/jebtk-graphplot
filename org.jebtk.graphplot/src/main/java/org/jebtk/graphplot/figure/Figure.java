@@ -25,6 +25,7 @@ import org.jebtk.core.stream.Stream;
 import org.jebtk.graphplot.plotbox.PlotBox;
 import org.jebtk.graphplot.plotbox.PlotBoxDimStorage;
 import org.jebtk.graphplot.plotbox.PlotBoxLayout;
+import org.jebtk.graphplot.plotbox.PlotBoxRowLayout;
 import org.jebtk.graphplot.plotbox.PlotBoxRowsLayout;
 import org.jebtk.graphplot.plotbox.PlotBoxStorage;
 import org.jebtk.modern.graphics.DrawingContext;
@@ -171,5 +172,11 @@ public class Figure extends PlotBoxGraph {
 		return new Figure(name);
 	}
 
+	public static Figure createRowFigure() {
+		return createRowFigure(NEXT_ID.getNextId());
+	}
 	
+	public static Figure createRowFigure(String name) {
+		return new Figure(name, new PlotBoxRowLayout());
+	}
 }

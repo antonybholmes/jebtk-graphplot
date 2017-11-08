@@ -22,13 +22,13 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.jebtk.core.IntId;
 import org.jebtk.core.StringId;
 import org.jebtk.core.collections.DefaultHashMap;
 import org.jebtk.core.collections.HashMapCreator;
+import org.jebtk.core.collections.IterMap;
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
 import org.jebtk.core.geom.DoublePos2D;
@@ -62,7 +62,7 @@ public class Axes extends PlotBoxGraph {
 	private static abstract class CachePoints {
 		protected Axes mAxes;
 
-		protected Map<Double, Map<Double, Point>> mXYMap =
+		protected IterMap<Double, IterMap<Double, Point>> mXYMap =
 				DefaultHashMap.create(new HashMapCreator<Double, Point>());
 
 		public CachePoints(Axes axes) {

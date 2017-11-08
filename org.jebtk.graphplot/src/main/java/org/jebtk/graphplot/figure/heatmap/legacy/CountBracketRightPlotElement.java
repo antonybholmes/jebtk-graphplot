@@ -73,9 +73,12 @@ public class CountBracketRightPlotElement extends RowMatrixPlotElement {
 		int y2;
 		int w = getPreferredSize().width;
 		
+		//int h = mBlockSize.getH();
+		double r = mAspectRatio.getH();
+		
 		for (CountGroup countGroup : mCountGroups) {
-			y1 = (int)(countGroup.getStart() * mBlockSize.getH());
-			y2 = (int)((countGroup.getEnd() + 1) * mBlockSize.getH());
+			y1 = (int)(countGroup.getStart() *  r);
+			y2 = (int)((countGroup.getEnd() + 1) * r);
 			
 			g2.drawLine(0, y1, w, y1);
 			g2.drawLine(w, y1, w, y2);

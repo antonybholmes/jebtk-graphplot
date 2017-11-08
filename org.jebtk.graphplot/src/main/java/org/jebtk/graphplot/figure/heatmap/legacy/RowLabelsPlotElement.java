@@ -296,7 +296,7 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
 		g2.setColor(mProperties.color);
 
 		int x = 0;
-		int y = (int) -mBlockSize.getH();
+		int y = (int)-mBlockSize.getH();
 		
 		for (int i = 0; i < mTitles.length; ++i) {
 			String title = mTitles[i];
@@ -314,7 +314,9 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
 		//	g2.drawString(mTitle, (getPreferredSize().width - g2.getFontMetrics().stringWidth(mTitle)), -mBlockSize.getH());
 		//}
 
-		y = (int) ((mBlockSize.getH() + g2.getFontMetrics().getAscent() - g2.getFontMetrics().getDescent()) / 2);
+		int h = mBlockSize.getH(); //mBlockSize.getH();
+		
+		y = (int) ((h + g2.getFontMetrics().getAscent() - g2.getFontMetrics().getDescent()) / 2);
 
 		for (int r = 0; r < mLabels.length; ++r) {
 			x = 0;
@@ -336,7 +338,7 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
 				x += d + FIELD_GAP;
 			}
 			
-			y += mBlockSize.getH();
+			y += h;
 		}
 		
 		/*

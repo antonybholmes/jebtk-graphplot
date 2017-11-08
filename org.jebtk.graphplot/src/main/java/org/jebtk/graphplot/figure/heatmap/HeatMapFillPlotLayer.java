@@ -25,6 +25,7 @@ import java.util.Map;
 import org.jebtk.core.Mathematics;
 import org.jebtk.core.collections.DefaultHashMap;
 import org.jebtk.core.collections.HashMapCreator;
+import org.jebtk.core.collections.IterMap;
 import org.jebtk.core.collections.UniqueArrayList;
 import org.jebtk.graphplot.Image;
 import org.jebtk.graphplot.figure.Axes;
@@ -55,7 +56,7 @@ public class HeatMapFillPlotLayer extends PlotClippedLayer {
 	protected List<Integer> mY = null;
 
 	/** The m colors map. */
-	protected Map<Integer, Map<Integer, Color>> mColorsMap =
+	protected IterMap<Integer, IterMap<Integer, Color>> mColorsMap =
 			DefaultHashMap.create(new HashMapCreator<Integer, Color>());
 
 	/** The m color tile map. */

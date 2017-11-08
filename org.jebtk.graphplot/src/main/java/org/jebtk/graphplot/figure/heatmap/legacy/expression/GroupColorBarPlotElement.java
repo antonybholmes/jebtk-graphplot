@@ -110,6 +110,7 @@ public class GroupColorBarPlotElement extends ColumnMatrixPlotElement {
 	private void drawGroups(Graphics2D g2) {
 		int x = 0;
 		int y = 0;
+		int w = mBlockSize.mW;
 		int h = HEIGHT + mGap;
 		
 		for (int column = 0; column < mMatrix.getColumnCount(); ++column) {
@@ -126,17 +127,17 @@ public class GroupColorBarPlotElement extends ColumnMatrixPlotElement {
 				
 				g2.setColor(mGroupMap.get(column).get(r).getColor());
 				
-				g2.fillRect(x, y, BLOCK_SIZE, HEIGHT);
+				g2.fillRect(x, y, w, HEIGHT);
 				
 				if (mProperties.showGrid) {
 					g2.setColor(mProperties.gridColor);
-					g2.drawRect(x, y, BLOCK_SIZE, HEIGHT);
+					g2.drawRect(x, y, w, HEIGHT);
 				}
 			
 				y += h;
 			}
 			
-			x += BLOCK_SIZE;
+			x += w;
 		}
 	}
 }

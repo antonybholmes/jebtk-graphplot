@@ -63,6 +63,8 @@ public abstract class MatrixPlotElement extends PlotElement {
 
 	protected boolean mScaleXMode = false;
 
+	protected DoubleDim mAspectRatio;
+
 	//protected Matrix mIM;
 
 	
@@ -90,18 +92,11 @@ public abstract class MatrixPlotElement extends PlotElement {
 	public DataFrame getMatrix() {
 		return mMatrix;
 	}
-	
-	/**
-	 * Sets the aspect ratio.
-	 *
-	 * @param aspectRatio the new aspect ratio
-	 */
-	public void setAspectRatio(AspectRatio aspectRatio) {
-		setBlockSize(new DoubleDim(BLOCK_SIZE * aspectRatio.getX(),
-				BLOCK_SIZE * aspectRatio.getY()));
-	}
+
 	
 	public void setAspectRatio(DoubleDim dim) {
+		mAspectRatio = dim;
+		
 		setBlockSize(dim);
 	}
 	
@@ -138,9 +133,8 @@ public abstract class MatrixPlotElement extends PlotElement {
 			xRatio = 1;
 		}
 		
-		mDrawingDim = new MatrixDim(rows, cols);
 		mRatio = new IntDim(xRatio, yRatio);
-		
+		mDrawingDim = new MatrixDim(rows, cols);
 		mBlockSize = new IntDim((int)Math.max(1, dim.getW()), (int)Math.max(1, dim.getH()));
 	}
 	

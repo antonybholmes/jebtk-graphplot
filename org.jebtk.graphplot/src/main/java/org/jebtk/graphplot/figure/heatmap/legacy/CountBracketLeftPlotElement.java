@@ -37,13 +37,10 @@ public class CountBracketLeftPlotElement extends RowMatrixPlotElement {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * The count.
-	 */
-	private int count = 0;
-
 	/** The m color. */
 	private Color mColor;
+
+	private CountGroups mCountGroups;
 
 	/**
 	 * Instantiates a new count bracket left plot element.
@@ -54,12 +51,13 @@ public class CountBracketLeftPlotElement extends RowMatrixPlotElement {
 	 * @param color the color
 	 */
 	public CountBracketLeftPlotElement(DataFrame matrix,
+			CountGroups countGroups,
 			int width, 
 			DoubleDim aspectRatio,
 			Color color) {
 		super(matrix, width, aspectRatio);
 		mColor = color;
-		count = mMatrix.getRowCount();
+		mCountGroups = countGroups;
 	}
 
 	/* (non-Javadoc)
@@ -69,20 +67,20 @@ public class CountBracketLeftPlotElement extends RowMatrixPlotElement {
 	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Object... params) {
 		g2.setColor(mColor);
 		
-		int y = 0;
+		int y1;
+		int y2;
+		
 		int w = getPreferredSize().width;
+		double r = mAspectRatio.getH();
 		
-		g2.drawLine(0, y, w, y);
-		
-		y = (int)(count * mBlockSize.getH());
-		
-		g2.drawLine(0, y, w, y);
-		
-		y = (int)(mMatrix.getRowCount() * mBlockSize.getH());
-		
-		g2.drawLine(0, y, w, y);
-		
-		g2.drawLine(0, 0, 0, y);
+		for (CountGroup countGroup : mCountGroups) {
+			y1 = (int)(countGroup.getStart() *  r);
+			y2 = (int)((countGroup.getEnd() + 1) * r);
+			
+			g2.drawLine(0, y1, w, y1);
+			g2.drawLine(0, y1, 0, y2);
+			g2.drawLine(0, y2, w, y2);
+		}
 		
 		super.plot(g2, offset, context, params);
 	}

@@ -33,5 +33,5 @@ public class RowLabelProperties extends LabelProperties {
 			new AnnotationProperties();
 
 	/** The show features. */
-	public boolean showFeatures;
+	public boolean showFeatureCounts;
 }
