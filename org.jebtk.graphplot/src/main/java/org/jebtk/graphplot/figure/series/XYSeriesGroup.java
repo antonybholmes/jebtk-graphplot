@@ -77,6 +77,20 @@ public class XYSeriesGroup extends Group<XYSeries> implements ChangeListener {
 		mName = name;
 	}
 	
+	public XYSeriesGroup(XYSeries s1, XYSeries... series) {
+		this(NEXT_ID.getNextId(), s1, series);
+	}
+	
+	public XYSeriesGroup(String name, XYSeries s1, XYSeries... series) {
+		this(name);
+		
+		add(s1);
+		
+		for (XYSeries s : series) {
+			add(s);
+		}
+	}
+
 	/* (non-Javadoc)
 	 * @see org.abh.lib.NameProperty#getName()
 	 */

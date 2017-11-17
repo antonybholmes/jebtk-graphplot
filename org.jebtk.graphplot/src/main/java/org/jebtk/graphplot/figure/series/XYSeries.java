@@ -134,6 +134,12 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 		}
 	}
 	
+	public XYSeries(MatrixGroup group, Color color) {
+		this(group);
+		
+		setColor(color);
+	}
+	
 	/**
 	 * Instantiates a new XY series.
 	 *
@@ -646,7 +652,7 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 	public static XYSeries createXYSeries(String name, Color color) {
 		XYSeries series = new XYSeries(name, color);
 		
-		series.addRegexes("x", "y");
+		series.addRegex("x", "y");
 		
 		return series;
 	}
@@ -660,9 +666,13 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 	public static XYSeries createXYSeries(Color color) {
 		XYSeries series = new XYSeries(color);
 		
-		series.addRegexes("x", "y");
+		series.addRegex("x", "y");
 		
 		return series;
+	}
+	
+	public static XYSeries createXYSeries(MatrixGroup series, Color color) {
+		return new XYSeries(series, color);
 	}
 
 	/**
@@ -829,6 +839,8 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 		
 		return groups;
 	}
+
+	
 
 	
 }
