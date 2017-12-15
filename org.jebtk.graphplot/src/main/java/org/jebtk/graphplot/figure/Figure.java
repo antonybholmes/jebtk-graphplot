@@ -148,7 +148,7 @@ public class Figure extends PlotBoxGraph {
 	}
 	
 	public static Iterable<SubFigure> getSubFigures(Figure figure) {
-		return Stream.stream(figure).map(new Function<PlotBox, SubFigure>() {
+		return Stream.of(figure).map(new Function<PlotBox, SubFigure>() {
 
 			@Override
 			public SubFigure apply(PlotBox item) {

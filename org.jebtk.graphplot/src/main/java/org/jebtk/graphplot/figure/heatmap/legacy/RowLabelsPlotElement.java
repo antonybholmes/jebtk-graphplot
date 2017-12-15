@@ -100,7 +100,7 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
 
 		//List<String> labels = new ArrayList<String>(matrix.getRowCount());
 
-		String[][] labels = new String[matrix.getRowCount()][properties.showAnnotations.getVisibleCount()];
+		String[][] labels = new String[matrix.getRows()][properties.showAnnotations.getVisibleCount()];
 		
 		List<String> types = CollectionUtils.replicate("string", 
 				properties.showAnnotations.getVisibleCount());
@@ -110,7 +110,7 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
 		
 		Map<String, String> lnames = TextUtils.toLowerCaseMap(names);
 		
-		for (int r = 0; r < matrix.getRowCount(); ++r) {
+		for (int r = 0; r < matrix.getRows(); ++r) {
 			int c = 0;
 			
 			for (int i = 0; i < names.size(); ++i) {

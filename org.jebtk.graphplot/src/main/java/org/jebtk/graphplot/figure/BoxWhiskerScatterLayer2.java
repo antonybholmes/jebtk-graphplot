@@ -156,7 +156,7 @@ public class BoxWhiskerScatterLayer2 extends PlotClippedLayer {
 			for (XYSeries s : plot.getAllSeries()) {
 				m = s.getMatrix();
 
-				for (int i = 0; i < m.getRowCount(); ++i) {
+				for (int i = 0; i < m.getRows(); ++i) {
 					double p = m.getValue(i, 0);
 
 					// Plot the limits

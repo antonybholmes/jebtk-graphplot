@@ -85,20 +85,20 @@ public class HeatMapGridPlotLayer extends PlotClippedLayer {
 			mX.clear(); // = new UniqueArrayList<Integer>(m.getColumnCount());
 			 // = new UniqueArrayList<Integer>(m.getRowCount());
 
-			for (int i = 0; i < m.getColumnCount(); ++i) {
+			for (int i = 0; i < m.getCols(); ++i) {
 				mX.put(axes.toPlotX1(i), i);
 			}
 
 			mY1.clear();
 			
-			for (int i = 0; i < m.getRowCount(); ++i) {
-				mY1.put(axes.toPlotY1(m.getRowCount() - i), i);
+			for (int i = 0; i < m.getRows(); ++i) {
+				mY1.put(axes.toPlotY1(m.getRows() - i), i);
 			}
 			
 			mY2.clear();
 			
-			for (int i = 0; i < m.getRowCount(); ++i) {
-				mY2.put(axes.toPlotY2(m.getRowCount() - i), i);
+			for (int i = 0; i < m.getRows(); ++i) {
+				mY2.put(axes.toPlotY2(m.getRows() - i), i);
 			}
 		}
 

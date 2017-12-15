@@ -96,7 +96,7 @@ public class BottomColumnLabelPlotElement extends ColumnMatrixPlotElement {
 
 		int x = xd;
 		
-		for (int i = 0; i < mMatrix.getColumnCount(); ++i) {
+		for (int i = 0; i < mMatrix.getCols(); ++i) {
 
 			Graphics2D g2Temp = (Graphics2D)g2.create();
 

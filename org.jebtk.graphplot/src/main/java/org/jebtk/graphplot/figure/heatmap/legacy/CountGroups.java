@@ -67,6 +67,6 @@ public class CountGroups implements Iterable<CountGroup> {
 	 * @return the count groups
 	 */
 	public static CountGroups defaultGroup(Matrix m) {
-		return new CountGroups(new CountGroup(0, m.getRowCount() - 1));
+		return new CountGroups(new CountGroup(0, m.getRows() - 1));
 	}
 }

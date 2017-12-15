@@ -411,7 +411,7 @@ public class PlotFactory {
 		plot.getAllSeries().add(series);
 
 		// We add error bars if there are multiple values per column
-		if (m.getRowCount() > 1) {
+		if (m.getRows() > 1) {
 			plot.addChild(new BarChartErrorBarsLayer());
 		}
 		
@@ -542,7 +542,7 @@ public class PlotFactory {
 
 		plot.addChild(new BarChartStackedLayer());
 
-		int n = m.getColumnCount();
+		int n = m.getCols();
 
 		axes.getX1Axis().setLimits(0, n);
 
@@ -1004,14 +1004,14 @@ public class PlotFactory {
 
 		//plot.getColumnSeriesGroup().add(series);
 
-		axes.setInternalSize(Math.min(maxWidth, m.getColumnCount() * DEFAULT_HEATMAP_SIZE), 
-				Math.min(maxHeight, m.getRowCount() * DEFAULT_HEATMAP_SIZE));
+		axes.setInternalSize(Math.min(maxWidth, m.getCols() * DEFAULT_HEATMAP_SIZE), 
+				Math.min(maxHeight, m.getRows() * DEFAULT_HEATMAP_SIZE));
 
-		boolean fullView = axes.getInternalSize().getW() >= m.getColumnCount() * DEFAULT_HEATMAP_SIZE;
+		boolean fullView = axes.getInternalSize().getW() >= m.getCols() * DEFAULT_HEATMAP_SIZE;
 
 
-		axes.getX1Axis().setLimits(0, m.getColumnCount(), 1);
-		axes.getX1Axis().getTicks().setTicks(Linspace.evenlySpaced(0.5, m.getColumnCount() - 0.5, 1));
+		axes.getX1Axis().setLimits(0, m.getCols(), 1);
+		axes.getX1Axis().getTicks().setTicks(Linspace.evenlySpaced(0.5, m.getCols() - 0.5, 1));
 		axes.getX1Axis().getTicks().getMajorTicks().setLabels(m.getColumnNames());
 		axes.getX1Axis().getTicks().getMajorTicks().setRotation(-Mathematics.HALF_PI);
 		axes.getX1Axis().getTicks().getMajorTicks().getLineStyle().setVisible(true);
@@ -1029,9 +1029,9 @@ public class PlotFactory {
 		// If the height of the heatmap is less than the ideal height,
 		// turn off labels and the grid.
 
-		fullView = axes.getInternalSize().getH() >= m.getRowCount() * DEFAULT_HEATMAP_SIZE;
+		fullView = axes.getInternalSize().getH() >= m.getRows() * DEFAULT_HEATMAP_SIZE;
 
-		axes.getY1Axis().setLimits(0, m.getRowCount(), 1);
+		axes.getY1Axis().setLimits(0, m.getRows(), 1);
 		axes.getY1Axis().setVisible(false);
 		axes.getY1Axis().getGrid().setVisible(false);
 		//axes.getY1Axis().getTicks().setTicks(Linspace.evenlySpaced(0.5, m.getRowCount() - 0.5, 1));
@@ -1047,8 +1047,8 @@ public class PlotFactory {
 		//}
 
 
-		axes.getY2Axis().setLimits(0, m.getRowCount(), 1);
-		axes.getY2Axis().getTicks().setTicks(Linspace.evenlySpaced(0.5, m.getRowCount() - 0.5, 1));
+		axes.getY2Axis().setLimits(0, m.getRows(), 1);
+		axes.getY2Axis().getTicks().setTicks(Linspace.evenlySpaced(0.5, m.getRows() - 0.5, 1));
 		
 		if (m.getRowAnnotationNames().size() > 0) {
 			axes.getY2Axis().getTicks().getMajorTicks().setLabels(m.getRowNames());

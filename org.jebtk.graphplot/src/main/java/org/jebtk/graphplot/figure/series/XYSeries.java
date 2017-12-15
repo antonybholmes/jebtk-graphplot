@@ -413,7 +413,7 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 
 		int c = columns.get(0);
 		
-		for (int i = 0; i < m.getRowCount(); ++i) {
+		for (int i = 0; i < m.getRows(); ++i) {
 			values.add(m.getValue(i, c));
 		}
 
@@ -434,7 +434,7 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 
 		int c = columns.get(1);
 		
-		for (int i = 0; i < m.getRowCount(); ++i) {
+		for (int i = 0; i < m.getRows(); ++i) {
 			values.add(m.getValue(i, c));
 		}
 
@@ -453,7 +453,7 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 
 		List<Integer> columns = MatrixGroup.findColumnIndices(m, series);
 
-		for (int i = 0; i < m.getRowCount(); ++i) {
+		for (int i = 0; i < m.getRows(); ++i) {
 			for (int c : columns) {
 				double v = m.getValue(i, c);
 
@@ -480,7 +480,7 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 
 		List<Integer> columns = MatrixGroup.findColumnIndices(m, series);
 
-		for (int i = 0; i < m.getRowCount(); ++i) {
+		for (int i = 0; i < m.getRows(); ++i) {
 			double v = m.getValue(i, columns.get(1));
 
 			if (v > ret) {
@@ -503,7 +503,7 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 
 		List<Integer> columns = MatrixGroup.findColumnIndices(m, series);
 
-		for (int i = 0; i < m.getRowCount(); ++i) {
+		for (int i = 0; i < m.getRows(); ++i) {
 			double v = m.getValue(i, columns.get(1));
 			
 			ret += v;
@@ -524,7 +524,7 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 
 		List<Integer> columns = MatrixGroup.findColumnIndices(m, series);
 
-		for (int i = 0; i < m.getRowCount(); ++i) {
+		for (int i = 0; i < m.getRows(); ++i) {
 			double v = m.getValue(i, columns.get(0));
 			
 			ret = Math.min(ret, v);
@@ -545,7 +545,7 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 
 		List<Integer> columns = MatrixGroup.findColumnIndices(m, series);
 
-		for (int i = 0; i < m.getRowCount(); ++i) {
+		for (int i = 0; i < m.getRows(); ++i) {
 			double v = m.getValue(i, columns.get(1));
 			
 			ret = Math.min(ret, v);
@@ -566,9 +566,9 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 		
 		int c = columns.get(0);
 		
-		double[] v = new double[m.getRowCount()];
+		double[] v = new double[m.getRows()];
 		
-		for (int i = 0; i < m.getRowCount(); ++i) {
+		for (int i = 0; i < m.getRows(); ++i) {
 			v[i] = m.getValue(i, c);
 		}
 
@@ -587,9 +587,9 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 		
 		int c = columns.get(0);
 		
-		double[] v = new double[m.getRowCount()];
+		double[] v = new double[m.getRows()];
 
-		for (int i = 0; i < m.getRowCount(); ++i) {
+		for (int i = 0; i < m.getRows(); ++i) {
 			v[i] = m.getValue(i, c);
 		}
 
@@ -616,7 +616,7 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
 		
 		List<DoublePos2D> points = new ArrayList<DoublePos2D>();
 		
-		for (int i = 0; i < m.getRowCount(); ++i) {
+		for (int i = 0; i < m.getRows(); ++i) {
 			points.add(new DoublePos2D(m.getValue(i, columns.get(0)), m.getValue(i, columns.get(1))));
 		}
 		

@@ -109,13 +109,13 @@ public abstract class MatrixPlotElement extends PlotElement {
 		if (dim.getH() < 1) {
 			mScaleYMode = true;
 			
-			int r = getMatrix().getRowCount();
+			int r = getMatrix().getRows();
 			
 			rows = (int)Math.max(1, r * dim.getH());
 			
 			yRatio = (int)((r << 16) / rows) + 1;
 		} else {
-			rows = getMatrix().getRowCount();
+			rows = getMatrix().getRows();
 			yRatio = 1;
 		}
 		
@@ -124,12 +124,12 @@ public abstract class MatrixPlotElement extends PlotElement {
 		if (dim.getW() < 1) {
 			mScaleXMode = true;
 			
-			int c = getMatrix().getColumnCount();
+			int c = getMatrix().getCols();
 			cols = (int)Math.max(1, c * dim.getW());
 			
 			xRatio = (int)((c << 16) / cols) + 1;
 		} else {
-			cols = getMatrix().getColumnCount();
+			cols = getMatrix().getCols();
 			xRatio = 1;
 		}
 		

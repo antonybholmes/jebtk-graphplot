@@ -59,7 +59,7 @@ public class RowHierarchicalLabelPlotElement extends RowLabelsPlotElement {
 
 		stack.push(rootCluster);
 
-		String[][] labels = new String[matrix.getRowCount()][properties.showAnnotations.getVisibleCount()];
+		String[][] labels = new String[matrix.getRows()][properties.showAnnotations.getVisibleCount()];
 		
 		while (stack.size() > 0) {
 			Cluster cluster = stack.pop();

@@ -347,7 +347,7 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
 	 * @return
 	 */
 	public static Iterable<String> getNames(PlotBox figure) {
-		return Stream.stream(figure).map(new Function<PlotBox, String>() {
+		return Stream.of(figure).map(new Function<PlotBox, String>() {
 			@Override
 			public String apply(PlotBox item) {
 				return item.getName();

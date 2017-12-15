@@ -133,11 +133,11 @@ public class MatrixSummaryPlotElement extends RowMatrixPlotElement {
 		
 		int y = (BLOCK_SIZE + g2.getFontMetrics().getAscent() - g2.getFontMetrics().getDescent()) / 2;
 		
-		g2.drawString(Formatter.number().format(mMatrix.getColumnCount()) + " experiments", 0, y);
+		g2.drawString(Formatter.number().format(mMatrix.getCols()) + " experiments", 0, y);
 			
 		y += BLOCK_SIZE;
 		
-		g2.drawString(Formatter.number().format(mMatrix.getRowCount()) + " features", 0, y);
+		g2.drawString(Formatter.number().format(mMatrix.getRows()) + " features", 0, y);
 		
 		y += 2 * BLOCK_SIZE;
 		

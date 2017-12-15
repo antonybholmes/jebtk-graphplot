@@ -92,7 +92,7 @@ public abstract class UniqueXYLayer extends PlotSeriesLayer {
 
 
 		if (mUnique == null || !mUnique.getKey().equals(id)) {
-			if (m.getColumnCount() % 2 == 0) {
+			if (m.getCols() % 2 == 0) {
 				// There must be at least two columns in the matrix otherwise
 				// there cannot possibly be an x and y column.
 

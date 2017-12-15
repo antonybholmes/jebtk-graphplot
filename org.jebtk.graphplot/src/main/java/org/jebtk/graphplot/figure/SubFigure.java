@@ -268,7 +268,7 @@ public class SubFigure extends PlotBoxGraph { //LayoutLayer
 	}
 
 	public Iterable<Axes> getAllAxes() {
-		return Stream.stream(this).reduce(new ListReduceFunction<PlotBox, Axes>() {
+		return Stream.of(this).reduce(new ListReduceFunction<PlotBox, Axes>() {
 
 			@Override
 			public void apply(PlotBox plot, List<Axes> values) {

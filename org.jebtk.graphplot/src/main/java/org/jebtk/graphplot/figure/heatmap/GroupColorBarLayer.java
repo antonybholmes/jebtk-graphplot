@@ -99,7 +99,7 @@ public class GroupColorBarLayer extends PlotLayer {
 		
 		//int h = w / 2; //axes.toPlotY1(0) - axes.toPlotY1(1);
 		
-		for (int column = 0; column < m.getColumnCount(); ++column) {
+		for (int column = 0; column < m.getCols(); ++column) {
 			y = axes.getMargins().getTop() - HEIGHT * mMaxRows - OFFSET;
 
 			for (int r = 0; r < mMaxRows; ++r) {

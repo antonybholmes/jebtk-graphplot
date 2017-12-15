@@ -113,7 +113,7 @@ public class GroupColorBarPlotElement extends ColumnMatrixPlotElement {
 		int w = mBlockSize.mW;
 		int h = HEIGHT + mGap;
 		
-		for (int column = 0; column < mMatrix.getColumnCount(); ++column) {
+		for (int column = 0; column < mMatrix.getCols(); ++column) {
 			y = 0;
 			
 			for (int r = 0; r < mMaxRows; ++r) {

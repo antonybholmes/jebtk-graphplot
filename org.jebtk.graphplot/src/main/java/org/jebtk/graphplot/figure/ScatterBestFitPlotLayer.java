@@ -162,7 +162,7 @@ SubFigure subFigure,
 			DataFrame m,
 			XYSeries series) {
 		
-		int n = m.getRowCount();
+		int n = m.getRows();
 		
 		/*grab (x,y) coordinates of the control points*/
 		double[] knotsX = new double[n];

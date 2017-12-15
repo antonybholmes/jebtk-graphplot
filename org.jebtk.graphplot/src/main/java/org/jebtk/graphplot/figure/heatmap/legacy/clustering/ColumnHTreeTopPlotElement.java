@@ -160,7 +160,7 @@ public class ColumnHTreeTopPlotElement extends ColumnMatrixPlotElement {
 		int id2;
 
 		if (mParents == null) {
-			mParents = new ArrayList<Cluster>(mMatrix.getColumnCount());
+			mParents = new ArrayList<Cluster>(mMatrix.getCols());
 			mOffsetMap = new HashMap<Integer, Integer>();
 			mOrderMap = new HashMap<Integer, Integer>();
 

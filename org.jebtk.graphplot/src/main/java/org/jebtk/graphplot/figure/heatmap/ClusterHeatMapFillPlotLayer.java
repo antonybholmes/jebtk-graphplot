@@ -99,21 +99,21 @@ public class ClusterHeatMapFillPlotLayer extends HeatMapFillPlotLayer {
 		if (mHashId == null || !mHashId.equals(subFigure.hashId())) {
 			newIndices(m, axes, x1, y1);
 
-			mX = new UniqueArrayList<Integer>(m.getColumnCount());
+			mX = new UniqueArrayList<Integer>(m.getCols());
 
-			for (int i = 0; i < m.getColumnCount(); ++i) {
+			for (int i = 0; i < m.getCols(); ++i) {
 				int x = axes.toPlotX1(mColumnOrder[i]) - x1;
 
 				mX.add(x);
 			}
 
-			mY = new UniqueArrayList<Integer>(m.getRowCount());
+			mY = new UniqueArrayList<Integer>(m.getRows());
 
-			for (int i = 0; i < m.getRowCount(); ++i) {
-				int y = axes.toPlotY1(mRowOrder[m.getRowCount() - i - 1]) - y1;
+			for (int i = 0; i < m.getRows(); ++i) {
+				int y = axes.toPlotY1(mRowOrder[m.getRows() - i - 1]) - y1;
 
 
-				System.err.println("add y " + i + " " + y + " " + y1 + " " + axes.getInternalSize() + " " +  axes.toPlotY1(m.getRowCount() - 1) + " " +  axes.toPlotY1(0));
+				System.err.println("add y " + i + " " + y + " " + y1 + " " + axes.getInternalSize() + " " +  axes.toPlotY1(m.getRows() - 1) + " " +  axes.toPlotY1(0));
 				
 				
 				mY.add(y);
@@ -133,10 +133,10 @@ public class ClusterHeatMapFillPlotLayer extends HeatMapFillPlotLayer {
 			mColorsMap.clear();
 			mColorTileMap.clear();
 
-			for (int i = 0; i < m.getRowCount(); ++i) {
-				int y = axes.toPlotY1(m.getRowCount() - i) - y1;
+			for (int i = 0; i < m.getRows(); ++i) {
+				int y = axes.toPlotY1(m.getRows() - i) - y1;
 
-				for (int j = 0; j < m.getColumnCount(); ++j) {
+				for (int j = 0; j < m.getCols(); ++j) {
 					int x = axes.toPlotX1(j) - x1;
 
 					if (mColorsMap.get(x).containsKey(y)) {
@@ -185,8 +185,8 @@ public class ClusterHeatMapFillPlotLayer extends HeatMapFillPlotLayer {
 	 * @param y1 the y 1
 	 */
 	private void newIndices(final DataFrame m, final Axes axes, int x1, int y1) {
-		mRowOrder = new int[m.getRowCount()];
-		mColumnOrder = new int[m.getColumnCount()];
+		mRowOrder = new int[m.getRows()];
+		mColumnOrder = new int[m.getCols()];
 
 		for (int i = 0; i < mRowOrder.length; ++i) {
 			mRowOrder[i] = i;

@@ -75,7 +75,7 @@ public class BoxWhiskerSummaryLayer extends PlotClippedLayer {
 
 		Graphics2D g2Temp = (Graphics2D)g2.create();
 
-		for (int i = 0; i < m.getColumnCount(); ++i) {
+		for (int i = 0; i < m.getCols(); ++i) {
 			XYSeries s = plot.getAllSeries().get(i);
 
 			lx = axes.toPlotX1(realX);

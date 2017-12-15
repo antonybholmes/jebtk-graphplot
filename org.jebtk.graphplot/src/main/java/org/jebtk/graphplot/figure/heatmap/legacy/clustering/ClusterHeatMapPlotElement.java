@@ -96,8 +96,8 @@ public class ClusterHeatMapPlotElement extends HeatMapPlotElement {
 		//set the order so initially rows and columns
 		//map as they should do
 
-		rowOrder = new int[mMatrix.getRowCount()];
-		columnOrder = new int[mMatrix.getColumnCount()];
+		rowOrder = new int[mMatrix.getRows()];
+		columnOrder = new int[mMatrix.getCols()];
 
 		for (int i = 0; i < rowOrder.length; ++i) {
 			rowOrder[i] = i;
@@ -171,10 +171,10 @@ public class ClusterHeatMapPlotElement extends HeatMapPlotElement {
 		int y = 0;	
 
 		if (context == DrawingContext.SCREEN) {
-			for (int i = 0; i < mMatrix.getRowCount(); ++i) {
+			for (int i = 0; i < mMatrix.getRows(); ++i) {
 				int x = 0;
 
-				for (int j = 0; j < mMatrix.getColumnCount(); ++j) {
+				for (int j = 0; j < mMatrix.getCols(); ++j) {
 					double v = mMatrix.getValue(rowOrder[i], columnOrder[j]);
 
 					g2.drawImage(cacheCell(mColorMap.getColor(v)), x, y, null);
@@ -185,10 +185,10 @@ public class ClusterHeatMapPlotElement extends HeatMapPlotElement {
 				y += mBlockSize.getH();
 			}
 		} else {
-			for (int i = 0; i < mMatrix.getRowCount(); ++i) {
+			for (int i = 0; i < mMatrix.getRows(); ++i) {
 				int x = 0;
 
-				for (int j = 0; j < mMatrix.getColumnCount(); ++j) {
+				for (int j = 0; j < mMatrix.getCols(); ++j) {
 					double v = mMatrix.getValue(rowOrder[i], columnOrder[j]);
 
 					g2.setColor(mColorMap.getColor(v));

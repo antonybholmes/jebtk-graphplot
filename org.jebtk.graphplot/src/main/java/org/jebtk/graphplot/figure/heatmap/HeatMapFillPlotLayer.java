@@ -154,17 +154,17 @@ Figure figure,
 			int h) {
 			
 		if (mHashId == null || !mHashId.equals(subFigure.hashId())) {
-			mX = new UniqueArrayList<Integer>(m.getColumnCount());
-			mY = new UniqueArrayList<Integer>(m.getRowCount());
+			mX = new UniqueArrayList<Integer>(m.getCols());
+			mY = new UniqueArrayList<Integer>(m.getRows());
 
-			for (int i = 0; i < m.getColumnCount(); ++i) {
+			for (int i = 0; i < m.getCols(); ++i) {
 				int x = axes.toPlotX1(i) - x1;
 
 				mX.add(x);
 			}
 
-			for (int i = 0; i < m.getRowCount(); ++i) {
-				int y = axes.toPlotY1(m.getRowCount() - i) - y1;
+			for (int i = 0; i < m.getRows(); ++i) {
+				int y = axes.toPlotY1(m.getRows() - i) - y1;
 
 				mY.add(y);
 			}
@@ -183,10 +183,10 @@ Figure figure,
 			mColorsMap.clear();
 			mColorTileMap.clear();
 
-			for (int i = 0; i < m.getRowCount(); ++i) {
-				int y = axes.toPlotY1(m.getRowCount() - i) - y1;
+			for (int i = 0; i < m.getRows(); ++i) {
+				int y = axes.toPlotY1(m.getRows() - i) - y1;
 
-				for (int j = 0; j < m.getColumnCount(); ++j) {
+				for (int j = 0; j < m.getCols(); ++j) {
 					int x = axes.toPlotX1(j) - x1;
 
 					if (mColorsMap.get(x).containsKey(y)) {

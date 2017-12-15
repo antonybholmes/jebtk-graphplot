@@ -71,7 +71,7 @@ public class BarChartStackedLayer extends PlotClippedLayer {
 
 		x = 0; //axes.toPlotX(axes.getXAxis().getMin());
 
-		for (int i = 0; i < m.getColumnCount(); ++i) {
+		for (int i = 0; i < m.getCols(); ++i) {
 			int y = y1;
 			
 			for (XYSeries series : plot.getAllSeries()) {

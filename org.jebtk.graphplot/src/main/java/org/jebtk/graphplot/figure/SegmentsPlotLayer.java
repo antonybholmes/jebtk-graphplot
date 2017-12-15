@@ -66,7 +66,7 @@ SubFigure subFigure,
 		g2.setColor(series.getStyle().getLineStyle().getColor());
 		g2.setStroke(series.getStyle().getLineStyle().getStroke());
 
-		for (int i = 0; i < m.getRowCount(); ++i) {
+		for (int i = 0; i < m.getRows(); ++i) {
 			int x1 = axes.toPlotX1(m.getValue(i, 0));
 			int y1 = axes.toPlotY1(m.getValue(i, 1));
 			// Ensure line is at least 1 pixel wide

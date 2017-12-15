@@ -82,7 +82,7 @@ public class UpDownDiffExpBracketsLeftPlotElement extends RowMatrixPlotElement {
 		
 		g2.drawLine(0, y, w, y);
 		
-		y = (int)(mMatrix.getRowCount() * mBlockSize.getH());
+		y = (int)(mMatrix.getRows() * mBlockSize.getH());
 		
 		g2.drawLine(0, y, w, y);
 		

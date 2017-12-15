@@ -790,7 +790,7 @@ public class Axes extends PlotBoxGraph {
 	 * @return the list
 	 */
 	public List<Point> toPlotX1Y1(DataFrame m, XYSeries s) {
-		int n = m.getRowCount();
+		int n = m.getRows();
 
 		List<Integer> columns = MatrixGroup.findColumnIndices(m, s);
 
@@ -1041,7 +1041,7 @@ public class Axes extends PlotBoxGraph {
 	}
 
 	public Iterable<Plot> getPlots() {
-		return Stream.stream(this).reduce(new ListReduceFunction<PlotBox, Plot>() {
+		return Stream.of(this).reduce(new ListReduceFunction<PlotBox, Plot>() {
 
 			@Override
 			public void apply(PlotBox plot, List<Plot> values) {

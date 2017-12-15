@@ -73,7 +73,7 @@ public class MatrixBorderPlotElement extends MatrixPlotElement {
 	
 	@Override
 	public void plotSize(Dimension d) {
-		d.width += mMatrix.getColumnCount() * mBlockSize.getW();
-		d.height += mMatrix.getRowCount() * mBlockSize.getH();
+		d.width += mMatrix.getCols() * mBlockSize.getW();
+		d.height += mMatrix.getRows() * mBlockSize.getH();
 	}
 }

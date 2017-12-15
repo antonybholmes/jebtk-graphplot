@@ -88,9 +88,9 @@ public class UniqueXY implements Iterable<Point>, Comparable<UniqueXY> {
 		List<Integer> columns = MatrixGroup.findColumnIndices(m, series);
 
 		if (columns.size() > 0) {
-			mAllList = new ArrayList<Point>(m.getRowCount());
+			mAllList = new ArrayList<Point>(m.getRows());
 
-			for (int i = 0; i < m.getRowCount(); ++i) {
+			for (int i = 0; i < m.getRows(); ++i) {
 				DoublePos2D point = new DoublePos2D(m.getValue(i, columns.get(0)), 
 						m.getValue(i, columns.get(1)));
 

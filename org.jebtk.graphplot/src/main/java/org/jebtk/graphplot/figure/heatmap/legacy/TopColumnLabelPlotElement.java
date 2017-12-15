@@ -118,7 +118,7 @@ public class TopColumnLabelPlotElement extends ColumnMatrixPlotElement {
 		
 		int x = BLOCK_SIZE + xd;
 		
-		for (int i = 0; i < mMatrix.getColumnCount(); ++i) {
+		for (int i = 0; i < mMatrix.getCols(); ++i) {
 			Graphics2D g2Temp = (Graphics2D)g2.create();
 
 			try {

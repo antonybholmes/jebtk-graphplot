@@ -62,7 +62,7 @@ public abstract class ColumnMatrixPlotElement extends MatrixPlotElement {
 	
 	@Override
 	public void plotSize(Dimension d) {
-		d.width += mMatrix.getColumnCount() * mBlockSize.getW();
+		d.width += mMatrix.getCols() * mBlockSize.getW();
 		d.height += (int)mHeight;
 	}
 }

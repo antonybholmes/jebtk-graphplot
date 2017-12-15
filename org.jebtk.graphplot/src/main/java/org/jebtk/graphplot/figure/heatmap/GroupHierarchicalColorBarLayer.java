@@ -96,7 +96,7 @@ SubFigure subFigure,
 		
 		int w = axes.toPlotX1(1) - axes.toPlotX1(0);
 		
-		for (int column = 0; column < m.getColumnCount(); ++column) {
+		for (int column = 0; column < m.getCols(); ++column) {
 			y = 0;
 			
 			for (int r = 0; r < mMaxRows; ++r) {
