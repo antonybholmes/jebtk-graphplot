@@ -22,11 +22,11 @@ import org.jebtk.graphplot.figure.series.MarkerCross;
  * The class ShapeCrossStyleIcon.
  */
 public class ShapeCrossStyleIcon extends ShapeStyleIcon {
-	
-	/**
-	 * Instantiates a new shape cross style icon.
-	 */
-	public ShapeCrossStyleIcon() {
-		super(new MarkerCross());
-	}
+
+  /**
+   * Instantiates a new shape cross style icon.
+   */
+  public ShapeCrossStyleIcon() {
+    super(new MarkerCross());
+  }
 }

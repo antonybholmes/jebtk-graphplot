@@ -21,73 +21,72 @@ import java.awt.Graphics2D;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.ImageUtils;
 
-
 // TODO: Auto-generated Javadoc
 /**
  * The class PlotBox.
  */
 public class PlotBoxRowLayout extends PlotBoxLayout {
 
-	/**
-	 * Gets the plot size recursive.
-	 *
-	 * @param plotBox the plot box
-	 * @param dim the dim
-	 * @return the plot size recursive
-	 */
-	@Override
-	public void plotSize(PlotBox plotBox, Dimension dim) {
-		int width = 0;
-		int height = 0;
+  /**
+   * Gets the plot size recursive.
+   *
+   * @param plotBox the plot box
+   * @param dim the dim
+   * @return the plot size recursive
+   */
+  @Override
+  public void plotSize(PlotBox plotBox, Dimension dim) {
+    int width = 0;
+    int height = 0;
 
-		Dimension tmpDim = new Dimension(0, 0);
-		
-		for (PlotBox child : plotBox) {
-			tmpDim.width = 0;
-			tmpDim.height = 0;
+    Dimension tmpDim = new Dimension(0, 0);
 
-			child.plotSize(tmpDim);
+    for (PlotBox child : plotBox) {
+      tmpDim.width = 0;
+      tmpDim.height = 0;
 
-			width = Math.max(width, tmpDim.width);
+      child.plotSize(tmpDim);
 
-			height += tmpDim.height;
-		}
+      width = Math.max(width, tmpDim.width);
 
-		dim.width += width;
-		dim.height += height;
-	}
+      height += tmpDim.height;
+    }
 
-	/**
-	 * Draw recursive.
-	 *
-	 * @param g2 the g2
-	 * @param plot the plot box
-	 * @param offset the offset
-	 * @param context the context
-	 */
-	@Override
-	public void plot(Graphics2D g2,
-			PlotBox plot,
-			Dimension offset,
-			DrawingContext context,
-			Object... params) {
-		Graphics2D g2Temp = ImageUtils.clone(g2);
+    dim.width += width;
+    dim.height += height;
+  }
 
-		Dimension tempOffset = new Dimension(0, 0);
+  /**
+   * Draw recursive.
+   *
+   * @param g2 the g2
+   * @param plot the plot box
+   * @param offset the offset
+   * @param context the context
+   */
+  @Override
+  public void plot(Graphics2D g2,
+      PlotBox plot,
+      Dimension offset,
+      DrawingContext context,
+      Object... params) {
+    Graphics2D g2Temp = ImageUtils.clone(g2);
 
-		try {	
-			for (PlotBox child : plot) {
-				tempOffset.width = 0;
-				tempOffset.height = 0;
+    Dimension tempOffset = new Dimension(0, 0);
 
-				child.plot(g2Temp, tempOffset, context, params);
+    try {
+      for (PlotBox child : plot) {
+        tempOffset.width = 0;
+        tempOffset.height = 0;
 
-				g2Temp.translate(0, tempOffset.height);
-			}
-		} finally {
-			g2Temp.dispose();
-		}
-		
-		super.plot(g2, plot, offset, context, params);
-	}
+        child.plot(g2Temp, tempOffset, context, params);
+
+        g2Temp.translate(0, tempOffset.height);
+      }
+    } finally {
+      g2Temp.dispose();
+    }
+
+    super.plot(g2, plot, offset, context, params);
+  }
 }

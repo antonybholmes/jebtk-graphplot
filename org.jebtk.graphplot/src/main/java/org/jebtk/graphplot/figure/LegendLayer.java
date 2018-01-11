@@ -33,259 +33,266 @@ import org.jebtk.modern.widget.ModernWidget;
  */
 public class LegendLayer extends AxesLayer {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/** The Constant GAP. */
-	private static final int GAP = 5;
+  /** The Constant GAP. */
+  private static final int GAP = 5;
 
-	/** The Constant TEXT_OFFSET. */
-	private static final int TEXT_OFFSET = 48;
+  /** The Constant TEXT_OFFSET. */
+  private static final int TEXT_OFFSET = 48;
 
-	/** The Constant LINE_WIDTH. */
-	private static final int LINE_WIDTH = 32;
+  /** The Constant LINE_WIDTH. */
+  private static final int LINE_WIDTH = 32;
 
-	
-	@Override
-	public String getType() {
-		return "Legend";
-	}
+  @Override
+  public String getType() {
+    return "Legend";
+  }
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.AxesLayer#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes)
-	 */
-	@Override
-	public void drawPlot(Graphics2D g2,
-			DrawingContext context,
-			Figure figure,
-			SubFigure subFigure,
-			Axes axes) {
-		// determine the size of the legend
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.AxesLayer#plot(java.awt.
+   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes)
+   */
+  @Override
+  public void drawPlot(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes) {
+    // determine the size of the legend
 
-		if (!axes.getLegend().getVisible()) {
-			return;
-		}
+    if (!axes.getLegend().getVisible()) {
+      return;
+    }
 
-		// In case there are repetitive series within groups (e.g. grouped
-		// bars), try to extract only the unique names.
-		Map<String, XYSeries> uniqueSeries = new TreeMap<String, XYSeries>();
+    // In case there are repetitive series within groups (e.g. grouped
+    // bars), try to extract only the unique names.
+    Map<String, XYSeries> uniqueSeries = new TreeMap<String, XYSeries>();
 
+    Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
 
-		Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
+    stack.push(axes);
 
-		stack.push(axes);
+    while (!stack.isEmpty()) {
+      PlotBox p = stack.pop();
 
-		while (!stack.isEmpty()) {
-			PlotBox p = stack.pop();
-			
-			//System.err.println("leggend " + p.getName() + " " + p);
+      // System.err.println("leggend " + p.getName() + " " + p);
 
-			if (p instanceof Plot) {
-				Plot plot = (Plot)p;
-				for (XYSeries series : plot.getAllSeries()) {
-					uniqueSeries.put(series.getName(), series);
+      if (p instanceof Plot) {
+        Plot plot = (Plot) p;
+        for (XYSeries series : plot.getAllSeries()) {
+          uniqueSeries.put(series.getName(), series);
 
-					//System.err.println("series " + series.getName()  + " " + series.getMarker() + " " + series.getMarkerStyle().getFillStyle().getColor());
-				}
-			}
+          // System.err.println("series " + series.getName() + " " +
+          // series.getMarker() + " " +
+          // series.getMarkerStyle().getFillStyle().getColor());
+        }
+      }
 
-			for (PlotBox c : p) {
-				stack.push(c);
-			}
-		}
+      for (PlotBox c : p) {
+        stack.push(c);
+      }
+    }
 
+    int lineHeight = g2.getFontMetrics().getAscent()
+        + g2.getFontMetrics().getDescent();
 
-		int lineHeight = g2.getFontMetrics().getAscent() + 
-				g2.getFontMetrics().getDescent();
+    // The height of the bounding box needs to be slightly bigger than
+    // the number of rows * line height to account for the font descent.
+    int height = (lineHeight + GAP) * uniqueSeries.size();// +
+                                                          // ModernWidget.DOUBLE_PADDING;
 
-		// The height of the bounding box needs to be slightly bigger than
-		// the number of rows * line height to account for the font descent.
-		int height = (lineHeight + GAP) * uniqueSeries.size();//+ ModernWidget.DOUBLE_PADDING;
+    String longest = null;
 
-		String longest = null;
+    for (String s : uniqueSeries.keySet()) {
+      if (longest == null || s.length() > longest.length()) {
+        longest = s;
+      }
+    }
 
-		for (String s : uniqueSeries.keySet()) {
-			if (longest == null || s.length() > longest.length()) {
-				longest = s;
-			}
-		}
+    if (longest == null) {
+      // There are no series to form a legend.
+      return;
+    }
 
-		if (longest == null) {
-			// There are no series to form a legend.
-			return;
-		}
+    int width = (int) (g2.getFontMetrics().stringWidth(longest)) + 64;
 
-		int width = (int)(g2.getFontMetrics().stringWidth(longest)) + 64;
+    // determine the location
 
-		// determine the location
+    int x;
+    int y;
 
-		int x;
-		int y;
+    if (axes.getLegend().isInside()) {
+      switch (axes.getLegend().getPosition()) {
+      case NW:
+        x = 0;
+        y = 0;
+        break;
+      case N:
+        x = (axes.getInternalSize().getW() - width) / 2;
+        y = 0;
+        break;
+      case W:
+        x = 0;
+        y = (axes.getInternalSize().getH() - height) / 2;
+        break;
+      case NE:
+        // top right
+        x = axes.getInternalSize().getW() - width;
+        y = 0;
+        break;
+      case E:
+        x = axes.getInternalSize().getW() - width;
+        y = (axes.getInternalSize().getH() - height) / 2;
+        break;
+      case SW:
+        x = 0;
+        y = axes.getInternalSize().getH() - height;
+        break;
+      case S:
+        x = (axes.getInternalSize().getW() - width) / 2;
+        y = axes.getInternalSize().getH() - height;
+        break;
+      case SE:
+        x = axes.getInternalSize().getW() - width;
+        y = axes.getInternalSize().getH() - height;
+        break;
+      default:
+        x = (axes.getInternalSize().getW() - width) / 2;
+        y = (axes.getInternalSize().getH() - height) / 2;
+        break;
+      }
+    } else {
+      // Plot legend at boundaries of margins
+      switch (axes.getLegend().getPosition()) {
+      case NW:
+        x = -axes.getMargins().getLeft();
+        y = -axes.getMargins().getTop();
+        break;
+      case N:
+        x = (axes.getInternalSize().getW() - width) / 2;
+        y = -axes.getMargins().getTop();
+        break;
+      case NE:
+        // top right
+        x = axes.getInternalSize().getW() + axes.getMargins().getRight()
+            - width;
+        y = -axes.getMargins().getTop();
+        break;
+      case W:
+        x = -axes.getMargins().getLeft();
+        y = (axes.getInternalSize().getH() - height) / 2;
+        break;
+      case E:
+        x = axes.getInternalSize().getW() + axes.getMargins().getRight()
+            - width;
+        y = (axes.getInternalSize().getH() - height) / 2;
+        break;
+      case SW:
+        x = -axes.getMargins().getLeft();
+        y = axes.getInternalSize().getH() + axes.getMargins().getBottom()
+            - height;
+        break;
+      case S:
+        x = (axes.getInternalSize().getW() - width) / 2;
+        y = axes.getInternalSize().getH() + axes.getMargins().getBottom()
+            - height;
+        break;
+      case SE:
+        x = axes.getInternalSize().getW() + axes.getMargins().getRight()
+            - width;
+        y = axes.getInternalSize().getH() + axes.getMargins().getBottom()
+            - height;
+        break;
+      default:
+        x = (axes.getInternalSize().getW() - width) / 2;
+        y = (axes.getInternalSize().getH() - height) / 2;
+        break;
+      }
+    }
 
-		if (axes.getLegend().isInside()) {
-			switch(axes.getLegend().getPosition()) {
-			case NW:
-				x = 0;
-				y = 0;
-				break;
-			case N:
-				x = (axes.getInternalSize().getW() - width) / 2;
-				y = 0;
-				break;
-			case W:
-				x = 0;
-				y = (axes.getInternalSize().getH() - height) / 2;
-				break;
-			case NE:
-				//top right
-				x = axes.getInternalSize().getW() - width;
-				y = 0;
-				break;
-			case E:
-				x = axes.getInternalSize().getW() - width;
-				y = (axes.getInternalSize().getH() - height) / 2;
-				break;
-			case SW:
-				x = 0;
-				y = axes.getInternalSize().getH() - height;
-				break;
-			case S:
-				x = (axes.getInternalSize().getW() - width) / 2;
-				y = axes.getInternalSize().getH() - height;
-				break;
-			case SE:
-				x = axes.getInternalSize().getW() - width;
-				y = axes.getInternalSize().getH() - height;
-				break;
-			default:
-				x = (axes.getInternalSize().getW() - width) / 2;
-				y = (axes.getInternalSize().getH() - height) / 2;
-				break;
-			}
-		} else {
-			// Plot legend at boundaries of margins
-			switch(axes.getLegend().getPosition()) {
-			case NW:
-				x = -axes.getMargins().getLeft();
-				y = -axes.getMargins().getTop();
-				break;
-			case N:
-				x = (axes.getInternalSize().getW() - width) / 2;
-				y = -axes.getMargins().getTop();
-				break;
-			case NE:
-				//top right
-				x = axes.getInternalSize().getW() + axes.getMargins().getRight() - width;
-				y = -axes.getMargins().getTop();
-				break;
-			case W:
-				x = -axes.getMargins().getLeft();
-				y = (axes.getInternalSize().getH() - height) / 2;
-				break;
-			case E:
-				x = axes.getInternalSize().getW() + axes.getMargins().getRight() - width;
-				y = (axes.getInternalSize().getH() - height) / 2;
-				break;
-			case SW:
-				x = -axes.getMargins().getLeft();
-				y = axes.getInternalSize().getH() + axes.getMargins().getBottom() - height;
-				break;
-			case S:
-				x = (axes.getInternalSize().getW() - width) / 2;
-				y = axes.getInternalSize().getH() + axes.getMargins().getBottom() - height;
-				break;
-			case SE:
-				x = axes.getInternalSize().getW() + axes.getMargins().getRight() - width;
-				y = axes.getInternalSize().getH() + axes.getMargins().getBottom() - height;
-				break;
-			default:
-				x = (axes.getInternalSize().getW() - width) / 2;
-				y = (axes.getInternalSize().getH() - height) / 2;
-				break;
-			}
-		}
+    if (axes.getLegend().getStyle().getFillStyle().getVisible()) {
+      g2.setColor(axes.getLegend().getStyle().getFillStyle().getColor());
+      g2.fillRect(x, y, width, height);
+    }
 
+    if (axes.getLegend().getStyle().getLineStyle().getVisible()) {
+      g2.setColor(axes.getLegend().getStyle().getLineStyle().getColor());
+      g2.drawRect(x, y, width, height);
+    }
 
-		if (axes.getLegend().getStyle().getFillStyle().getVisible()) {
-			g2.setColor(axes.getLegend().getStyle().getFillStyle().getColor());
-			g2.fillRect(x, y, width, height);
-		}
+    // draw the labels
 
-		if (axes.getLegend().getStyle().getLineStyle().getVisible()) {
-			g2.setColor(axes.getLegend().getStyle().getLineStyle().getColor());
-			g2.drawRect(x, y, width, height);
-		}
+    x += ModernWidget.PADDING;
+    y += ModernWidget.PADDING;
 
-		// draw the labels
+    int textX;
+    int textY;
 
+    // draw the lines
 
-		x += ModernWidget.PADDING;
-		y += ModernWidget.PADDING;
+    textX = x;
+    textY = y;
 
+    for (String name : uniqueSeries.keySet()) {
+      XYSeries s = uniqueSeries.get(name);
 
+      if (s.getStyle().getLineStyle().getVisible()) {
+        Graphics2D g2Temp = (Graphics2D) g2.create();
 
-		int textX;
-		int textY;
+        g2Temp.translate(textX, textY + lineHeight / 2);
+        g2Temp.setColor(s.getStyle().getLineStyle().getColor());
+        g2Temp.setStroke(s.getStyle().getLineStyle().getStroke());
 
-		// draw the lines
+        g2Temp.drawLine(0, 0, LINE_WIDTH, 0);
 
-		textX = x;
-		textY = y;
+        g2Temp.dispose();
+      }
 
-		for (String name : uniqueSeries.keySet()) {
-			XYSeries s = uniqueSeries.get(name);
+      textY += lineHeight + GAP;
+    }
 
-			
-			if (s.getStyle().getLineStyle().getVisible()) {
-				Graphics2D g2Temp = (Graphics2D)g2.create();
+    // draw the markers
 
-				g2Temp.translate(textX, textY + lineHeight / 2);
-				g2Temp.setColor(s.getStyle().getLineStyle().getColor());
-				g2Temp.setStroke(s.getStyle().getLineStyle().getStroke());
+    textX = x + ModernWidget.PADDING;
+    textY = y;
 
-				g2Temp.drawLine(0, 0, LINE_WIDTH, 0);
+    for (String name : uniqueSeries.keySet()) {
+      XYSeries s = uniqueSeries.get(name);
 
-				g2Temp.dispose();
-			}
+      if (s.getMarker().getVisible()) {
+        s.getMarker().plot(g2,
+            s.getMarkerStyle(),
+            new Point(textX + (LINE_WIDTH - s.getMarker().getSize()) / 2,
+                textY + lineHeight / 2));
+      }
 
-			textY += lineHeight + GAP;
-		}
+      textY += lineHeight + GAP;
+    }
 
-		// draw the markers
+    // draw the labels
 
-		textX = x + ModernWidget.PADDING;
-		textY = y;
+    textX = x + TEXT_OFFSET;
+    textY = y + lineHeight - g2.getFontMetrics().getDescent();
 
-		for (String name : uniqueSeries.keySet()) {
-			XYSeries s = uniqueSeries.get(name);
+    for (String name : uniqueSeries.keySet()) {
+      XYSeries s = uniqueSeries.get(name);
 
-			if (s.getMarker().getVisible()) {
-				s.getMarker().plot(g2, 
-						s.getMarkerStyle(), 
-						new Point(textX + (LINE_WIDTH - s.getMarker().getSize()) / 2, textY + lineHeight / 2));
-			}
+      g2.setColor(s.getFontStyle().getColor());
+      g2.setFont(s.getFontStyle().getFont());
 
-			textY += lineHeight + GAP;
-		}
+      g2.drawString(name, textX, textY);
 
-		// draw the labels
+      textY += lineHeight + GAP;
+    }
 
-		textX = x + TEXT_OFFSET;
-		textY = y + lineHeight - g2.getFontMetrics().getDescent();
-
-		for (String name : uniqueSeries.keySet()) {
-			XYSeries s = uniqueSeries.get(name);
-
-			g2.setColor(s.getFontStyle().getColor());
-			g2.setFont(s.getFontStyle().getFont());
-
-			g2.drawString(name, textX, textY);
-
-			textY += lineHeight + GAP;
-		}
-
-
-	}
+  }
 }

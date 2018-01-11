@@ -29,7 +29,6 @@ import org.jebtk.math.cluster.Cluster;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
-
 // TODO: Auto-generated Javadoc
 /**
  * Sort the labels using the hierarchical tree.
@@ -39,102 +38,104 @@ import org.jebtk.modern.graphics.DrawingContext;
  */
 public class ColumnHLabelBottomPlotElement extends ColumnMatrixPlotElement {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * The member ids.
-	 */
-	protected ArrayList<String> mIds;
+  /**
+   * The member ids.
+   */
+  protected ArrayList<String> mIds;
 
-	/**
-	 * The member color.
-	 */
-	protected Color mColor;
+  /**
+   * The member color.
+   */
+  protected Color mColor;
 
-	/**
-	 * Instantiates a new column hierarchical label plot element.
-	 *
-	 * @param matrix the matrix
-	 * @param aspectRatio the aspect ratio
-	 * @param rootCluster the root cluster
-	 * @param color the color
-	 * @param charWidth the char width
-	 * @param maxRowChars the max row chars
-	 */
-	public ColumnHLabelBottomPlotElement(DataFrame matrix,
-			DoubleDim aspectRatio,
-			Cluster rootCluster,
-			Color color,
-			int charWidth,
-			int maxRowChars) {
-		super(matrix, 
-				aspectRatio, 
-				charWidth * TextUtils.maxLength(matrix.getColumnNames()));
+  /**
+   * Instantiates a new column hierarchical label plot element.
+   *
+   * @param matrix the matrix
+   * @param aspectRatio the aspect ratio
+   * @param rootCluster the root cluster
+   * @param color the color
+   * @param charWidth the char width
+   * @param maxRowChars the max row chars
+   */
+  public ColumnHLabelBottomPlotElement(DataFrame matrix, DoubleDim aspectRatio,
+      Cluster rootCluster, Color color, int charWidth, int maxRowChars) {
+    super(matrix, aspectRatio,
+        charWidth * TextUtils.maxLength(matrix.getColumnNames()));
 
-		mColor = color;
+    mColor = color;
 
-		Deque<Cluster> stack = new ArrayDeque<Cluster>();
+    Deque<Cluster> stack = new ArrayDeque<Cluster>();
 
-		stack.push(rootCluster);
+    stack.push(rootCluster);
 
-		mIds = new ArrayList<String>();
+    mIds = new ArrayList<String>();
 
-		while (stack.size() > 0) {
-			Cluster cluster = stack.pop();
+    while (stack.size() > 0) {
+      Cluster cluster = stack.pop();
 
-			if (cluster.isParent()) {
-				Cluster c1 = cluster.getChild1();
-				Cluster c2 = cluster.getChild2();
+      if (cluster.isParent()) {
+        Cluster c1 = cluster.getChild1();
+        Cluster c2 = cluster.getChild2();
 
-				stack.push(c2);
-				stack.push(c1);
-			} else {
-				mIds.add(matrix.getColumnName(cluster.getId()));
-			}
-		}
-	}
+        stack.push(c2);
+        stack.push(c1);
+      } else {
+        mIds.add(matrix.getColumnName(cluster.getId()));
+      }
+    }
+  }
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
-	 */
-	@Override
-	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Object... params) {
-		drawLabels(g2);
-		
-		super.plot(g2, offset, context, params);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.
+   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
+   */
+  @Override
+  public void plot(Graphics2D g2,
+      Dimension offset,
+      DrawingContext context,
+      Object... params) {
+    drawLabels(g2);
 
-	/**
-	 * Draw labels.
-	 *
-	 * @param g2 the g2
-	 */
-	protected void drawLabels(Graphics2D g2) {
-		g2.setColor(mColor);
+    super.plot(g2, offset, context, params);
+  }
 
-		//(blockSize.width + g2.getFontMetrics().getAscent()) / 2;
-		int xd = (mBlockSize.getW() - g2.getFontMetrics().getAscent()) / 2;
+  /**
+   * Draw labels.
+   *
+   * @param g2 the g2
+   */
+  protected void drawLabels(Graphics2D g2) {
+    g2.setColor(mColor);
 
-		int x = xd;
-		
-		for (String id : mIds) {
+    // (blockSize.width + g2.getFontMetrics().getAscent()) / 2;
+    int xd = (mBlockSize.getW() - g2.getFontMetrics().getAscent()) / 2;
 
-			Graphics2D g2Temp = (Graphics2D)g2.create();
+    int x = xd;
 
-			try {
-				g2Temp.translate(x, 0);
-				g2Temp.rotate(Math.PI / 2.0);
-				//g2Temp.translate(0, -);
+    for (String id : mIds) {
 
-				g2Temp.drawString(id, 0, 0);
-			} finally {
-				g2Temp.dispose();
-			}
+      Graphics2D g2Temp = (Graphics2D) g2.create();
 
-			x += mBlockSize.getW();
-		}
-	}
+      try {
+        g2Temp.translate(x, 0);
+        g2Temp.rotate(Math.PI / 2.0);
+        // g2Temp.translate(0, -);
+
+        g2Temp.drawString(id, 0, 0);
+      } finally {
+        g2Temp.dispose();
+      }
+
+      x += mBlockSize.getW();
+    }
+  }
 }

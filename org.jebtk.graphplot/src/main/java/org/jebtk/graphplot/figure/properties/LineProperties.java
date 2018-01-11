@@ -26,121 +26,121 @@ import java.awt.Stroke;
  *
  */
 public class LineProperties extends ColorProperties {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
 
-	/** The m style. */
-	private StrokeStyle mStyle = null;
-	
-	/**
-	 * The member stroke.
-	 */
-	private Stroke mStroke;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/** The m width. */
-	private int mWidth;
+  /** The m style. */
+  private StrokeStyle mStyle = null;
 
-	/**
-	 * Instantiates a new line properties.
-	 */
-	public LineProperties() {
-		// The default color, to override the fill color from which it
-		// derived.
-		setColor(Color.BLACK);
-		
-		setStroke(StrokeStyle.SINGLE, 1);
-	}
-	
-	/**
-	 * Copy.
-	 *
-	 * @param p the p
-	 */
-	public void copy(final LineProperties p) {
-		mStroke = p.mStroke;
-		mStyle = p.mStyle;
-		mWidth = p.mWidth;
-		
-		super.copy(p);
-	}
-	
-	/**
-	 * Sets the stroke.
-	 *
-	 * @param w the new stroke
-	 */
-	public void setStroke(int w) {
-		updateStroke(w);
-		
-		fireChanged();
-	}
-	
-	public void updateStroke(int w) {
-		updateStroke(StrokeStyle.SINGLE, w);
-	}
-	
-	/**
-	 * Sets the stroke.
-	 *
-	 * @param style the style
-	 * @param w the w
-	 */
-	public void setStroke(StrokeStyle style, int w) {
-		updateStroke(style, w);
-		
-		fireChanged();
-	}
-	
-	public void updateStroke(StrokeStyle style, int w) {
-		mStyle = style;
-		mWidth = w;
-		
-		updateStroke(StrokeStyle.getStroke(style, w));
-	}
-	
-	/**
-	 * Set the line stroke style.
-	 * 
-	 * @param stroke	The line stroke.
-	 */
-	private void setStroke(Stroke stroke) {
-		updateStroke(stroke);
-		
-		fireChanged();
-	}
-	
-	private void updateStroke(Stroke stroke) {
-		mStroke = stroke;
-	}
-	
-	/**
-	 * Returns the line stroke.
-	 * 
-	 * @return		The line stroke.
-	 */
-	public Stroke getStroke() {
-		return mStroke;
-	}
+  /**
+   * The member stroke.
+   */
+  private Stroke mStroke;
 
-	/**
-	 * Gets the stroke style.
-	 *
-	 * @return the stroke style
-	 */
-	public StrokeStyle getStrokeStyle() {
-		return mStyle;
-	}
-	
-	/**
-	 * Gets the width.
-	 *
-	 * @return the width
-	 */
-	public int getWidth() {
-		return mWidth;
-	}
-	
+  /** The m width. */
+  private int mWidth;
+
+  /**
+   * Instantiates a new line properties.
+   */
+  public LineProperties() {
+    // The default color, to override the fill color from which it
+    // derived.
+    setColor(Color.BLACK);
+
+    setStroke(StrokeStyle.SINGLE, 1);
+  }
+
+  /**
+   * Copy.
+   *
+   * @param p the p
+   */
+  public void copy(final LineProperties p) {
+    mStroke = p.mStroke;
+    mStyle = p.mStyle;
+    mWidth = p.mWidth;
+
+    super.copy(p);
+  }
+
+  /**
+   * Sets the stroke.
+   *
+   * @param w the new stroke
+   */
+  public void setStroke(int w) {
+    updateStroke(w);
+
+    fireChanged();
+  }
+
+  public void updateStroke(int w) {
+    updateStroke(StrokeStyle.SINGLE, w);
+  }
+
+  /**
+   * Sets the stroke.
+   *
+   * @param style the style
+   * @param w the w
+   */
+  public void setStroke(StrokeStyle style, int w) {
+    updateStroke(style, w);
+
+    fireChanged();
+  }
+
+  public void updateStroke(StrokeStyle style, int w) {
+    mStyle = style;
+    mWidth = w;
+
+    updateStroke(StrokeStyle.getStroke(style, w));
+  }
+
+  /**
+   * Set the line stroke style.
+   * 
+   * @param stroke The line stroke.
+   */
+  private void setStroke(Stroke stroke) {
+    updateStroke(stroke);
+
+    fireChanged();
+  }
+
+  private void updateStroke(Stroke stroke) {
+    mStroke = stroke;
+  }
+
+  /**
+   * Returns the line stroke.
+   * 
+   * @return The line stroke.
+   */
+  public Stroke getStroke() {
+    return mStroke;
+  }
+
+  /**
+   * Gets the stroke style.
+   *
+   * @return the stroke style
+   */
+  public StrokeStyle getStrokeStyle() {
+    return mStyle;
+  }
+
+  /**
+   * Gets the width.
+   *
+   * @return the width
+   */
+  public int getWidth() {
+    return mWidth;
+  }
+
 }

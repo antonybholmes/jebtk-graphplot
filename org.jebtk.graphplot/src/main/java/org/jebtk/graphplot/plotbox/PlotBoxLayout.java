@@ -20,51 +20,49 @@ import java.awt.Graphics2D;
 
 import org.jebtk.modern.graphics.DrawingContext;
 
-
 // TODO: Auto-generated Javadoc
 /**
  * The class PlotBox.
  */
 public abstract class PlotBoxLayout {
-	public Dimension getPreferredSize(PlotBox plotBox) {
-		Dimension dim = new Dimension(0, 0);
+  public Dimension getPreferredSize(PlotBox plotBox) {
+    Dimension dim = new Dimension(0, 0);
 
-		plotSize(plotBox, dim);
+    plotSize(plotBox, dim);
 
-		return dim;
-	}
-	
-	/**
-	 * Gets the plot size recursive.
-	 *
-	 * @param plotBox the plot box
-	 * @param dim the dim
-	 * @return the plot size recursive
-	 */
-	public abstract void plotSize(PlotBox plotBox, Dimension dim);
+    return dim;
+  }
 
+  /**
+   * Gets the plot size recursive.
+   *
+   * @param plotBox the plot box
+   * @param dim the dim
+   * @return the plot size recursive
+   */
+  public abstract void plotSize(PlotBox plotBox, Dimension dim);
 
-	public final void plot(Graphics2D g2, 
-			PlotBox plot,
-			DrawingContext context,
-			Object... params) {
-		plot(g2, plot, new Dimension(0, 0), context, params);
-	}
+  public final void plot(Graphics2D g2,
+      PlotBox plot,
+      DrawingContext context,
+      Object... params) {
+    plot(g2, plot, new Dimension(0, 0), context, params);
+  }
 
-	/**
-	 * Draw recursive.
-	 *
-	 * @param g2 the g2
-	 * @param plotBox the plot box
-	 * @param offset the offset
-	 * @param context the context
-	 */
-	public void plot(Graphics2D g2,
-			PlotBox plotBox,
-			Dimension offset,
-			DrawingContext context,
-			Object... params) {
-		plotSize(plotBox, offset);
-	}
+  /**
+   * Draw recursive.
+   *
+   * @param g2 the g2
+   * @param plotBox the plot box
+   * @param offset the offset
+   * @param context the context
+   */
+  public void plot(Graphics2D g2,
+      PlotBox plotBox,
+      Dimension offset,
+      DrawingContext context,
+      Object... params) {
+    plotSize(plotBox, offset);
+  }
 
 }

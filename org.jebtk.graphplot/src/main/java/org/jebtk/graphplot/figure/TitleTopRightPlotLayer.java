@@ -27,52 +27,60 @@ import org.jebtk.modern.graphics.DrawingContext;
  * @author Antony Holmes Holmes
  */
 public class TitleTopRightPlotLayer extends AxesTitleLayer {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
 
-	/**
-	 * The constant OFFSET.
-	 */
-	public static final int OFFSET = 10;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * The member y offset.
-	 */
-	private int mYOffset;
+  /**
+   * The constant OFFSET.
+   */
+  public static final int OFFSET = 10;
 
-	/**
-	 * Instantiates a new title top right plot layer.
-	 *
-	 * @param yOffset the y offset
-	 */
-	public TitleTopRightPlotLayer(int yOffset) {
-		mYOffset = yOffset;
-	}
+  /**
+   * The member y offset.
+   */
+  private int mYOffset;
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.AxesTitleLayer#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes)
-	 */
-	@Override
-	public void drawPlot(Graphics2D g2,
-			DrawingContext context,
-			Figure figure,
-SubFigure subFigure,
-			Axes axes) {
+  /**
+   * Instantiates a new title top right plot layer.
+   *
+   * @param yOffset the y offset
+   */
+  public TitleTopRightPlotLayer(int yOffset) {
+    mYOffset = yOffset;
+  }
 
-		String title = axes.getTitle().getText();
-		Color color = axes.getTitle().getFontStyle().getColor();
-		
-		if (axes.getTitle().getFontStyle().getVisible() || title == null || title.length() == 0) {
-			return;
-		}
-		
-		int x = OFFSET + axes.getPreferredSize().width - axes.getMargins().getRight();
-		int y = axes.getMargins().getTop() + mYOffset;
-		
-		g2.setColor(color);
-		g2.drawString(title, x, y);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.AxesTitleLayer#plot(java.
+   * awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes)
+   */
+  @Override
+  public void drawPlot(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes) {
+
+    String title = axes.getTitle().getText();
+    Color color = axes.getTitle().getFontStyle().getColor();
+
+    if (axes.getTitle().getFontStyle().getVisible() || title == null
+        || title.length() == 0) {
+      return;
+    }
+
+    int x = OFFSET + axes.getPreferredSize().width
+        - axes.getMargins().getRight();
+    int y = axes.getMargins().getTop() + mYOffset;
+
+    g2.setColor(color);
+    g2.drawString(title, x, y);
+  }
 }

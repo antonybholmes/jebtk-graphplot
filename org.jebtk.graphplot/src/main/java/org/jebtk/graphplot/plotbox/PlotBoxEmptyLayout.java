@@ -19,42 +19,40 @@ import java.awt.Dimension;
 
 import org.jebtk.core.geom.IntDim;
 
-
-
 // TODO: Auto-generated Javadoc
 /**
  * The class EmptyPlotBox.
  */
 public class PlotBoxEmptyLayout extends PlotBoxLayout {
-	
-	private IntDim mDim;
-	
-	/**
-	 * Instantiates a new empty plot box.
-	 *
-	 * @param dimension the dimension
-	 */
-	public PlotBoxEmptyLayout(IntDim dim) {
-		mDim = dim;
-	}
-	
-	public PlotBoxEmptyLayout(Dimension dim) {
-		this(IntDim.create(dim));
-	}
 
-	/**
-	 * Instantiates a new empty plot box.
-	 *
-	 * @param width the width
-	 * @param height the height
-	 */
-	public PlotBoxEmptyLayout(int width, int height) {
-		this(new IntDim(width, height));
-	}
+  private IntDim mDim;
 
-	@Override
-	public void plotSize(PlotBox plot, Dimension dim) {
-		dim.width += mDim.getW();
-		dim.height += mDim.getH();
-	}
+  /**
+   * Instantiates a new empty plot box.
+   *
+   * @param dimension the dimension
+   */
+  public PlotBoxEmptyLayout(IntDim dim) {
+    mDim = dim;
+  }
+
+  public PlotBoxEmptyLayout(Dimension dim) {
+    this(IntDim.create(dim));
+  }
+
+  /**
+   * Instantiates a new empty plot box.
+   *
+   * @param width the width
+   * @param height the height
+   */
+  public PlotBoxEmptyLayout(int width, int height) {
+    this(new IntDim(width, height));
+  }
+
+  @Override
+  public void plotSize(PlotBox plot, Dimension dim) {
+    dim.width += mDim.getW();
+    dim.height += mDim.getH();
+  }
 }

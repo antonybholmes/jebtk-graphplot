@@ -23,7 +23,6 @@ import org.jebtk.math.cluster.Cluster;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.widget.ModernWidget;
 
-
 // TODO: Auto-generated Javadoc
 /**
  * Sort the labels using the hierarchical tree.
@@ -32,57 +31,53 @@ import org.jebtk.modern.widget.ModernWidget;
  *
  */
 public class ColumnHLabelTopPlotElement extends ColumnHLabelBottomPlotElement {
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * Instantiates a new column H label top plot element.
-	 *
-	 * @param matrix the matrix
-	 * @param aspectRatio the aspect ratio
-	 * @param rootCluster the root cluster
-	 * @param color the color
-	 * @param charWidth the char width
-	 * @param maxRowChars the max row chars
-	 */
-	public ColumnHLabelTopPlotElement(DataFrame matrix, 
-			DoubleDim aspectRatio, 
-			Cluster rootCluster,
-			Color color, 
-			int charWidth, 
-			int maxRowChars) {
-		super(matrix, aspectRatio, rootCluster, color, charWidth, maxRowChars);
-	}
+  /**
+   * Instantiates a new column H label top plot element.
+   *
+   * @param matrix the matrix
+   * @param aspectRatio the aspect ratio
+   * @param rootCluster the root cluster
+   * @param color the color
+   * @param charWidth the char width
+   * @param maxRowChars the max row chars
+   */
+  public ColumnHLabelTopPlotElement(DataFrame matrix, DoubleDim aspectRatio,
+      Cluster rootCluster, Color color, int charWidth, int maxRowChars) {
+    super(matrix, aspectRatio, rootCluster, color, charWidth, maxRowChars);
+  }
 
-	/**
-	 * Draw labels.
-	 *
-	 * @param g2 the g2
-	 */
-	@Override
-	protected void drawLabels(Graphics2D g2) {
-		g2.setColor(mColor);
+  /**
+   * Draw labels.
+   *
+   * @param g2 the g2
+   */
+  @Override
+  protected void drawLabels(Graphics2D g2) {
+    g2.setColor(mColor);
 
-		int xd = (mBlockSize.getW() - ModernWidget.getStringHeight(g2)) / 2;
+    int xd = (mBlockSize.getW() - ModernWidget.getStringHeight(g2)) / 2;
 
-		int x = BLOCK_SIZE + xd;
+    int x = BLOCK_SIZE + xd;
 
-		for (String id : mIds) {
+    for (String id : mIds) {
 
-			Graphics2D g2Temp = (Graphics2D)g2.create();
+      Graphics2D g2Temp = (Graphics2D) g2.create();
 
-			try {
-				g2Temp.translate(x, getPreferredSize().height);
-				g2Temp.rotate(-Math.PI / 2.0);
-				//g2Temp.translate(0, -xd);
+      try {
+        g2Temp.translate(x, getPreferredSize().height);
+        g2Temp.rotate(-Math.PI / 2.0);
+        // g2Temp.translate(0, -xd);
 
-				g2Temp.drawString(id, 0, 0);
-			} finally {
-				g2Temp.dispose();
-			}
-			x += mBlockSize.getW();
-		}
-	}
+        g2Temp.drawString(id, 0, 0);
+      } finally {
+        g2Temp.dispose();
+      }
+      x += mBlockSize.getW();
+    }
+  }
 }

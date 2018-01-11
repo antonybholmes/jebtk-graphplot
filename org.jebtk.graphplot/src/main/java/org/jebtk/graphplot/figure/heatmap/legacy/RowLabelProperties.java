@@ -20,18 +20,17 @@ package org.jebtk.graphplot.figure.heatmap.legacy;
  * The class RowLabelProperties.
  */
 public class RowLabelProperties extends LabelProperties {
-	
-	/**
-	 * The position.
-	 */
-	public RowLabelPosition position = RowLabelPosition.RIGHT;
-	
-	/**
-	 * The show annotations.
-	 */
-	public AnnotationProperties showAnnotations =
-			new AnnotationProperties();
 
-	/** The show features. */
-	public boolean showFeatureCounts;
+  /**
+   * The position.
+   */
+  public RowLabelPosition position = RowLabelPosition.RIGHT;
+
+  /**
+   * The show annotations.
+   */
+  public AnnotationProperties showAnnotations = new AnnotationProperties();
+
+  /** The show features. */
+  public boolean showFeatureCounts;
 }

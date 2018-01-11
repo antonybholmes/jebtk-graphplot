@@ -31,328 +31,328 @@ import org.jebtk.modern.graphics.ImageUtils;
 import org.jebtk.modern.graphics.colormap.ColorMap;
 import org.jebtk.modern.widget.ModernWidget;
 
-
 // TODO: Auto-generated Javadoc
 /**
  * The class HeatMapPlotElement.
  */
 public class HeatMapPlotElement extends MatrixPlotElement {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * The member color map.
-	 */
-	protected ColorMap mColorMap;
+  /**
+   * The member color map.
+   */
+  protected ColorMap mColorMap;
 
-	/**
-	 * The member border.
-	 */
-	private Color mBorder = null;
+  /**
+   * The member border.
+   */
+  private Color mBorder = null;
 
-	/**
-	 * The member outline.
-	 */
-	private Color mOutline = null;
+  /**
+   * The member outline.
+   */
+  private Color mOutline = null;
 
-	/**
-	 * The member grid color.
-	 */
-	private Color mGridColor = null;
+  /**
+   * The member grid color.
+   */
+  private Color mGridColor = null;
 
-	/** The m cell image cache. */
-	private Map<Color, BufferedImage> mCellImageCache =
-			new HashMap<Color, BufferedImage>();
+  /** The m cell image cache. */
+  private Map<Color, BufferedImage> mCellImageCache = new HashMap<Color, BufferedImage>();
 
-	/** The m blank image. */
-	private BufferedImage mBlankImage;
+  /** The m blank image. */
+  private BufferedImage mBlankImage;
 
+  /**
+   * Instantiates a new heat map plot element.
+   *
+   * @param matrix the matrix
+   * @param colorMap the color map
+   * @param aspectRatio the aspect ratio
+   */
+  public HeatMapPlotElement(DataFrame matrix, ColorMap colorMap,
+      DoubleDim aspectRatio) {
+    super(matrix, aspectRatio);
 
-	/**
-	 * Instantiates a new heat map plot element.
-	 *
-	 * @param matrix the matrix
-	 * @param colorMap the color map
-	 * @param aspectRatio the aspect ratio
-	 */
-	public HeatMapPlotElement(DataFrame matrix, 
-			ColorMap colorMap, 
-			DoubleDim aspectRatio) {
-		super(matrix, aspectRatio);
+    setColorMap(colorMap);
 
-		setColorMap(colorMap);
+    /// setAspectRatio(aspectRatio);
 
-		///setAspectRatio(aspectRatio);
-		
-		setRasterMode(true);
-	}
-	
+    setRasterMode(true);
+  }
 
-	/**
-	 * Sets the color map.
-	 *
-	 * @param colorMap the new color map
-	 */
-	public void setColorMap(ColorMap colorMap) {
-		mColorMap = colorMap;
-	}
+  /**
+   * Sets the color map.
+   *
+   * @param colorMap the new color map
+   */
+  public void setColorMap(ColorMap colorMap) {
+    mColorMap = colorMap;
+  }
 
-	/**
-	 * Sets the grid color.
-	 * 
-	 * @param gridColor		the grid color. The grid is not drawn if 
-	 * 						gridColor == null.
-	 */
-	public void setGridColor(Color gridColor) {
-		mGridColor = gridColor;
-	}
+  /**
+   * Sets the grid color.
+   * 
+   * @param gridColor the grid color. The grid is not drawn if gridColor ==
+   *          null.
+   */
+  public void setGridColor(Color gridColor) {
+    mGridColor = gridColor;
+  }
 
-	/**
-	 * Sets the border color.
-	 *
-	 * @param border the new border color
-	 */
-	public void setBorderColor(Color border) {
-		mBorder = border;
-	}
+  /**
+   * Sets the border color.
+   *
+   * @param border the new border color
+   */
+  public void setBorderColor(Color border) {
+    mBorder = border;
+  }
 
-	/**
-	 * Sets the outline color.
-	 *
-	 * @param outline the new outline color
-	 */
-	public void setOutlineColor(Color outline) {
-		mOutline = outline;
-	}
+  /**
+   * Sets the outline color.
+   *
+   * @param outline the new outline color
+   */
+  public void setOutlineColor(Color outline) {
+    mOutline = outline;
+  }
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
-	 */
-	@Override
-	public void plotLayer(Graphics2D g2, 
-			Dimension offset,
-			DrawingContext context, 
-			Object... params) {
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.
+   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
+   */
+  @Override
+  public void plotLayer(Graphics2D g2,
+      Dimension offset,
+      DrawingContext context,
+      Object... params) {
 
-		drawMatrix(g2, context);
+    drawMatrix(g2, context);
 
-		drawGrid(g2);
+    drawGrid(g2);
 
-		drawOutline(g2);
+    drawOutline(g2);
 
-		drawBorder(g2);
+    drawBorder(g2);
 
-		/*
-		if (image == null) {
-			return;
-		}
+    /*
+     * if (image == null) { return; }
+     * 
+     * g2.drawImage(image, 0, 0, null);
+     */
 
-		g2.drawImage(image, 0, 0, null);
-		 */
-		
-		super.plotLayer(g2, offset, context, params);
-	}
+    super.plotLayer(g2, offset, context, params);
+  }
 
-	/**
-	 * Draw matrix.
-	 *
-	 * @param g2 the g2
-	 * @param context the context
-	 */
-	protected void drawMatrix(Graphics2D g2, DrawingContext context) {
-		int y = 0;
+  /**
+   * Draw matrix.
+   *
+   * @param g2 the g2
+   * @param context the context
+   */
+  protected void drawMatrix(Graphics2D g2, DrawingContext context) {
+    int y = 0;
 
-		//System.err.println("create matrix " + matrix.getRowCount() + " " + matrix.getColumnCount());
-		int w = mBlockSize.getW();
-		int h = mBlockSize.getH();
-		
-		if (context == DrawingContext.SCREEN) {
-			for (int i = 0; i < mDrawingDim.mRows; ++i) {
-				int x = 0;
+    // System.err.println("create matrix " + matrix.getRowCount() + " " +
+    // matrix.getColumnCount());
+    int w = mBlockSize.getW();
+    int h = mBlockSize.getH();
 
-				for (int j = 0; j < mDrawingDim.mCols; ++j) {
-					double v = getValue(i, j);
+    if (context == DrawingContext.SCREEN) {
+      for (int i = 0; i < mDrawingDim.mRows; ++i) {
+        int x = 0;
 
-					if (Mathematics.isValidNumber(v)) {
-						g2.drawImage(cacheCell(mColorMap.getColor(v)), x, y, null);
-					} else {
-						g2.drawImage(cacheBlankCell(), x, y, null);
-					}
+        for (int j = 0; j < mDrawingDim.mCols; ++j) {
+          double v = getValue(i, j);
 
-					x += w;
-				}
+          if (Mathematics.isValidNumber(v)) {
+            g2.drawImage(cacheCell(mColorMap.getColor(v)), x, y, null);
+          } else {
+            g2.drawImage(cacheBlankCell(), x, y, null);
+          }
 
-				y += h;
-			}
-		} else {
-			for (int i = 0; i < mDrawingDim.mRows; ++i) {
-				int x = 0;
+          x += w;
+        }
 
-				for (int j = 0; j < mDrawingDim.mCols; ++j) {
-					//System.err.println("hmm " + i + " " + j + " " + mMatrix.getText(i, j) + " " + mMatrix.getValue(i, j));
+        y += h;
+      }
+    } else {
+      for (int i = 0; i < mDrawingDim.mRows; ++i) {
+        int x = 0;
 
-					double v = getValue(i, j);
+        for (int j = 0; j < mDrawingDim.mCols; ++j) {
+          // System.err.println("hmm " + i + " " + j + " " + mMatrix.getText(i,
+          // j) + " " + mMatrix.getValue(i, j));
 
-					if (Mathematics.isValidNumber(v)) {
-						g2.setColor(mColorMap.getColor(v));
-						g2.fillRect(x, y, w, h);
-					} else {
-						g2.setColor(ModernWidget.DARK_LINE_COLOR);
-						g2.drawLine(x, y + h, x + w, y);
-					}
+          double v = getValue(i, j);
 
-					x += w;
-				}
+          if (Mathematics.isValidNumber(v)) {
+            g2.setColor(mColorMap.getColor(v));
+            g2.fillRect(x, y, w, h);
+          } else {
+            g2.setColor(ModernWidget.DARK_LINE_COLOR);
+            g2.drawLine(x, y + h, x + w, y);
+          }
 
-				y += h;
-			}
-		}
-	}
-	
-	private double getValue(int i, int j) {
-		if (mScaleYMode) {
-			i = (i * mRatio.mH) >> 16;
-		}
-		
-		if (mScaleXMode) {
-			j = (j * mRatio.mW) >> 16;
-		}
-		
-		return mMatrix.getValue(i, j);
-	}
+          x += w;
+        }
 
-	/**
-	 * Cache cell.
-	 *
-	 * @param color the color
-	 * @return the buffered image
-	 */
-	protected BufferedImage cacheCell(Color color) {
-		if (!mCellImageCache.containsKey(color)) {
-			BufferedImage image = ImageUtils.createImage(mBlockSize);
+        y += h;
+      }
+    }
+  }
 
-			Graphics g = image.getGraphics();
-			g.setColor(color);
-			g.fillRect(0, 0, (int)mBlockSize.getW(), (int)mBlockSize.getH());
+  private double getValue(int i, int j) {
+    if (mScaleYMode) {
+      i = (i * mRatio.mH) >> 16;
+    }
 
-			mCellImageCache.put(color, image);
-		}
+    if (mScaleXMode) {
+      j = (j * mRatio.mW) >> 16;
+    }
 
-		return mCellImageCache.get(color);
-	}
+    return mMatrix.getValue(i, j);
+  }
 
-	/**
-	 * Cache blank cell.
-	 *
-	 * @return the buffered image
-	 */
-	private BufferedImage cacheBlankCell() {
-		if (mBlankImage == null) {
-			mBlankImage = ImageUtils.createImage(mBlockSize);
+  /**
+   * Cache cell.
+   *
+   * @param color the color
+   * @return the buffered image
+   */
+  protected BufferedImage cacheCell(Color color) {
+    if (!mCellImageCache.containsKey(color)) {
+      BufferedImage image = ImageUtils.createImage(mBlockSize);
 
-			Graphics g = mBlankImage.getGraphics();
-			Graphics2D g2 = ImageUtils.createAAGraphics(g);
-			g2.setColor(ModernWidget.DARK_LINE_COLOR);
-			g2.drawLine(0, (int)mBlockSize.getH(), (int)mBlockSize.getW(), 0);
-		}
+      Graphics g = image.getGraphics();
+      g.setColor(color);
+      g.fillRect(0, 0, (int) mBlockSize.getW(), (int) mBlockSize.getH());
 
-		return mBlankImage;
-	}
+      mCellImageCache.put(color, image);
+    }
 
-	/**
-	 * Draw grid.
-	 *
-	 * @param g2 the g2
-	 */
-	private void drawGrid(Graphics2D g2) {
-		if (mGridColor == null) {
-			return;
-		}
+    return mCellImageCache.get(color);
+  }
 
-		g2.setColor(mGridColor);
+  /**
+   * Cache blank cell.
+   *
+   * @return the buffered image
+   */
+  private BufferedImage cacheBlankCell() {
+    if (mBlankImage == null) {
+      mBlankImage = ImageUtils.createImage(mBlockSize);
 
-		int w = getPreferredSize().width - 1;
-		int h = getPreferredSize().height - 1;
+      Graphics g = mBlankImage.getGraphics();
+      Graphics2D g2 = ImageUtils.createAAGraphics(g);
+      g2.setColor(ModernWidget.DARK_LINE_COLOR);
+      g2.drawLine(0, (int) mBlockSize.getH(), (int) mBlockSize.getW(), 0);
+    }
 
-		int y = 0;
+    return mBlankImage;
+  }
 
-		int w2 = mBlockSize.getW();
-		int h2 = mBlockSize.getH();
-		
-		for (int i = 0; i <= mDrawingDim.mRows; ++i) {
-			g2.drawLine(0, y, w, y);
+  /**
+   * Draw grid.
+   *
+   * @param g2 the g2
+   */
+  private void drawGrid(Graphics2D g2) {
+    if (mGridColor == null) {
+      return;
+    }
 
-			y += h2;
-		}
+    g2.setColor(mGridColor);
 
-		int x = 0;
+    int w = getPreferredSize().width - 1;
+    int h = getPreferredSize().height - 1;
 
-		for (int i = 0; i <= mDrawingDim.mCols; ++i) {
-			g2.drawLine(x, 0, x, h);
+    int y = 0;
 
-			x += w2;
-		}
+    int w2 = mBlockSize.getW();
+    int h2 = mBlockSize.getH();
 
-	}
+    for (int i = 0; i <= mDrawingDim.mRows; ++i) {
+      g2.drawLine(0, y, w, y);
 
-	/**
-	 * Draw outline.
-	 *
-	 * @param g2 the g2
-	 */
-	private void drawOutline(Graphics2D g2) {
-		if (mOutline == null) {
-			return;
-		}
+      y += h2;
+    }
 
-		g2.setColor(mOutline);
+    int x = 0;
 
-		int y = 0;
+    for (int i = 0; i <= mDrawingDim.mCols; ++i) {
+      g2.drawLine(x, 0, x, h);
 
-		int w = mBlockSize.getW();
-		int h = mBlockSize.getH();
-		
-		for (int i = 0; i < mDrawingDim.mRows; ++i) {
-			int x = 0;
+      x += w2;
+    }
 
-			for (int j = 0; j < mDrawingDim.mCols; ++j) {
-				g2.drawRect(x, y, w, h);
+  }
 
-				x += w;
-			}
+  /**
+   * Draw outline.
+   *
+   * @param g2 the g2
+   */
+  private void drawOutline(Graphics2D g2) {
+    if (mOutline == null) {
+      return;
+    }
 
-			y += h;
-		}
-	}
+    g2.setColor(mOutline);
 
-	/**
-	 * Draw border.
-	 *
-	 * @param g2 the g2
-	 */
-	private void drawBorder(Graphics2D g2) {
-		if (mBorder == null) {
-			return;
-		}
+    int y = 0;
 
-		g2.setColor(mBorder);
+    int w = mBlockSize.getW();
+    int h = mBlockSize.getH();
 
+    for (int i = 0; i < mDrawingDim.mRows; ++i) {
+      int x = 0;
 
-		int w = getPreferredSize().width;
-		int h = getPreferredSize().height;
+      for (int j = 0; j < mDrawingDim.mCols; ++j) {
+        g2.drawRect(x, y, w, h);
 
-		g2.drawRect(0, 0, w, h);
-	}
+        x += w;
+      }
 
-	/* (non-Javadoc)
-	 * @see org.abh.common.ui.ui.graphics.ModernCanvas#getCanvasSize()
-	 */
-	@Override
-	public void plotSize(Dimension d) {
-		d.width += mDrawingDim.mCols * mBlockSize.getW() + 1;
-		d.height += mDrawingDim.mRows * mBlockSize.getH() + 1; //  mMatrix.getRowCount()
-	}
+      y += h;
+    }
+  }
+
+  /**
+   * Draw border.
+   *
+   * @param g2 the g2
+   */
+  private void drawBorder(Graphics2D g2) {
+    if (mBorder == null) {
+      return;
+    }
+
+    g2.setColor(mBorder);
+
+    int w = getPreferredSize().width;
+    int h = getPreferredSize().height;
+
+    g2.drawRect(0, 0, w, h);
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.abh.common.ui.ui.graphics.ModernCanvas#getCanvasSize()
+   */
+  @Override
+  public void plotSize(Dimension d) {
+    d.width += mDrawingDim.mCols * mBlockSize.getW() + 1;
+    d.height += mDrawingDim.mRows * mBlockSize.getH() + 1; // mMatrix.getRowCount()
+  }
 }

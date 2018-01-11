@@ -28,52 +28,60 @@ import org.jebtk.modern.graphics.DrawingContext;
  * @author Antony Holmes Holmes
  */
 public class SegmentsPlotLayer extends PlotSeriesLayer {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	
-	/**
-	 * Instantiates a new unique xy layer.
-	 *
-	 * @param series the series
-	 */
-	public SegmentsPlotLayer(String series) {
-		super(series);
-	}
-	
-	@Override
-	public String getType() {
-		return "Segments Plot Layer";
-	}
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotSeriesLayer#plotLayer(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.DataFrame, edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries)
-	 */
-	@Override
-	public final void plotLayer(Graphics2D g2,
-			DrawingContext context,
-			Figure figure,
-SubFigure subFigure,
-			Axes axes,
-			Plot plot,
-			DataFrame m,
-			XYSeries series) {
-		
-		g2.setStroke(series.getStyle().getLineStyle().getStroke());
-		g2.setColor(series.getStyle().getLineStyle().getColor());
-		g2.setStroke(series.getStyle().getLineStyle().getStroke());
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-		for (int i = 0; i < m.getRows(); ++i) {
-			int x1 = axes.toPlotX1(m.getValue(i, 0));
-			int y1 = axes.toPlotY1(m.getValue(i, 1));
-			// Ensure line is at least 1 pixel wide
-			int x2 = Math.max(x1 + 1, axes.toPlotX1(m.getValue(i, 2)));
-			int y2 = axes.toPlotY1(m.getValue(i, 3));
+  /**
+   * Instantiates a new unique xy layer.
+   *
+   * @param series the series
+   */
+  public SegmentsPlotLayer(String series) {
+    super(series);
+  }
 
-			g2.drawLine(x1, y1, x2, y2);
-		}
-	}
+  @Override
+  public String getType() {
+    return "Segments Plot Layer";
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotSeriesLayer#plotLayer(
+   * java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
+   * org.abh.lib.math.matrix.DataFrame,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries)
+   */
+  @Override
+  public final void plotLayer(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes,
+      Plot plot,
+      DataFrame m,
+      XYSeries series) {
+
+    g2.setStroke(series.getStyle().getLineStyle().getStroke());
+    g2.setColor(series.getStyle().getLineStyle().getColor());
+    g2.setStroke(series.getStyle().getLineStyle().getStroke());
+
+    for (int i = 0; i < m.getRows(); ++i) {
+      int x1 = axes.toPlotX1(m.getValue(i, 0));
+      int y1 = axes.toPlotY1(m.getValue(i, 1));
+      // Ensure line is at least 1 pixel wide
+      int x2 = Math.max(x1 + 1, axes.toPlotX1(m.getValue(i, 2)));
+      int y2 = axes.toPlotY1(m.getValue(i, 3));
+
+      g2.drawLine(x1, y1, x2, y2);
+    }
+  }
 }

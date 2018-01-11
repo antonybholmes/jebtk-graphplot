@@ -23,62 +23,61 @@ import org.jebtk.core.event.ChangeListener;
 import org.jebtk.graphplot.ModernPlotCanvas;
 import org.jebtk.modern.graphics.DrawingContext;
 
-
 // TODO: Auto-generated Javadoc
 /**
  * The class PlotBox.
  */
 public class PlotBoxPanel extends ModernPlotCanvas implements ChangeListener {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	private PlotBox mPlot;
+  private PlotBox mPlot;
 
-	private Dimension mS;
-	
-	/**
-	 * Instantiates a new plot box.
-	 *
-	 * @param renderer the renderer
-	 */
-	public PlotBoxPanel(PlotBox plot) {
-		mPlot = plot;
-		mPlot.addChangeListener(this);
-		
-		refresh();
-	}
+  private Dimension mS;
 
-	@Override
-	public void plot(Graphics2D g2, DrawingContext context, Object... params) {
-		mPlot.plot(g2, context, params);
-	}
-	
-	//@Override
-	//public Dimension getPreferredSize() {
-	//	return mPlot.getPreferredSize();
-	//}
-	
-	public PlotBoxStorage getStorage() {
-		return mPlot.getStorage();
-	}
-	
-	private void refresh() {
-		Dimension s = mPlot.getPreferredSize();
-		
-		if (mS == null || !s.equals(mS)) {
-			setCanvasSize(s);
-			
-			mS = s;
-		} else {
-			fireCanvasRedraw();
-		}
-	}
+  /**
+   * Instantiates a new plot box.
+   *
+   * @param renderer the renderer
+   */
+  public PlotBoxPanel(PlotBox plot) {
+    mPlot = plot;
+    mPlot.addChangeListener(this);
 
-	@Override
-	public void changed(ChangeEvent e) {
-		refresh();
-	}
+    refresh();
+  }
+
+  @Override
+  public void plot(Graphics2D g2, DrawingContext context, Object... params) {
+    mPlot.plot(g2, context, params);
+  }
+
+  // @Override
+  // public Dimension getPreferredSize() {
+  // return mPlot.getPreferredSize();
+  // }
+
+  public PlotBoxStorage getStorage() {
+    return mPlot.getStorage();
+  }
+
+  private void refresh() {
+    Dimension s = mPlot.getPreferredSize();
+
+    if (mS == null || !s.equals(mS)) {
+      setCanvasSize(s);
+
+      mS = s;
+    } else {
+      fireCanvasRedraw();
+    }
+  }
+
+  @Override
+  public void changed(ChangeEvent e) {
+    refresh();
+  }
 }

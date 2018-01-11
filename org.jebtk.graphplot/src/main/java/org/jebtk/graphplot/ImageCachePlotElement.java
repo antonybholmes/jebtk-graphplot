@@ -21,7 +21,6 @@ import java.awt.image.BufferedImage;
 
 import org.jebtk.modern.graphics.DrawingContext;
 
-
 // TODO: Auto-generated Javadoc
 /**
  * Cache a drawing as an image to reduce drawing time.
@@ -29,59 +28,65 @@ import org.jebtk.modern.graphics.DrawingContext;
  * @author Antony Holmes Holmes
  */
 public class ImageCachePlotElement extends PlotElement {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * The member element.
-	 */
-	private PlotElement mElement;
 
-	/**
-	 * The bi.
-	 */
-	private BufferedImage bi;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * Instantiates a new image cache plot element.
-	 *
-	 * @param element the element
-	 */
-	public ImageCachePlotElement(PlotElement element) {
-		super("image-cache");
-		
-		mElement = element;
-		
-		cache();
-	}
-	
-	/**
-	 * Cache.
-	 */
-	private void cache() {
-		bi = new BufferedImage(mElement.getPreferredSize().width, 
-				mElement.getPreferredSize().height, BufferedImage.TYPE_INT_RGB);
-		
-		Graphics2D g2 = (Graphics2D)bi.getGraphics();
-		
-		mElement.plot(g2, DrawingContext.SCREEN);
-	}
+  /**
+   * The member element.
+   */
+  private PlotElement mElement;
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
-	 */
-	@Override
-	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Object... params) {
-		g2.drawImage(bi, 0, 0, null);
-	}
-	
-	
-	@Override
-	public void plotSize(Dimension d) {
-		d.width += mElement.getPreferredSize().width;
-		d.height += mElement.getPreferredSize().height;
-	}
+  /**
+   * The bi.
+   */
+  private BufferedImage bi;
+
+  /**
+   * Instantiates a new image cache plot element.
+   *
+   * @param element the element
+   */
+  public ImageCachePlotElement(PlotElement element) {
+    super("image-cache");
+
+    mElement = element;
+
+    cache();
+  }
+
+  /**
+   * Cache.
+   */
+  private void cache() {
+    bi = new BufferedImage(mElement.getPreferredSize().width,
+        mElement.getPreferredSize().height, BufferedImage.TYPE_INT_RGB);
+
+    Graphics2D g2 = (Graphics2D) bi.getGraphics();
+
+    mElement.plot(g2, DrawingContext.SCREEN);
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.
+   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
+   */
+  @Override
+  public void plot(Graphics2D g2,
+      Dimension offset,
+      DrawingContext context,
+      Object... params) {
+    g2.drawImage(bi, 0, 0, null);
+  }
+
+  @Override
+  public void plotSize(Dimension d) {
+    d.width += mElement.getPreferredSize().width;
+    d.height += mElement.getPreferredSize().height;
+  }
 }

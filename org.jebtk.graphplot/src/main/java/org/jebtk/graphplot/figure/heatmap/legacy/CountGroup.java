@@ -23,83 +23,87 @@ import org.jebtk.core.text.TextUtils;
  * The Class CountGroup.
  */
 public class CountGroup implements NameProperty {
-	
-	/** The m name. */
-	private String mName;
-	
-	/** The m start. */
-	private int mStart;
-	
-	/** The m end. */
-	private int mEnd;
-	
-	/** The m size. */
-	private int mSize;
 
-	/**
-	 * Instantiates a new count group.
-	 *
-	 * @param start the start
-	 * @param end the end
-	 */
-	public CountGroup(int start, int end) {
-		this(TextUtils.EMPTY_STRING, start, end);
-	}
-	
-	/**
-	 * Instantiates a new count group.
-	 *
-	 * @param name the name
-	 * @param start the start
-	 * @param end the end
-	 */
-	public CountGroup(String name, int start, int end) {
-		mName = name;
-		mStart = start;
-		mEnd = end;
-		mSize = end - start + 1;
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.abh.common.NameProperty#getName()
-	 */
-	@Override
-	public String getName() {
-		return mName;
-	}
+  /** The m name. */
+  private String mName;
 
-	/**
-	 * Gets the start.
-	 *
-	 * @return the start
-	 */
-	public int getStart() {
-		return mStart;
-	}
-	
-	/**
-	 * Gets the end.
-	 *
-	 * @return the end
-	 */
-	public int getEnd() {
-		return mEnd;
-	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return Integer.toString(mSize) + " " + mName;
-	}
+  /** The m start. */
+  private int mStart;
 
-	/**
-	 * Size.
-	 *
-	 * @return the int
-	 */
-	public int size() {
-		return mSize;
-	}
+  /** The m end. */
+  private int mEnd;
+
+  /** The m size. */
+  private int mSize;
+
+  /**
+   * Instantiates a new count group.
+   *
+   * @param start the start
+   * @param end the end
+   */
+  public CountGroup(int start, int end) {
+    this(TextUtils.EMPTY_STRING, start, end);
+  }
+
+  /**
+   * Instantiates a new count group.
+   *
+   * @param name the name
+   * @param start the start
+   * @param end the end
+   */
+  public CountGroup(String name, int start, int end) {
+    mName = name;
+    mStart = start;
+    mEnd = end;
+    mSize = end - start + 1;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.abh.common.NameProperty#getName()
+   */
+  @Override
+  public String getName() {
+    return mName;
+  }
+
+  /**
+   * Gets the start.
+   *
+   * @return the start
+   */
+  public int getStart() {
+    return mStart;
+  }
+
+  /**
+   * Gets the end.
+   *
+   * @return the end
+   */
+  public int getEnd() {
+    return mEnd;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return Integer.toString(mSize) + " " + mName;
+  }
+
+  /**
+   * Size.
+   *
+   * @return the int
+   */
+  public int size() {
+    return mSize;
+  }
 }

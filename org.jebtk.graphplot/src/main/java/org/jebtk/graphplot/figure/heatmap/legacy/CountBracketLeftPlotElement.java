@@ -25,63 +25,67 @@ import org.jebtk.modern.graphics.DrawingContext;
 
 // TODO: Auto-generated Javadoc
 /**
- * Displays brackets to indicate how many samples are up and down
- * regulated based on their z-score.
+ * Displays brackets to indicate how many samples are up and down regulated
+ * based on their z-score.
  *
  * @author Antony Holmes Holmes
  */
 public class CountBracketLeftPlotElement extends RowMatrixPlotElement {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	/** The m color. */
-	private Color mColor;
 
-	private CountGroups mCountGroups;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * Instantiates a new count bracket left plot element.
-	 *
-	 * @param matrix the matrix
-	 * @param width the width
-	 * @param aspectRatio the aspect ratio
-	 * @param color the color
-	 */
-	public CountBracketLeftPlotElement(DataFrame matrix,
-			CountGroups countGroups,
-			int width, 
-			DoubleDim aspectRatio,
-			Color color) {
-		super(matrix, width, aspectRatio);
-		mColor = color;
-		mCountGroups = countGroups;
-	}
+  /** The m color. */
+  private Color mColor;
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
-	 */
-	@Override
-	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Object... params) {
-		g2.setColor(mColor);
-		
-		int y1;
-		int y2;
-		
-		int w = getPreferredSize().width;
-		double r = mAspectRatio.getH();
-		
-		for (CountGroup countGroup : mCountGroups) {
-			y1 = (int)(countGroup.getStart() *  r);
-			y2 = (int)((countGroup.getEnd() + 1) * r);
-			
-			g2.drawLine(0, y1, w, y1);
-			g2.drawLine(0, y1, 0, y2);
-			g2.drawLine(0, y2, w, y2);
-		}
-		
-		super.plot(g2, offset, context, params);
-	}
+  private CountGroups mCountGroups;
+
+  /**
+   * Instantiates a new count bracket left plot element.
+   *
+   * @param matrix the matrix
+   * @param width the width
+   * @param aspectRatio the aspect ratio
+   * @param color the color
+   */
+  public CountBracketLeftPlotElement(DataFrame matrix, CountGroups countGroups,
+      int width, DoubleDim aspectRatio, Color color) {
+    super(matrix, width, aspectRatio);
+    mColor = color;
+    mCountGroups = countGroups;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.
+   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
+   */
+  @Override
+  public void plot(Graphics2D g2,
+      Dimension offset,
+      DrawingContext context,
+      Object... params) {
+    g2.setColor(mColor);
+
+    int y1;
+    int y2;
+
+    int w = getPreferredSize().width;
+    double r = mAspectRatio.getH();
+
+    for (CountGroup countGroup : mCountGroups) {
+      y1 = (int) (countGroup.getStart() * r);
+      y2 = (int) ((countGroup.getEnd() + 1) * r);
+
+      g2.drawLine(0, y1, w, y1);
+      g2.drawLine(0, y1, 0, y2);
+      g2.drawLine(0, y2, w, y2);
+    }
+
+    super.plot(g2, offset, context, params);
+  }
 }

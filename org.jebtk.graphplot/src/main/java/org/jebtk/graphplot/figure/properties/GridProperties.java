@@ -27,26 +27,26 @@ import org.jebtk.core.settings.SettingsService;
  * @author Antony Holmes Holmes
  */
 public class GridProperties extends LineProperties {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * The constant GRID_COLOR.
-	 */
-	public static final Color GRID_COLOR =
-			ColorUtils.decodeHtmlColor(SettingsService.getInstance().getAsString("plot.grid.color"));
-	
-	/**
-	 * Instantiates a new grid properties.
-	 */
-	public GridProperties() {
-		//setStroke(StrokeStyle.DASHED, 1);
-		setColor(GRID_COLOR);
-		
-		// Default to not being visible.
-		setVisible(false);
-	}
+
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
+
+  /**
+   * The constant GRID_COLOR.
+   */
+  public static final Color GRID_COLOR = ColorUtils.decodeHtmlColor(
+      SettingsService.getInstance().getAsString("plot.grid.color"));
+
+  /**
+   * Instantiates a new grid properties.
+   */
+  public GridProperties() {
+    // setStroke(StrokeStyle.DASHED, 1);
+    setColor(GRID_COLOR);
+
+    // Default to not being visible.
+    setVisible(false);
+  }
 }

@@ -28,123 +28,119 @@ import org.jebtk.core.settings.SettingsService;
 import org.jebtk.graphplot.figure.PlotLayer;
 import org.jebtk.math.cluster.Cluster;
 
-
 // TODO: Auto-generated Javadoc
 /**
  * The class RowHierarchicalTreeLayer.
  */
 public abstract class HierarchicalTreeLayer extends PlotLayer {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	/** The Constant GAP. */
-	protected static final int GAP =
-			SettingsService.getInstance().getAsInt("graphplot.cluster.tree.gap");
-	
-	/** The Constant GROUP_GAP. */
-	protected static final int GROUP_GAP =
-			SettingsService.getInstance().getAsInt("graphplot.cluster.tree.groups.gap");
-	
-	/**
-	 * The member root cluster.
-	 */
-	protected Cluster mRootCluster;
 
-	/**
-	 * The member color.
-	 */
-	protected Color mColor;
-	
-	/** The m cluster offset map. */
-	protected Map<Cluster, Double> mClusterOffsetMap = 
-			new HashMap<Cluster, Double>();
-	
-	/** The m cluster dist map. */
-	protected Map<Cluster, Double> mClusterDistMap = 
-			new HashMap<Cluster, Double>();
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/** The m parents. */
-	protected List<Cluster> mParents = new ArrayList<Cluster>();
+  /** The Constant GAP. */
+  protected static final int GAP = SettingsService.getInstance()
+      .getAsInt("graphplot.cluster.tree.gap");
 
-	/**
-	 * Instantiates a new row hierarchical tree layer.
-	 *
-	 * @param name the name
-	 * @param rootCluster the root cluster
-	 * @param color the color
-	 */
-	public HierarchicalTreeLayer(Cluster rootCluster,
-			Color color) {
-		mRootCluster = rootCluster;
-		mColor = color;
-		
-		setup();
-	}
-	
-	@Override
-	public String getType() {
-		return "Hierarchical Tree Layer";
-	}
-	
-	/**
-	 * Setup.
-	 */
-	private void setup() {
-		// If user doesn't opt to cluster by rows or columns, the root
-		// cluster will be null
-		if (mRootCluster == null) {
-			return;
-		}
-		
-		Deque<Cluster> stack = new ArrayDeque<Cluster>();
+  /** The Constant GROUP_GAP. */
+  protected static final int GROUP_GAP = SettingsService.getInstance()
+      .getAsInt("graphplot.cluster.tree.groups.gap");
 
-		stack.push(mRootCluster);
+  /**
+   * The member root cluster.
+   */
+  protected Cluster mRootCluster;
 
-		double x = 0;
+  /**
+   * The member color.
+   */
+  protected Color mColor;
 
-		while (!stack.isEmpty()) {
-			Cluster cluster = stack.pop();
-			
-			double d = cluster.getLevel() / mRootCluster.getLevel();
-			
-			mClusterDistMap.put(cluster, d);
+  /** The m cluster offset map. */
+  protected Map<Cluster, Double> mClusterOffsetMap = new HashMap<Cluster, Double>();
 
-			if (cluster.isParent()) {
-				mParents.add(cluster);
+  /** The m cluster dist map. */
+  protected Map<Cluster, Double> mClusterDistMap = new HashMap<Cluster, Double>();
 
-				stack.push(cluster.getChild2());
-				stack.push(cluster.getChild1());
+  /** The m parents. */
+  protected List<Cluster> mParents = new ArrayList<Cluster>();
 
-				mClusterOffsetMap.put(cluster, -1.0);
-			} else {
-				// Since we encounter the leaf clusters in the order
-				// they appear in the tree, we can store their
-				// x position in order
-				mClusterOffsetMap.put(cluster, x++);
-			}
-		}
-		
-		// The list must be reversed so that parents closest to the leaves
-		// are updated first so that branches further up the tree get the
-		// corrected offsets rather than -1
-		Collections.reverse(mParents);
-		
-		for (Cluster cluster : mParents) {
-			
-			Cluster c1 = cluster.getChild1();
-			Cluster c2 = cluster.getChild2();
-			
-			double x1 = mClusterOffsetMap.get(c1);
-			double x2 = mClusterOffsetMap.get(c2);
-			
-			double midX = (x1 + x2) / 2.0;
-				
-			// Update the mid point of this cluster
-			
-			mClusterOffsetMap.put(cluster, midX);
-		}
-	}
+  /**
+   * Instantiates a new row hierarchical tree layer.
+   *
+   * @param name the name
+   * @param rootCluster the root cluster
+   * @param color the color
+   */
+  public HierarchicalTreeLayer(Cluster rootCluster, Color color) {
+    mRootCluster = rootCluster;
+    mColor = color;
+
+    setup();
+  }
+
+  @Override
+  public String getType() {
+    return "Hierarchical Tree Layer";
+  }
+
+  /**
+   * Setup.
+   */
+  private void setup() {
+    // If user doesn't opt to cluster by rows or columns, the root
+    // cluster will be null
+    if (mRootCluster == null) {
+      return;
+    }
+
+    Deque<Cluster> stack = new ArrayDeque<Cluster>();
+
+    stack.push(mRootCluster);
+
+    double x = 0;
+
+    while (!stack.isEmpty()) {
+      Cluster cluster = stack.pop();
+
+      double d = cluster.getLevel() / mRootCluster.getLevel();
+
+      mClusterDistMap.put(cluster, d);
+
+      if (cluster.isParent()) {
+        mParents.add(cluster);
+
+        stack.push(cluster.getChild2());
+        stack.push(cluster.getChild1());
+
+        mClusterOffsetMap.put(cluster, -1.0);
+      } else {
+        // Since we encounter the leaf clusters in the order
+        // they appear in the tree, we can store their
+        // x position in order
+        mClusterOffsetMap.put(cluster, x++);
+      }
+    }
+
+    // The list must be reversed so that parents closest to the leaves
+    // are updated first so that branches further up the tree get the
+    // corrected offsets rather than -1
+    Collections.reverse(mParents);
+
+    for (Cluster cluster : mParents) {
+
+      Cluster c1 = cluster.getChild1();
+      Cluster c2 = cluster.getChild2();
+
+      double x1 = mClusterOffsetMap.get(c1);
+      double x2 = mClusterOffsetMap.get(c2);
+
+      double midX = (x1 + x2) / 2.0;
+
+      // Update the mid point of this cluster
+
+      mClusterOffsetMap.put(cluster, midX);
+    }
+  }
 }

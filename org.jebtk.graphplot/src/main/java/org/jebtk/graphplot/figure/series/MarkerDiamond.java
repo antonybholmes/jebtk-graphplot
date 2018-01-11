@@ -24,49 +24,55 @@ import org.jebtk.graphplot.icons.ShapeStyle;
 
 // TODO: Auto-generated Javadoc
 /**
- * Draws a diamond at the given point. The square is
- * centered about the point.
+ * Draws a diamond at the given point. The square is centered about the point.
  * 
  * @author Antony Holmes Holmes
  *
  */
 public class MarkerDiamond extends Marker {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.series.DataPointShape#render(java.awt.Graphics2D, edu.columbia.rdf.lib.bioinformatics.plot.figure.properties.StyleProperties, java.awt.Point)
-	 */
-	@Override
-	public void plot(Graphics2D g2, StyleProperties style, Point p) {
-		GeneralPath path = new GeneralPath();
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-		path.moveTo(p.x - mHalfSize.getW() + 1, p.y);
-		path.lineTo(p.x, p.y - mHalfSize.getW() + 1);
-		path.lineTo(p.x + mHalfSize.getW() - 1, p.y);
-		path.lineTo(p.x, p.y + mHalfSize.getH() - 1);
-		path.closePath();
+  /*
+   * (non-Javadoc)
+   * 
+   * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.series.DataPointShape#
+   * render(java.awt.Graphics2D,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.properties.StyleProperties,
+   * java.awt.Point)
+   */
+  @Override
+  public void plot(Graphics2D g2, StyleProperties style, Point p) {
+    GeneralPath path = new GeneralPath();
 
-		if (style.getFillStyle().getVisible()) {
-			g2.setColor(style.getFillStyle().getColor());
-			g2.fill(path);
-		}
-		
-		if (style.getLineStyle().getVisible()) {
-			g2.setStroke(style.getLineStyle().getStroke());
-			g2.setColor(style.getLineStyle().getColor());
-			g2.draw(path);
-		}
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.graphplot.figure.series.Marker#getType()
-	 */
-	@Override
-	public ShapeStyle getType() {
-		return ShapeStyle.DIAMOND;
-	}
+    path.moveTo(p.x - mHalfSize.getW() + 1, p.y);
+    path.lineTo(p.x, p.y - mHalfSize.getW() + 1);
+    path.lineTo(p.x + mHalfSize.getW() - 1, p.y);
+    path.lineTo(p.x, p.y + mHalfSize.getH() - 1);
+    path.closePath();
+
+    if (style.getFillStyle().getVisible()) {
+      g2.setColor(style.getFillStyle().getColor());
+      g2.fill(path);
+    }
+
+    if (style.getLineStyle().getVisible()) {
+      g2.setStroke(style.getLineStyle().getStroke());
+      g2.setColor(style.getLineStyle().getColor());
+      g2.draw(path);
+    }
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.graphplot.figure.series.Marker#getType()
+   */
+  @Override
+  public ShapeStyle getType() {
+    return ShapeStyle.DIAMOND;
+  }
 }

@@ -19,30 +19,29 @@ import java.awt.Color;
 
 import org.jebtk.graphplot.AspectRatio;
 
-
 // TODO: Auto-generated Javadoc
 /**
  * The class HeatMapSettings.
  */
 public class HeatMapSettings {
-	
-	/**
-	 * The show.
-	 */
-	public boolean show = true;
-	
-	/**
-	 * The border color.
-	 */
-	public Color borderColor = Color.BLACK;
-	
-	/**
-	 * The grid color.
-	 */
-	public Color gridColor = Color.BLACK;
-	
-	/**
-	 * The aspect ratio.
-	 */
-	public AspectRatio aspectRatio = new AspectRatio(1, 1);
+
+  /**
+   * The show.
+   */
+  public boolean show = true;
+
+  /**
+   * The border color.
+   */
+  public Color borderColor = Color.BLACK;
+
+  /**
+   * The grid color.
+   */
+  public Color gridColor = Color.BLACK;
+
+  /**
+   * The aspect ratio.
+   */
+  public AspectRatio aspectRatio = new AspectRatio(1, 1);
 }

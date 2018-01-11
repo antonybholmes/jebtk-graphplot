@@ -29,95 +29,97 @@ import org.jebtk.math.Linspace;
  * @author Antony Holmes Holmes
  */
 public class TickProperties extends ChangeListeners implements ChangeListener {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * The member major ticks.
-	 */
-	private TickMarkProperties mMajorTicks = new MajorTickMarkProperties();
-	
-	//private TickLabelProperties mMajorTickLabels = new TickLabelProperties();
-	
-	/**
-	 * The member minor ticks.
-	 */
-	private TickMarkProperties mMinorTicks = new MinorTickMarkProperties();
 
-	/**
-	 * The member draw inside.
-	 */
-	private boolean mDrawInside = true;
-	
-	//private TickLabelProperties mMinorTickLabels = new TickLabelProperties();
-	
-	/**
-	 * Instantiates a new tick properties.
-	 */
-	public TickProperties() {
-		mMajorTicks.addChangeListener(this);
-		mMinorTicks.addChangeListener(this);
-	}
-	
-	/**
-	 * Returns true if the ticks should be draw facing inwards.
-	 *
-	 * @return the draw inside
-	 */
-	public boolean getDrawInside() {
-		return mDrawInside;
-	}
-	
-	/**
-	 * Sets the draw inside.
-	 *
-	 * @param drawInside the new draw inside
-	 */
-	public void setDrawInside(boolean drawInside) {
-		mDrawInside = drawInside;
-		
-		fireChanged();
-	}
-	
-	
-	/**
-	 * Sets the ticks.
-	 *
-	 * @param ticks the new ticks
-	 */
-	public void setTicks(List<Double> ticks) {
-		mMajorTicks.setTicks(ticks);
-		
-		// Default to subdividing major ticks into 10 for the minor ticks.
-		mMinorTicks.setTicks(Linspace.subDivide(ticks, 11));
-	}
-	
-	/**
-	 * Gets the major ticks.
-	 *
-	 * @return the major ticks
-	 */
-	public TickMarkProperties getMajorTicks() {
-		return mMajorTicks;
-	}
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * Gets the minor ticks.
-	 *
-	 * @return the minor ticks
-	 */
-	public TickMarkProperties getMinorTicks() {
-		return mMinorTicks;
-	}
+  /**
+   * The member major ticks.
+   */
+  private TickMarkProperties mMajorTicks = new MajorTickMarkProperties();
 
-	/* (non-Javadoc)
-	 * @see org.abh.lib.event.ChangeListener#changed(org.abh.lib.event.ChangeEvent)
-	 */
-	@Override
-	public void changed(ChangeEvent e) {
-		fireChanged();
-	}
+  // private TickLabelProperties mMajorTickLabels = new TickLabelProperties();
+
+  /**
+   * The member minor ticks.
+   */
+  private TickMarkProperties mMinorTicks = new MinorTickMarkProperties();
+
+  /**
+   * The member draw inside.
+   */
+  private boolean mDrawInside = true;
+
+  // private TickLabelProperties mMinorTickLabels = new TickLabelProperties();
+
+  /**
+   * Instantiates a new tick properties.
+   */
+  public TickProperties() {
+    mMajorTicks.addChangeListener(this);
+    mMinorTicks.addChangeListener(this);
+  }
+
+  /**
+   * Returns true if the ticks should be draw facing inwards.
+   *
+   * @return the draw inside
+   */
+  public boolean getDrawInside() {
+    return mDrawInside;
+  }
+
+  /**
+   * Sets the draw inside.
+   *
+   * @param drawInside the new draw inside
+   */
+  public void setDrawInside(boolean drawInside) {
+    mDrawInside = drawInside;
+
+    fireChanged();
+  }
+
+  /**
+   * Sets the ticks.
+   *
+   * @param ticks the new ticks
+   */
+  public void setTicks(List<Double> ticks) {
+    mMajorTicks.setTicks(ticks);
+
+    // Default to subdividing major ticks into 10 for the minor ticks.
+    mMinorTicks.setTicks(Linspace.subDivide(ticks, 11));
+  }
+
+  /**
+   * Gets the major ticks.
+   *
+   * @return the major ticks
+   */
+  public TickMarkProperties getMajorTicks() {
+    return mMajorTicks;
+  }
+
+  /**
+   * Gets the minor ticks.
+   *
+   * @return the minor ticks
+   */
+  public TickMarkProperties getMinorTicks() {
+    return mMinorTicks;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * org.abh.lib.event.ChangeListener#changed(org.abh.lib.event.ChangeEvent)
+   */
+  @Override
+  public void changed(ChangeEvent e) {
+    fireChanged();
+  }
 }

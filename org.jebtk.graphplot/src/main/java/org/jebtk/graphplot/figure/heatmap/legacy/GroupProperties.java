@@ -17,35 +17,34 @@ package org.jebtk.graphplot.figure.heatmap.legacy;
 
 import java.awt.Color;
 
-
 // TODO: Auto-generated Javadoc
 /**
  * The class GroupProperties.
  */
 public class GroupProperties extends LabelProperties {
-	
-	/**
-	 * The show colors.
-	 */
-	public boolean showColors = true;
-	
-	/**
-	 * The border color.
-	 */
-	public Color borderColor = Color.BLACK;
-	
-	/**
-	 * The show border.
-	 */
-	public boolean showBorder = true;
-	
-	/**
-	 * The show grid.
-	 */
-	public boolean showGrid = false;
-	
-	/**
-	 * The grid color.
-	 */
-	public Color gridColor = Color.BLACK;
+
+  /**
+   * The show colors.
+   */
+  public boolean showColors = true;
+
+  /**
+   * The border color.
+   */
+  public Color borderColor = Color.BLACK;
+
+  /**
+   * The show border.
+   */
+  public boolean showBorder = true;
+
+  /**
+   * The show grid.
+   */
+  public boolean showGrid = false;
+
+  /**
+   * The grid color.
+   */
+  public Color gridColor = Color.BLACK;
 }

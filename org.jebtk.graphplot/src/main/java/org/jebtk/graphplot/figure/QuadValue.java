@@ -23,26 +23,26 @@ import java.awt.Point;
  *
  * @param <T> the generic type
  */
-public class QuadValue <T> {
-	
-	/**
-	 * The p.
-	 */
-	public Point p;
-	
-	/**
-	 * The value.
-	 */
-	public T value;
+public class QuadValue<T> {
 
-	/**
-	 * Instantiates a new quad value.
-	 *
-	 * @param p the p
-	 * @param value the value
-	 */
-	public QuadValue(Point p, T value) {
-		this.p = p;
-		this.value = value;
-	}
+  /**
+   * The p.
+   */
+  public Point p;
+
+  /**
+   * The value.
+   */
+  public T value;
+
+  /**
+   * Instantiates a new quad value.
+   *
+   * @param p the p
+   * @param value the value
+   */
+  public QuadValue(Point p, T value) {
+    this.p = p;
+    this.value = value;
+  }
 }

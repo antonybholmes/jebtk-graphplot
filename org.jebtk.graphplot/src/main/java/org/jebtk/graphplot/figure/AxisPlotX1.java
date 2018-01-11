@@ -20,35 +20,35 @@ import java.awt.Dimension;
 // TODO: Auto-generated Javadoc
 /**
  * Plot for drawing an axis. Responds to axis visibility properties.
- *  
+ * 
  * @author Antony Holmes Holmes
  *
  */
 public class AxisPlotX1 extends AxisPlot {
 
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
-	private int mWidth;
+  /** The Constant serialVersionUID. */
+  private static final long serialVersionUID = 1L;
+  private int mWidth;
 
-	/**
-	 * Instantiates a new axis plot x1.
-	 *
-	 * @param axis the axis
-	 */
-	public AxisPlotX1(Axis axis) {
-		super("Axis Plot X1", axis);
-		
-		setZ(new AxisLabelLayerX1());
-		mWidth = autoSetLabelMargin(axis);
-	}
-	
-	@Override
-	public String getType() {
-		return "Axis X1 Label Plot Layer";
-	}
-	
-	@Override
-	public void plotSize(Dimension d) {
-		d.height += mWidth;
-	}
+  /**
+   * Instantiates a new axis plot x1.
+   *
+   * @param axis the axis
+   */
+  public AxisPlotX1(Axis axis) {
+    super("Axis Plot X1", axis);
+
+    setZ(new AxisLabelLayerX1());
+    mWidth = autoSetLabelMargin(axis);
+  }
+
+  @Override
+  public String getType() {
+    return "Axis X1 Label Plot Layer";
+  }
+
+  @Override
+  public void plotSize(Dimension d) {
+    d.height += mWidth;
+  }
 }

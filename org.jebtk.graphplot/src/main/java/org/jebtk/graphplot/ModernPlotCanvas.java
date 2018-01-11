@@ -24,88 +24,87 @@ import org.jebtk.modern.graphics.ImageUtils;
 import org.jebtk.modern.theme.ThemeService;
 import org.jebtk.modern.zoom.ZoomCanvas;
 
-
-
 // TODO: Auto-generated Javadoc
 /**
- * A panel designed for drawing operations/graphics that
- * is scroll aware, the graphics context is translated
- * to match the scroll parameters. This removes the
- * need to move the actual panel around in the scroll
- * pane.
+ * A panel designed for drawing operations/graphics that is scroll aware, the
+ * graphics context is translated to match the scroll parameters. This removes
+ * the need to move the actual panel around in the scroll pane.
  * 
  * @author Antony Holmes Holmes
  *
  */
 public abstract class ModernPlotCanvas extends ZoomCanvas {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * The constant PLOT_FONT.
-	 */
-	public static final Font PLOT_FONT = 
-			ThemeService.loadFont("plot.fonts.text");
+  /**
+   * The constant PLOT_FONT.
+   */
+  public static final Font PLOT_FONT = ThemeService.loadFont("plot.fonts.text");
 
-	/**
-	 * The constant PLOT_BOLD_FONT.
-	 */
-	public static final Font PLOT_BOLD_FONT = 
-			ThemeService.loadFont("plot.fonts.bold-text");
+  /**
+   * The constant PLOT_BOLD_FONT.
+   */
+  public static final Font PLOT_BOLD_FONT = ThemeService
+      .loadFont("plot.fonts.bold-text");
 
+  /**
+   * Instantiates a new modern plot canvas.
+   */
+  public ModernPlotCanvas() {
+    setup();
+  }
 
-	/**
-	 * Instantiates a new modern plot canvas.
-	 */
-	public ModernPlotCanvas() {
-		setup();
-	}
+  /**
+   * Instantiates a new modern plot canvas.
+   *
+   * @param size the size
+   */
+  public ModernPlotCanvas(Dimension size) {
+    super(size);
 
-	/**
-	 * Instantiates a new modern plot canvas.
-	 *
-	 * @param size the size
-	 */
-	public ModernPlotCanvas(Dimension size) {
-		super(size);
+    setup();
+  }
 
-		setup();
-	}
+  /**
+   * Setup.
+   */
+  private void setup() {
+    setFont(PLOT_FONT);
+  }
 
-	/**
-	 * Setup.
-	 */
-	private void setup() {
-		setFont(PLOT_FONT);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * org.abh.common.ui.ui.graphics.ModernCanvas#drawCanvasForeground(java.awt.
+   * Graphics2D)
+   */
+  @Override
+  public final void drawCanvasForeground(Graphics2D g2,
+      DrawingContext context) {
 
-	/* (non-Javadoc)
-	 * @see org.abh.common.ui.ui.graphics.ModernCanvas#drawCanvasForeground(java.awt.Graphics2D)
-	 */
-	@Override
-	public final void drawCanvasForeground(Graphics2D g2, DrawingContext context) {
+    Graphics2D g2Temp = ImageUtils.clone(g2);
 
-		Graphics2D g2Temp = ImageUtils.clone(g2);
+    try {
+      g2Temp.setFont(getFont());
 
-		try {
-			g2Temp.setFont(getFont());
-			
-			plot(g2Temp, context);
-		} finally {
-			g2Temp.dispose();
-		}
-	}
+      plot(g2Temp, context);
+    } finally {
+      g2Temp.dispose();
+    }
+  }
 
-	/**
-	 * Plot.
-	 *
-	 * @param g2 the g2
-	 * @param context the context
-	 */
-	public abstract void plot(Graphics2D g2, 
-			DrawingContext context, 
-			Object... params);
+  /**
+   * Plot.
+   *
+   * @param g2 the g2
+   * @param context the context
+   */
+  public abstract void plot(Graphics2D g2,
+      DrawingContext context,
+      Object... params);
 }

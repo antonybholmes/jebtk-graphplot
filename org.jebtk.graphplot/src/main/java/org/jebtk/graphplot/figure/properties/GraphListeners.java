@@ -18,67 +18,80 @@ package org.jebtk.graphplot.figure.properties;
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.EventProducer;
 
-
-
 // TODO: Auto-generated Javadoc
 /**
- * Provides the ability to register and unregister ModernClickEventListeners
- * for controls and provides standard functions to interface with {
+ * Provides the ability to register and unregister ModernClickEventListeners for
+ * controls and provides standard functions to interface with {
  * EventListenerList by taking care of casting etc.
  *
  * @author Antony Holmes Holmes
  *
  */
-public class GraphListeners extends EventProducer<GraphListener> implements GraphEventProducer {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+public class GraphListeners extends EventProducer<GraphListener>
+    implements GraphEventProducer {
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.properties.GraphEventProducer#addGraphListener(edu.columbia.rdf.lib.bioinformatics.plot.figure.properties.GraphListener)
-	 */
-	public synchronized void addGraphListener(GraphListener l) {
-		mListeners.add(l);
-	}
-	
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.properties.GraphEventProducer#removeGraphListener(edu.columbia.rdf.lib.bioinformatics.plot.figure.properties.GraphListener)
-	 */
-	public synchronized void removeGraphListener(GraphListener l) {
-		mListeners.remove(l);
-	}
-	
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.properties.GraphEventProducer#fireGraphChanged(org.abh.lib.event.ChangeEvent)
-	 */
-	public synchronized void fireGraphChanged(ChangeEvent e) {
-		for (GraphListener l : mListeners) {
-			l.graphChanged(e);
-		}
-	}
-	
-	/**
-	 * Fire graph changed.
-	 */
-	public void fireGraphChanged() {
-		fireGraphChanged(new ChangeEvent(this));
-	}
-	
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.properties.GraphEventProducer#fireLayoutChanged(org.abh.lib.event.ChangeEvent)
-	 */
-	public synchronized void fireLayoutChanged(ChangeEvent e) {
-		for (GraphListener l : mListeners) {
-			l.layoutChanged(e);
-		}
-	}
-	
-	/**
-	 * Called when the plot dimensions change.
-	 */
-	public void fireLayoutChanged() {
-		fireLayoutChanged(new ChangeEvent(this));
-	}
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.properties.
+   * GraphEventProducer#addGraphListener(edu.columbia.rdf.lib.bioinformatics.
+   * plot.figure.properties.GraphListener)
+   */
+  public synchronized void addGraphListener(GraphListener l) {
+    mListeners.add(l);
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.properties.
+   * GraphEventProducer#removeGraphListener(edu.columbia.rdf.lib.bioinformatics.
+   * plot.figure.properties.GraphListener)
+   */
+  public synchronized void removeGraphListener(GraphListener l) {
+    mListeners.remove(l);
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.properties.
+   * GraphEventProducer#fireGraphChanged(org.abh.lib.event.ChangeEvent)
+   */
+  public synchronized void fireGraphChanged(ChangeEvent e) {
+    for (GraphListener l : mListeners) {
+      l.graphChanged(e);
+    }
+  }
+
+  /**
+   * Fire graph changed.
+   */
+  public void fireGraphChanged() {
+    fireGraphChanged(new ChangeEvent(this));
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.properties.
+   * GraphEventProducer#fireLayoutChanged(org.abh.lib.event.ChangeEvent)
+   */
+  public synchronized void fireLayoutChanged(ChangeEvent e) {
+    for (GraphListener l : mListeners) {
+      l.layoutChanged(e);
+    }
+  }
+
+  /**
+   * Called when the plot dimensions change.
+   */
+  public void fireLayoutChanged() {
+    fireLayoutChanged(new ChangeEvent(this));
+  }
 }

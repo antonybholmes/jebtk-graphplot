@@ -22,11 +22,11 @@ import org.jebtk.graphplot.figure.series.MarkerDiamond;
  * The class ShapeDiamondStyleIcon.
  */
 public class ShapeDiamondStyleIcon extends ShapeStyleIcon {
-	
-	/**
-	 * Instantiates a new shape diamond style icon.
-	 */
-	public ShapeDiamondStyleIcon() {
-		super(new MarkerDiamond());
-	}
+
+  /**
+   * Instantiates a new shape diamond style icon.
+   */
+  public ShapeDiamondStyleIcon() {
+    super(new MarkerDiamond());
+  }
 }

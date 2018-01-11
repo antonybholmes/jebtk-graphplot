@@ -23,21 +23,21 @@ import org.jebtk.math.Linspace;
  */
 public class MinorTickMarkProperties extends TickMarkProperties {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * Instantiates a new minor tick mark properties.
-	 */
-	public MinorTickMarkProperties() {
-		setTicks(Linspace.evenlySpaced(0, 1, 0.1));
-		
-		setTickSize(2);
-		
-		// Don't usually want to show minor labels
-		getFontStyle().setVisible(false);
-	}
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
+
+  /**
+   * Instantiates a new minor tick mark properties.
+   */
+  public MinorTickMarkProperties() {
+    setTicks(Linspace.evenlySpaced(0, 1, 0.1));
+
+    setTickSize(2);
+
+    // Don't usually want to show minor labels
+    getFontStyle().setVisible(false);
+  }
 
 }

@@ -24,65 +24,69 @@ import org.jebtk.modern.widget.ModernWidget;
 // TODO: Auto-generated Javadoc
 /**
  * Plot for drawing an axis. Responds to axis visibility properties.
- *  
+ * 
  * @author Antony Holmes Holmes
  *
  */
 public class AxisPlot extends Plot {
 
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
-	
-	/** The m axis. */
-	private Axis mAxis;
+  /** The Constant serialVersionUID. */
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * Instantiates a new plot.
-	 *
-	 * @param name the name
-	 * @param axis the axis
-	 */
-	public AxisPlot(String name, Axis axis) {
-		super(name);
-		
-		mAxis = axis;
+  /** The m axis. */
+  private Axis mAxis;
 
-		setVisible(mAxis.getVisible());
+  /**
+   * Instantiates a new plot.
+   *
+   * @param name the name
+   * @param axis the axis
+   */
+  public AxisPlot(String name, Axis axis) {
+    super(name);
 
-		mAxis.addChangeListener(new ChangeListener() {
+    mAxis = axis;
 
-			@Override
-			public void changed(ChangeEvent e) {
-				setVisible(mAxis.getVisible());
-			}});
-	}
+    setVisible(mAxis.getVisible());
 
-	/**
-	 * Auto set label margin.
-	 *
-	 * @param axis the axis
-	 * @return the int
-	 */
-	public static int autoSetLabelMargin(Axis axis) {
+    mAxis.addChangeListener(new ChangeListener() {
 
-		int w = 0;
+      @Override
+      public void changed(ChangeEvent e) {
+        setVisible(mAxis.getVisible());
+      }
+    });
+  }
 
-		String text = TextUtils.maxString(axis.getTicks().getMajorTicks().getLabels());
+  /**
+   * Auto set label margin.
+   *
+   * @param axis the axis
+   * @return the int
+   */
+  public static int autoSetLabelMargin(Axis axis) {
 
-		w = ModernWidget.getStringWidth(axis.getTicks().getMajorTicks().getFontStyle().getFont(), 
-				text);
+    int w = 0;
 
-		w += axis.getTicks().getMajorTicks().getTickSpacing();
+    String text = TextUtils
+        .maxString(axis.getTicks().getMajorTicks().getLabels());
 
-		if (!axis.getTicks().getDrawInside()) {
-			w += axis.getTicks().getMajorTicks().getTickSize();
-		}
+    w = ModernWidget.getStringWidth(
+        axis.getTicks().getMajorTicks().getFontStyle().getFont(),
+        text);
 
-		// Increase by 20%
-		w = w * 12 / 10;
+    w += axis.getTicks().getMajorTicks().getTickSpacing();
 
-		//axes.getMargins().setBottom(Math.max(w, MarginProperties.DEFAULT_MARGIN));
+    if (!axis.getTicks().getDrawInside()) {
+      w += axis.getTicks().getMajorTicks().getTickSize();
+    }
 
-		return Math.max(w, MarginProperties.DEFAULT_SIZE);
-	}
+    // Increase by 20%
+    w = w * 12 / 10;
+
+    // axes.getMargins().setBottom(Math.max(w,
+    // MarginProperties.DEFAULT_MARGIN));
+
+    return Math.max(w, MarginProperties.DEFAULT_SIZE);
+  }
 }

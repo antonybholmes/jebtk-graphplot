@@ -23,14 +23,14 @@ package org.jebtk.graphplot.figure.heatmap.legacy;
  *
  */
 public enum ColumnLabelPosition {
-	
-	/**
-	 * The top.
-	 */
-	TOP,
-	
-	/**
-	 * The bottom.
-	 */
-	BOTTOM
+
+  /**
+   * The top.
+   */
+  TOP,
+
+  /**
+   * The bottom.
+   */
+  BOTTOM
 }

@@ -34,80 +34,88 @@ import org.jebtk.modern.graphics.DrawingContext;
  *
  */
 public class BarChartErrorBarsLayer extends PlotClippedLayer {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	@Override
-	public String getType() {
-		return "Bar Chart Error Bars Layer";
-	}
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotClippedLayer#plotLayer(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.DataFrame)
-	 */
-	@Override
-	public void plotLayer(Graphics2D g2,
-			DrawingContext context,
-			Figure figure,
-			SubFigure subFigure,
-			Axes axes,
-			Plot plot,
-			DataFrame m) {
-		int x;
-		int x1;
-		int y1;
-		int y2;
-		double bw;
-		int bwp;
-		double offset;
-		double y;
-		double sd;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-		int x2;
+  @Override
+  public String getType() {
+    return "Bar Chart Error Bars Layer";
+  }
 
-		y1 = axes.toPlotY1(0);
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotClippedLayer#plotLayer(
+   * java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
+   * org.abh.lib.math.matrix.DataFrame)
+   */
+  @Override
+  public void plotLayer(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes,
+      Plot plot,
+      DataFrame m) {
+    int x;
+    int x1;
+    int y1;
+    int y2;
+    double bw;
+    int bwp;
+    double offset;
+    double y;
+    double sd;
 
-		bw = plot.getBarWidth();
-		bwp = axes.toPlotX1(bw) - axes.toPlotX1(0);
+    int x2;
 
-		int bwp2 = bwp / 2;
+    y1 = axes.toPlotY1(0);
 
-		offset = (1.0 - bw) / 2.0;
-		
-		x = 0; //axes.toPlotX(axes.getXAxis().getMin());
+    bw = plot.getBarWidth();
+    bwp = axes.toPlotX1(bw) - axes.toPlotX1(0);
 
-		double[] means = DoubleMatrix.columnMeans(m);
-		double[] sds = DoubleMatrix.columnPopStdDev(m);
-		
-		System.err.println("means " + Arrays.toString(means));
-		System.err.println("sd " + Arrays.toString(sds));
-		
-		for (XYSeries series : plot.getAllSeries()) {
-			List<Integer> columns = MatrixGroup.findColumnIndices(m, series);
+    int bwp2 = bwp / 2;
 
-			int c = columns.get(0);
-			
-			y = means[c];
-			sd = sds[c];
+    offset = (1.0 - bw) / 2.0;
 
-			x1 = axes.toPlotX1(x + offset);
-			x2 = axes.toPlotX1(x + offset + bw);
+    x = 0; // axes.toPlotX(axes.getXAxis().getMin());
 
-			y2 = axes.toPlotY1(y + sd);
-			y1 = axes.toPlotY1(y);
+    double[] means = DoubleMatrix.columnMeans(m);
+    double[] sds = DoubleMatrix.columnPopStdDev(m);
 
-			g2.setColor(Color.BLACK);
+    System.err.println("means " + Arrays.toString(means));
+    System.err.println("sd " + Arrays.toString(sds));
 
-			g2.drawLine(x1, y2, x2, y2);
+    for (XYSeries series : plot.getAllSeries()) {
+      List<Integer> columns = MatrixGroup.findColumnIndices(m, series);
 
-			x1 = axes.toPlotX1(x + 0.5);
+      int c = columns.get(0);
 
-			g2.drawLine(x1, y1, x1, y2);
+      y = means[c];
+      sd = sds[c];
 
-			++x;
-		}
-	}
+      x1 = axes.toPlotX1(x + offset);
+      x2 = axes.toPlotX1(x + offset + bw);
+
+      y2 = axes.toPlotY1(y + sd);
+      y1 = axes.toPlotY1(y);
+
+      g2.setColor(Color.BLACK);
+
+      g2.drawLine(x1, y2, x2, y2);
+
+      x1 = axes.toPlotX1(x + 0.5);
+
+      g2.drawLine(x1, y1, x1, y2);
+
+      ++x;
+    }
+  }
 }

@@ -21,29 +21,28 @@ import org.jebtk.core.geom.IntDim;
 
 // TODO: Auto-generated Javadoc
 /**
- * Draws a gradient color bar to represent the range
- * of a color map.
+ * Draws a gradient color bar to represent the range of a color map.
  * 
  * @author Antony Holmes Holmes
  *
  */
 public class PlotElementFixedSize extends PlotElement {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	private IntDim mSize;
 
-	public PlotElementFixedSize(String name, IntDim size) {
-		super(name);
-		
-		mSize = size;
-	}
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
+  private IntDim mSize;
 
-	@Override
-	public void plotSize(Dimension d) {
-		d.width += mSize.getW();
-		d.height += mSize.getH();
-	}
+  public PlotElementFixedSize(String name, IntDim size) {
+    super(name);
+
+    mSize = size;
+  }
+
+  @Override
+  public void plotSize(Dimension d) {
+    d.width += mSize.getW();
+    d.height += mSize.getH();
+  }
 }

@@ -22,20 +22,20 @@ import java.awt.Color;
  * The class TreeProperties.
  */
 public class TreeProperties {
-	
-	/**
-	 * The show.
-	 */
-	public boolean show = true;
-	
-	/**
-	 * The width.
-	 */
-	public int width = 200;
-	
-	/**
-	 * The color.
-	 */
-	public Color color = Color.BLACK;
-	
+
+  /**
+   * The show.
+   */
+  public boolean show = true;
+
+  /**
+   * The width.
+   */
+  public int width = 200;
+
+  /**
+   * The color.
+   */
+  public Color color = Color.BLACK;
+
 }

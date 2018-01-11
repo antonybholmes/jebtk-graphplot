@@ -29,122 +29,127 @@ import org.jebtk.modern.font.FontService;
  *
  */
 public class FontProperties extends ColorProperties {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * The member font.
-	 */
-	private Font mFont = ModernPlotCanvas.PLOT_FONT;
 
-	/**
-	 * Instantiates a new font properties.
-	 */
-	public FontProperties() {
-		super(Color.BLACK);
-	}
-	
-	/**
-	 * Copy.
-	 *
-	 * @param properties the font
-	 */
-	public void copy(FontProperties properties) {
-		setFont(properties.mFont);
-		
-		super.copy(properties);
-	}
-	
-	/**
-	 * Sets the font size.
-	 *
-	 * @param size the new font size
-	 */
-	public void setFontSize(int size) {
-		setFont(FontService.getInstance().loadFont(mFont.getFamily(), mFont.getStyle(), size));
-	}
-	
-	/**
-	 * Sets the family.
-	 *
-	 * @param family the new family
-	 */
-	public void setFamily(String family) {
-		setFont(FontService.getInstance().loadFont(family, mFont.getStyle(), mFont.getSize()));
-	}
-	
-	/**
-	 * Sets the bold.
-	 */
-	public void setBold() {
-		setFont(FontService.getInstance().loadFont(mFont.getFamily(), Font.BOLD, mFont.getSize()));
-	}
-	
-	/**
-	 * Sets the italic.
-	 */
-	public void setItalic() {
-		setFont(FontService.getInstance().loadFont(mFont.getFamily(), Font.ITALIC, mFont.getSize()));
-	}
-	
-	/**
-	 * Sets the bold italic.
-	 */
-	public void setBoldItalic() {
-		setFont(FontService.getInstance().loadFont(mFont.getFamily(), Font.BOLD | Font.ITALIC, mFont.getSize()));
-	}
-	
-	/**
-	 * Sets the plain.
-	 */
-	public void setPlain() {
-		setFont(FontService.getInstance().loadFont(mFont.getFamily(), Font.PLAIN, mFont.getSize()));
-	}
-	
-	/**
-	 * Sets the font family.
-	 * 
-	 * @param font		The font family.
-	 */
-	public void setFont(Font font) {
-		updateFont(font);
-		
-		fireChanged();
-	}
-	
-	/**
-	 * Sets the font.
-	 *
-	 * @param font the font
-	 * @param color the color
-	 */
-	public void setFont(Font font, Color color) {
-		updateFont(font);
-		updateColor(color);
-		
-		fireChanged();
-	}
-	
-	/**
-	 * Update font.
-	 *
-	 * @param font the font
-	 */
-	public void updateFont(Font font) {
-		mFont = font;
-	}
-	
-	/**
-	 * Returns the font family.
-	 * 
-	 * @return		The font family.
-	 */
-	public Font getFont() {
-		return mFont;
-	}
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	
+  /**
+   * The member font.
+   */
+  private Font mFont = ModernPlotCanvas.PLOT_FONT;
+
+  /**
+   * Instantiates a new font properties.
+   */
+  public FontProperties() {
+    super(Color.BLACK);
+  }
+
+  /**
+   * Copy.
+   *
+   * @param properties the font
+   */
+  public void copy(FontProperties properties) {
+    setFont(properties.mFont);
+
+    super.copy(properties);
+  }
+
+  /**
+   * Sets the font size.
+   *
+   * @param size the new font size
+   */
+  public void setFontSize(int size) {
+    setFont(FontService.getInstance()
+        .loadFont(mFont.getFamily(), mFont.getStyle(), size));
+  }
+
+  /**
+   * Sets the family.
+   *
+   * @param family the new family
+   */
+  public void setFamily(String family) {
+    setFont(FontService.getInstance()
+        .loadFont(family, mFont.getStyle(), mFont.getSize()));
+  }
+
+  /**
+   * Sets the bold.
+   */
+  public void setBold() {
+    setFont(FontService.getInstance()
+        .loadFont(mFont.getFamily(), Font.BOLD, mFont.getSize()));
+  }
+
+  /**
+   * Sets the italic.
+   */
+  public void setItalic() {
+    setFont(FontService.getInstance()
+        .loadFont(mFont.getFamily(), Font.ITALIC, mFont.getSize()));
+  }
+
+  /**
+   * Sets the bold italic.
+   */
+  public void setBoldItalic() {
+    setFont(FontService.getInstance()
+        .loadFont(mFont.getFamily(), Font.BOLD | Font.ITALIC, mFont.getSize()));
+  }
+
+  /**
+   * Sets the plain.
+   */
+  public void setPlain() {
+    setFont(FontService.getInstance()
+        .loadFont(mFont.getFamily(), Font.PLAIN, mFont.getSize()));
+  }
+
+  /**
+   * Sets the font family.
+   * 
+   * @param font The font family.
+   */
+  public void setFont(Font font) {
+    updateFont(font);
+
+    fireChanged();
+  }
+
+  /**
+   * Sets the font.
+   *
+   * @param font the font
+   * @param color the color
+   */
+  public void setFont(Font font, Color color) {
+    updateFont(font);
+    updateColor(color);
+
+    fireChanged();
+  }
+
+  /**
+   * Update font.
+   *
+   * @param font the font
+   */
+  public void updateFont(Font font) {
+    mFont = font;
+  }
+
+  /**
+   * Returns the font family.
+   * 
+   * @return The font family.
+   */
+  public Font getFont() {
+    return mFont;
+  }
+
 }

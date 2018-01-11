@@ -25,144 +25,134 @@ import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
-
 // TODO: Auto-generated Javadoc
 /**
  * The class NumericalRowLabelsPlotElement.
  */
 public class NumericalRowLabelsPlotElement extends RowMatrixPlotElement {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * The member values.
-	 */
-	private List<Double> mValues;
 
-	/**
-	 * The member color.
-	 */
-	private Color mColor;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * The member title.
-	 */
-	private String mTitle;
+  /**
+   * The member values.
+   */
+  private List<Double> mValues;
 
-	/**
-	 * The member formatter.
-	 */
-	private DecimalFormat mFormatter;
-	
-	/**
-	 * The constant FORMAT.
-	 */
-	private static final String FORMAT = "##0.00";
-	
-	/**
-	 * Instantiates a new numerical row labels plot element.
-	 *
-	 * @param matrix the matrix
-	 * @param values the values
-	 * @param width the width
-	 * @param aspectRatio the aspect ratio
-	 */
-	public NumericalRowLabelsPlotElement(DataFrame matrix, 
-			List<Double> values,
-			int width, 
-			DoubleDim aspectRatio) {
-		this(matrix, null, values, width, aspectRatio, Color.BLACK, FORMAT);
-	}
-	
-	/**
-	 * Instantiates a new numerical row labels plot element.
-	 *
-	 * @param matrix the matrix
-	 * @param title the title
-	 * @param values the values
-	 * @param width the width
-	 * @param aspectRatio the aspect ratio
-	 * @param color the color
-	 */
-	public NumericalRowLabelsPlotElement(DataFrame matrix,
-			String title,
-			List<Double> values, 
-			int width, 
-			DoubleDim aspectRatio,
-			Color color) {
-		this(matrix,
-				title,
-				values,
-				width,
-				aspectRatio,
-				color,
-				FORMAT);
-	}
-	
-	/**
-	 * Instantiates a new numerical row labels plot element.
-	 *
-	 * @param matrix the matrix
-	 * @param title the title
-	 * @param values the values
-	 * @param width the width
-	 * @param aspectRatio the aspect ratio
-	 * @param color the color
-	 * @param format the format
-	 */
-	public NumericalRowLabelsPlotElement(DataFrame matrix,
-			String title,
-			List<Double> values, 
-			int width, 
-			DoubleDim aspectRatio,
-			Color color,
-			String format) {
-		super(matrix, width, aspectRatio);
-		
-		mTitle = title;
-		mColor = color;
-		mFormatter = new DecimalFormat(format);
-		
-		mValues = values;
-	}
+  /**
+   * The member color.
+   */
+  private Color mColor;
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
-	 */
-	@Override
-	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Object... params) {
-		drawLabels(g2);
-	}
-	
-	/**
-	 * Draw labels.
-	 *
-	 * @param g2 the g2
-	 */
-	private void drawLabels(Graphics2D g2) {
-		g2.setColor(mColor);
-	
-		int x = (getPreferredSize().width - g2.getFontMetrics().stringWidth(mTitle));
-		
-	
-		if (mTitle != null) {
-			g2.drawString(mTitle, x, (int) -mBlockSize.getH());
-		}
-		
-		int y = (int) ((mBlockSize.getH() + g2.getFontMetrics().getAscent() - g2.getFontMetrics().getDescent()) / 2);
-		
-		
-		for (double v : mValues) {
-			String s = mFormatter.format(v);
-			
-			x = getPreferredSize().width - g2.getFontMetrics().stringWidth(s);
-			
-			g2.drawString(s, x, y);
-			
-			y += mBlockSize.getH();
-		}
-	}
+  /**
+   * The member title.
+   */
+  private String mTitle;
+
+  /**
+   * The member formatter.
+   */
+  private DecimalFormat mFormatter;
+
+  /**
+   * The constant FORMAT.
+   */
+  private static final String FORMAT = "##0.00";
+
+  /**
+   * Instantiates a new numerical row labels plot element.
+   *
+   * @param matrix the matrix
+   * @param values the values
+   * @param width the width
+   * @param aspectRatio the aspect ratio
+   */
+  public NumericalRowLabelsPlotElement(DataFrame matrix, List<Double> values,
+      int width, DoubleDim aspectRatio) {
+    this(matrix, null, values, width, aspectRatio, Color.BLACK, FORMAT);
+  }
+
+  /**
+   * Instantiates a new numerical row labels plot element.
+   *
+   * @param matrix the matrix
+   * @param title the title
+   * @param values the values
+   * @param width the width
+   * @param aspectRatio the aspect ratio
+   * @param color the color
+   */
+  public NumericalRowLabelsPlotElement(DataFrame matrix, String title,
+      List<Double> values, int width, DoubleDim aspectRatio, Color color) {
+    this(matrix, title, values, width, aspectRatio, color, FORMAT);
+  }
+
+  /**
+   * Instantiates a new numerical row labels plot element.
+   *
+   * @param matrix the matrix
+   * @param title the title
+   * @param values the values
+   * @param width the width
+   * @param aspectRatio the aspect ratio
+   * @param color the color
+   * @param format the format
+   */
+  public NumericalRowLabelsPlotElement(DataFrame matrix, String title,
+      List<Double> values, int width, DoubleDim aspectRatio, Color color,
+      String format) {
+    super(matrix, width, aspectRatio);
+
+    mTitle = title;
+    mColor = color;
+    mFormatter = new DecimalFormat(format);
+
+    mValues = values;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.
+   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
+   */
+  @Override
+  public void plot(Graphics2D g2,
+      Dimension offset,
+      DrawingContext context,
+      Object... params) {
+    drawLabels(g2);
+  }
+
+  /**
+   * Draw labels.
+   *
+   * @param g2 the g2
+   */
+  private void drawLabels(Graphics2D g2) {
+    g2.setColor(mColor);
+
+    int x = (getPreferredSize().width
+        - g2.getFontMetrics().stringWidth(mTitle));
+
+    if (mTitle != null) {
+      g2.drawString(mTitle, x, (int) -mBlockSize.getH());
+    }
+
+    int y = (int) ((mBlockSize.getH() + g2.getFontMetrics().getAscent()
+        - g2.getFontMetrics().getDescent()) / 2);
+
+    for (double v : mValues) {
+      String s = mFormatter.format(v);
+
+      x = getPreferredSize().width - g2.getFontMetrics().stringWidth(s);
+
+      g2.drawString(s, x, y);
+
+      y += mBlockSize.getH();
+    }
+  }
 }

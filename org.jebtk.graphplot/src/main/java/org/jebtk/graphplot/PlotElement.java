@@ -25,15 +25,15 @@ import org.jebtk.graphplot.plotbox.PlotBox;
  *
  */
 public abstract class PlotElement extends PlotBox {
-	
-	private static final long serialVersionUID = 1L;
 
-	public PlotElement(String name) {
-		super(name);
-	}
-	
-	@Override
-	public String hashId() {
-		return getName();
-	}
+  private static final long serialVersionUID = 1L;
+
+  public PlotElement(String name) {
+    super(name);
+  }
+
+  @Override
+  public String hashId() {
+    return getName();
+  }
 }

@@ -28,23 +28,23 @@ import org.jebtk.modern.graphics.colormap.ColorMap;
  *
  */
 public class ColorCycle extends Cycle<Color> {
-	
-	/**
-	 * Instantiates a new color cycle.
-	 */
-	public ColorCycle() {
-		//add(ColorUtils.decodeHtmlColor("#ff5555"));
-		//add(ColorUtils.decodeHtmlColor("#00aa44"));
-		//add(ColorUtils.decodeHtmlColor("#5f8dd3"));
-		
-		add(Color.RED);
-		add(ColorMap.GREEN);
-		add(ColorMap.BLUE);
-		add(ColorMap.ORANGE);
-		add(ColorMap.PURPLE);
-		add(ColorMap.YELLOW);
-		add(ColorMap.PINK);
-		add(Color.GRAY);
-		add(Color.BLACK);
-	}
+
+  /**
+   * Instantiates a new color cycle.
+   */
+  public ColorCycle() {
+    // add(ColorUtils.decodeHtmlColor("#ff5555"));
+    // add(ColorUtils.decodeHtmlColor("#00aa44"));
+    // add(ColorUtils.decodeHtmlColor("#5f8dd3"));
+
+    add(Color.RED);
+    add(ColorMap.GREEN);
+    add(ColorMap.BLUE);
+    add(ColorMap.ORANGE);
+    add(ColorMap.PURPLE);
+    add(ColorMap.YELLOW);
+    add(ColorMap.PINK);
+    add(Color.GRAY);
+    add(Color.BLACK);
+  }
 }

@@ -29,38 +29,50 @@ import org.jebtk.modern.graphics.icons.ModernVectorIcon;
  *
  */
 public class Legend32VectorIcon extends ModernVectorIcon {
-	
-	/**
-	 * The constant WIDTH.
-	 */
-	private static final int WIDTH = 30;
-	
-	/**
-	 * The constant SIZE.
-	 */
-	private static final int SIZE = 7;
-	
-	/* (non-Javadoc)
-	 * @see org.abh.common.ui.ui.icons.ModernIcon#drawForeground(java.awt.Graphics2D, java.awt.Rectangle)
-	 */
-	@Override
-	public void drawIcon(Graphics2D g2, int x, int y, int w, int h, Object... params) {
-		x = x + (w - WIDTH) / 2;
-		y = y + (h - WIDTH) / 2;
-		
-		g2.setColor(ColorUtils.decodeHtmlColor("#ff5555"));
-		g2.fillRect(x, y, SIZE, SIZE);
-		g2.setColor(Color.BLACK);
-		g2.drawLine(x + SIZE + 5, y + SIZE / 2, x + SIZE + 15, y + SIZE / 2);
-		
-		g2.setColor(ColorUtils.decodeHtmlColor("#37c871"));
-		g2.fillRect(x, y + SIZE + SIZE / 2, SIZE, SIZE);
-		g2.setColor(Color.BLACK);
-		g2.drawLine(x + SIZE + 5, y + 2 * SIZE, x + SIZE + 15, y + 2 * SIZE);
-		
-		g2.setColor(ColorUtils.decodeHtmlColor("#80b3ff"));
-		g2.fillRect(x, y + 3 * SIZE, SIZE, SIZE);
-		g2.setColor(Color.BLACK);
-		g2.drawLine(x + SIZE + 5, y + 3 * SIZE + SIZE / 2, x + SIZE + 15, y + 3 * SIZE + SIZE / 2);
-	}
+
+  /**
+   * The constant WIDTH.
+   */
+  private static final int WIDTH = 30;
+
+  /**
+   * The constant SIZE.
+   */
+  private static final int SIZE = 7;
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * org.abh.common.ui.ui.icons.ModernIcon#drawForeground(java.awt.Graphics2D,
+   * java.awt.Rectangle)
+   */
+  @Override
+  public void drawIcon(Graphics2D g2,
+      int x,
+      int y,
+      int w,
+      int h,
+      Object... params) {
+    x = x + (w - WIDTH) / 2;
+    y = y + (h - WIDTH) / 2;
+
+    g2.setColor(ColorUtils.decodeHtmlColor("#ff5555"));
+    g2.fillRect(x, y, SIZE, SIZE);
+    g2.setColor(Color.BLACK);
+    g2.drawLine(x + SIZE + 5, y + SIZE / 2, x + SIZE + 15, y + SIZE / 2);
+
+    g2.setColor(ColorUtils.decodeHtmlColor("#37c871"));
+    g2.fillRect(x, y + SIZE + SIZE / 2, SIZE, SIZE);
+    g2.setColor(Color.BLACK);
+    g2.drawLine(x + SIZE + 5, y + 2 * SIZE, x + SIZE + 15, y + 2 * SIZE);
+
+    g2.setColor(ColorUtils.decodeHtmlColor("#80b3ff"));
+    g2.fillRect(x, y + 3 * SIZE, SIZE, SIZE);
+    g2.setColor(Color.BLACK);
+    g2.drawLine(x + SIZE + 5,
+        y + 3 * SIZE + SIZE / 2,
+        x + SIZE + 15,
+        y + 3 * SIZE + SIZE / 2);
+  }
 }

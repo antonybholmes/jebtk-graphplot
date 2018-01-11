@@ -22,11 +22,11 @@ import org.jebtk.graphplot.figure.series.MarkerMinus;
  * The class ShapeMinusStyleIcon.
  */
 public class ShapeMinusStyleIcon extends ShapeStyleIcon {
-	
-	/**
-	 * Instantiates a new shape minus style icon.
-	 */
-	public ShapeMinusStyleIcon() {
-		super(new MarkerMinus());
-	}
+
+  /**
+   * Instantiates a new shape minus style icon.
+   */
+  public ShapeMinusStyleIcon() {
+    super(new MarkerMinus());
+  }
 }

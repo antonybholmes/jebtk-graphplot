@@ -23,26 +23,26 @@ package org.jebtk.graphplot;
  *
  */
 public class Alias {
-	
-	/**
-	 * The from.
-	 */
-	public String from;
-	
-	/**
-	 * The to.
-	 */
-	public String to;
-	
-	/**
-	 * Instantiates a new alias.
-	 *
-	 * @param from the from
-	 * @param to the to
-	 */
-	public Alias(String from, String to) {
-		this.from = from;
-		this.to = to;
-	}
-	
+
+  /**
+   * The from.
+   */
+  public String from;
+
+  /**
+   * The to.
+   */
+  public String to;
+
+  /**
+   * Instantiates a new alias.
+   *
+   * @param from the from
+   * @param to the to
+   */
+  public Alias(String from, String to) {
+    this.from = from;
+    this.to = to;
+  }
+
 }

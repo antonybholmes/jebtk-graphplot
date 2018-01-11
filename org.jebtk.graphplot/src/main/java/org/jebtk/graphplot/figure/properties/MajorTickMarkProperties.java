@@ -24,21 +24,21 @@ import java.util.List;
  */
 public class MajorTickMarkProperties extends TickMarkProperties {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * Instantiates a new major tick mark properties.
-	 */
-	public MajorTickMarkProperties() {
-		List<Double> ticks = new ArrayList<Double>();
-		
-		ticks.add(0.0);
-		ticks.add(1.0);
-		
-		setTicks(ticks);
-	}
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
+
+  /**
+   * Instantiates a new major tick mark properties.
+   */
+  public MajorTickMarkProperties() {
+    List<Double> ticks = new ArrayList<Double>();
+
+    ticks.add(0.0);
+    ticks.add(1.0);
+
+    setTicks(ticks);
+  }
 
 }

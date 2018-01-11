@@ -24,220 +24,221 @@ import org.jebtk.modern.graphics.DrawingContext;
 
 // TODO: Auto-generated Javadoc
 /**
- * Represents a 2D Cartesian graph. This
- * class draws basic axes and titles but should
- * be subclassed to provide specific plot functionality.
- *  
+ * Represents a 2D Cartesian graph. This class draws basic axes and titles but
+ * should be subclassed to provide specific plot functionality.
+ * 
  * @author Antony Holmes Holmes
  *
  */
 public class AxisLayerY2 extends AxisLayerY {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
+  /** The m hash id. */
+  private String mHashId = null;
 
-	/** The m hash id. */
-	private String mHashId = null;
+  /** The m minor ticks. */
+  private List<Integer> mMinorTicks;
 
-	/** The m minor ticks. */
-	private List<Integer> mMinorTicks;
+  /** The m major ticks. */
+  private List<Integer> mMajorTicks;
 
-	/** The m major ticks. */
-	private List<Integer> mMajorTicks;
+  /** The m major tick labels. */
+  private UniqueArrayList<String> mMajorTickLabels;
 
+  @Override
+  public String getType() {
+    return "Y2 Axis";
+  }
 
-	/** The m major tick labels. */
-	private UniqueArrayList<String> mMajorTickLabels;
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.AxesLayer#plot(java.awt.
+   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes)
+   */
+  @Override
+  public void drawPlot(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes) {
+    Axis axis = axes.getY2Axis();
 
-	
-	@Override
-	public String getType() {
-		return "Y2 Axis";
-	}
+    if (!axis.getVisible()) {
+      return;
+    }
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.AxesLayer#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes)
-	 */
-	@Override
-	public void drawPlot(Graphics2D g2,
-			DrawingContext context,
-			Figure figure,
-			SubFigure subFigure,
-			Axes axes) {
-		Axis axis = axes.getY2Axis();
+    // Cache positions if not already done so
+    if (mHashId == null || !mHashId.equals(axes.hashId())) {
+      mMinorTicks = new UniqueArrayList<Integer>(
+          axis.getTicks().getMinorTicks().getTickCount());
 
-		if (!axis.getVisible()) {
-			return;
-		}
+      for (double t : axis.getTicks().getMinorTicks()) {
+        mMinorTicks.add(axes.toPlotY2(t));
+      }
 
-		// Cache positions if not already done so
-		if (mHashId == null || !mHashId.equals(axes.hashId())) {
-			mMinorTicks = new UniqueArrayList<Integer>(axis.getTicks().getMinorTicks().getTickCount());
+      mMajorTicks = new UniqueArrayList<Integer>(
+          axis.getTicks().getMajorTicks().getTickCount());
 
-			for (double t : axis.getTicks().getMinorTicks()) {
-				mMinorTicks.add(axes.toPlotY2(t));
-			}
+      mMajorTickLabels = new UniqueArrayList<String>(
+          axis.getTicks().getMajorTicks().getTickCount());
 
-			mMajorTicks = new UniqueArrayList<Integer>(axis.getTicks().getMajorTicks().getTickCount());
+      for (int i = 0; i < axis.getTicks().getMajorTicks().getTickCount(); ++i) {
+        // for (double y : axis.getTicks().getMajorTicks()) {
+        double y = axis.getTicks().getMajorTicks().getTick(i);
 
-			mMajorTickLabels = 
-					new UniqueArrayList<String>(axis.getTicks().getMajorTicks().getTickCount());
+        // if (y != 0) {
+        mMajorTicks.add(axes.toPlotY2(y));
+        mMajorTickLabels.add(axis.getTicks().getMajorTicks().getLabel(i));
+        // }
+      }
+    }
 
-			for (int i = 0; i < axis.getTicks().getMajorTicks().getTickCount(); ++i) {
-				//for (double y : axis.getTicks().getMajorTicks()) {
-				double y = axis.getTicks().getMajorTicks().getTick(i);
+    //
+    // y axis
+    //
 
-				//if (y != 0) {
-					mMajorTicks.add(axes.toPlotY2(y));
-					mMajorTickLabels.add(axis.getTicks().getMajorTicks().getLabel(i));
-				//}
-			}
-		}
+    // the line
 
-		//
-		// y axis
-		//
+    int x = axes.getInternalSize().getW();
 
-		// the line
+    // System.err.println("y2 " + axes.getName() + " " + axes.getMargins() + " "
+    // + axes.getInternalPlotSize());
 
-		int x = axes.getInternalSize().getW();
+    drawLine(g2, axes, axis, x);
 
-		//System.err.println("y2 " + axes.getName() + " " + axes.getMargins() + " " + axes.getInternalPlotSize());
-		
-		drawLine(g2,
-				axes,
-				axis,
-				x);
+    //
+    // Tick lines
+    //
 
-		//
-		// Tick lines
-		//
+    drawTicks(g2,
+        axes,
+        axis.getTicks().getMinorTicks(),
+        mMinorTicks,
+        axis.getTicks().getDrawInside(),
+        x,
+        context);
 
-		drawTicks(g2, 
-				axes,
-				axis.getTicks().getMinorTicks(),
-				mMinorTicks,
-				axis.getTicks().getDrawInside(),
-				x,
-				context);
+    drawTicks(g2,
+        axes,
+        axis.getTicks().getMajorTicks(),
+        mMajorTicks,
+        axis.getTicks().getDrawInside(),
+        x,
+        context);
 
-		drawTicks(g2, 
-				axes,
-				axis.getTicks().getMajorTicks(),
-				mMajorTicks,
-				axis.getTicks().getDrawInside(),
-				x,
-				context);
+    //
+    // The y labels
+    //
 
+    // drawLabels(g2,
+    /// axis,
+    // mMajorTicks,
+    // mMajorTickLabels,
+    // x);
 
-		//
-		// The y labels
-		//
+    // labels
 
-		//drawLabels(g2,
-		///		axis,
-		//		mMajorTicks,
-		//		mMajorTickLabels,
-		//		x);
+    // System.err.println("say what " + axis.getName() + " " +
+    // axis.getTitle().getFontStyle().getVisible());
 
-		// labels
+    // drawTitle(g2,
+    // axes,
+    // axis,
+    // axes.getPlotSize().getW() - g2.getFontMetrics().getAscent() -
+    // g2.getFontMetrics().getDescent());
 
-		//System.err.println("say what " + axis.getName() + " " + axis.getTitle().getFontStyle().getVisible());
+    mHashId = subFigure.hashId();
+  }
 
-		//drawTitle(g2, 
-		//		axes, 
-		//		axis,
-		//		axes.getPlotSize().getW() - g2.getFontMetrics().getAscent() - g2.getFontMetrics().getDescent());
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.graphplot.figure.AxisLayerY#drawLabels(java.awt.Graphics2D,
+   * org.graphplot.figure.Axis, java.util.List, java.util.List, int)
+   */
+  @Override
+  protected void drawLabels(Graphics2D g2,
+      Axis axis,
+      List<Integer> majorTicks,
+      List<String> majorTicksLabels,
+      int x) {
+    if (axis.getTicks().getMajorTicks().getFontStyle().getVisible()) {
+      g2.setColor(axis.getTicks().getMajorTicks().getFontStyle().getColor());
+      g2.setFont(axis.getTicks().getMajorTicks().getFontStyle().getFont());
 
-		mHashId = subFigure.hashId();
-	}
+      int xOffset = x + axis.getTicks().getMajorTicks().getTickSize()
+          + axis.getTicks().getMajorTicks().getTickSpacing();
+      int yOffset = (g2.getFontMetrics().getAscent()
+          - g2.getFontMetrics().getDescent()) / 2;
 
-	/* (non-Javadoc)
-	 * @see org.graphplot.figure.AxisLayerY#drawLabels(java.awt.Graphics2D, org.graphplot.figure.Axis, java.util.List, java.util.List, int)
-	 */
-	@Override
-	protected void drawLabels(Graphics2D g2,
-			Axis axis,
-			List<Integer> majorTicks,
-			List<String> majorTicksLabels,
-			int x) {
-		if (axis.getTicks().getMajorTicks().getFontStyle().getVisible()) {
-			g2.setColor(axis.getTicks().getMajorTicks().getFontStyle().getColor());
-			g2.setFont(axis.getTicks().getMajorTicks().getFontStyle().getFont());
+      for (int i = 0; i < majorTicks.size(); ++i) {
+        int y = majorTicks.get(i) + yOffset;
 
-			int xOffset = x + axis.getTicks().getMajorTicks().getTickSize() + axis.getTicks().getMajorTicks().getTickSpacing();
-			int yOffset = (g2.getFontMetrics().getAscent() - g2.getFontMetrics().getDescent()) / 2;
+        String mark = majorTicksLabels.get(i);
 
-			for (int i = 0; i < majorTicks.size(); ++i) {
-				int y = majorTicks.get(i) + yOffset;
+        g2.drawString(mark, xOffset, y);
+      }
+    }
+  }
 
-				String mark = majorTicksLabels.get(i);
+  /**
+   * Draw ticks.
+   *
+   * @param g2 the g2
+   * @param axes the axes
+   * @param ticks the ticks
+   * @param marks the marks
+   * @param drawInside the draw inside
+   * @param x the x
+   * @param context the context
+   */
+  protected static void drawTicks(Graphics2D g2,
+      Axes axes,
+      TickMarkProperties ticks,
+      List<Integer> marks,
+      boolean drawInside,
+      int x,
+      DrawingContext context) {
 
-				g2.drawString(mark, xOffset, y);
-			}
-		}
-	}
+    if (ticks.getLineStyle().getVisible()) {
+      if (drawInside) {
+        x -= (ticks.getTickSize() - 1);
+      }
 
-	/**
-	 * Draw ticks.
-	 *
-	 * @param g2 the g2
-	 * @param axes the axes
-	 * @param ticks the ticks
-	 * @param marks the marks
-	 * @param drawInside the draw inside
-	 * @param x the x
-	 * @param context the context
-	 */
-	protected static void drawTicks(Graphics2D g2, 
-			Axes axes,
-			TickMarkProperties ticks,
-			List<Integer> marks,
-			boolean drawInside,
-			int x,
-			DrawingContext context) {
+      /*
+       * if (context == DrawingContext.SCREEN) { BufferedImage im =
+       * Image.createTransBuffIm(ticks.getTickSize(), 1);
+       * 
+       * Graphics2D g2Temp = (Graphics2D)im.createGraphics();
+       * g2Temp.setColor(ticks.getLineStyle().getColor());
+       * g2Temp.setStroke(ticks.getLineStyle().getStroke());
+       * 
+       * g2Temp.drawLine(0, 0, ticks.getTickSize() - 1, 0); g2Temp.dispose();
+       * 
+       * for (int y : marks) { g2.drawImage(im, x, y, null); } } else { //
+       * Render to file
+       * 
+       * int x2 = x + ticks.getTickSize() - 1;
+       * 
+       * for (int y : marks) { g2.drawLine(x, y, x2, y); } }
+       */
 
-		if (ticks.getLineStyle().getVisible()) {
-			if (drawInside) {
-				x -= (ticks.getTickSize() - 1);
-			}
+      g2.setColor(ticks.getLineStyle().getColor());
+      g2.setStroke(ticks.getLineStyle().getStroke());
 
-			/*
-			if (context == DrawingContext.SCREEN) {
-				BufferedImage im = Image.createTransBuffIm(ticks.getTickSize(), 1);
+      int x2 = x + ticks.getTickSize() - 1;
 
-				Graphics2D g2Temp = (Graphics2D)im.createGraphics();
-				g2Temp.setColor(ticks.getLineStyle().getColor());
-				g2Temp.setStroke(ticks.getLineStyle().getStroke());
-
-				g2Temp.drawLine(0, 0, ticks.getTickSize() - 1, 0);
-				g2Temp.dispose();
-
-				for (int y : marks) {
-					g2.drawImage(im, x, y, null);
-				}
-			} else {
-				// Render to file
-
-				int x2 = x + ticks.getTickSize() - 1;
-
-				for (int y : marks) {
-					g2.drawLine(x, y, x2, y);
-				}
-			}
-			*/
-			
-			g2.setColor(ticks.getLineStyle().getColor());
-			g2.setStroke(ticks.getLineStyle().getStroke());
-			
-			int x2 = x + ticks.getTickSize() - 1;
-
-			for (int y : marks) {
-				g2.drawLine(x, y, x2, y);
-			}
-		}
-	}
+      for (int y : marks) {
+        g2.drawLine(x, y, x2, y);
+      }
+    }
+  }
 }

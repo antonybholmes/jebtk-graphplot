@@ -29,215 +29,222 @@ import org.jebtk.core.IdObject;
  * The class QuadTree2.
  */
 public class QuadTree2 extends IdObject implements Iterable<Rectangle> {
-	
-	/**
-	 * The max objects.
-	 */
-	private int MAX_OBJECTS = 10;
-	
-	/**
-	 * The max levels.
-	 */
-	private int MAX_LEVELS = 5;
 
-	/**
-	 * The member level.
-	 */
-	private int mLevel;
-	
-	/**
-	 * The member rects.
-	 */
-	private Set<Rectangle> mRects = new HashSet<Rectangle>();
-	
-	/**
-	 * The member nodes.
-	 */
-	private QuadTree2[] mNodes = new QuadTree2[4];
+  /**
+   * The max objects.
+   */
+  private int MAX_OBJECTS = 10;
 
-	/**
-	 * The member mid point.
-	 */
-	private Point2D mMidPoint = null;
-	
-	/**
-	 * The member bounds.
-	 */
-	private Rectangle mBounds = null;
+  /**
+   * The max levels.
+   */
+  private int MAX_LEVELS = 5;
 
-	/**
-	 * Instantiates a new quad tree2.
-	 *
-	 * @param level the level
-	 * @param bounds the bounds
-	 */
-	public QuadTree2(int level, Rectangle bounds) {
-		mLevel = level;
+  /**
+   * The member level.
+   */
+  private int mLevel;
 
-		mBounds = bounds;
+  /**
+   * The member rects.
+   */
+  private Set<Rectangle> mRects = new HashSet<Rectangle>();
 
-		mMidPoint = midPoint(bounds);
-	}
+  /**
+   * The member nodes.
+   */
+  private QuadTree2[] mNodes = new QuadTree2[4];
 
-	/* (non-Javadoc)
-	 * @see java.lang.Iterable#iterator()
-	 */
-	@Override
-	public Iterator<Rectangle> iterator() {
-		return mRects.iterator();
-	}
+  /**
+   * The member mid point.
+   */
+  private Point2D mMidPoint = null;
 
-	/**
-	 * Gets the index.
-	 *
-	 * @param pRect the rect
-	 * @return the index
-	 */
-	private int getIndex(Rectangle pRect) {
-		int index = -1;
+  /**
+   * The member bounds.
+   */
+  private Rectangle mBounds = null;
 
-		double midx = mMidPoint.getX();
-		double midy = mMidPoint.getY();
+  /**
+   * Instantiates a new quad tree2.
+   *
+   * @param level the level
+   * @param bounds the bounds
+   */
+  public QuadTree2(int level, Rectangle bounds) {
+    mLevel = level;
 
-		// Object can completely fit within the top quadrants
-		boolean topQuadrant = (pRect.getY() < midy && pRect.getY() + pRect.getHeight() < midy);
-		// Object can completely fit within the bottom quadrants
-		boolean bottomQuadrant = (pRect.getY() > midy);
+    mBounds = bounds;
 
-		// Object can completely fit within the left quadrants
-		if (pRect.getX() < midx && pRect.getX() + pRect.getWidth() < midx) {
-			if (topQuadrant) {
-				index = 0;
-			} else if (bottomQuadrant) {
-				index = 2;
-			} else {
-				index = -1;
-			}
-		} else if (pRect.getX() > midx) {
-			// Object can completely fit within the right quadrants
-			if (topQuadrant) {
-				index = 1;
-			} else if (bottomQuadrant) {
-				index = 3;
-			} else {
-				index = -1;
-			}
-		}
+    mMidPoint = midPoint(bounds);
+  }
 
-		return index;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Iterable#iterator()
+   */
+  @Override
+  public Iterator<Rectangle> iterator() {
+    return mRects.iterator();
+  }
 
-	/**
-	 * Split.
-	 */
-	private void split() {
-		int subWidth = (int)(mBounds.getWidth() / 2);
-		int subHeight = (int)(mBounds.getHeight() / 2);
-		int x = (int)mBounds.getX();
-		int y = (int)mBounds.getY();
+  /**
+   * Gets the index.
+   *
+   * @param pRect the rect
+   * @return the index
+   */
+  private int getIndex(Rectangle pRect) {
+    int index = -1;
 
-		// top left
-		mNodes[0] = new QuadTree2(mLevel + 1, new Rectangle(x, y + subHeight, subWidth, subHeight));
+    double midx = mMidPoint.getX();
+    double midy = mMidPoint.getY();
 
-		// top right
-		mNodes[1] = new QuadTree2(mLevel + 1, new Rectangle(x + subWidth, y + subHeight, subWidth, subHeight));
+    // Object can completely fit within the top quadrants
+    boolean topQuadrant = (pRect.getY() < midy
+        && pRect.getY() + pRect.getHeight() < midy);
+    // Object can completely fit within the bottom quadrants
+    boolean bottomQuadrant = (pRect.getY() > midy);
 
-		// bottom left
-		mNodes[2] = new QuadTree2(mLevel + 1, new Rectangle(x, y, subWidth, subHeight));
+    // Object can completely fit within the left quadrants
+    if (pRect.getX() < midx && pRect.getX() + pRect.getWidth() < midx) {
+      if (topQuadrant) {
+        index = 0;
+      } else if (bottomQuadrant) {
+        index = 2;
+      } else {
+        index = -1;
+      }
+    } else if (pRect.getX() > midx) {
+      // Object can completely fit within the right quadrants
+      if (topQuadrant) {
+        index = 1;
+      } else if (bottomQuadrant) {
+        index = 3;
+      } else {
+        index = -1;
+      }
+    }
 
-		// bottom right
-		mNodes[3] = new QuadTree2(mLevel + 1, new Rectangle(x + subWidth, y, subWidth, subHeight));
-	}
+    return index;
+  }
 
-	/**
-	 * Retrieve.
-	 *
-	 * @param rect the rect
-	 * @param rects the rects
-	 */
-	public void retrieve(Rectangle rect, Set<Rectangle> rects) {
-		int index = getIndex(rect);
-		
-		if (index != -1 && mNodes[0] != null) {
-			mNodes[index].retrieve(rect, rects);
-		}
+  /**
+   * Split.
+   */
+  private void split() {
+    int subWidth = (int) (mBounds.getWidth() / 2);
+    int subHeight = (int) (mBounds.getHeight() / 2);
+    int x = (int) mBounds.getX();
+    int y = (int) mBounds.getY();
 
-		rects.addAll(mRects);
-	}
+    // top left
+    mNodes[0] = new QuadTree2(mLevel + 1,
+        new Rectangle(x, y + subHeight, subWidth, subHeight));
 
-	/**
-	 * Insert.
-	 *
-	 * @param rect the rect
-	 */
-	public void insert(Rectangle rect) {
-		if (mNodes[0] != null) {
-			int index = getIndex(rect);
+    // top right
+    mNodes[1] = new QuadTree2(mLevel + 1,
+        new Rectangle(x + subWidth, y + subHeight, subWidth, subHeight));
 
-			if (index != -1) {
-				mNodes[index].insert(rect);
+    // bottom left
+    mNodes[2] = new QuadTree2(mLevel + 1,
+        new Rectangle(x, y, subWidth, subHeight));
 
-				return;
-			}
-		}
+    // bottom right
+    mNodes[3] = new QuadTree2(mLevel + 1,
+        new Rectangle(x + subWidth, y, subWidth, subHeight));
+  }
 
-		mRects.add(rect);
+  /**
+   * Retrieve.
+   *
+   * @param rect the rect
+   * @param rects the rects
+   */
+  public void retrieve(Rectangle rect, Set<Rectangle> rects) {
+    int index = getIndex(rect);
 
-		if (mRects.size() > MAX_OBJECTS && mLevel < MAX_LEVELS) {
-			if (mNodes[0] == null) { 
-				split(); 
-			}
+    if (index != -1 && mNodes[0] != null) {
+      mNodes[index].retrieve(rect, rects);
+    }
 
-			Set<Rectangle> remove = new HashSet<Rectangle>();
+    rects.addAll(mRects);
+  }
 
-			for (Rectangle r : mRects) {
-				int index = getIndex(r);
+  /**
+   * Insert.
+   *
+   * @param rect the rect
+   */
+  public void insert(Rectangle rect) {
+    if (mNodes[0] != null) {
+      int index = getIndex(rect);
 
-				if (index != -1) {
-					mNodes[index].insert(r);
+      if (index != -1) {
+        mNodes[index].insert(rect);
 
-					remove.add(r);
-				}
-			}
+        return;
+      }
+    }
 
-			for (Rectangle r : remove) {
-				mRects.remove(r);
-			}
-		}
-	}
+    mRects.add(rect);
 
-	/**
-	 * Clear.
-	 */
-	public void clear() {
-		mRects.clear();
+    if (mRects.size() > MAX_OBJECTS && mLevel < MAX_LEVELS) {
+      if (mNodes[0] == null) {
+        split();
+      }
 
-		for (int i = 0; i < mNodes.length; i++) {
-			if (mNodes[i] != null) {
-				mNodes[i].clear();
-				mNodes[i] = null;
-			}
-		}
-	}
+      Set<Rectangle> remove = new HashSet<Rectangle>();
 
+      for (Rectangle r : mRects) {
+        int index = getIndex(r);
 
+        if (index != -1) {
+          mNodes[index].insert(r);
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return mMidPoint.toString();
-	}
+          remove.add(r);
+        }
+      }
 
-	/**
-	 * Mid point.
-	 *
-	 * @param bounds the bounds
-	 * @return the point2 d
-	 */
-	public static Point2D midPoint(Rectangle bounds) {
-		return new Point.Double(bounds.getX() + bounds.getWidth() / 2.0, 
-				bounds.getY() + bounds.getHeight() / 2.0);
-	}
+      for (Rectangle r : remove) {
+        mRects.remove(r);
+      }
+    }
+  }
+
+  /**
+   * Clear.
+   */
+  public void clear() {
+    mRects.clear();
+
+    for (int i = 0; i < mNodes.length; i++) {
+      if (mNodes[i] != null) {
+        mNodes[i].clear();
+        mNodes[i] = null;
+      }
+    }
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return mMidPoint.toString();
+  }
+
+  /**
+   * Mid point.
+   *
+   * @param bounds the bounds
+   * @return the point2 d
+   */
+  public static Point2D midPoint(Rectangle bounds) {
+    return new Point.Double(bounds.getX() + bounds.getWidth() / 2.0,
+        bounds.getY() + bounds.getHeight() / 2.0);
+  }
 }

@@ -23,102 +23,107 @@ import org.jebtk.modern.graphics.DrawingContext;
 
 // TODO: Auto-generated Javadoc
 /**
- * Concrete implementation of Graph2dCanvas for generating
- * scatter plots.
+ * Concrete implementation of Graph2dCanvas for generating scatter plots.
  *
  * @author Antony Holmes Holmes
  */
 public class BoxWhiskerLayer extends PlotSeriesLayer {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/** The m x. */
-	private double mX;
+  /** The m x. */
+  private double mX;
 
-	/**
-	 * Instantiates a new box whisker layer.
-	 *
-	 * @param name the name
-	 * @param x the x
-	 */
-	public BoxWhiskerLayer(String name, double x) {
-		this(name, x, true);
-	}
+  /**
+   * Instantiates a new box whisker layer.
+   *
+   * @param name the name
+   * @param x the x
+   */
+  public BoxWhiskerLayer(String name, double x) {
+    this(name, x, true);
+  }
 
-	/**
-	 * Instantiates a new box whisker layer.
-	 *
-	 * @param name the name
-	 * @param x the x
-	 * @param visible the visible
-	 */
-	public BoxWhiskerLayer(String name, 
-			double x, 
-			boolean visible) {
-		super(name);
+  /**
+   * Instantiates a new box whisker layer.
+   *
+   * @param name the name
+   * @param x the x
+   * @param visible the visible
+   */
+  public BoxWhiskerLayer(String name, double x, boolean visible) {
+    super(name);
 
-		mX = x;
-		
-		setVisible(visible);
-	}
-	
-	@Override
-	public String getType() {
-		return "Box Whisker Layer";
-	}
+    mX = x;
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotClippedLayer#plotLayer(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.DataFrame)
-	 */
-	@Override
-	public void plotLayer(Graphics2D g2,
-			DrawingContext context,
-			Figure figure,
-SubFigure subFigure,
-			Axes axes,
-			Plot plot,
-			DataFrame m,
-			XYSeries series) {
+    setVisible(visible);
+  }
 
-		//int realX = 0;
+  @Override
+  public String getType() {
+    return "Box Whisker Layer";
+  }
 
-		// the width of the arms of the plot
-		int y;
-		int x1;
-		int x2;
-		int xc;
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotClippedLayer#plotLayer(
+   * java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
+   * org.abh.lib.math.matrix.DataFrame)
+   */
+  @Override
+  public void plotLayer(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes,
+      Plot plot,
+      DataFrame m,
+      XYSeries series) {
 
-		//for (XYSeries series : plot.getAllSeries()) {
-		BoxWhiskerSummary s = (BoxWhiskerSummary)series;
+    // int realX = 0;
 
-		x1 = axes.toPlotX1(mX + 1 - plot.getBarWidth());
-		x2 = axes.toPlotX1(mX + plot.getBarWidth());
-		xc = axes.toPlotX1(mX + 0.5);
+    // the width of the arms of the plot
+    int y;
+    int x1;
+    int x2;
+    int xc;
 
-		// set the line color
-		g2.setColor(s.getStyle().getLineStyle().getColor());
+    // for (XYSeries series : plot.getAllSeries()) {
+    BoxWhiskerSummary s = (BoxWhiskerSummary) series;
 
-		y = axes.toPlotY1(s.getMedian());
-		g2.drawLine(x1, y, x2, y);
-		
-		// Plot the limits
-		y = axes.toPlotY1(s.getUpper());
-		g2.drawLine(x1, y, x2, y);
-		y = axes.toPlotY1(s.getLower());
-		g2.drawLine(x1, y, x2, y);
+    x1 = axes.toPlotX1(mX + 1 - plot.getBarWidth());
+    x2 = axes.toPlotX1(mX + plot.getBarWidth());
+    xc = axes.toPlotX1(mX + 0.5);
 
-		// the vertical line
-		g2.drawLine(xc, 
-				axes.toPlotY1(s.getUpper()), 
-				xc, 
-				axes.toPlotY1(s.getLower()));
+    // set the line color
+    g2.setColor(s.getStyle().getLineStyle().getColor());
 
-		// the median line
-		y = axes.toPlotY1(s.getMedian());
+    y = axes.toPlotY1(s.getMedian());
+    g2.drawLine(x1, y, x2, y);
 
-		g2.drawLine(x1, y, x2, y);
-	}
+    // Plot the limits
+    y = axes.toPlotY1(s.getUpper());
+    g2.drawLine(x1, y, x2, y);
+    y = axes.toPlotY1(s.getLower());
+    g2.drawLine(x1, y, x2, y);
+
+    // the vertical line
+    g2.drawLine(xc,
+        axes.toPlotY1(s.getUpper()),
+        xc,
+        axes.toPlotY1(s.getLower()));
+
+    // the median line
+    y = axes.toPlotY1(s.getMedian());
+
+    g2.drawLine(x1, y, x2, y);
+  }
 }

@@ -27,18 +27,18 @@ import org.jebtk.core.event.ChangeEvent;
  *
  */
 public interface GraphListener extends EventListener {
-	
-	/**
-	 * Called when the graph properties change.
-	 *
-	 * @param e the e
-	 */
-	public void graphChanged(ChangeEvent e);
-	
-	/**
-	 * Called when the plot dimension, margins etc change.
-	 *
-	 * @param e the e
-	 */
-	public void layoutChanged(ChangeEvent e);
+
+  /**
+   * Called when the graph properties change.
+   *
+   * @param e the e
+   */
+  public void graphChanged(ChangeEvent e);
+
+  /**
+   * Called when the plot dimension, margins etc change.
+   *
+   * @param e the e
+   */
+  public void layoutChanged(ChangeEvent e);
 }

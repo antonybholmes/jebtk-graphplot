@@ -22,11 +22,11 @@ import org.jebtk.graphplot.figure.series.MarkerCircle;
  * The class ShapeCircleStyleIcon.
  */
 public class ShapeCircleStyleIcon extends ShapeStyleIcon {
-	
-	/**
-	 * Instantiates a new shape circle style icon.
-	 */
-	public ShapeCircleStyleIcon() {
-		super(new MarkerCircle());
-	}
+
+  /**
+   * Instantiates a new shape circle style icon.
+   */
+  public ShapeCircleStyleIcon() {
+    super(new MarkerCircle());
+  }
 }

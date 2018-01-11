@@ -26,62 +26,61 @@ import org.jebtk.graphplot.figure.GridLocation;
  * @author Antony Holmes Holmes
  *
  */
-public class LegendProperties extends LocationProperties implements ChangeListener {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+public class LegendProperties extends LocationProperties
+    implements ChangeListener {
 
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * The member style.
-	 */
-	private StyleProperties mStyle = new StyleProperties();
-	
-	/**
-	 * The member font.
-	 */
-	private FontProperties mFont = new FontProperties();
-	
+  /**
+   * The member style.
+   */
+  private StyleProperties mStyle = new StyleProperties();
 
-	/**
-	 * Instantiates a new legend properties.
-	 */
-	public LegendProperties() {
-		mStyle.addChangeListener(this);
-		mFont.addChangeListener(this);
-		
-		// Default to a black outline around the legend
-		mStyle.getLineStyle().setVisible(false); //setColor(Color.BLACK);
-		mStyle.getFillStyle().setVisible(false);
-		
-		setInside(true);
-		setPosition(GridLocation.NE);
-		
-		setVisible(false);
-	}
-	
-	/**
-	 * Gets the style.
-	 *
-	 * @return the style
-	 */
-	public StyleProperties getStyle() {
-		return mStyle;
-	}
-	
-	/**
-	 * Gets the font properties.
-	 *
-	 * @return the font properties
-	 */
-	public FontProperties getFontProperties() {
-		return mFont;
-	}
+  /**
+   * The member font.
+   */
+  private FontProperties mFont = new FontProperties();
 
-	@Override
-	public void changed(ChangeEvent e) {
-		fireChanged();
-	}
+  /**
+   * Instantiates a new legend properties.
+   */
+  public LegendProperties() {
+    mStyle.addChangeListener(this);
+    mFont.addChangeListener(this);
+
+    // Default to a black outline around the legend
+    mStyle.getLineStyle().setVisible(false); // setColor(Color.BLACK);
+    mStyle.getFillStyle().setVisible(false);
+
+    setInside(true);
+    setPosition(GridLocation.NE);
+
+    setVisible(false);
+  }
+
+  /**
+   * Gets the style.
+   *
+   * @return the style
+   */
+  public StyleProperties getStyle() {
+    return mStyle;
+  }
+
+  /**
+   * Gets the font properties.
+   *
+   * @return the font properties
+   */
+  public FontProperties getFontProperties() {
+    return mFont;
+  }
+
+  @Override
+  public void changed(ChangeEvent e) {
+    fireChanged();
+  }
 }

@@ -19,69 +19,71 @@ import org.jebtk.graphplot.plotbox.PlotBox;
 
 // TODO: Auto-generated Javadoc
 /**
- * A graph is built from layers which may or may not have a visual
- * component associated with them or may be just a sub collection of 
- * elements to make up a plot.
+ * A graph is built from layers which may or may not have a visual component
+ * associated with them or may be just a sub collection of elements to make up a
+ * plot.
  *
  * @author Antony Holmes Holmes
  */
 public abstract class Layer extends PlotBox {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * The member visible.
-	 */
-	protected boolean mVisible = true;
 
-	public Layer() {
-		
-	}
-	
-	public Layer(String name) {
-		super(name);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.abh.common.IdProperty#getId()
-	 */
-	@Override
-	public String hashId() {
-		return getName() + getId();
-	}
-	
-	/**
-	 * Gets the type.
-	 *
-	 * @return the type
-	 */
-	@Override
-	public String getType() {
-		return LayerType.LAYER;
-	}
-	
-	/**
-	 * Checks if is visible.
-	 *
-	 * @return true, if is visible
-	 */
-	@Override
-	public boolean getVisible() {
-		return mVisible;
-	}
-	
-	/**
-	 * Sets the visible.
-	 *
-	 * @param visible the new visible
-	 */
-	@Override
-	public void setVisible(boolean visible) {
-		mVisible = visible;
-		
-		fireChanged();
-	}
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
+
+  /**
+   * The member visible.
+   */
+  protected boolean mVisible = true;
+
+  public Layer() {
+
+  }
+
+  public Layer(String name) {
+    super(name);
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.abh.common.IdProperty#getId()
+   */
+  @Override
+  public String hashId() {
+    return getName() + getId();
+  }
+
+  /**
+   * Gets the type.
+   *
+   * @return the type
+   */
+  @Override
+  public String getType() {
+    return LayerType.LAYER;
+  }
+
+  /**
+   * Checks if is visible.
+   *
+   * @return true, if is visible
+   */
+  @Override
+  public boolean getVisible() {
+    return mVisible;
+  }
+
+  /**
+   * Sets the visible.
+   *
+   * @param visible the new visible
+   */
+  @Override
+  public void setVisible(boolean visible) {
+    mVisible = visible;
+
+    fireChanged();
+  }
 }

@@ -25,58 +25,57 @@ import org.jebtk.graphplot.figure.GridLocation;
  *
  */
 public abstract class LocationProperties extends VisibleProperties {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
 
-	/**
-	 * The member position.
-	 */
-	private GridLocation mPosition = GridLocation.NE;
-	
-	private boolean mInside = true;
-	
-	/**
-	 * Sets the position.
-	 *
-	 * @param position the new position
-	 */
-	public void setPosition(GridLocation position) {
-		mPosition = position;
-		
-		setVisible(true);
-	}
-	
-	/**
-	 * Set whether to plot the legend inside the boundaries of the axes or
-	 * not.
-	 * 
-	 * @param inside
-	 */
-	public void setInside(boolean inside) {
-		mInside = inside;
-		
-		setVisible(true);
-	}
-	
-	/**
-	 * Gets the position.
-	 *
-	 * @return the position
-	 */
-	public GridLocation getPosition() {
-		return mPosition;
-	}
-	
-	/**
-	 * Returns true if the legend should be plotted inside the boundaries of
-	 * the axes.
-	 * 
-	 * @return
-	 */
-	public boolean isInside() {
-		return mInside;
-	}
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
+
+  /**
+   * The member position.
+   */
+  private GridLocation mPosition = GridLocation.NE;
+
+  private boolean mInside = true;
+
+  /**
+   * Sets the position.
+   *
+   * @param position the new position
+   */
+  public void setPosition(GridLocation position) {
+    mPosition = position;
+
+    setVisible(true);
+  }
+
+  /**
+   * Set whether to plot the legend inside the boundaries of the axes or not.
+   * 
+   * @param inside
+   */
+  public void setInside(boolean inside) {
+    mInside = inside;
+
+    setVisible(true);
+  }
+
+  /**
+   * Gets the position.
+   *
+   * @return the position
+   */
+  public GridLocation getPosition() {
+    return mPosition;
+  }
+
+  /**
+   * Returns true if the legend should be plotted inside the boundaries of the
+   * axes.
+   * 
+   * @return
+   */
+  public boolean isInside() {
+    return mInside;
+  }
 }

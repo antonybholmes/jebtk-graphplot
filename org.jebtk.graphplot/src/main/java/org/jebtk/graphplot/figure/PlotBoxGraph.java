@@ -35,318 +35,295 @@ import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.colormap.ColorMap;
 
-
 // TODO: Auto-generated Javadoc
 /**
- * A Figure is a collection of axes layered on top of each other. In a 
- * simple plot, there will be typically only be one set of axes.
+ * A Figure is a collection of axes layered on top of each other. In a simple
+ * plot, there will be typically only be one set of axes.
  * 
  * @author Antony Holmes
  */
-public abstract class PlotBoxGraph extends PlotBoxContainer { //LayoutLayer
+public abstract class PlotBoxGraph extends PlotBoxContainer { // LayoutLayer
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * Keep track of the number of times this plot has been rendered since
-	 * a change. We can use this to decide whether to refresh a cached
-	 * portion of the graph tree. If there are no changes, there is no need
-	 * to change the cache
-	 */
-	private int mDrawCounter = 0;
+  /**
+   * Keep track of the number of times this plot has been rendered since a
+   * change. We can use this to decide whether to refresh a cached portion of
+   * the graph tree. If there are no changes, there is no need to change the
+   * cache
+   */
+  private int mDrawCounter = 0;
 
-	/**
-	 * Instantiates a new sub figure.
-	 *
-	 * @param id the id
-	 */
-	public PlotBoxGraph(String id, 
-			PlotBoxStorage storage, 
-			PlotBoxLayout layout) {
-		super(id, storage, layout);
-		
-		init();
-	}
-	
-	public PlotBoxGraph(String id, PlotBoxLayout layout) {
-		super(id, layout);
-		
-		init();
-	}
-	
-	private void init() {
-		this.addChangeListener(new ChangeListener() {
+  /**
+   * Instantiates a new sub figure.
+   *
+   * @param id the id
+   */
+  public PlotBoxGraph(String id, PlotBoxStorage storage, PlotBoxLayout layout) {
+    super(id, storage, layout);
 
-			@Override
-			public void changed(ChangeEvent e) {
-				// reset
-				mDrawCounter = 0;
-			}});
-	}
-	
-	@Override
-	public PlotBox addChild(PlotBox plot, Object... params) {
-		cacheCurrent(plot);
-		
-		return super.addChild(plot, params);
-	}
-	
-	@Override
-	public PlotBox addReserved(PlotBox plot, Object... params) {
-		cacheCurrent(plot);
-		
-		return super.addReserved(plot, params);
-	}
-	
-	@Override
-	public <T extends PlotBox> PlotBox setChildren(List<T> plots) {
-		for (T plot : ReverseIterator.create(plots)) {
-			if (cacheCurrent(plot)) {
-				break;
-			}
-		}
-		
-		return super.setChildren(plots);
-	}
-	
-	/**
-	 * Should set the currently cached axes, sub figure etc when a new child
-	 * is added. Should return true if an item was cached.
-	 * 
-	 * @param plot
-	 * @return
-	 */
-	protected boolean cacheCurrent(PlotBox plot) {
-		return false;
-	}
+    init();
+  }
 
-	/* (non-Javadoc)
-	 * @see org.graphplot.figure.Layer#setFont(java.awt.Font, java.awt.Color)
-	 */
-	@Override
-	public void setFont(Set<PlotBox> used, Font font, Color color) {
-		if (used.contains(this)) {
-			return;
-		}
-		
-		Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
-		
-		stack.push(this);
-		used.add(this);
-		
-		while (!stack.isEmpty()) {
-			PlotBox p = stack.pop();
-			
-			p.setFont(used, font, color);
-			
-			for (PlotBox c : p) {
-				stack.push(c);
-			}
-		}
-	}
-	
-	@Override
-	public void setStyle(Set<PlotBox> used, PlotStyle style, PlotStyle... styles) {
-		if (used.contains(this)) {
-			return;
-		}
+  public PlotBoxGraph(String id, PlotBoxLayout layout) {
+    super(id, layout);
 
-		Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
-		
-		stack.push(this);
-		used.add(this);
-		
-		while (!stack.isEmpty()) {
-			PlotBox p = stack.pop();
-			
-			p.setStyle(used, style, styles);
-			
-			for (PlotBox c : p) {
-				stack.push(c);
-			}
-		}
-	}
+    init();
+  }
 
-	@Override
-	public void addStyle(Set<PlotBox> used, PlotStyle style, PlotStyle... styles) {
-		if (used.contains(this)) {
-			return;
-		}
-		
-		Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
-		
-		stack.push(this);
-		used.add(this);
-		
-		while (!stack.isEmpty()) {
-			PlotBox p = stack.pop();
-			
-			p.addStyle(used, style, styles);
-			
-			for (PlotBox c : p) {
-				stack.push(c);
-			}
-		}
-	}
+  private void init() {
+    this.addChangeListener(new ChangeListener() {
 
-	/**
-	 * Sets the style.
-	 *
-	 * @param name the name
-	 * @param styles the styles
-	 */
-	public void setStyle(String name, PlotStyle style, PlotStyle... styles) {
-		for (PlotBox c : this) {
-			c.setStyle(name, style, styles);
-		}
-		
-		/*
-		Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
-		
-		for (PlotBox c : this) {
-			stack.push(c);
-		}
-		
-		while (!stack.isEmpty()) {
-			PlotBox p = stack.pop();
-			
-			p.setStyle(name, style, styles);
-			
-			for (PlotBox c : p) {
-				stack.push(c);
-			}
-		}
-		*/
-	}
+      @Override
+      public void changed(ChangeEvent e) {
+        // reset
+        mDrawCounter = 0;
+      }
+    });
+  }
 
-	/**
-	 * Adds the style.
-	 *
-	 * @param name the name
-	 * @param styles the styles
-	 */
-	public void addStyle(String name, PlotStyle style, PlotStyle... styles) {
-		for (PlotBox c : this) {
-			c.addStyle(name, style, styles);
-		}
-		
-		/*
-		 Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100); 
-		while (!stack.isEmpty()) {
-			PlotBox p = stack.pop();
-			
-			p.addStyle(name, style, styles);
-			
-			for (PlotBox c : p) {
-				stack.push(c);
-			}
-		}
-		*/
-	}
+  @Override
+  public PlotBox addChild(PlotBox plot, Object... params) {
+    cacheCurrent(plot);
 
-	/**
-	 * Sets the matrix.
-	 *
-	 * @param m the new matrix
-	 */
-	public void setMatrix(DataFrame m) {
-		for (PlotBox c : this) {
-			c.setMatrix(m);
-		}
-		
-		/*
-		Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
-		
-		for (PlotBox c : this) {
-			stack.push(c);
-		}
-		
-		while (!stack.isEmpty()) {
-			PlotBox p = stack.pop();
-			
-			p.setMatrix(m);
-			
-			for (PlotBox c : p) {
-				stack.push(c);
-			}
-		}
-		*/
-	}
+    return super.addChild(plot, params);
+  }
 
-	/**
-	 * Sets the color map.
-	 *
-	 * @param colorMap the new color map
-	 */
-	public void setColorMap(ColorMap colorMap) {
-		for (PlotBox c : this) {
-			c.setColorMap(colorMap);
-		}
-		
-		/*
-		Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
-		
-		for (PlotBox c : this) {
-			stack.push(c);
-		}
-		
-		while (!stack.isEmpty()) {
-			PlotBox p = stack.pop();
-			
-			p.setColorMap(colorMap);
-			
-			for (PlotBox c : p) {
-				stack.push(c);
-			}
-		}
-		*/
-	}
-	
-	@Override
-	public void setVisible(boolean visible) {
-		for (PlotBox c : this) {
-			c.setVisible(visible);
-		}
-		
-		/*
-		Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
-		
-		for (PlotBox c : this) {
-			stack.push(c);
-		}
-		
-		while (!stack.isEmpty()) {
-			PlotBox p = stack.pop();
-			
-			p.setVisible(visible);
-			
-			for (PlotBox c : p) {
-				stack.push(c);
-			}
-		}
-		*/
-	}
-	
-	/**
-	 * Returns true if the graph stack has been invalidated and should be
-	 * updated/redraw. Most useful for elements that cache the look of a plot.
-	 * @return
-	 */
-	public boolean invalidated() {
-		return mDrawCounter == 0;
-	}
-	
-	public int getDrawCounter() {
-		return mDrawCounter;
-	}
-	
-	@Override
-	public void plot(Graphics2D g2, 
-			Dimension offset,
-			DrawingContext context,
-			Object... params) {
-		super.plot(g2, offset, context, params);
-		
-		++mDrawCounter;
-	}
+  @Override
+  public PlotBox addReserved(PlotBox plot, Object... params) {
+    cacheCurrent(plot);
+
+    return super.addReserved(plot, params);
+  }
+
+  @Override
+  public <T extends PlotBox> PlotBox setChildren(List<T> plots) {
+    for (T plot : ReverseIterator.create(plots)) {
+      if (cacheCurrent(plot)) {
+        break;
+      }
+    }
+
+    return super.setChildren(plots);
+  }
+
+  /**
+   * Should set the currently cached axes, sub figure etc when a new child is
+   * added. Should return true if an item was cached.
+   * 
+   * @param plot
+   * @return
+   */
+  protected boolean cacheCurrent(PlotBox plot) {
+    return false;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.graphplot.figure.Layer#setFont(java.awt.Font, java.awt.Color)
+   */
+  @Override
+  public void setFont(Set<PlotBox> used, Font font, Color color) {
+    if (used.contains(this)) {
+      return;
+    }
+
+    Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
+
+    stack.push(this);
+    used.add(this);
+
+    while (!stack.isEmpty()) {
+      PlotBox p = stack.pop();
+
+      p.setFont(used, font, color);
+
+      for (PlotBox c : p) {
+        stack.push(c);
+      }
+    }
+  }
+
+  @Override
+  public void setStyle(Set<PlotBox> used,
+      PlotStyle style,
+      PlotStyle... styles) {
+    if (used.contains(this)) {
+      return;
+    }
+
+    Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
+
+    stack.push(this);
+    used.add(this);
+
+    while (!stack.isEmpty()) {
+      PlotBox p = stack.pop();
+
+      p.setStyle(used, style, styles);
+
+      for (PlotBox c : p) {
+        stack.push(c);
+      }
+    }
+  }
+
+  @Override
+  public void addStyle(Set<PlotBox> used,
+      PlotStyle style,
+      PlotStyle... styles) {
+    if (used.contains(this)) {
+      return;
+    }
+
+    Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
+
+    stack.push(this);
+    used.add(this);
+
+    while (!stack.isEmpty()) {
+      PlotBox p = stack.pop();
+
+      p.addStyle(used, style, styles);
+
+      for (PlotBox c : p) {
+        stack.push(c);
+      }
+    }
+  }
+
+  /**
+   * Sets the style.
+   *
+   * @param name the name
+   * @param styles the styles
+   */
+  public void setStyle(String name, PlotStyle style, PlotStyle... styles) {
+    for (PlotBox c : this) {
+      c.setStyle(name, style, styles);
+    }
+
+    /*
+     * Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
+     * 
+     * for (PlotBox c : this) { stack.push(c); }
+     * 
+     * while (!stack.isEmpty()) { PlotBox p = stack.pop();
+     * 
+     * p.setStyle(name, style, styles);
+     * 
+     * for (PlotBox c : p) { stack.push(c); } }
+     */
+  }
+
+  /**
+   * Adds the style.
+   *
+   * @param name the name
+   * @param styles the styles
+   */
+  public void addStyle(String name, PlotStyle style, PlotStyle... styles) {
+    for (PlotBox c : this) {
+      c.addStyle(name, style, styles);
+    }
+
+    /*
+     * Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100); while
+     * (!stack.isEmpty()) { PlotBox p = stack.pop();
+     * 
+     * p.addStyle(name, style, styles);
+     * 
+     * for (PlotBox c : p) { stack.push(c); } }
+     */
+  }
+
+  /**
+   * Sets the matrix.
+   *
+   * @param m the new matrix
+   */
+  public void setMatrix(DataFrame m) {
+    for (PlotBox c : this) {
+      c.setMatrix(m);
+    }
+
+    /*
+     * Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
+     * 
+     * for (PlotBox c : this) { stack.push(c); }
+     * 
+     * while (!stack.isEmpty()) { PlotBox p = stack.pop();
+     * 
+     * p.setMatrix(m);
+     * 
+     * for (PlotBox c : p) { stack.push(c); } }
+     */
+  }
+
+  /**
+   * Sets the color map.
+   *
+   * @param colorMap the new color map
+   */
+  public void setColorMap(ColorMap colorMap) {
+    for (PlotBox c : this) {
+      c.setColorMap(colorMap);
+    }
+
+    /*
+     * Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
+     * 
+     * for (PlotBox c : this) { stack.push(c); }
+     * 
+     * while (!stack.isEmpty()) { PlotBox p = stack.pop();
+     * 
+     * p.setColorMap(colorMap);
+     * 
+     * for (PlotBox c : p) { stack.push(c); } }
+     */
+  }
+
+  @Override
+  public void setVisible(boolean visible) {
+    for (PlotBox c : this) {
+      c.setVisible(visible);
+    }
+
+    /*
+     * Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
+     * 
+     * for (PlotBox c : this) { stack.push(c); }
+     * 
+     * while (!stack.isEmpty()) { PlotBox p = stack.pop();
+     * 
+     * p.setVisible(visible);
+     * 
+     * for (PlotBox c : p) { stack.push(c); } }
+     */
+  }
+
+  /**
+   * Returns true if the graph stack has been invalidated and should be
+   * updated/redraw. Most useful for elements that cache the look of a plot.
+   * 
+   * @return
+   */
+  public boolean invalidated() {
+    return mDrawCounter == 0;
+  }
+
+  public int getDrawCounter() {
+    return mDrawCounter;
+  }
+
+  @Override
+  public void plot(Graphics2D g2,
+      Dimension offset,
+      DrawingContext context,
+      Object... params) {
+    super.plot(g2, offset, context, params);
+
+    ++mDrawCounter;
+  }
 }

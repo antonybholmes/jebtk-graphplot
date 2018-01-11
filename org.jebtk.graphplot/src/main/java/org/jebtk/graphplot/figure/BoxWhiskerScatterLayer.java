@@ -34,236 +34,240 @@ import org.jebtk.modern.graphics.DrawingContext;
 
 // TODO: Auto-generated Javadoc
 /**
- * Concrete implementation of Graph2dCanvas for generating
- * scatter plots.
+ * Concrete implementation of Graph2dCanvas for generating scatter plots.
  *
  * @author Antony Holmes Holmes
  */
 public class BoxWhiskerScatterLayer extends PlotSeriesLayer {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * Instantiates a new box whisker scatter layer.
-	 */
-	private double mX;
+  /**
+   * Instantiates a new box whisker scatter layer.
+   */
+  private double mX;
 
-	/**
-	 * Instantiates a new box whisker scatter layer.
-	 *
-	 * @param name the name
-	 * @param x the x
-	 */
-	public BoxWhiskerScatterLayer(String name, double x) {
-		this(name, x, true);
-	}
-	
-	/**
-	 * Instantiates a new box whisker scatter layer.
-	 *
-	 * @param name the name
-	 * @param x the x
-	 * @param visible the visible
-	 */
-	public BoxWhiskerScatterLayer(String name, double x, boolean visible) {
-		super(name);
+  /**
+   * Instantiates a new box whisker scatter layer.
+   *
+   * @param name the name
+   * @param x the x
+   */
+  public BoxWhiskerScatterLayer(String name, double x) {
+    this(name, x, true);
+  }
 
-		mX = x + 0.5;
-		
-		setVisible(visible);
-	}
-	
-	@Override
-	public String getType() {
-		return "Box Whisker Scatter Layer";
-	}
+  /**
+   * Instantiates a new box whisker scatter layer.
+   *
+   * @param name the name
+   * @param x the x
+   * @param visible the visible
+   */
+  public BoxWhiskerScatterLayer(String name, double x, boolean visible) {
+    super(name);
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotClippedLayer#plotLayer(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.DataFrame)
-	 */
-	@Override
-	public void plotLayer(Graphics2D g2,
-			DrawingContext context,
-			Figure figure,
-			SubFigure subFigure,
-			Axes axes,
-			Plot plot,
-			DataFrame m,
-			XYSeries series) {
+    mX = x + 0.5;
 
-		// the width of the arms of the plot
-		int y;
-		int x;
+    setVisible(visible);
+  }
 
-		BoxWhiskerSummary s = (BoxWhiskerSummary)series;
+  @Override
+  public String getType() {
+    return "Box Whisker Scatter Layer";
+  }
 
-		//Map<IntPos2D, Set<Integer>> point2BinMap = 
-		//		new HashMap<IntPos2D, Set<Integer>>();
-		
-		//Multimap<IntPos2D, Integer> point2BinMap =
-		//		HashMultimap.create();
-		
-		SetMultiMap<IntPos2D, Integer> point2BinMap = HashSetMultiMap.create();
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotClippedLayer#plotLayer(
+   * java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
+   * org.abh.lib.math.matrix.DataFrame)
+   */
+  @Override
+  public void plotLayer(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes,
+      Plot plot,
+      DataFrame m,
+      XYSeries series) {
 
-		//Map<Integer, List<IntPos2D>> bin2PointMap = 
-		//		new HashMap<Integer, List<IntPos2D>>();
-		
-		ListMultiMap<Integer, IntPos2D> bin2PointMap = 
-				ArrayListMultiMap.create(); //ArrayListMultimap.create();
+    // the width of the arms of the plot
+    int y;
+    int x;
 
-		int plotX = axes.toPlotX1(mX);
+    BoxWhiskerSummary s = (BoxWhiskerSummary) series;
 
-		int binSize = s.getMarker().getSize();
-		int b2 = binSize / 2;
+    // Map<IntPos2D, Set<Integer>> point2BinMap =
+    // new HashMap<IntPos2D, Set<Integer>>();
 
-		List<IntPos2D> points = new ArrayList<IntPos2D>();
+    // Multimap<IntPos2D, Integer> point2BinMap =
+    // HashMultimap.create();
 
-		for (double p : XYSeries.values(m, series)) {
-			// Plot the limits
-			y = axes.toPlotY1(p);
+    SetMultiMap<IntPos2D, Integer> point2BinMap = HashSetMultiMap.create();
 
-			int y1 = y - b2;
-			int y2 = y + b2;
+    // Map<Integer, List<IntPos2D>> bin2PointMap =
+    // new HashMap<Integer, List<IntPos2D>>();
 
-			int bin1 = y1 / binSize;
-			int bin2 = y2 / binSize;
+    ListMultiMap<Integer, IntPos2D> bin2PointMap = ArrayListMultiMap.create(); // ArrayListMultimap.create();
 
-			// Clone point but update location
-			IntPos2D newPoint = new IntPos2D(plotX, y);
+    int plotX = axes.toPlotX1(mX);
 
-			//if (!point2BinMap.containsKey(newPoint)) {
-			//	point2BinMap.put(newPoint, new HashSet<Integer>());
-			//}
+    int binSize = s.getMarker().getSize();
+    int b2 = binSize / 2;
 
-			point2BinMap.get(newPoint).add(bin1);
-			point2BinMap.get(newPoint).add(bin2);
+    List<IntPos2D> points = new ArrayList<IntPos2D>();
 
-			///if (!bin2PointMap.containsKey(bin1)) {
-			//	bin2PointMap.put(bin1, new UniqueList<IntPos2D>());
-			//}
+    for (double p : XYSeries.values(m, series)) {
+      // Plot the limits
+      y = axes.toPlotY1(p);
 
-			//if (!bin2PointMap.containsKey(bin2)) {
-			//	bin2PointMap.put(bin2, new UniqueList<IntPos2D>());
-			//}
+      int y1 = y - b2;
+      int y2 = y + b2;
 
-			bin2PointMap.get(bin1).add(newPoint);
-			bin2PointMap.get(bin2).add(newPoint);
+      int bin1 = y1 / binSize;
+      int bin2 = y2 / binSize;
 
-			// Points that might be overlapping will be in the same bin
-			points.add(newPoint);
-		}
+      // Clone point but update location
+      IntPos2D newPoint = new IntPos2D(plotX, y);
 
-		// See who overlaps
+      // if (!point2BinMap.containsKey(newPoint)) {
+      // point2BinMap.put(newPoint, new HashSet<Integer>());
+      // }
 
-		Map<IntPos2D, Integer> point2OverlapMap =
-				new HashMap<IntPos2D, Integer>();
+      point2BinMap.get(newPoint).add(bin1);
+      point2BinMap.get(newPoint).add(bin2);
 
-		//Map<Integer, List<IntPos2D>> overlap2PointMap =
-		//		new HashMap<Integer, List<IntPos2D>>();
-		
-		//Multimap<Integer, IntPos2D> overlap2PointMap =
-		//		ArrayListMultimap.create();
-		
-		ListMultiMap<Integer, IntPos2D> overlap2PointMap = 
-				ArrayListMultiMap.create();
+      /// if (!bin2PointMap.containsKey(bin1)) {
+      // bin2PointMap.put(bin1, new UniqueList<IntPos2D>());
+      // }
 
-		int g = 0;
+      // if (!bin2PointMap.containsKey(bin2)) {
+      // bin2PointMap.put(bin2, new UniqueList<IntPos2D>());
+      // }
 
-		for (IntPos2D p : points) {
-			boolean overlap = false;
+      bin2PointMap.get(bin1).add(newPoint);
+      bin2PointMap.get(bin2).add(newPoint);
 
-			for (int bin : point2BinMap.get(p)) {
-				for (IntPos2D p2 : bin2PointMap.get(bin)) {
-					if (p2.equals(p)) {
-						continue;
-					}
+      // Points that might be overlapping will be in the same bin
+      points.add(newPoint);
+    }
 
+    // See who overlaps
 
-					//System.err.println("cp " + p + " " + p2 + " " + Geometry.overlap(p, p2, binSize) + " " + bin + " " + point2OverlapMap.containsKey(p) + " " + point2OverlapMap.containsKey(p2));
+    Map<IntPos2D, Integer> point2OverlapMap = new HashMap<IntPos2D, Integer>();
 
-					if (Geometry.overlap(p, p2, binSize)) {
-						if (point2OverlapMap.containsKey(p2)) {
-							if (!point2OverlapMap.containsKey(p)) {
-								point2OverlapMap.put(p, point2OverlapMap.get(p2));
-								overlap2PointMap.get(point2OverlapMap.get(p2)).add(p);
-							}
+    // Map<Integer, List<IntPos2D>> overlap2PointMap =
+    // new HashMap<Integer, List<IntPos2D>>();
 
-							overlap = true;
-						} else {
-							overlap = false;
-						}
-					}
-				}
-			}
+    // Multimap<Integer, IntPos2D> overlap2PointMap =
+    // ArrayListMultimap.create();
 
-			// If the point cannot be allocated to any overlap, create an
-			// overlap for itself
-			if (!overlap && !point2OverlapMap.containsKey(p)) {
-				//overlap2PointMap.put(g, new UniqueList<IntPos2D>());
-				overlap2PointMap.get(g).add(p);
-				//overlap2PointMap.get(g).add(p2);
+    ListMultiMap<Integer, IntPos2D> overlap2PointMap = ArrayListMultiMap
+        .create();
 
-				point2OverlapMap.put(p, g);
-				//point2OverlapMap.put(p2, g);
+    int g = 0;
 
-				++g;
-			}
-		}
+    for (IntPos2D p : points) {
+      boolean overlap = false;
 
+      for (int bin : point2BinMap.get(p)) {
+        for (IntPos2D p2 : bin2PointMap.get(bin)) {
+          if (p2.equals(p)) {
+            continue;
+          }
 
-		// Arrange the points so that overlapping ones are separated
-		// about the center 
+          // System.err.println("cp " + p + " " + p2 + " " + Geometry.overlap(p,
+          // p2, binSize) + " " + bin + " " + point2OverlapMap.containsKey(p) +
+          // " " + point2OverlapMap.containsKey(p2));
 
-		for (int group : overlap2PointMap.keySet()) {
-			int i = 0;
+          if (Geometry.overlap(p, p2, binSize)) {
+            if (point2OverlapMap.containsKey(p2)) {
+              if (!point2OverlapMap.containsKey(p)) {
+                point2OverlapMap.put(p, point2OverlapMap.get(p2));
+                overlap2PointMap.get(point2OverlapMap.get(p2)).add(p);
+              }
 
-			int offsetX = plotX - (binSize * overlap2PointMap.get(group).size() + b2 * (overlap2PointMap.get(group).size() - 1)) / 2 + b2;
+              overlap = true;
+            } else {
+              overlap = false;
+            }
+          }
+        }
+      }
 
-			for (IntPos2D p : overlap2PointMap.get(group)) {
-				// binSize / 2 at the end required to shift point so that
-				// the center of the shape is on x rather than the left edge
-				x = offsetX + i * (binSize + b2);
+      // If the point cannot be allocated to any overlap, create an
+      // overlap for itself
+      if (!overlap && !point2OverlapMap.containsKey(p)) {
+        // overlap2PointMap.put(g, new UniqueList<IntPos2D>());
+        overlap2PointMap.get(g).add(p);
+        // overlap2PointMap.get(g).add(p2);
 
-				series.getMarker().plot(g2, series.getMarkerStyle(), new Point(x, p.getY()));
+        point2OverlapMap.put(p, g);
+        // point2OverlapMap.put(p2, g);
 
-				System.err.println("p " + p + " " + group);
+        ++g;
+      }
+    }
 
-				++i;
-			}
-		}
+    // Arrange the points so that overlapping ones are separated
+    // about the center
 
-		//
-		// draw outliers
-		//
-		
-		int xc = axes.toPlotX1(mX + 0.5);
+    for (int group : overlap2PointMap.keySet()) {
+      int i = 0;
 
-		if (s.getUpperOutlier() > s.getUpper()) {
-			s.getOutlierShape().plot(g2, 
-					s.getMarkerStyle(), 
-					new Point(xc, axes.toPlotY1(s.getUpperOutlier())));
-		}
+      int offsetX = plotX - (binSize * overlap2PointMap.get(group).size()
+          + b2 * (overlap2PointMap.get(group).size() - 1)) / 2 + b2;
 
-		if (s.getLowerOutlier() < s.getLower()) {
-			s.getOutlierShape().plot(g2, 
-					s.getMarkerStyle(), 
-					new Point(xc, axes.toPlotY1(s.getLowerOutlier())));
-		}
+      for (IntPos2D p : overlap2PointMap.get(group)) {
+        // binSize / 2 at the end required to shift point so that
+        // the center of the shape is on x rather than the left edge
+        x = offsetX + i * (binSize + b2);
 
-	}
+        series.getMarker()
+            .plot(g2, series.getMarkerStyle(), new Point(x, p.getY()));
 
-	/*
-	public BoxWhiskerScatterCanvas(XYSeriesCollection allSeries,
-			BoxWhiskerCollection boxWhiskers) {
-		super(boxWhiskers);
+        System.err.println("p " + p + " " + group);
 
-		// Add a layer that renders points
-		addLayer(new BoxWhiskerScatterLayer());
+        ++i;
+      }
+    }
 
-		addLayer(new LegendLayerCanvas(allSeries, getGraphProperties()));
-	}
-	 */
+    //
+    // draw outliers
+    //
+
+    int xc = axes.toPlotX1(mX + 0.5);
+
+    if (s.getUpperOutlier() > s.getUpper()) {
+      s.getOutlierShape().plot(g2,
+          s.getMarkerStyle(),
+          new Point(xc, axes.toPlotY1(s.getUpperOutlier())));
+    }
+
+    if (s.getLowerOutlier() < s.getLower()) {
+      s.getOutlierShape().plot(g2,
+          s.getMarkerStyle(),
+          new Point(xc, axes.toPlotY1(s.getLowerOutlier())));
+    }
+
+  }
+
+  /*
+   * public BoxWhiskerScatterCanvas(XYSeriesCollection allSeries,
+   * BoxWhiskerCollection boxWhiskers) { super(boxWhiskers);
+   * 
+   * // Add a layer that renders points addLayer(new BoxWhiskerScatterLayer());
+   * 
+   * addLayer(new LegendLayerCanvas(allSeries, getGraphProperties())); }
+   */
 }

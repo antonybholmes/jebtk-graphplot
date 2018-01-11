@@ -25,14 +25,22 @@ import org.jebtk.graphplot.figure.properties.FillPattern;
  * The class FillPatternBackIcon.
  */
 public class FillPatternBackIcon extends FillPatternIcon {
-	
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.ui.plot.icons.FillPatternIcon#drawForeground(java.awt.Graphics2D, java.awt.Rectangle)
-	 */
-	@Override
-	public void drawIcon(Graphics2D g2, int x, int y, int w, int h, Object... params) {
-		super.drawIcon(g2, x, y, w, h, params);
-		
-		BarChartLayer.patternFill(g2, FillPattern.BACK_HATCH, x, y, w, h);
-	}
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see edu.columbia.rdf.lib.bioinformatics.ui.plot.icons.FillPatternIcon#
+   * drawForeground(java.awt.Graphics2D, java.awt.Rectangle)
+   */
+  @Override
+  public void drawIcon(Graphics2D g2,
+      int x,
+      int y,
+      int w,
+      int h,
+      Object... params) {
+    super.drawIcon(g2, x, y, w, h, params);
+
+    BarChartLayer.patternFill(g2, FillPattern.BACK_HATCH, x, y, w, h);
+  }
 }

@@ -25,91 +25,95 @@ import org.jebtk.modern.theme.ModernTheme;
  * The Enum StrokeStyle.
  */
 public enum StrokeStyle {
-	
-	/** The single. */
-	SINGLE,
-	
-	/** The dashed. */
-	DASHED,
-	
-	/** The dotted. */
-	DOTTED,
-	
-	/** The long dash. */
-	LONG_DASH,
-	
-	/** The dashed dotted. */
-	DASHED_DOTTED;
-	
-	/**
-	 * Creates the single stroke.
-	 *
-	 * @param w the w
-	 * @return the stroke
-	 */
-	public static final Stroke createSingleStroke(int w) {
-		return new BasicStroke(w);
-	}
-	
-	/**
-	 * The constant DASHED_LINE_STROKE.
-	 *
-	 * @param w the w
-	 * @return the stroke
-	 */
-	public static final Stroke createDashedStroke(int w) { 
-		return new BasicStroke(w, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1, ModernTheme.DASH_MARKS, 0);
-	}
-	
-	/**
-	 * Creates the dotted stroke.
-	 *
-	 * @param w the w
-	 * @return the stroke
-	 */
-	public static final Stroke createDottedStroke(int w) { 
-		return new BasicStroke(w, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1, ModernTheme.DOTTED_MARKS, 0);
-	}
 
-	/**
-	 * Creates the long dash stroke.
-	 *
-	 * @param w the w
-	 * @return the stroke
-	 */
-	public static final Stroke createLongDashStroke(int w) { 
-		return new BasicStroke(w, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1, ModernTheme.LONG_DASH_MARKS, 0);
-	}
-	
-	/**
-	 * Creates the dash dotted stroke.
-	 *
-	 * @param w the w
-	 * @return the stroke
-	 */
-	public static final Stroke createDashDottedStroke(int w) { 
-		return new BasicStroke(w, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1, ModernTheme.DASH_DOT_MARKS, 0);
-	}
-	
-	/**
-	 * Gets the stroke.
-	 *
-	 * @param style the style
-	 * @param w the w
-	 * @return the stroke
-	 */
-	public static Stroke getStroke(StrokeStyle style, int w) {
-		switch(style) {
-		case DASHED:
-			return createDashedStroke(w);
-		case DOTTED:
-			return createDottedStroke(w);
-		case LONG_DASH:
-			return createLongDashStroke(w);
-		case DASHED_DOTTED:
-			return createDashDottedStroke(w);
-		default:
-			return createSingleStroke(w);
-		}
-	}
+  /** The single. */
+  SINGLE,
+
+  /** The dashed. */
+  DASHED,
+
+  /** The dotted. */
+  DOTTED,
+
+  /** The long dash. */
+  LONG_DASH,
+
+  /** The dashed dotted. */
+  DASHED_DOTTED;
+
+  /**
+   * Creates the single stroke.
+   *
+   * @param w the w
+   * @return the stroke
+   */
+  public static final Stroke createSingleStroke(int w) {
+    return new BasicStroke(w);
+  }
+
+  /**
+   * The constant DASHED_LINE_STROKE.
+   *
+   * @param w the w
+   * @return the stroke
+   */
+  public static final Stroke createDashedStroke(int w) {
+    return new BasicStroke(w, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1,
+        ModernTheme.DASH_MARKS, 0);
+  }
+
+  /**
+   * Creates the dotted stroke.
+   *
+   * @param w the w
+   * @return the stroke
+   */
+  public static final Stroke createDottedStroke(int w) {
+    return new BasicStroke(w, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1,
+        ModernTheme.DOTTED_MARKS, 0);
+  }
+
+  /**
+   * Creates the long dash stroke.
+   *
+   * @param w the w
+   * @return the stroke
+   */
+  public static final Stroke createLongDashStroke(int w) {
+    return new BasicStroke(w, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1,
+        ModernTheme.LONG_DASH_MARKS, 0);
+  }
+
+  /**
+   * Creates the dash dotted stroke.
+   *
+   * @param w the w
+   * @return the stroke
+   */
+  public static final Stroke createDashDottedStroke(int w) {
+    return new BasicStroke(w, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1,
+        ModernTheme.DASH_DOT_MARKS, 0);
+  }
+
+  /**
+   * Gets the stroke.
+   *
+   * @param style the style
+   * @param w the w
+   * @return the stroke
+   */
+  public static Stroke getStroke(StrokeStyle style, int w) {
+    switch (style) {
+    case DASHED:
+      return createDashedStroke(w);
+    case DOTTED:
+      return createDottedStroke(w);
+    case LONG_DASH:
+      return createLongDashStroke(w);
+    case DASHED_DOTTED:
+      return createDashDottedStroke(w);
+    default:
+      return createSingleStroke(w);
+    }
+  }
 }

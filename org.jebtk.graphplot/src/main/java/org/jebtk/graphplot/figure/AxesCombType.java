@@ -20,14 +20,14 @@ package org.jebtk.graphplot.figure;
  * The enum AxesCombType.
  */
 public enum AxesCombType {
-	
-	/**
-	 * The X_ y1.
-	 */
-	X_Y1,
-	
-	/**
-	 * The X_ y2.
-	 */
-	X_Y2
+
+  /**
+   * The X_ y1.
+   */
+  X_Y1,
+
+  /**
+   * The X_ y2.
+   */
+  X_Y2
 }

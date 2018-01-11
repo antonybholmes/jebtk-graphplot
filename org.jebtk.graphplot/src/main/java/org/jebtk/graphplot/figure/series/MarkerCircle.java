@@ -24,56 +24,56 @@ import org.jebtk.modern.graphics.ImageUtils;
 
 // TODO: Auto-generated Javadoc
 /**
- * Draws a circle at the given point. The circle is
- * centered about the point.
+ * Draws a circle at the given point. The circle is centered about the point.
  * 
  * @author Antony Holmes Holmes
  *
  */
 public class MarkerCircle extends Marker {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.series.DataPointShape#render(java.awt.Graphics2D, edu.columbia.rdf.lib.bioinformatics.plot.figure.properties.StyleProperties, java.awt.Point)
-	 */
-	@Override
-	public void plot(Graphics2D g2, StyleProperties style, Point p) {
-		int w = mDim.getW();
+  /*
+   * (non-Javadoc)
+   * 
+   * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.series.DataPointShape#
+   * render(java.awt.Graphics2D,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.properties.StyleProperties,
+   * java.awt.Point)
+   */
+  @Override
+  public void plot(Graphics2D g2, StyleProperties style, Point p) {
+    int w = mDim.getW();
 
-		Graphics2D g2Temp = ImageUtils.createAAStrokeGraphics(g2);
+    Graphics2D g2Temp = ImageUtils.createAAStrokeGraphics(g2);
 
-		try {
-			if (style.getFillStyle().getVisible()) {
-				g2Temp.setColor(style.getFillStyle().getColor());
-				g2Temp.fillOval(p.x - mHalfSize.getW(), 
-						p.y - mHalfSize.getW(), 
-						w, 
-						w);
-			}
+    try {
+      if (style.getFillStyle().getVisible()) {
+        g2Temp.setColor(style.getFillStyle().getColor());
+        g2Temp.fillOval(p.x - mHalfSize.getW(), p.y - mHalfSize.getW(), w, w);
+      }
 
-			if (style.getLineStyle().getVisible()) {
-				g2Temp.setColor(style.getLineStyle().getColor());
-				g2Temp.setStroke(style.getLineStyle().getStroke());
+      if (style.getLineStyle().getVisible()) {
+        g2Temp.setColor(style.getLineStyle().getColor());
+        g2Temp.setStroke(style.getLineStyle().getStroke());
 
-				g2Temp.drawOval(p.x - mHalfSize.getW(), 
-						p.y - mHalfSize.getW(), 
-						w, 
-						w);
-			}
-		} finally {
-			g2Temp.dispose();
-		}
-	}
+        g2Temp.drawOval(p.x - mHalfSize.getW(), p.y - mHalfSize.getW(), w, w);
+      }
+    } finally {
+      g2Temp.dispose();
+    }
+  }
 
-	/* (non-Javadoc)
-	 * @see org.graphplot.figure.series.Marker#getType()
-	 */
-	@Override
-	public ShapeStyle getType() {
-		return ShapeStyle.CIRCLE;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.graphplot.figure.series.Marker#getType()
+   */
+  @Override
+  public ShapeStyle getType() {
+    return ShapeStyle.CIRCLE;
+  }
 }

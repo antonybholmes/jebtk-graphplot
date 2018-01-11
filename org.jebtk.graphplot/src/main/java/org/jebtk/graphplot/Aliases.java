@@ -25,71 +25,69 @@ import org.jebtk.core.io.FileUtils;
 import org.jebtk.core.io.Io;
 import org.jebtk.core.text.TextUtils;
 
-
-
 // TODO: Auto-generated Javadoc
 /**
  * The class Aliases.
  */
 public class Aliases extends ImmutableList<Alias> {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * Gets the alias.
-	 *
-	 * @param label the label
-	 * @return the alias
-	 */
-	public String getAlias(String label) {
-		
-		String newLabel = new String(label);
-		
-		for (Alias alias : this) {
-			newLabel = newLabel.replaceAll(alias.from, alias.to);
-		}
 
-		return newLabel;
-	}
-	
-	/**
-	 * Parses the file.
-	 *
-	 * @param file the file
-	 * @return the aliases
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 */
-	public static Aliases parse(Path file) throws IOException {
-		Aliases aliases = new Aliases();
-		
-		String line;
-		List<String> tokens;
-		
-		BufferedReader reader = FileUtils.newBufferedReader(file);
-		
-		try {
-			while ((line = reader.readLine()) != null) {
-				if (Io.isEmptyLine(line)) {
-					continue;
-				}
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-				tokens = TextUtils.tabSplit(line);
-				
-				// Labels
-				
-				String label = tokens.get(0);
-				
-				String alias = tokens.get(1);
-				
-				aliases.add(new Alias(label, alias));
-			}
-		} finally {
-			reader.close();
-		}
-		
-		return aliases;
-	}
+  /**
+   * Gets the alias.
+   *
+   * @param label the label
+   * @return the alias
+   */
+  public String getAlias(String label) {
+
+    String newLabel = new String(label);
+
+    for (Alias alias : this) {
+      newLabel = newLabel.replaceAll(alias.from, alias.to);
+    }
+
+    return newLabel;
+  }
+
+  /**
+   * Parses the file.
+   *
+   * @param file the file
+   * @return the aliases
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
+  public static Aliases parse(Path file) throws IOException {
+    Aliases aliases = new Aliases();
+
+    String line;
+    List<String> tokens;
+
+    BufferedReader reader = FileUtils.newBufferedReader(file);
+
+    try {
+      while ((line = reader.readLine()) != null) {
+        if (Io.isEmptyLine(line)) {
+          continue;
+        }
+
+        tokens = TextUtils.tabSplit(line);
+
+        // Labels
+
+        String label = tokens.get(0);
+
+        String alias = tokens.get(1);
+
+        aliases.add(new Alias(label, alias));
+      }
+    } finally {
+      reader.close();
+    }
+
+    return aliases;
+  }
 }

@@ -21,17 +21,17 @@ package org.jebtk.graphplot.plotbox;
  */
 public class PlotBoxColumn extends PlotBoxContainer {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	public PlotBoxColumn() {
-		super(new PlotBoxDimStorage(), new PlotBoxColumnLayout());
-	}
-	
-	@Override
-	public String getType() {
-		return "Plot Box Column";
-	}
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
+
+  public PlotBoxColumn() {
+    super(new PlotBoxDimStorage(), new PlotBoxColumnLayout());
+  }
+
+  @Override
+  public String getType() {
+    return "Plot Box Column";
+  }
 }

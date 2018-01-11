@@ -23,78 +23,87 @@ import org.jebtk.modern.graphics.DrawingContext;
 
 // TODO: Auto-generated Javadoc
 /**
- * Concrete implementation of Graph2dCanvas for generating
- * scatter plots.
+ * Concrete implementation of Graph2dCanvas for generating scatter plots.
  *
  * @author Antony Holmes Holmes
  */
 public class LabelAxesLayer extends AxesLayer {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	/** The m label. */
-	protected String mLabel;
-	
-	/** The m x. */
-	protected double mX;
-	
-	/** The m y. */
-	protected double mY;
-	
-	/** The m offset x pixels. */
-	protected int mOffsetXPixels;
-	
-	/** The m offset y pixels. */
-	protected int mOffsetYPixels;
 
-	/**
-	 * Instantiates a new scatter plot layer.
-	 *
-	 * @param name the name
-	 * @param x the x
-	 * @param y the y
-	 */
-	public LabelAxesLayer(String name, double x, double y) {
-		this(name, x, y, 0, 0);
-	}
-	
-	/**
-	 * Instantiates a new label axes layer.
-	 *
-	 * @param name the name
-	 * @param x the x
-	 * @param y the y
-	 * @param offsetXPixels the offset x pixels
-	 * @param offsetYPixels the offset y pixels
-	 */
-	public LabelAxesLayer(String name, double x, double y, int offsetXPixels, int offsetYPixels) {
-		mLabel = name;
-		mX = x;
-		mY = y;
-		mOffsetXPixels = offsetXPixels;
-		mOffsetYPixels = offsetYPixels;
-	}
-	
-	@Override
-	public String getType() {
-		return "Axes Label Layer";
-	}
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotSeriesLayer#plotLayer(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.DataFrame, edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries)
-	 */
-	@Override
-	public void drawPlot(Graphics2D g2,
-			DrawingContext context,
-			Figure figure,
-			SubFigure subFigure,
-			Axes axes) {
-		Point p = axes.toPlotX1Y1(mX, mY);
-		
-		g2.setColor(Color.BLACK);
-		g2.drawString(mLabel, p.x + mOffsetXPixels, p.y + mOffsetYPixels);
-	}
+  /** The m label. */
+  protected String mLabel;
+
+  /** The m x. */
+  protected double mX;
+
+  /** The m y. */
+  protected double mY;
+
+  /** The m offset x pixels. */
+  protected int mOffsetXPixels;
+
+  /** The m offset y pixels. */
+  protected int mOffsetYPixels;
+
+  /**
+   * Instantiates a new scatter plot layer.
+   *
+   * @param name the name
+   * @param x the x
+   * @param y the y
+   */
+  public LabelAxesLayer(String name, double x, double y) {
+    this(name, x, y, 0, 0);
+  }
+
+  /**
+   * Instantiates a new label axes layer.
+   *
+   * @param name the name
+   * @param x the x
+   * @param y the y
+   * @param offsetXPixels the offset x pixels
+   * @param offsetYPixels the offset y pixels
+   */
+  public LabelAxesLayer(String name, double x, double y, int offsetXPixels,
+      int offsetYPixels) {
+    mLabel = name;
+    mX = x;
+    mY = y;
+    mOffsetXPixels = offsetXPixels;
+    mOffsetYPixels = offsetYPixels;
+  }
+
+  @Override
+  public String getType() {
+    return "Axes Label Layer";
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotSeriesLayer#plotLayer(
+   * java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
+   * org.abh.lib.math.matrix.DataFrame,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries)
+   */
+  @Override
+  public void drawPlot(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes) {
+    Point p = axes.toPlotX1Y1(mX, mY);
+
+    g2.setColor(Color.BLACK);
+    g2.drawString(mLabel, p.x + mOffsetXPixels, p.y + mOffsetYPixels);
+  }
 }

@@ -31,76 +31,85 @@ import org.jebtk.modern.graphics.DrawingContext;
  *
  */
 public class HistogramLayer extends PlotSeriesLayer {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	/** The m hist. */
-	private HistBin[] mHist;
 
-	/**
-	 * Instantiates a new histogram layer.
-	 *
-	 * @param series the series
-	 * @param hist the hist
-	 */
-	public HistogramLayer(String series, HistBin[] hist) {
-		super(series);
-		
-		mHist = hist;
-	}
-	
-	@Override
-	public String getType() {
-		return "Histogram Layer";
-	}
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotSeriesLayer#plotLayer(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.DataFrame, edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries)
-	 */
-	@Override
-	public void plotLayer(Graphics2D g2,
-			DrawingContext context,
-			Figure figure,
-SubFigure subFigure,
-			Axes axes,
-			Plot plot,
-			DataFrame m,
-			XYSeries series) {
-		int y1;
-		int bwp;
-		int h;
+  /** The m hist. */
+  private HistBin[] mHist;
 
-		y1 = axes.toPlotY1(0);
+  /**
+   * Instantiates a new histogram layer.
+   *
+   * @param series the series
+   * @param hist the hist
+   */
+  public HistogramLayer(String series, HistBin[] hist) {
+    super(series);
 
-		// ignore last point
-		for (HistBin bin : mHist) {
-			int y = bin.getCount();
-			
-			Point p1 = axes.toPlotX1Y1(bin.getX(), y);
+    mHist = hist;
+  }
 
-			Point p2 = axes.toPlotX1Y1(bin.getX() + bin.getWidth(), y);
+  @Override
+  public String getType() {
+    return "Histogram Layer";
+  }
 
-			bwp = p2.x - p1.x;
-			
-			h = y1 - p1.y;
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotSeriesLayer#plotLayer(
+   * java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
+   * org.abh.lib.math.matrix.DataFrame,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries)
+   */
+  @Override
+  public void plotLayer(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes,
+      Plot plot,
+      DataFrame m,
+      XYSeries series) {
+    int y1;
+    int bwp;
+    int h;
 
-			if (series.getStyle().getFillStyle().getVisible()) {
-				//System.err.println("has " + series.getTitle().getText());
+    y1 = axes.toPlotY1(0);
 
-				g2.setColor(series.getStyle().getFillStyle().getColor());
+    // ignore last point
+    for (HistBin bin : mHist) {
+      int y = bin.getCount();
 
-				g2.fillRect(p1.x, p1.y, bwp, h); //h);
-			}
+      Point p1 = axes.toPlotX1Y1(bin.getX(), y);
 
-			if (series.getStyle().getLineStyle().getVisible()) {
-				g2.setStroke(series.getStyle().getLineStyle().getStroke());
-				g2.setColor(series.getStyle().getLineStyle().getColor());
+      Point p2 = axes.toPlotX1Y1(bin.getX() + bin.getWidth(), y);
 
-				g2.drawRect(p1.x, p1.y, bwp, h);
-			}
-		}
-	}
+      bwp = p2.x - p1.x;
+
+      h = y1 - p1.y;
+
+      if (series.getStyle().getFillStyle().getVisible()) {
+        // System.err.println("has " + series.getTitle().getText());
+
+        g2.setColor(series.getStyle().getFillStyle().getColor());
+
+        g2.fillRect(p1.x, p1.y, bwp, h); // h);
+      }
+
+      if (series.getStyle().getLineStyle().getVisible()) {
+        g2.setStroke(series.getStyle().getLineStyle().getStroke());
+        g2.setColor(series.getStyle().getLineStyle().getColor());
+
+        g2.drawRect(p1.x, p1.y, bwp, h);
+      }
+    }
+  }
 }

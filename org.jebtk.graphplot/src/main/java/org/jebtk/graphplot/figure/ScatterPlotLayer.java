@@ -30,43 +30,52 @@ import org.jebtk.modern.graphics.DrawingContext;
  */
 public class ScatterPlotLayer extends UniqueXYLayer {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * Instantiates a new scatter plot layer.
-	 *
-	 * @param series the series
-	 */
-	public ScatterPlotLayer(String series) {
-		super(series);
-	}
+  /**
+   * Instantiates a new scatter plot layer.
+   *
+   * @param series the series
+   */
+  public ScatterPlotLayer(String series) {
+    super(series);
+  }
 
-	@Override
-	public String getType() {
-		return "Scatter Plot Layer";
-	}
+  @Override
+  public String getType() {
+    return "Scatter Plot Layer";
+  }
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotSeriesLayer#plotLayer(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.DataFrame, edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries)
-	 */
-	@Override
-	public void plotLayer(Graphics2D g2,
-			DrawingContext context,
-			Figure figure,
-			SubFigure subFigure,
-			Axes axes,
-			Plot plot,
-			DataFrame m,
-			XYSeries series,
-			UniqueXY xy) {
-		// If the marker is not visible, no point continuing
-		if (series.getMarker().getVisible()) {
-			for (Point p : xy) {
-				series.getMarker().plot(g2, series.getMarkerStyle(), p);
-			}
-		}
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotSeriesLayer#plotLayer(
+   * java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
+   * org.abh.lib.math.matrix.DataFrame,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries)
+   */
+  @Override
+  public void plotLayer(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes,
+      Plot plot,
+      DataFrame m,
+      XYSeries series,
+      UniqueXY xy) {
+    // If the marker is not visible, no point continuing
+    if (series.getMarker().getVisible()) {
+      for (Point p : xy) {
+        series.getMarker().plot(g2, series.getMarkerStyle(), p);
+      }
+    }
+  }
 }

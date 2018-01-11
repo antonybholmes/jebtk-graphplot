@@ -28,63 +28,67 @@ import org.jebtk.core.event.ChangeListeners;
  * @author Antony Holmes Holmes
  *
  */
-public class LineFillProperties extends ChangeListeners implements ChangeListener {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+public class LineFillProperties extends ChangeListeners
+    implements ChangeListener {
 
-	/**
-	 * The m fill color.
-	 */
-	private FillProperties mFill = new FillProperties();
-	
-	/**
-	 * The m line style.
-	 */
-	protected LineProperties mLineStyle = new LineProperties();
-	
-	/**
-	 * Instantiates a new exon properties.
-	 */
-	public LineFillProperties() {
-		mLineStyle.addChangeListener(this);
-		mFill.addChangeListener(this);
-	}
-	
-	/**
-	 * Gets the line style.
-	 *
-	 * @return the line style
-	 */
-	public LineProperties getLineStyle() {
-		return mLineStyle;
-	}
-	
-	/**
-	 * Set the line color.
-	 * 
-	 * @param color		The line color.
-	 */
-	public void setFillColor(Color color) {
-		mFill.setColor(color);
-	}
-	
-	/**
-	 * Gets the fill color.
-	 *
-	 * @return the fill color
-	 */
-	public FillProperties getFillStyle() {
-		return mFill;
-	}
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/* (non-Javadoc)
-	 * @see org.abh.lib.event.ChangeListener#changed(org.abh.lib.event.ChangeEvent)
-	 */
-	@Override
-	public void changed(ChangeEvent e) {
-		fireChanged();
-	}
+  /**
+   * The m fill color.
+   */
+  private FillProperties mFill = new FillProperties();
+
+  /**
+   * The m line style.
+   */
+  protected LineProperties mLineStyle = new LineProperties();
+
+  /**
+   * Instantiates a new exon properties.
+   */
+  public LineFillProperties() {
+    mLineStyle.addChangeListener(this);
+    mFill.addChangeListener(this);
+  }
+
+  /**
+   * Gets the line style.
+   *
+   * @return the line style
+   */
+  public LineProperties getLineStyle() {
+    return mLineStyle;
+  }
+
+  /**
+   * Set the line color.
+   * 
+   * @param color The line color.
+   */
+  public void setFillColor(Color color) {
+    mFill.setColor(color);
+  }
+
+  /**
+   * Gets the fill color.
+   *
+   * @return the fill color
+   */
+  public FillProperties getFillStyle() {
+    return mFill;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * org.abh.lib.event.ChangeListener#changed(org.abh.lib.event.ChangeEvent)
+   */
+  @Override
+  public void changed(ChangeEvent e) {
+    fireChanged();
+  }
 }

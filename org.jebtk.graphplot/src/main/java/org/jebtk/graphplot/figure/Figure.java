@@ -38,145 +38,146 @@ import org.jebtk.modern.graphics.DrawingContext;
  */
 public class Figure extends PlotBoxGraph {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	private static final StringId NEXT_ID = new StringId("Figure");
-	
-	/** The m next sub figure id. */
-	private IntId mNextSubFigureId = new IntId();
+  private static final StringId NEXT_ID = new StringId("Figure");
 
-	private SubFigure mCurrentSubFigure;
+  /** The m next sub figure id. */
+  private IntId mNextSubFigureId = new IntId();
 
-	
-	/**
-	 * Instantiates a new figure grid canvas.
-	 *
-	 * @param name the name
-	 */
-	public Figure(String name) {
-		this(name, new PlotBoxDimStorage(), new PlotBoxRowsLayout(2));
-	}
-	
-	public Figure(String name, PlotBoxStorage storage, PlotBoxLayout layout) {
-		super(name, storage, layout);
-	}
+  private SubFigure mCurrentSubFigure;
 
-	public Figure(String name, PlotBoxLayout layout) {
-		super(name, layout);
-	}
+  /**
+   * Instantiates a new figure grid canvas.
+   *
+   * @param name the name
+   */
+  public Figure(String name) {
+    this(name, new PlotBoxDimStorage(), new PlotBoxRowsLayout(2));
+  }
 
-	/**
-	 * Instantiates a new figure.
-	 *
-	 * @param figure the figure
-	 */
-	public Figure(String name, SubFigure figure) {
-		this(name);
+  public Figure(String name, PlotBoxStorage storage, PlotBoxLayout layout) {
+    super(name, storage, layout);
+  }
 
-		addChild(figure);
-	}
-	
-	public Figure addSubFigure(SubFigure subFigure) {
-		addChild(subFigure);
-		
-		return this;
-	}
-	
-	@Override
-	protected boolean cacheCurrent(PlotBox plot) {
-		if (plot instanceof SubFigure) {
-			mCurrentSubFigure = (SubFigure)plot;
-			
-			return true;
-		} else {
-			return false;
-		}
-	}
+  public Figure(String name, PlotBoxLayout layout) {
+    super(name, layout);
+  }
 
-	/**
-	 * Creates the new axes.
-	 *
-	 * @return the axes
-	 */
-	public SubFigure newSubFigure() {
-		mCurrentSubFigure = new SubFigure(createId(LayerType.SUBFIGURE, 
-				mNextSubFigureId.getNextId()));
+  /**
+   * Instantiates a new figure.
+   *
+   * @param figure the figure
+   */
+  public Figure(String name, SubFigure figure) {
+    this(name);
 
-		addChild(mCurrentSubFigure);
-		
-		return mCurrentSubFigure;
-	}
+    addChild(figure);
+  }
 
+  public Figure addSubFigure(SubFigure subFigure) {
+    addChild(subFigure);
 
-	/**
-	 * Gets the sub figure by name.
-	 *
-	 * @param name the name
-	 * @return the axes
-	 */
-	public SubFigure getSubFigure(String name) {
-		return (SubFigure)getChild(name);
-	}
+    return this;
+  }
 
-	/**
-	 * Returns the current sub figure. If there is no current sub figure,
-	 * one will be created.
-	 * 
-	 * @return		The current sub figure.
-	 */
-	public SubFigure currentSubFigure() {
-		if (mCurrentSubFigure == null) {
-			newSubFigure();
-		}
+  @Override
+  protected boolean cacheCurrent(PlotBox plot) {
+    if (plot instanceof SubFigure) {
+      mCurrentSubFigure = (SubFigure) plot;
 
-		return mCurrentSubFigure;
-	}
+      return true;
+    } else {
+      return false;
+    }
+  }
 
-	/* (non-Javadoc)
-	 * @see org.graphplot.figure.ZLayer#getType()
-	 */
-	@Override
-	public String getType() {
-		return LayerType.FIGURE;
-	}
+  /**
+   * Creates the new axes.
+   *
+   * @return the axes
+   */
+  public SubFigure newSubFigure() {
+    mCurrentSubFigure = new SubFigure(
+        createId(LayerType.SUBFIGURE, mNextSubFigureId.getNextId()));
 
-	public Iterable<SubFigure> getSubFigures() {
-		return getSubFigures(this);
-	}
-	
-	public static Iterable<SubFigure> getSubFigures(Figure figure) {
-		return Stream.of(figure).map(new Function<PlotBox, SubFigure>() {
+    addChild(mCurrentSubFigure);
 
-			@Override
-			public SubFigure apply(PlotBox item) {
-				return (SubFigure)item;
-			}});
-	}
+    return mCurrentSubFigure;
+  }
 
-	@Override
-	public void plot(Graphics2D g2, 
-			Dimension offset,
-			DrawingContext context,
-			Object... params) {
-		super.plot(g2, offset, context, this);
-	}
-	
-	public static Figure createFigure() {
-		return createFigure(NEXT_ID.getNextId());
-	}
+  /**
+   * Gets the sub figure by name.
+   *
+   * @param name the name
+   * @return the axes
+   */
+  public SubFigure getSubFigure(String name) {
+    return (SubFigure) getChild(name);
+  }
 
-	public static Figure createFigure(String name) {
-		return new Figure(name);
-	}
+  /**
+   * Returns the current sub figure. If there is no current sub figure, one will
+   * be created.
+   * 
+   * @return The current sub figure.
+   */
+  public SubFigure currentSubFigure() {
+    if (mCurrentSubFigure == null) {
+      newSubFigure();
+    }
 
-	public static Figure createRowFigure() {
-		return createRowFigure(NEXT_ID.getNextId());
-	}
-	
-	public static Figure createRowFigure(String name) {
-		return new Figure(name, new PlotBoxRowLayout());
-	}
+    return mCurrentSubFigure;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.graphplot.figure.ZLayer#getType()
+   */
+  @Override
+  public String getType() {
+    return LayerType.FIGURE;
+  }
+
+  public Iterable<SubFigure> getSubFigures() {
+    return getSubFigures(this);
+  }
+
+  public static Iterable<SubFigure> getSubFigures(Figure figure) {
+    return Stream.of(figure).map(new Function<PlotBox, SubFigure>() {
+
+      @Override
+      public SubFigure apply(PlotBox item) {
+        return (SubFigure) item;
+      }
+    });
+  }
+
+  @Override
+  public void plot(Graphics2D g2,
+      Dimension offset,
+      DrawingContext context,
+      Object... params) {
+    super.plot(g2, offset, context, this);
+  }
+
+  public static Figure createFigure() {
+    return createFigure(NEXT_ID.getNextId());
+  }
+
+  public static Figure createFigure(String name) {
+    return new Figure(name);
+  }
+
+  public static Figure createRowFigure() {
+    return createRowFigure(NEXT_ID.getNextId());
+  }
+
+  public static Figure createRowFigure(String name) {
+    return new Figure(name, new PlotBoxRowLayout());
+  }
 }

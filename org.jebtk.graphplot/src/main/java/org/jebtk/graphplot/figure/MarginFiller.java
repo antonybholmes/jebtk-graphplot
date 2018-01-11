@@ -21,41 +21,39 @@ import org.jebtk.core.geom.IntDim;
 
 // TODO: Auto-generated Javadoc
 /**
- * Represents a 2D Cartesian graph. This
- * class draws basic axes and titles but should
- * be subclassed to provide specific plot functionality.
- *  
+ * Represents a 2D Cartesian graph. This class draws basic axes and titles but
+ * should be subclassed to provide specific plot functionality.
+ * 
  * @author Antony Holmes Holmes
  *
  */
 public class MarginFiller extends Layer {
-		
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	private IntDim mSize;
 
-	
-	/**
-	 * Instantiates a new margin filler.
-	 *
-	 * @param w the w
-	 * @param h the h
-	 */
-	public MarginFiller(int w, int h) {
-		mSize = new IntDim(w, h);
-	}
-	
-	@Override
-	public String getType() {
-		return "Margin Filler";
-	}
-	
-	@Override
-	public void plotSize(Dimension dim) {
-		dim.width = mSize.getW();
-		dim.height = mSize.getH();
-	}
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
+
+  private IntDim mSize;
+
+  /**
+   * Instantiates a new margin filler.
+   *
+   * @param w the w
+   * @param h the h
+   */
+  public MarginFiller(int w, int h) {
+    mSize = new IntDim(w, h);
+  }
+
+  @Override
+  public String getType() {
+    return "Margin Filler";
+  }
+
+  @Override
+  public void plotSize(Dimension dim) {
+    dim.width = mSize.getW();
+    dim.height = mSize.getH();
+  }
 }

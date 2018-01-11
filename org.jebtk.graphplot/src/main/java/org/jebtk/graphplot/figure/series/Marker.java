@@ -30,83 +30,85 @@ import org.jebtk.graphplot.icons.ShapeStyle;
  * The class DataPointShape.
  */
 // Renders a data point shape
-public abstract class Marker extends VisibleProperties implements ChangeListener {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * The constant DEFAULT_SIZE is the marker width in pixels.
-	 */
-	private static final int DEFAULT_SIZE = 12;
-	
-	/**
-	 * The member size.
-	 */
-	protected IntDim mDim = null;
-	
-	/**
-	 * The member half size.
-	 */
-	protected IntDim mHalfSize = null;
+public abstract class Marker extends VisibleProperties
+    implements ChangeListener {
 
-	/** The m size. */
-	private int mSize;
-	
-	
-	
-	/**
-	 * Instantiates a new data point shape.
-	 */
-	public Marker() {
-		setSize(DEFAULT_SIZE);
-	}
-	
-	/**
-	 * Sets the dimension.
-	 *
-	 * @param size the new size
-	 */
-	public void setSize(int size) {
-		mSize = size;
-		mDim = new IntDim(size, size);
-		mHalfSize = new IntDim(size / 2, size / 2);
-		
-		fireChanged();
-	}
-	
-	/**
-	 * Gets the dimension.
-	 *
-	 * @return the dimension
-	 */
-	public int getSize() {
-		return mSize;
-	}
-	
-	/**
-	 * Render the shape at the given coordinates.
-	 *
-	 * @param g2 the g2
-	 * @param style the style
-	 * @param p the p
-	 */
-	public abstract void plot(Graphics2D g2, StyleProperties style, Point p);
-	
-	/* (non-Javadoc)
-	 * @see org.abh.common.event.ChangeListener#changed(org.abh.common.event.ChangeEvent)
-	 */
-	@Override
-	public final void changed(ChangeEvent e) {
-		fireChanged(new ChangeEvent(this));
-	}
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * Gets the type.
-	 *
-	 * @return the type
-	 */
-	public abstract ShapeStyle getType();
+  /**
+   * The constant DEFAULT_SIZE is the marker width in pixels.
+   */
+  private static final int DEFAULT_SIZE = 12;
+
+  /**
+   * The member size.
+   */
+  protected IntDim mDim = null;
+
+  /**
+   * The member half size.
+   */
+  protected IntDim mHalfSize = null;
+
+  /** The m size. */
+  private int mSize;
+
+  /**
+   * Instantiates a new data point shape.
+   */
+  public Marker() {
+    setSize(DEFAULT_SIZE);
+  }
+
+  /**
+   * Sets the dimension.
+   *
+   * @param size the new size
+   */
+  public void setSize(int size) {
+    mSize = size;
+    mDim = new IntDim(size, size);
+    mHalfSize = new IntDim(size / 2, size / 2);
+
+    fireChanged();
+  }
+
+  /**
+   * Gets the dimension.
+   *
+   * @return the dimension
+   */
+  public int getSize() {
+    return mSize;
+  }
+
+  /**
+   * Render the shape at the given coordinates.
+   *
+   * @param g2 the g2
+   * @param style the style
+   * @param p the p
+   */
+  public abstract void plot(Graphics2D g2, StyleProperties style, Point p);
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.abh.common.event.ChangeListener#changed(org.abh.common.event.
+   * ChangeEvent)
+   */
+  @Override
+  public final void changed(ChangeEvent e) {
+    fireChanged(new ChangeEvent(this));
+  }
+
+  /**
+   * Gets the type.
+   *
+   * @return the type
+   */
+  public abstract ShapeStyle getType();
 }

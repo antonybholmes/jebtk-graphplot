@@ -20,15 +20,14 @@ package org.jebtk.graphplot.figure;
  * The Interface PlotHashProperty.
  */
 public interface PlotHashProperty {
-	
-	/**
-	 * Should return a string describing the properties of the plot
-	 * object. If the plot object is updated (e.g. axis limits change) then
-	 * it should change to reflect this. Comparison of of plot hashes
-	 * should offer a fast way to determine if a plot object has changed
-	 * since it was last encountered.
-	 *
-	 * @return the string
-	 */
-	public String hashId();
+
+  /**
+   * Should return a string describing the properties of the plot object. If the
+   * plot object is updated (e.g. axis limits change) then it should change to
+   * reflect this. Comparison of of plot hashes should offer a fast way to
+   * determine if a plot object has changed since it was last encountered.
+   *
+   * @return the string
+   */
+  public String hashId();
 }

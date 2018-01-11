@@ -18,51 +18,49 @@ package org.jebtk.graphplot.figure.heatmap.legacy;
 import java.util.HashMap;
 import java.util.Map;
 
-
 // TODO: Auto-generated Javadoc
 /**
  * The class RowLabelProperties.
  */
 public class AnnotationProperties {
-	
-	/** The m show annotations. */
-	private Map<String, Boolean> mShowAnnotations =
-			new HashMap<String, Boolean>();
 
-	/**
-	 * Sets the.
-	 *
-	 * @param name the name
-	 * @param visible the visible
-	 */
-	public void set(String name, boolean visible) {
-		mShowAnnotations.put(name, visible);
-	}
-	
-	/**
-	 * Gets the visible count.
-	 *
-	 * @return the visible count
-	 */
-	public int getVisibleCount() {
-		int c = 0;
-		
-		for (String name : mShowAnnotations.keySet()) {
-			if (mShowAnnotations.get(name)) {
-				++c;
-			}
-		}
-		
-		return c;
-	}
-	
-	/**
-	 * Checks if is visible.
-	 *
-	 * @param name the name
-	 * @return true, if is visible
-	 */
-	public boolean isVisible(String name) {
-		return mShowAnnotations.containsKey(name) && mShowAnnotations.get(name);
-	}
+  /** The m show annotations. */
+  private Map<String, Boolean> mShowAnnotations = new HashMap<String, Boolean>();
+
+  /**
+   * Sets the.
+   *
+   * @param name the name
+   * @param visible the visible
+   */
+  public void set(String name, boolean visible) {
+    mShowAnnotations.put(name, visible);
+  }
+
+  /**
+   * Gets the visible count.
+   *
+   * @return the visible count
+   */
+  public int getVisibleCount() {
+    int c = 0;
+
+    for (String name : mShowAnnotations.keySet()) {
+      if (mShowAnnotations.get(name)) {
+        ++c;
+      }
+    }
+
+    return c;
+  }
+
+  /**
+   * Checks if is visible.
+   *
+   * @param name the name
+   * @return true, if is visible
+   */
+  public boolean isVisible(String name) {
+    return mShowAnnotations.containsKey(name) && mShowAnnotations.get(name);
+  }
 }

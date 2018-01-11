@@ -22,58 +22,57 @@ import java.util.List;
 
 import org.jebtk.core.geom.IntDim;
 
-
-
 // TODO: Auto-generated Javadoc
 /**
  * The class EmptyPlotBox.
  */
 public class PlotBoxEmpty extends PlotBox {
-	
-	private IntDim mSize;
-	
-	public PlotBoxEmpty(int w, int h) {
-		this(new IntDim(w, h));
-	}
-	
-	public PlotBoxEmpty(Dimension d) {
-		this(IntDim.create(d));
-	}
-	
-	public PlotBoxEmpty(IntDim size) {
-		mSize = size;
-	}
-	
-	@Override
-	public String getType() {
-		return "Plot Box Empty";
-	}
 
-	@Override
-	public void plotSize(Dimension d) {
-		d.width = mSize.getW();
-		d.height = mSize.getH();
-	}
+  private IntDim mSize;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	private static final List<PlotBox> NO_PLOTS =
-			Collections.emptyList();
+  public PlotBoxEmpty(int w, int h) {
+    this(new IntDim(w, h));
+  }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Iterable#iterator()
-	 */
-	@Override
-	public Iterator<PlotBox> iterator() {
-		return NO_PLOTS.iterator();
-	}
+  public PlotBoxEmpty(Dimension d) {
+    this(IntDim.create(d));
+  }
 
-	@Override
-	public String hashId() {
-		// TODO Auto-generated method stub
-		return getName() + mSize;
-	}
+  public PlotBoxEmpty(IntDim size) {
+    mSize = size;
+  }
+
+  @Override
+  public String getType() {
+    return "Plot Box Empty";
+  }
+
+  @Override
+  public void plotSize(Dimension d) {
+    d.width = mSize.getW();
+    d.height = mSize.getH();
+  }
+
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
+  private static final List<PlotBox> NO_PLOTS = Collections.emptyList();
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Iterable#iterator()
+   */
+  @Override
+  public Iterator<PlotBox> iterator() {
+    return NO_PLOTS.iterator();
+  }
+
+  @Override
+  public String hashId() {
+    // TODO Auto-generated method stub
+    return getName() + mSize;
+  }
 }

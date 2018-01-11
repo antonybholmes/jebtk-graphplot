@@ -33,238 +33,230 @@ import org.jebtk.modern.graphics.ImageUtils;
  */
 public abstract class PlotLayer extends Layer {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/** The m buffered image. */
-	private BufferedImage mBufferedImage;
-	
-	private static final PlotClip CLIP = new PlotClipRect();
-	
-	private PlotClip mPlotClip = CLIP;
+  /** The m buffered image. */
+  private BufferedImage mBufferedImage;
 
-	public PlotLayer() {
-		// Do nothing
-	}
+  private static final PlotClip CLIP = new PlotClipRect();
 
-	public PlotLayer(String name) {
-		super(name);
-	}
+  private PlotClip mPlotClip = CLIP;
 
-	@Override
-	public String getType() {
-		return "Plot Layer";
-	}
+  public PlotLayer() {
+    // Do nothing
+  }
 
-	/**
-	 * Set how the layer should be clipped.
-	 * 
-	 * @param plotClip
-	 */
-	public void setClip(PlotClip plotClip) {
-		mPlotClip = plotClip;
-		
-		setClipMode(true);
-	}
-	
-	/**
-	 * Plot.
-	 *
-	 * @param g2 the g2
-	 * @param context the context
-	 * @param subFigure the sub figure
-	 * @param axes the axes
-	 * @param plot the plot
-	 */
-	@Override
-	public void plot(Graphics2D g2,
-			Dimension offset,
-			DrawingContext context,
-			Object... params) {
-		//System.err.println("plot layer " + getName());
+  public PlotLayer(String name) {
+    super(name);
+  }
 
-		Figure figure = (Figure)params[0];
-		SubFigure subFigure = (SubFigure)params[1];
-		Axes axes = (Axes)params[2];
-		Plot plot = (Plot)params[3];
+  @Override
+  public String getType() {
+    return "Plot Layer";
+  }
 
-		DataFrame m = null;
+  /**
+   * Set how the layer should be clipped.
+   * 
+   * @param plotClip
+   */
+  public void setClip(PlotClip plotClip) {
+    mPlotClip = plotClip;
 
-		if (params.length > 4) {
-			m = (DataFrame)params[4];
-		} else {
-			m = plot.getMatrix();
-		}
+    setClipMode(true);
+  }
 
-		plotContext(g2, context, figure, subFigure, axes, plot, m);
-	}
+  /**
+   * Plot.
+   *
+   * @param g2 the g2
+   * @param context the context
+   * @param subFigure the sub figure
+   * @param axes the axes
+   * @param plot the plot
+   */
+  @Override
+  public void plot(Graphics2D g2,
+      Dimension offset,
+      DrawingContext context,
+      Object... params) {
+    // System.err.println("plot layer " + getName());
 
-	public void plotContext(Graphics2D g2,
-			DrawingContext context,
-			Figure figure,
-			SubFigure subFigure,
-			Axes axes,
-			Plot plot,
-			DataFrame m) {
-		if (context == DrawingContext.SCREEN) {
-			screenPlotLayer(g2, context, figure, subFigure, axes, plot, m);
-		} else {
-			clipPlotLayer(g2, context, figure, subFigure, axes, plot, m);
-		} 
-	}
+    Figure figure = (Figure) params[0];
+    SubFigure subFigure = (SubFigure) params[1];
+    Axes axes = (Axes) params[2];
+    Plot plot = (Plot) params[3];
 
-	/**
-	 * Aa plot.
-	 *
-	 * @param g2 the g 2
-	 * @param context the context
-	 * @param subFigure the sub figure
-	 * @param axes the axes
-	 * @param plot the plot
-	 * @param m the m
-	 */
-	public void screenPlotLayer(Graphics2D g2,
-			DrawingContext context,
-			Figure figure,
-			SubFigure subFigure,
-			Axes axes,
-			Plot plot,
-			DataFrame m) {
+    DataFrame m = null;
 
-		if (mRasterMode) {
-			rasterPlotLayer(g2, context, figure, subFigure, axes, plot, m);
-		} else if (mAAMode) {
-			aaPlotLayer(g2, context, figure, subFigure, axes, plot, m);
-		} else {
-			clipPlotLayer(g2, context, figure, subFigure, axes, plot, m);
-		}
-	}
+    if (params.length > 4) {
+      m = (DataFrame) params[4];
+    } else {
+      m = plot.getMatrix();
+    }
 
-	public void aaPlotLayer(Graphics2D g2,
-			DrawingContext context,
-			Figure figure,
-			SubFigure subFigure,
-			Axes axes,
-			Plot plot,
-			DataFrame m) {
+    plotContext(g2, context, figure, subFigure, axes, plot, m);
+  }
 
-		// Anti-alias by default
-		Graphics2D g2Temp = ImageUtils.createAAGraphics(g2);
+  public void plotContext(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes,
+      Plot plot,
+      DataFrame m) {
+    if (context == DrawingContext.SCREEN) {
+      screenPlotLayer(g2, context, figure, subFigure, axes, plot, m);
+    } else {
+      clipPlotLayer(g2, context, figure, subFigure, axes, plot, m);
+    }
+  }
 
-		try {
-			clipPlotLayer(g2Temp, context, figure, subFigure, axes, plot, m);
-		} finally {
-			g2Temp.dispose();
-		}
-	}
+  /**
+   * Aa plot.
+   *
+   * @param g2 the g 2
+   * @param context the context
+   * @param subFigure the sub figure
+   * @param axes the axes
+   * @param plot the plot
+   * @param m the m
+   */
+  public void screenPlotLayer(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes,
+      Plot plot,
+      DataFrame m) {
 
-	/**
-	 * Cache plot.
-	 *
-	 * @param g2 the g 2
-	 * @param context the context
-	 * @param subFigure the sub figure
-	 * @param axes the axes
-	 * @param plot the plot
-	 * @param m the m
-	 */
-	public void rasterPlotLayer(Graphics2D g2,
-			DrawingContext context,
-			Figure figure,
-			SubFigure subFigure,
-			Axes axes,
-			Plot plot, 
-			DataFrame m) {
-		// Create an image version of the canvas and draw that to spped
-		// up operations
-		if (mBufferedImage == null ||
-				figure.invalidated() ||
-				subFigure.invalidated() ||
-				axes.invalidated() ||
-				plot.invalidated()) {
-			// The canvas need only be the size of the available display
-			mBufferedImage = ImageUtils.createImage(axes.getPreferredSize());
+    if (mRasterMode) {
+      rasterPlotLayer(g2, context, figure, subFigure, axes, plot, m);
+    } else if (mAAMode) {
+      aaPlotLayer(g2, context, figure, subFigure, axes, plot, m);
+    } else {
+      clipPlotLayer(g2, context, figure, subFigure, axes, plot, m);
+    }
+  }
 
-			Graphics2D g2Temp = ImageUtils.createGraphics(mBufferedImage);
+  public void aaPlotLayer(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes,
+      Plot plot,
+      DataFrame m) {
 
-			try {
-				if (mAAMode) {
-					aaPlotLayer(g2Temp, context, figure, subFigure, axes, plot, m);
-				} else {
-					clipPlotLayer(g2Temp, context, figure, subFigure, axes, plot, m);
-				}
-			} finally {
-				g2Temp.dispose();
-			}
-		}
+    // Anti-alias by default
+    Graphics2D g2Temp = ImageUtils.createAAGraphics(g2);
 
-		g2.drawImage(mBufferedImage, 0, 0, null);
-	}
+    try {
+      clipPlotLayer(g2Temp, context, figure, subFigure, axes, plot, m);
+    } finally {
+      g2Temp.dispose();
+    }
+  }
 
-	public void clipPlotLayer(Graphics2D g2,
-			DrawingContext context,
-			Figure figure,
-			SubFigure subFigure,
-			Axes axes,
-			Plot plot, 
-			DataFrame m) {
-		if (mClipMode) {
-			Graphics2D g2Temp = mPlotClip.clip(g2, 
-					context, 
-					figure, 
-					subFigure, 
-					axes, 
-					plot);
+  /**
+   * Cache plot.
+   *
+   * @param g2 the g 2
+   * @param context the context
+   * @param subFigure the sub figure
+   * @param axes the axes
+   * @param plot the plot
+   * @param m the m
+   */
+  public void rasterPlotLayer(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes,
+      Plot plot,
+      DataFrame m) {
+    // Create an image version of the canvas and draw that to spped
+    // up operations
+    if (mBufferedImage == null || figure.invalidated()
+        || subFigure.invalidated() || axes.invalidated()
+        || plot.invalidated()) {
+      // The canvas need only be the size of the available display
+      mBufferedImage = ImageUtils.createImage(axes.getPreferredSize());
 
-			try {
-				plotLayer(g2Temp, context, figure, subFigure, axes, plot, m);
-			} finally {
-				g2Temp.dispose();
-			}
-		} else {
-			plotLayer(g2, context, figure, subFigure, axes, plot, m);
-		}
-	}
+      Graphics2D g2Temp = ImageUtils.createGraphics(mBufferedImage);
 
-	/**
-	 * Draw plot.
-	 *
-	 * @param g2 the g 2
-	 * @param context the context
-	 * @param subFigure the sub figure
-	 * @param axes the axes
-	 * @param plot the plot
-	 * @param m the m
-	 */
-	public void plotLayer(Graphics2D g2,
-			DrawingContext context,
-			Figure figure,
-			SubFigure subFigure,
-			Axes axes,
-			Plot plot, 
-			DataFrame m) {
-		// Do nothing
-	}
+      try {
+        if (mAAMode) {
+          aaPlotLayer(g2Temp, context, figure, subFigure, axes, plot, m);
+        } else {
+          clipPlotLayer(g2Temp, context, figure, subFigure, axes, plot, m);
+        }
+      } finally {
+        g2Temp.dispose();
+      }
+    }
 
+    g2.drawImage(mBufferedImage, 0, 0, null);
+  }
 
-	/**
-	 * Gets the id.
-	 *
-	 * @param m the m
-	 * @param axes the axes
-	 * @return the id
-	 */
-	protected static String getId(DataFrame m,
-			Axes axes) {
-		return TextUtils.join(TextUtils.COLON_DELIMITER, 
-				m.hashCode(),
-				axes.getMargins(),
-				axes.getPreferredSize(),
-				axes.getX1Axis().getMin(),
-				axes.getX1Axis().getMax(),
-				axes.getY1Axis().getMin(),
-				axes.getY1Axis().getMax());
-	}
+  public void clipPlotLayer(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes,
+      Plot plot,
+      DataFrame m) {
+    if (mClipMode) {
+      Graphics2D g2Temp = mPlotClip
+          .clip(g2, context, figure, subFigure, axes, plot);
+
+      try {
+        plotLayer(g2Temp, context, figure, subFigure, axes, plot, m);
+      } finally {
+        g2Temp.dispose();
+      }
+    } else {
+      plotLayer(g2, context, figure, subFigure, axes, plot, m);
+    }
+  }
+
+  /**
+   * Draw plot.
+   *
+   * @param g2 the g 2
+   * @param context the context
+   * @param subFigure the sub figure
+   * @param axes the axes
+   * @param plot the plot
+   * @param m the m
+   */
+  public void plotLayer(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes,
+      Plot plot,
+      DataFrame m) {
+    // Do nothing
+  }
+
+  /**
+   * Gets the id.
+   *
+   * @param m the m
+   * @param axes the axes
+   * @return the id
+   */
+  protected static String getId(DataFrame m, Axes axes) {
+    return TextUtils.join(TextUtils.COLON_DELIMITER,
+        m.hashCode(),
+        axes.getMargins(),
+        axes.getPreferredSize(),
+        axes.getX1Axis().getMin(),
+        axes.getX1Axis().getMax(),
+        axes.getY1Axis().getMin(),
+        axes.getY1Axis().getMax());
+  }
 }

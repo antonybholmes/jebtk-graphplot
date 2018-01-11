@@ -24,57 +24,56 @@ import org.jebtk.core.event.ChangeListeners;
  * @author Antony Holmes Holmes
  */
 public abstract class VisibleProperties extends ChangeListeners {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * The member visible.
-	 */
-	protected boolean mVisible = true;
 
-	
-	/**
-	 * Copy.
-	 *
-	 * @param properties the properties
-	 */
-	public void copy(final VisibleProperties properties) {
-		mVisible = properties.mVisible;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-		fireChanged();
-	}
-	
-	/**
-	 * Set whether the feature is visible or not.
-	 * 
-	 * @param visible		Whether the feature is visible or not.
-	 */
-	public void setVisible(boolean visible) {
-		updateVisible(visible);
-		
-		//System.err.println("set visible " + visible + " " + this);
-		
-		fireChanged();
-	}
-	
-	/**
-	 * Update visible.
-	 *
-	 * @param visible the visible
-	 */
-	public void updateVisible(boolean visible) {
-		mVisible = visible;
-	}
-	
-	/**
-	 * Returns true if the feature is visible, false otherwise.
-	 * 
-	 * @return		true if the feature is visible, false otherwise.
-	 */
-	public boolean getVisible() {
-		return mVisible;
-	}
+  /**
+   * The member visible.
+   */
+  protected boolean mVisible = true;
+
+  /**
+   * Copy.
+   *
+   * @param properties the properties
+   */
+  public void copy(final VisibleProperties properties) {
+    mVisible = properties.mVisible;
+
+    fireChanged();
+  }
+
+  /**
+   * Set whether the feature is visible or not.
+   * 
+   * @param visible Whether the feature is visible or not.
+   */
+  public void setVisible(boolean visible) {
+    updateVisible(visible);
+
+    // System.err.println("set visible " + visible + " " + this);
+
+    fireChanged();
+  }
+
+  /**
+   * Update visible.
+   *
+   * @param visible the visible
+   */
+  public void updateVisible(boolean visible) {
+    mVisible = visible;
+  }
+
+  /**
+   * Returns true if the feature is visible, false otherwise.
+   * 
+   * @return true if the feature is visible, false otherwise.
+   */
+  public boolean getVisible() {
+    return mVisible;
+  }
 }

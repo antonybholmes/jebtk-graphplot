@@ -17,7 +17,6 @@ package org.jebtk.graphplot.figure.heatmap;
 
 import org.jebtk.core.model.ItemModel;
 
-
 // TODO: Auto-generated Javadoc
 /**
  * Model for sharing a color map.
@@ -26,14 +25,14 @@ import org.jebtk.core.model.ItemModel;
  *
  */
 public class ColorNormalizationModel extends ItemModel<ColorNormalization> {
-	
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * Instantiates a new color standardization model.
-	 */
-	public ColorNormalizationModel() {
-		set(ColorNormalization.NONE);
-	}
+
+  /** The Constant serialVersionUID. */
+  private static final long serialVersionUID = 1L;
+
+  /**
+   * Instantiates a new color standardization model.
+   */
+  public ColorNormalizationModel() {
+    set(ColorNormalization.NONE);
+  }
 }

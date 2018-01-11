@@ -23,16 +23,16 @@ import org.jebtk.modern.graphics.icons.Raster16Icon;
  * The class FillPatternMultiIcon16.
  */
 public class FillPatternMultiIcon16 extends MultiIcon {
-	
-	/**
-	 * Instantiates a new fill pattern multi icon16.
-	 */
-	public FillPatternMultiIcon16() {
-		addIcon(new Raster16Icon(new FillPatternSolidIcon()));
-		addIcon(new Raster16Icon(new FillPatternCrossIcon()));
-		addIcon(new Raster16Icon(new FillPatternBackIcon()));
-		addIcon(new Raster16Icon(new FillPatternForwardIcon()));
-		addIcon(new Raster16Icon(new FillPatternVertIcon()));
-		addIcon(new Raster16Icon(new FillPatternHozIcon()));
-	}
-}	
+
+  /**
+   * Instantiates a new fill pattern multi icon16.
+   */
+  public FillPatternMultiIcon16() {
+    addIcon(new Raster16Icon(new FillPatternSolidIcon()));
+    addIcon(new Raster16Icon(new FillPatternCrossIcon()));
+    addIcon(new Raster16Icon(new FillPatternBackIcon()));
+    addIcon(new Raster16Icon(new FillPatternForwardIcon()));
+    addIcon(new Raster16Icon(new FillPatternVertIcon()));
+    addIcon(new Raster16Icon(new FillPatternHozIcon()));
+  }
+}

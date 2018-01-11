@@ -28,118 +28,118 @@ import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.widget.ModernWidget;
 
-
 // TODO: Auto-generated Javadoc
 /**
  * The class TopColumnLabelPlotElement.
  */
 public class TopColumnLabelPlotElement extends ColumnMatrixPlotElement {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * The color.
-	 */
-	private Color mColor;
+  /**
+   * The color.
+   */
+  private Color mColor;
 
-	/** The m group map. */
-	private Map<Integer, XYSeriesGroup> mGroupMap;
+  /** The m group map. */
+  private Map<Integer, XYSeriesGroup> mGroupMap;
 
-	/** The m color by group. */
-	private boolean mColorByGroup;
+  /** The m color by group. */
+  private boolean mColorByGroup;
 
-	/**
-	 * Instantiates a new top column label plot element.
-	 *
-	 * @param matrix the matrix
-	 * @param groups the groups
-	 * @param aspectRatio the aspect ratio
-	 * @param properties the properties
-	 */
-	public TopColumnLabelPlotElement(DataFrame matrix,
-			XYSeriesGroup groups,
-			DoubleDim aspectRatio,
-			Properties properties) {
-		this(matrix, groups, aspectRatio, properties, Color.BLACK, 10, 50);
-	}
+  /**
+   * Instantiates a new top column label plot element.
+   *
+   * @param matrix the matrix
+   * @param groups the groups
+   * @param aspectRatio the aspect ratio
+   * @param properties the properties
+   */
+  public TopColumnLabelPlotElement(DataFrame matrix, XYSeriesGroup groups,
+      DoubleDim aspectRatio, Properties properties) {
+    this(matrix, groups, aspectRatio, properties, Color.BLACK, 10, 50);
+  }
 
-	/**
-	 * Instantiates a new top column label plot element.
-	 *
-	 * @param matrix the matrix
-	 * @param groups the groups
-	 * @param aspectRatio the aspect ratio
-	 * @param properties the properties
-	 * @param color the color
-	 * @param charWidth the char width
-	 * @param maxChars the max chars
-	 */
-	public TopColumnLabelPlotElement(DataFrame matrix,
-			XYSeriesGroup groups,
-			DoubleDim aspectRatio,
-			Properties properties,
-			Color color,
-			int charWidth,
-			int maxChars) {
-		super(matrix, 
-				aspectRatio,
-				charWidth * TextUtils.maxLength(matrix.getColumnNames()));
+  /**
+   * Instantiates a new top column label plot element.
+   *
+   * @param matrix the matrix
+   * @param groups the groups
+   * @param aspectRatio the aspect ratio
+   * @param properties the properties
+   * @param color the color
+   * @param charWidth the char width
+   * @param maxChars the max chars
+   */
+  public TopColumnLabelPlotElement(DataFrame matrix, XYSeriesGroup groups,
+      DoubleDim aspectRatio, Properties properties, Color color, int charWidth,
+      int maxChars) {
+    super(matrix, aspectRatio,
+        charWidth * TextUtils.maxLength(matrix.getColumnNames()));
 
-		mColor = color;
-		
-		mGroupMap = XYSeriesGroup.arrangeGroupsByIndex(matrix, groups);
-		
-		mColorByGroup = properties.getAsBool("plot.labels.color-by-group");
-	}
+    mColor = color;
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
-	 */
-	@Override
-	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Object... params) {
-		drawLabels(g2);
-		
-		super.plot(g2, offset, context, params);
-	}
+    mGroupMap = XYSeriesGroup.arrangeGroupsByIndex(matrix, groups);
 
-	/**
-	 * Draw labels.
-	 *
-	 * @param g2 the g2
-	 */
-	private void drawLabels(Graphics2D g2) {
-		g2.setColor(mColor);
+    mColorByGroup = properties.getAsBool("plot.labels.color-by-group");
+  }
 
-		 //(mBlockSize.getW() + g2.getFontMetrics().getAscent()) / 2;
-		int xd = (int)((mBlockSize.getW() - ModernWidget.getStringHeight(g2)) / 2);
-		
-		int x = BLOCK_SIZE + xd;
-		
-		for (int i = 0; i < mMatrix.getCols(); ++i) {
-			Graphics2D g2Temp = (Graphics2D)g2.create();
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.
+   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
+   */
+  @Override
+  public void plot(Graphics2D g2,
+      Dimension offset,
+      DrawingContext context,
+      Object... params) {
+    drawLabels(g2);
 
-			try {
-				if (mColorByGroup && mGroupMap.containsKey(i)) {
-					g2Temp.setColor(mGroupMap.get(i).get(0).getColor());
-				} else {
-					g2Temp.setColor(mColor);
-				}
-				
-				g2Temp.translate(x, getPreferredSize().height);
-				//g2Temp.rotate(Math.PI / 2.0);
-				//g2Temp.translate(getPreferredSize().height - g2Temp.getFontMetrics().stringWidth(mMatrix.getColumnName(i)), xd);
-				g2Temp.rotate(-Math.PI / 2.0);
-				//g2Temp.translate(-getPreferredSize().height, 0);
+    super.plot(g2, offset, context, params);
+  }
 
-				g2Temp.drawString(mMatrix.getColumnName(i), 0, 0);
-			} finally {
-				g2Temp.dispose();
-			}
+  /**
+   * Draw labels.
+   *
+   * @param g2 the g2
+   */
+  private void drawLabels(Graphics2D g2) {
+    g2.setColor(mColor);
 
-			x += mBlockSize.getW();
-		}
-	}
+    // (mBlockSize.getW() + g2.getFontMetrics().getAscent()) / 2;
+    int xd = (int) ((mBlockSize.getW() - ModernWidget.getStringHeight(g2)) / 2);
+
+    int x = BLOCK_SIZE + xd;
+
+    for (int i = 0; i < mMatrix.getCols(); ++i) {
+      Graphics2D g2Temp = (Graphics2D) g2.create();
+
+      try {
+        if (mColorByGroup && mGroupMap.containsKey(i)) {
+          g2Temp.setColor(mGroupMap.get(i).get(0).getColor());
+        } else {
+          g2Temp.setColor(mColor);
+        }
+
+        g2Temp.translate(x, getPreferredSize().height);
+        // g2Temp.rotate(Math.PI / 2.0);
+        // g2Temp.translate(getPreferredSize().height -
+        // g2Temp.getFontMetrics().stringWidth(mMatrix.getColumnName(i)), xd);
+        g2Temp.rotate(-Math.PI / 2.0);
+        // g2Temp.translate(-getPreferredSize().height, 0);
+
+        g2Temp.drawString(mMatrix.getColumnName(i), 0, 0);
+      } finally {
+        g2Temp.dispose();
+      }
+
+      x += mBlockSize.getW();
+    }
+  }
 }

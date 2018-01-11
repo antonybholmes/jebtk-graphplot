@@ -20,34 +20,34 @@ package org.jebtk.graphplot.figure.properties;
  * The enum FillPattern.
  */
 public enum FillPattern {
-	
-	/**
-	 * The solid.
-	 */
-	SOLID,
-	
-	/**
-	 * The cross hatch.
-	 */
-	CROSS_HATCH,
-	
-	/**
-	 * The back hatch.
-	 */
-	BACK_HATCH,
-	
-	/**
-	 * The forward hatch.
-	 */
-	FORWARD_HATCH,
-	
-	/**
-	 * The vert hatch.
-	 */
-	VERT_HATCH,
-	
-	/**
-	 * The hoz hatch.
-	 */
-	HOZ_HATCH
+
+  /**
+   * The solid.
+   */
+  SOLID,
+
+  /**
+   * The cross hatch.
+   */
+  CROSS_HATCH,
+
+  /**
+   * The back hatch.
+   */
+  BACK_HATCH,
+
+  /**
+   * The forward hatch.
+   */
+  FORWARD_HATCH,
+
+  /**
+   * The vert hatch.
+   */
+  VERT_HATCH,
+
+  /**
+   * The hoz hatch.
+   */
+  HOZ_HATCH
 }

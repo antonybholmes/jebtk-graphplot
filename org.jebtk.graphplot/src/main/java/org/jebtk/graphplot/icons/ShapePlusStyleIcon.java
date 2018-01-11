@@ -22,11 +22,11 @@ import org.jebtk.graphplot.figure.series.MarkerPlus;
  * The class ShapePlusStyleIcon.
  */
 public class ShapePlusStyleIcon extends ShapeStyleIcon {
-	
-	/**
-	 * Instantiates a new shape plus style icon.
-	 */
-	public ShapePlusStyleIcon() {
-		super(new MarkerPlus());
-	}
+
+  /**
+   * Instantiates a new shape plus style icon.
+   */
+  public ShapePlusStyleIcon() {
+    super(new MarkerPlus());
+  }
 }

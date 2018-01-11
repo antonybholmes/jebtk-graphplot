@@ -29,165 +29,173 @@ import org.jebtk.modern.widget.ModernWidget;
 // TODO: Auto-generated Javadoc
 /**
  * Draws an x axis on a plot
- *  
+ * 
  * @author Antony Holmes Holmes
  *
  */
 public class AxisLabelLayerX1 extends PlotLayer {
 
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
+  /** The Constant serialVersionUID. */
+  private static final long serialVersionUID = 1L;
 
-	/** The m hash id. */
-	protected String mHashId = null;
-	
-	/** The m minor ticks. */
-	protected List<Integer> mMinorTicks;
+  /** The m hash id. */
+  protected String mHashId = null;
 
-	/** The m major ticks. */
-	protected List<Integer> mMajorTicks;
+  /** The m minor ticks. */
+  protected List<Integer> mMinorTicks;
 
-	/** The m major tick labels. */
-	protected List<String> mMajorTickLabels;
-	
-	
-	@Override
-	public String getType() {
-		return "X1 Axis Labels";
-	}
+  /** The m major ticks. */
+  protected List<Integer> mMajorTicks;
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.AxesLayer#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes)
-	 */
-	@Override
-	public void plotLayer(Graphics2D g2,
-			DrawingContext context,
-			Figure figure,
-			SubFigure subFigure,
-			Axes axes,
-			Plot plot,
-			DataFrame m) {
-		Axis axis = axes.getX1Axis();
+  /** The m major tick labels. */
+  protected List<String> mMajorTickLabels;
 
-		if (mHashId == null || !mHashId.equals(axes.hashId())) {
-			//int offset = axes.getMargins().getLeft();
+  @Override
+  public String getType() {
+    return "X1 Axis Labels";
+  }
 
-			mMinorTicks = new UniqueArrayList<Integer>(axis.getTicks().getMinorTicks().getTickCount());
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.AxesLayer#plot(java.awt.
+   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes)
+   */
+  @Override
+  public void plotLayer(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes,
+      Plot plot,
+      DataFrame m) {
+    Axis axis = axes.getX1Axis();
 
-			for (double x : axis.getTicks().getMinorTicks()) {
-				//if (x != 0) {
-				mMinorTicks.add(axes.toPlotX1(x));
-				//}
-			}
+    if (mHashId == null || !mHashId.equals(axes.hashId())) {
+      // int offset = axes.getMargins().getLeft();
 
-			mMajorTicks = 
-					new UniqueArrayList<Integer>(axis.getTicks().getMajorTicks().getTickCount());
+      mMinorTicks = new UniqueArrayList<Integer>(
+          axis.getTicks().getMinorTicks().getTickCount());
 
-			mMajorTickLabels = 
-					new UniqueArrayList<String>(axis.getTicks().getMajorTicks().getTickCount());
+      for (double x : axis.getTicks().getMinorTicks()) {
+        // if (x != 0) {
+        mMinorTicks.add(axes.toPlotX1(x));
+        // }
+      }
 
-			for (int i = 0; i < axis.getTicks().getMajorTicks().getTickCount(); ++i) {
-				//for (double y : axis.getTicks().getMajorTicks()) {
-				double x = axis.getTicks().getMajorTicks().getTick(i);
+      mMajorTicks = new UniqueArrayList<Integer>(
+          axis.getTicks().getMajorTicks().getTickCount());
 
-				//if (t != 0) {
-				mMajorTicks.add(axes.toPlotX1(x));
-				mMajorTickLabels.add(axis.getTicks().getMajorTicks().getLabel(i));
-				//}
-			}
+      mMajorTickLabels = new UniqueArrayList<String>(
+          axis.getTicks().getMajorTicks().getTickCount());
 
+      for (int i = 0; i < axis.getTicks().getMajorTicks().getTickCount(); ++i) {
+        // for (double y : axis.getTicks().getMajorTicks()) {
+        double x = axis.getTicks().getMajorTicks().getTick(i);
 
-			mHashId = axes.hashId();
-		}
-		
-		TickMarkProperties ticks = axis.getTicks().getMajorTicks();
-		
-		int x = 0;
-		int y = 0;
-		
-		if (ticks.getFontStyle().getVisible()) {
-			g2.setFont(ticks.getFontStyle().getFont());
-			g2.setColor(ticks.getFontStyle().getColor());
+        // if (t != 0) {
+        mMajorTicks.add(axes.toPlotX1(x));
+        mMajorTickLabels.add(axis.getTicks().getMajorTicks().getLabel(i));
+        // }
+      }
 
-			int fontHeight = ImageUtils.getFontHeight(g2);
-			
-			int offset = ticks.getTickSpacing();
-			
-			if (!axis.getTicks().getDrawInside()) {
-				offset += ticks.getTickSize();
-			}
+      mHashId = axes.hashId();
+    }
 
-			y += offset;
+    TickMarkProperties ticks = axis.getTicks().getMajorTicks();
 
-			double rotation = ticks.getRotation();
+    int x = 0;
+    int y = 0;
 
-			if (rotation == Mathematics.HALF_PI) {
-				
-				for (int i = 0; i < mMajorTicks.size(); ++i) {
-					x = mMajorTicks.get(i);
+    if (ticks.getFontStyle().getVisible()) {
+      g2.setFont(ticks.getFontStyle().getFont());
+      g2.setColor(ticks.getFontStyle().getColor());
 
-					String mark = mMajorTickLabels.get(i);
-					
-					Graphics2D g2Temp = (Graphics2D)g2.create();
+      int fontHeight = ImageUtils.getFontHeight(g2);
 
-					g2Temp.translate(x, y);
-					g2Temp.rotate(rotation);
+      int offset = ticks.getTickSpacing();
 
-					g2Temp.drawString(mark, 
-							0, 
-							(g2.getFontMetrics().getAscent() - g2.getFontMetrics().getDescent()) / 2);
+      if (!axis.getTicks().getDrawInside()) {
+        offset += ticks.getTickSize();
+      }
 
-					g2Temp.dispose();
-				}
-			} else if (rotation == -Mathematics.HALF_PI) {
-				
-				for (int i = 0; i < mMajorTicks.size(); ++i) {
-					x = mMajorTicks.get(i);
+      y += offset;
 
-					String mark = ModernWidget.getTruncatedText(g2, 
-							mMajorTickLabels.get(i), 
-							axes.getMargins().getBottom() - offset);
-					
-					Graphics2D g2Temp = (Graphics2D)g2.create();
-						
-					int w = ModernWidget.getStringWidth(g2Temp, mark);
-					
-					g2Temp.translate(x, y + w);
-					g2Temp.rotate(rotation);
+      double rotation = ticks.getRotation();
 
-					g2Temp.drawString(mark, 
-							0, 
-							(g2.getFontMetrics().getAscent() - g2.getFontMetrics().getDescent()) / 2);
+      if (rotation == Mathematics.HALF_PI) {
 
-					g2Temp.dispose();
-				}
-			} else {
-				y += fontHeight;
-				
-				for (int i = 0; i < mMajorTicks.size(); ++i) {
-					x = mMajorTicks.get(i);
+        for (int i = 0; i < mMajorTicks.size(); ++i) {
+          x = mMajorTicks.get(i);
 
-					String mark = mMajorTickLabels.get(i);
+          String mark = mMajorTickLabels.get(i);
 
-					x -= g2.getFontMetrics().stringWidth(mark) / 2;
+          Graphics2D g2Temp = (Graphics2D) g2.create();
 
-					g2.drawString(mark, x, y);
-				}
-			}
-		}
+          g2Temp.translate(x, y);
+          g2Temp.rotate(rotation);
 
-		// axis label
+          g2Temp.drawString(mark,
+              0,
+              (g2.getFontMetrics().getAscent()
+                  - g2.getFontMetrics().getDescent()) / 2);
 
-		if (axis.getTitle().getFontStyle().getVisible()) {
-			g2.setFont(axis.getTitle().getFontStyle().getFont());
-			g2.setColor(axis.getTitle().getFontStyle().getColor());
+          g2Temp.dispose();
+        }
+      } else if (rotation == -Mathematics.HALF_PI) {
 
-			x = axes.getMargins().getLeft() + 
-					(axes.getInternalSize().getW() - g2.getFontMetrics().stringWidth(axes.getX1Axis().getTitle().getText())) / 2;
+        for (int i = 0; i < mMajorTicks.size(); ++i) {
+          x = mMajorTicks.get(i);
 
-			y = axes.getPreferredSize().height - g2.getFontMetrics().getDescent();
+          String mark = ModernWidget.getTruncatedText(g2,
+              mMajorTickLabels.get(i),
+              axes.getMargins().getBottom() - offset);
 
-			g2.drawString(axis.getTitle().getText(), x, y);
-		}
-	}
+          Graphics2D g2Temp = (Graphics2D) g2.create();
+
+          int w = ModernWidget.getStringWidth(g2Temp, mark);
+
+          g2Temp.translate(x, y + w);
+          g2Temp.rotate(rotation);
+
+          g2Temp.drawString(mark,
+              0,
+              (g2.getFontMetrics().getAscent()
+                  - g2.getFontMetrics().getDescent()) / 2);
+
+          g2Temp.dispose();
+        }
+      } else {
+        y += fontHeight;
+
+        for (int i = 0; i < mMajorTicks.size(); ++i) {
+          x = mMajorTicks.get(i);
+
+          String mark = mMajorTickLabels.get(i);
+
+          x -= g2.getFontMetrics().stringWidth(mark) / 2;
+
+          g2.drawString(mark, x, y);
+        }
+      }
+    }
+
+    // axis label
+
+    if (axis.getTitle().getFontStyle().getVisible()) {
+      g2.setFont(axis.getTitle().getFontStyle().getFont());
+      g2.setColor(axis.getTitle().getFontStyle().getColor());
+
+      x = axes.getMargins().getLeft()
+          + (axes.getInternalSize().getW() - g2.getFontMetrics()
+              .stringWidth(axes.getX1Axis().getTitle().getText())) / 2;
+
+      y = axes.getPreferredSize().height - g2.getFontMetrics().getDescent();
+
+      g2.drawString(axis.getTitle().getText(), x, y);
+    }
+  }
 }

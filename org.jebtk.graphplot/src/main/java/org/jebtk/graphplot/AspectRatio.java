@@ -20,79 +20,77 @@ package org.jebtk.graphplot;
  * The class AspectRatio.
  */
 public class AspectRatio {
-	
-	/**
-	 * The member x.
-	 */
-	private double mX = 1;
-	
-	/**
-	 * The member y.
-	 */
-	private double mY = 1;
-	
-	/**
-	 * The member y div x.
-	 */
-	private double mYDivX;
-	//private double mZ = 1;
 
-	/**
-	 * Instantiates a new aspect ratio.
-	 */
-	public AspectRatio() {
-		this(1, 1);
-	}
-	
-	/**
-	 * Adjust the y aspect ratio whilst maintaining x at 1. This
-	 * is a common option because typically we want to adjust the
-	 * height of a plot rather than its width.
-	 *
-	 * @param y the y
-	 */
-	public AspectRatio(double y) {
-		this(1, y);
-	}
-	
-	/**
-	 * Instantiates a new aspect ratio.
-	 *
-	 * @param x the x
-	 * @param y the y
-	 */
-	public AspectRatio(double x, double y) {
-		mX = x;
-		mY = y;
-		mYDivX = mY / mX;
-	}
-	
-	
+  /**
+   * The member x.
+   */
+  private double mX = 1;
 
-	/**
-	 * Gets the x.
-	 *
-	 * @return the x
-	 */
-	public double getX() {
-		return mX;
-	}
-	
-	/**
-	 * Gets the y.
-	 *
-	 * @return the y
-	 */
-	public double getY() {
-		return mY;
-	}
+  /**
+   * The member y.
+   */
+  private double mY = 1;
 
-	/**
-	 * Gets the y div x.
-	 *
-	 * @return the y div x
-	 */
-	public double getYDixX() {
-		return mYDivX;
-	}
+  /**
+   * The member y div x.
+   */
+  private double mYDivX;
+  // private double mZ = 1;
+
+  /**
+   * Instantiates a new aspect ratio.
+   */
+  public AspectRatio() {
+    this(1, 1);
+  }
+
+  /**
+   * Adjust the y aspect ratio whilst maintaining x at 1. This is a common
+   * option because typically we want to adjust the height of a plot rather than
+   * its width.
+   *
+   * @param y the y
+   */
+  public AspectRatio(double y) {
+    this(1, y);
+  }
+
+  /**
+   * Instantiates a new aspect ratio.
+   *
+   * @param x the x
+   * @param y the y
+   */
+  public AspectRatio(double x, double y) {
+    mX = x;
+    mY = y;
+    mYDivX = mY / mX;
+  }
+
+  /**
+   * Gets the x.
+   *
+   * @return the x
+   */
+  public double getX() {
+    return mX;
+  }
+
+  /**
+   * Gets the y.
+   *
+   * @return the y
+   */
+  public double getY() {
+    return mY;
+  }
+
+  /**
+   * Gets the y div x.
+   *
+   * @return the y div x
+   */
+  public double getYDixX() {
+    return mYDivX;
+  }
 }

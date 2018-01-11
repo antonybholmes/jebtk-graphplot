@@ -29,69 +29,79 @@ import org.jebtk.modern.graphics.DrawingContext;
  * @author Antony Holmes Holmes
  */
 public class JoinedBarsLayer extends UniqueXYLayer {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Instantiates a new joined bars layer.
-	 *
-	 * @param series the series
-	 */
-	public JoinedBarsLayer(String series) {
-		super(series);
-	}
-	
-	@Override
-	public String getType() {
-		return "Joined Bars Layer";
-	}
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXYLayer#plotLayer(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.DataFrame, edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries, edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXY)
-	 */
-	@Override
-	public void plotLayer(Graphics2D g2, 
-			DrawingContext context,
-			Figure figure,
-			SubFigure subFigure, 
-			Axes axes, 
-			Plot plot, 
-			DataFrame m,
-			XYSeries series, 
-			UniqueXY xy) {
-		int h;
-		int w;
-		int y1 = axes.toPlotY1(0);
-		
-		Point p;
-		Point p2;
-		
-		for (int i = 0; i < xy.getPointCount() - 1; ++i) {
-			p = xy.getPoint(i);
-			p2 = xy.getPoint(i + 1);
-		
-			h = y1 - p2.y;
-			w = p2.x - p.x;
+  /**
+   * Instantiates a new joined bars layer.
+   *
+   * @param series the series
+   */
+  public JoinedBarsLayer(String series) {
+    super(series);
+  }
 
-			if (series.getStyle().getFillStyle().getVisible()) {
-				//System.err.println("has " + series.getTitle().getText());
+  @Override
+  public String getType() {
+    return "Joined Bars Layer";
+  }
 
-				g2.setColor(series.getStyle().getFillStyle().getColor());
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXYLayer#plotLayer(
+   * java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
+   * org.abh.lib.math.matrix.DataFrame,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXY)
+   */
+  @Override
+  public void plotLayer(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes,
+      Plot plot,
+      DataFrame m,
+      XYSeries series,
+      UniqueXY xy) {
+    int h;
+    int w;
+    int y1 = axes.toPlotY1(0);
 
-				//System.err.println("run " + x1 + " " + y1 + " " + y2 + " " + w);
+    Point p;
+    Point p2;
 
-				g2.fillRect(p.x, p2.y, w, h); //h);
-			}
+    for (int i = 0; i < xy.getPointCount() - 1; ++i) {
+      p = xy.getPoint(i);
+      p2 = xy.getPoint(i + 1);
 
-			if (series.getStyle().getLineStyle().getVisible()) {
-				g2.setStroke(series.getStyle().getLineStyle().getStroke());
-				g2.setColor(series.getStyle().getLineStyle().getColor());
+      h = y1 - p2.y;
+      w = p2.x - p.x;
 
-				g2.drawRect(p.x, p2.y, w, h);
-			}
-		}
-	}
+      if (series.getStyle().getFillStyle().getVisible()) {
+        // System.err.println("has " + series.getTitle().getText());
+
+        g2.setColor(series.getStyle().getFillStyle().getColor());
+
+        // System.err.println("run " + x1 + " " + y1 + " " + y2 + " " + w);
+
+        g2.fillRect(p.x, p2.y, w, h); // h);
+      }
+
+      if (series.getStyle().getLineStyle().getVisible()) {
+        g2.setStroke(series.getStyle().getLineStyle().getStroke());
+        g2.setColor(series.getStyle().getLineStyle().getColor());
+
+        g2.drawRect(p.x, p2.y, w, h);
+      }
+    }
+  }
 }

@@ -24,32 +24,32 @@ import org.jebtk.core.event.ChangeEvent;
  * @author Antony Holmes Holmes
  */
 public interface GraphEventProducer {
-	
-	/**
-	 * Add a change listener.
-	 *
-	 * @param l the l
-	 */
-	public void addGraphListener(GraphListener l);
-	
-	/**
-	 * Remove a change listener.
-	 *
-	 * @param l the l
-	 */
-	public void removeGraphListener(GraphListener l);
-	
-	/**
-	 * Fire to all listeners that a change has occurred.
-	 *
-	 * @param e the e
-	 */
-	public void fireGraphChanged(ChangeEvent e);
-	
-	/**
-	 * Fire layout changed.
-	 *
-	 * @param e the e
-	 */
-	public void fireLayoutChanged(ChangeEvent e);
+
+  /**
+   * Add a change listener.
+   *
+   * @param l the l
+   */
+  public void addGraphListener(GraphListener l);
+
+  /**
+   * Remove a change listener.
+   *
+   * @param l the l
+   */
+  public void removeGraphListener(GraphListener l);
+
+  /**
+   * Fire to all listeners that a change has occurred.
+   *
+   * @param e the e
+   */
+  public void fireGraphChanged(ChangeEvent e);
+
+  /**
+   * Fire layout changed.
+   *
+   * @param e the e
+   */
+  public void fireLayoutChanged(ChangeEvent e);
 }

@@ -27,229 +27,236 @@ import org.jebtk.core.text.TextUtils;
  * @author Antony Holmes Holmes
  *
  */
-public class MarginProperties extends ChangeListeners implements Comparable<MarginProperties> {
+public class MarginProperties extends ChangeListeners
+    implements Comparable<MarginProperties> {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * The member top.
-	 */
-	private int mTop = -1;
+  /**
+   * The member top.
+   */
+  private int mTop = -1;
 
-	/**
-	 * The member left.
-	 */
-	private int mLeft = -1;
+  /**
+   * The member left.
+   */
+  private int mLeft = -1;
 
-	/**
-	 * The member bottom.
-	 */
-	private int mBottom = -1;
+  /**
+   * The member bottom.
+   */
+  private int mBottom = -1;
 
-	/**
-	 * The member right.
-	 */
-	private int mRight = -1;
+  /**
+   * The member right.
+   */
+  private int mRight = -1;
 
-	/** The m text. */
-	private String mText = TextUtils.EMPTY_STRING;
+  /** The m text. */
+  private String mText = TextUtils.EMPTY_STRING;
 
-	/** The Constant DEFAULT_SIZE. */
-	public static final int DEFAULT_SIZE = 100; //100;
-	
-	/** The Constant DEFAULT_MARGIN. */
-	public static final MarginProperties DEFAULT_MARGIN = 
-			new MarginProperties(0);
+  /** The Constant DEFAULT_SIZE. */
+  public static final int DEFAULT_SIZE = 100; // 100;
 
-	/**
-	 * Instantiates a new margin properties.
-	 */
-	public MarginProperties() {
-		this(0);
-	}
+  /** The Constant DEFAULT_MARGIN. */
+  public static final MarginProperties DEFAULT_MARGIN = new MarginProperties(0);
 
-	/**
-	 * Instantiates a new margin properties.
-	 *
-	 * @param margin the margin
-	 */
-	public MarginProperties(int margin) {
-		this(margin, margin, margin, margin);
-	}
+  /**
+   * Instantiates a new margin properties.
+   */
+  public MarginProperties() {
+    this(0);
+  }
 
-	/**
-	 * Instantiates a new margin properties.
-	 *
-	 * @param top the top
-	 * @param left the left
-	 * @param bottom the bottom
-	 * @param right the right
-	 */
-	public MarginProperties(int top, int left, int bottom, int right) {
-		addChangeListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent e) {
-				mText = TextUtils.squareBrackets(TextUtils.join(TextUtils.COMMA_DELIMITER, mTop, mLeft, mBottom, mRight));
-			}});
+  /**
+   * Instantiates a new margin properties.
+   *
+   * @param margin the margin
+   */
+  public MarginProperties(int margin) {
+    this(margin, margin, margin, margin);
+  }
 
-		setMargins(top, left, bottom, right);
-	}
+  /**
+   * Instantiates a new margin properties.
+   *
+   * @param top the top
+   * @param left the left
+   * @param bottom the bottom
+   * @param right the right
+   */
+  public MarginProperties(int top, int left, int bottom, int right) {
+    addChangeListener(new ChangeListener() {
+      @Override
+      public void changed(ChangeEvent e) {
+        mText = TextUtils.squareBrackets(TextUtils
+            .join(TextUtils.COMMA_DELIMITER, mTop, mLeft, mBottom, mRight));
+      }
+    });
 
-	/**
-	 * Instantiates a new margin properties.
-	 *
-	 * @param margins the margins
-	 */
-	public MarginProperties(MarginProperties margins) {
-		setMargins(margins);
-	}
+    setMargins(top, left, bottom, right);
+  }
 
-	/**
-	 * Sets the margins.
-	 *
-	 * @param margins the new margins
-	 */
-	private void setMargins(MarginProperties margins) {
-		setMargins(margins.mTop, margins.mLeft, margins.mBottom, margins.mRight);
-	}
+  /**
+   * Instantiates a new margin properties.
+   *
+   * @param margins the margins
+   */
+  public MarginProperties(MarginProperties margins) {
+    setMargins(margins);
+  }
 
-	//private void updateMargins(MarginProperties margins) {
-	//	updateMargins(margins.getTop(), margins.getLeft(), margins.getBottom(), margins.getRight());
-	//}
+  /**
+   * Sets the margins.
+   *
+   * @param margins the new margins
+   */
+  private void setMargins(MarginProperties margins) {
+    setMargins(margins.mTop, margins.mLeft, margins.mBottom, margins.mRight);
+  }
 
-	//private void setMargins(int m) {
-	//	setMargins(m, m, m, m);
-	//}
+  // private void updateMargins(MarginProperties margins) {
+  // updateMargins(margins.getTop(), margins.getLeft(), margins.getBottom(),
+  // margins.getRight());
+  // }
 
-	//private void updateMargins(int m) {
-	//	updateMargins(m, m, m, m);
-	//}
+  // private void setMargins(int m) {
+  // setMargins(m, m, m, m);
+  // }
 
-	/**
-	 * Sets the plot margins.
-	 *
-	 * @param top the top
-	 * @param left the left
-	 * @param bottom the bottom
-	 * @param right the right
-	 */
-	private void setMargins(int top, int left, int bottom, int right) {
-		boolean fire = updateMargins(top, left, bottom, right);
+  // private void updateMargins(int m) {
+  // updateMargins(m, m, m, m);
+  // }
 
-		if (fire) {
-			fireChanged();
-		}
-	}
+  /**
+   * Sets the plot margins.
+   *
+   * @param top the top
+   * @param left the left
+   * @param bottom the bottom
+   * @param right the right
+   */
+  private void setMargins(int top, int left, int bottom, int right) {
+    boolean fire = updateMargins(top, left, bottom, right);
 
-	/**
-	 * Update margins.
-	 *
-	 * @param top the top
-	 * @param left the left
-	 * @param bottom the bottom
-	 * @param right the right
-	 * @return true, if successful
-	 */
-	private boolean updateMargins(int top, int left, int bottom, int right) {
-		boolean fire = mTop != top || 
-				mLeft != left || 
-				mBottom != bottom || 
-				mRight != right;
+    if (fire) {
+      fireChanged();
+    }
+  }
 
-		if (fire) {
-			mTop = top;
-			mLeft = left;
-			mBottom = bottom;
-			mRight = right;
-		}
+  /**
+   * Update margins.
+   *
+   * @param top the top
+   * @param left the left
+   * @param bottom the bottom
+   * @param right the right
+   * @return true, if successful
+   */
+  private boolean updateMargins(int top, int left, int bottom, int right) {
+    boolean fire = mTop != top || mLeft != left || mBottom != bottom
+        || mRight != right;
 
-		return fire;
-	}
+    if (fire) {
+      mTop = top;
+      mLeft = left;
+      mBottom = bottom;
+      mRight = right;
+    }
 
-	/**
-	 * Returns the height of the plot.
-	 *
-	 * @return the top
-	 */
-	public int getTop() {
-		return mTop;
-	}
+    return fire;
+  }
 
-	/**
-	 * Gets the left.
-	 *
-	 * @return the left
-	 */
-	public int getLeft() {
-		return mLeft;
-	}
+  /**
+   * Returns the height of the plot.
+   *
+   * @return the top
+   */
+  public int getTop() {
+    return mTop;
+  }
 
-	/**
-	 * Gets the bottom.
-	 *
-	 * @return the bottom
-	 */
-	public int getBottom() {
-		return mBottom;
-	}
+  /**
+   * Gets the left.
+   *
+   * @return the left
+   */
+  public int getLeft() {
+    return mLeft;
+  }
 
-	/**
-	 * Gets the right.
-	 *
-	 * @return the right
-	 */
-	public int getRight() {
-		return mRight;
-	}
+  /**
+   * Gets the bottom.
+   *
+   * @return the bottom
+   */
+  public int getBottom() {
+    return mBottom;
+  }
 
+  /**
+   * Gets the right.
+   *
+   * @return the right
+   */
+  public int getRight() {
+    return mRight;
+  }
 
-	/**
-	 * Return the sum of the line margins (left + right).
-	 * 
-	 * @return
-	 */
-	public int getLineMargin() {
-		return mLeft + mRight;
-	}
-	
-	/**
-	 * Return the sum of the page margins (top + bottom).
-	 * 
-	 * @return
-	 */
-	public int getPageMargin() {
-		return mTop + mBottom;
-	}
+  /**
+   * Return the sum of the line margins (left + right).
+   * 
+   * @return
+   */
+  public int getLineMargin() {
+    return mLeft + mRight;
+  }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return mText;
-	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object o) {
-		if (o instanceof MarginProperties) {
-			return compareTo((MarginProperties)o) == 0;
-		} else {
-			return false;
-		}
-	}
+  /**
+   * Return the sum of the page margins (top + bottom).
+   * 
+   * @return
+   */
+  public int getPageMargin() {
+    return mTop + mBottom;
+  }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-	 */
-	@Override
-	public int compareTo(MarginProperties m) {
-		return (mTop - m.mTop) + (mLeft - m.mLeft) + (mBottom - m.mBottom) + (mRight - m.mRight);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return mText;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#equals(java.lang.Object)
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (o instanceof MarginProperties) {
+      return compareTo((MarginProperties) o) == 0;
+    } else {
+      return false;
+    }
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Comparable#compareTo(java.lang.Object)
+   */
+  @Override
+  public int compareTo(MarginProperties m) {
+    return (mTop - m.mTop) + (mLeft - m.mLeft) + (mBottom - m.mBottom)
+        + (mRight - m.mRight);
+  }
 
 }

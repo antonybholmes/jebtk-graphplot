@@ -20,9 +20,9 @@ package org.jebtk.graphplot.figure.heatmap.legacy;
  * The class ColumnLabelProperties.
  */
 public class ColumnLabelProperties extends LabelProperties {
-	
-	/**
-	 * The position.
-	 */
-	public ColumnLabelPosition position = ColumnLabelPosition.BOTTOM;
+
+  /**
+   * The position.
+   */
+  public ColumnLabelPosition position = ColumnLabelPosition.BOTTOM;
 }

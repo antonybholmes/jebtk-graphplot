@@ -28,24 +28,31 @@ import org.jebtk.modern.widget.ModernWidget;
  */
 public class PeakStyleIcon extends ModernVectorIcon {
 
-	/**
-	 * The constant LINE_COLOR.
-	 */
-	protected static final Color LINE_COLOR =
-			ThemeService.getInstance().colors().getColorHighlight(4);
-	
-	
-	
-	/* (non-Javadoc)
-	 * @see org.abh.common.ui.ui.icons.ModernIcon#drawForeground(java.awt.Graphics2D, java.awt.Rectangle)
-	 */
-	@Override
-	public void drawIcon(Graphics2D g2, int x, int y, int w, int h, Object... params) {
-		g2.setColor(Color.WHITE);
-		g2.fillRect(x, y, w, h);
-		
-		g2.setColor(ModernWidget.LINE_COLOR);
-		g2.drawRect(x, y, w - 1, h - 1);
-	}
+  /**
+   * The constant LINE_COLOR.
+   */
+  protected static final Color LINE_COLOR = ThemeService.getInstance().colors()
+      .getColorHighlight(4);
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * org.abh.common.ui.ui.icons.ModernIcon#drawForeground(java.awt.Graphics2D,
+   * java.awt.Rectangle)
+   */
+  @Override
+  public void drawIcon(Graphics2D g2,
+      int x,
+      int y,
+      int w,
+      int h,
+      Object... params) {
+    g2.setColor(Color.WHITE);
+    g2.fillRect(x, y, w, h);
+
+    g2.setColor(ModernWidget.LINE_COLOR);
+    g2.drawRect(x, y, w - 1, h - 1);
+  }
 
 }

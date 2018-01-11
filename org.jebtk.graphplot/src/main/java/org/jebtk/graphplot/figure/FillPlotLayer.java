@@ -31,80 +31,100 @@ import org.jebtk.modern.graphics.DrawingContext;
  *
  */
 public class FillPlotLayer extends PathPlotLayer {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * Instantiates a new fill plot layer.
-	 *
-	 * @param series the series
-	 */
-	public FillPlotLayer(String series) {
-		super(series);
-	}
-	
-	@Override
-	public String getType() {
-		return "Fill Plot Layer";
-	}
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PathPlotLayer#plotLayer(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.DataFrame, edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries, edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXY, java.awt.geom.GeneralPath)
-	 */
-	@Override
-	public void plotLayer(Graphics2D g2,
-			DrawingContext context,
-			Figure figure,
-			SubFigure subFigure,
-			Axes axes,
-			Plot plot,
-			DataFrame m,
-			XYSeries series,
-			UniqueXY xy,
-			GeneralPath path) {
-		
-		/*
-		if (series.getStyle().getLineStyle().getVisible()) {
-			g2.setColor(series.getStyle().getLineStyle().getColor());
-			g2.setStroke(series.getStyle().getLineStyle().getStroke());
-			g2.draw(path);
-		}
-		*/
-		
-		if (series.getStyle().getFillStyle().getVisible()) {
-			g2.setColor(series.getStyle().getFillStyle().getColor());
-			g2.fill(path);
-		}
-	}
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PathPlotLayer#getPath(java.lang.String, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.DataFrame, edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries, edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXY)
-	 */
-	@Override
-	protected GeneralPath getPath(Figure figure,
-SubFigure subFigure, 
-			Axes axes, 
-			Plot plot, 
-			DataFrame m,
-			XYSeries series, 
-			UniqueXY xy) {
-		GeneralPath path = new GeneralPath();
+  /**
+   * Instantiates a new fill plot layer.
+   *
+   * @param series the series
+   */
+  public FillPlotLayer(String series) {
+    super(series);
+  }
 
-		int y0 = Math.min(axes.toPlotY1(0), axes.toPlotY1(axes.getY1Axis().getMin()));
-		
-		path.moveTo(xy.getPoint(0).x, y0);
+  @Override
+  public String getType() {
+    return "Fill Plot Layer";
+  }
 
-		for (Point p : xy) {
-			path.lineTo(p.x, p.y);
-		}
-		
-		path.lineTo(xy.getPoint(xy.getPointCount() - 1).x, y0);
-		
-		path.closePath();
-		
-		return path;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.PathPlotLayer#plotLayer(
+   * java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
+   * org.abh.lib.math.matrix.DataFrame,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXY,
+   * java.awt.geom.GeneralPath)
+   */
+  @Override
+  public void plotLayer(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes,
+      Plot plot,
+      DataFrame m,
+      XYSeries series,
+      UniqueXY xy,
+      GeneralPath path) {
+
+    /*
+     * if (series.getStyle().getLineStyle().getVisible()) {
+     * g2.setColor(series.getStyle().getLineStyle().getColor());
+     * g2.setStroke(series.getStyle().getLineStyle().getStroke());
+     * g2.draw(path); }
+     */
+
+    if (series.getStyle().getFillStyle().getVisible()) {
+      g2.setColor(series.getStyle().getFillStyle().getColor());
+      g2.fill(path);
+    }
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.PathPlotLayer#getPath(java.
+   * lang.String, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
+   * org.abh.lib.math.matrix.DataFrame,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXY)
+   */
+  @Override
+  protected GeneralPath getPath(Figure figure,
+      SubFigure subFigure,
+      Axes axes,
+      Plot plot,
+      DataFrame m,
+      XYSeries series,
+      UniqueXY xy) {
+    GeneralPath path = new GeneralPath();
+
+    int y0 = Math.min(axes.toPlotY1(0),
+        axes.toPlotY1(axes.getY1Axis().getMin()));
+
+    path.moveTo(xy.getPoint(0).x, y0);
+
+    for (Point p : xy) {
+      path.lineTo(p.x, p.y);
+    }
+
+    path.lineTo(xy.getPoint(xy.getPointCount() - 1).x, y0);
+
+    path.closePath();
+
+    return path;
+  }
 }

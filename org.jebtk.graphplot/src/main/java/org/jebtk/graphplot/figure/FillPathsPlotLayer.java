@@ -31,43 +31,54 @@ import org.jebtk.modern.graphics.DrawingContext;
  *
  */
 public abstract class FillPathsPlotLayer extends PathsPlotLayer {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * Instantiates a new fill plot layer.
-	 *
-	 * @param name the name
-	 * @param series the series
-	 */
-	public FillPathsPlotLayer(String series) {
-		super(series);
-	}
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PathPlotLayer#plotLayer(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.DataFrame, edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries, edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXY, java.awt.geom.GeneralPath)
-	 */
-	@Override
-	public void plotLayer(Graphics2D g2,
-			DrawingContext context,
-			Figure figure,
-			SubFigure subFigure,
-			Axes axes,
-			Plot plot,
-			DataFrame m,
-			XYSeries series,
-			UniqueXY xy,
-			List<GeneralPath> paths) {
-		
-		if (series.getStyle().getFillStyle().getVisible()) {
-			g2.setColor(series.getStyle().getFillStyle().getColor());
-			
-			for (GeneralPath path : paths) {
-				g2.fill(path);
-			}
-		}
-	}
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
+
+  /**
+   * Instantiates a new fill plot layer.
+   *
+   * @param name the name
+   * @param series the series
+   */
+  public FillPathsPlotLayer(String series) {
+    super(series);
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.PathPlotLayer#plotLayer(
+   * java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
+   * org.abh.lib.math.matrix.DataFrame,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXY,
+   * java.awt.geom.GeneralPath)
+   */
+  @Override
+  public void plotLayer(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes,
+      Plot plot,
+      DataFrame m,
+      XYSeries series,
+      UniqueXY xy,
+      List<GeneralPath> paths) {
+
+    if (series.getStyle().getFillStyle().getVisible()) {
+      g2.setColor(series.getStyle().getFillStyle().getColor());
+
+      for (GeneralPath path : paths) {
+        g2.fill(path);
+      }
+    }
+  }
 }

@@ -33,320 +33,315 @@ import org.jebtk.math.matrix.Matrix;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.widget.ModernWidget;
 
-
 // TODO: Auto-generated Javadoc
 /**
  * The class RowLabelsPlotElement.
  */
 public class RowLabelsPlotElement extends RowMatrixPlotElement {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	//private static String[][] mAnnotations;
+  // private static String[][] mAnnotations;
 
-	/**
-	 * The member labels.
-	 */
-	//private List<String> mLabels;
+  /**
+   * The member labels.
+   */
+  // private List<String> mLabels;
 
-	/**
-	 * The member title.
-	 */
-	//private String mTitle = null;
+  /**
+   * The member title.
+   */
+  // private String mTitle = null;
 
-	/**
-	 * The member properties.
-	 */
-	private RowLabelProperties mProperties;
+  /**
+   * The member properties.
+   */
+  private RowLabelProperties mProperties;
 
-	/** The m labels. */
-	private String[][] mLabels;
+  /** The m labels. */
+  private String[][] mLabels;
 
-	/** The m widths. */
-	private int[] mWidths;
+  /** The m widths. */
+  private int[] mWidths;
 
-	/** The m char width. */
-	private int mCharWidth;
+  /** The m char width. */
+  private int mCharWidth;
 
-	/** The m titles. */
-	private String[] mTitles;
+  /** The m titles. */
+  private String[] mTitles;
 
-	/** The Constant FIELD_GAP. */
-	// Pixel gap between fields
-	private static final int FIELD_GAP = 
-			SettingsService.getInstance().getAsInt("graphplot.plot.field-gap");
+  /** The Constant FIELD_GAP. */
+  // Pixel gap between fields
+  private static final int FIELD_GAP = SettingsService.getInstance()
+      .getAsInt("graphplot.plot.field-gap");
 
+  /**
+   * Instantiates a new row labels plot element.
+   *
+   * @param matrix the matrix
+   * @param properties the properties
+   * @param aspectRatio the aspect ratio
+   * @param charWidth the char width
+   */
+  public RowLabelsPlotElement(DataFrame matrix, RowLabelProperties properties,
+      DoubleDim aspectRatio, int charWidth) {
+    super(matrix, -1, aspectRatio);
 
-	/**
-	 * Instantiates a new row labels plot element.
-	 *
-	 * @param matrix the matrix
-	 * @param properties the properties
-	 * @param aspectRatio the aspect ratio
-	 * @param charWidth the char width
-	 */
-	public RowLabelsPlotElement(DataFrame matrix,
-			RowLabelProperties properties,
-			DoubleDim aspectRatio,
-			int charWidth) {
-		super(matrix, -1, aspectRatio);
+    // mTitle = title;
+    mProperties = properties;
+    mCharWidth = charWidth;
 
-		//mTitle = title;
-		mProperties = properties;
-		mCharWidth = charWidth;
+    // List<String> labels = new ArrayList<String>(matrix.getRowCount());
 
-		//List<String> labels = new ArrayList<String>(matrix.getRowCount());
+    String[][] labels = new String[matrix.getRows()][properties.showAnnotations
+        .getVisibleCount()];
 
-		String[][] labels = new String[matrix.getRows()][properties.showAnnotations.getVisibleCount()];
-		
-		List<String> types = CollectionUtils.replicate("string", 
-				properties.showAnnotations.getVisibleCount());
-		
-		List<String> names = matrix.getRowAnnotationNames();
-		//List<String> lnames = TextUtils.toLowerCase(names);
-		
-		Map<String, String> lnames = TextUtils.toLowerCaseMap(names);
-		
-		for (int r = 0; r < matrix.getRows(); ++r) {
-			int c = 0;
-			
-			for (int i = 0; i < names.size(); ++i) {
-				String name = names.get(i);
-				
-				if (properties.showAnnotations.isVisible(name)) {
+    List<String> types = CollectionUtils.replicate("string",
+        properties.showAnnotations.getVisibleCount());
 
-					double v = matrix.getRowAnnotationValue(name, r);
+    List<String> names = matrix.getRowAnnotationNames();
+    // List<String> lnames = TextUtils.toLowerCase(names);
 
-					
-					if (Matrix.isValidMatrixNum(v)) {
-						//System.err.println("i " + i + " " + name + " " + r + " " + v + " " + matrix.getRowAnnotationText(name, r));
-						
-						types.set(c, "number");
-						
-						if (Mathematics.isInt(v)) {
-							//System.err.println("i " + i + " " + name + " " + r + " " + v + " " + matrix.getRowAnnotationText(name, r));
-							
-							String ln = lnames.get(name);
-							
-							int vi = (int)v;
-							
-							if (ln.contains("entrez") || ln.contains("id")) {
-								// items that appear to be ids, should not
-								// be formatted with commas or periods.
-								labels[r][c] = Integer.toString(vi);
-							} else {
-								labels[r][c] = Formatter.number().format(vi);
-							}
-						} else {
-							labels[r][c] = Formatter.number().format(v);
-						}
-					} else {
-						labels[r][c] = matrix.getRowAnnotationText(name, r);
-					}
-					
-					++c;
-				}
-			}
-			
-			
-			
-			/*
-			List<String> annotations = new ArrayList<String>();
+    Map<String, String> lnames = TextUtils.toLowerCaseMap(names);
 
-			if (properties.showAnnotations.get(matrix.getRowAnnotationNames().get(0))) {
-				text.append(matrix.getRowName(r));
-			}
+    for (int r = 0; r < matrix.getRows(); ++r) {
+      int c = 0;
 
+      for (int i = 0; i < names.size(); ++i) {
+        String name = names.get(i);
 
+        if (properties.showAnnotations.isVisible(name)) {
 
-			for (int i = 1; i < matrix.getRowAnnotationNames().size(); ++i) {
-				String name = matrix.getRowAnnotationNames().get(i);
+          double v = matrix.getRowAnnotationValue(name, r);
 
-				if (properties.showAnnotations.get(name)) {
-					extra.add(matrix.getRowAnnotationText(name, i));
-				}
-			}
+          if (Matrix.isValidMatrixNum(v)) {
+            // System.err.println("i " + i + " " + name + " " + r + " " + v + "
+            // " + matrix.getRowAnnotationText(name, r));
 
-			if (extra.size() > 0) {
-				text.append(" (").append(TextUtils.commaJoin(extra)).append(")");
-			}
-			 */
+            types.set(c, "number");
 
-			/*
-			for (int i = 0; i < matrix.getRowAnnotationNames().size(); ++i) {
-				String name = matrix.getRowAnnotationNames().get(i);
+            if (Mathematics.isInt(v)) {
+              // System.err.println("i " + i + " " + name + " " + r + " " + v +
+              // " " + matrix.getRowAnnotationText(name, r));
 
-				if (properties.showAnnotations != null && 
-						properties.showAnnotations.containsKey(name) && 
-						properties.showAnnotations.get(name)) {
+              String ln = lnames.get(name);
 
-					double v = matrix.getRowAnnotationValue(name, r);
+              int vi = (int) v;
 
-					if (Matrix.isValidMatrixNum(v)) {
-						annotations.add(Formatter.number().format(v));
-					} else {
-						annotations.add(matrix.getRowAnnotationText(name, r));
-					}
-				}
-			}
+              if (ln.contains("entrez") || ln.contains("id")) {
+                // items that appear to be ids, should not
+                // be formatted with commas or periods.
+                labels[r][c] = Integer.toString(vi);
+              } else {
+                labels[r][c] = Formatter.number().format(vi);
+              }
+            } else {
+              labels[r][c] = Formatter.number().format(v);
+            }
+          } else {
+            labels[r][c] = matrix.getRowAnnotationText(name, r);
+          }
 
-			labels.add(Join.on(", ").values(annotations).toString());
-			 */
+          ++c;
+        }
+      }
 
-			//labels.add(getLabel(matrix, r, properties));
-		}
-		
-		setLabels(labels);
-	}
-	
-	/**
-	 * Sets the labels.
-	 *
-	 * @param labels the new labels
-	 */
-	public void setLabels(String[][] labels) {
-		mLabels = labels;
-		
-		mTitles = new String[mProperties.showAnnotations.getVisibleCount()];
-		
-		int c = 0;
-		
-		for (int i = 0; i < mMatrix.getRowAnnotationNames().size(); ++i) {
-			String name = mMatrix.getRowAnnotationNames().get(i);
+      /*
+       * List<String> annotations = new ArrayList<String>();
+       * 
+       * if
+       * (properties.showAnnotations.get(matrix.getRowAnnotationNames().get(0)))
+       * { text.append(matrix.getRowName(r)); }
+       * 
+       * 
+       * 
+       * for (int i = 1; i < matrix.getRowAnnotationNames().size(); ++i) {
+       * String name = matrix.getRowAnnotationNames().get(i);
+       * 
+       * if (properties.showAnnotations.get(name)) {
+       * extra.add(matrix.getRowAnnotationText(name, i)); } }
+       * 
+       * if (extra.size() > 0) {
+       * text.append(" (").append(TextUtils.commaJoin(extra)).append(")"); }
+       */
 
-			if (mProperties.showAnnotations.isVisible(name)) {
-				mTitles[c] = name;
-				
-				++c;
-			}
-		}
-		
-		// Find the max width of each column
-		mWidths = Mathematics.zerosIntArray(mLabels[0].length);
-		
-		for (int i = 0; i < mWidths.length; ++i) {
-			mWidths[i] = mTitles[i].length();
-			
-			for (int j = 0; j < mLabels.length; ++j) {
-				mWidths[i] = Math.max(mWidths[i], mLabels[j][i].length());
-			}
-		}
-		
-		int width = 0;
-		
-		for (int w : mWidths) {
-			width += w;
-		}
-		
-		width += FIELD_GAP * (mWidths.length -1);
+      /*
+       * for (int i = 0; i < matrix.getRowAnnotationNames().size(); ++i) {
+       * String name = matrix.getRowAnnotationNames().get(i);
+       * 
+       * if (properties.showAnnotations != null &&
+       * properties.showAnnotations.containsKey(name) &&
+       * properties.showAnnotations.get(name)) {
+       * 
+       * double v = matrix.getRowAnnotationValue(name, r);
+       * 
+       * if (Matrix.isValidMatrixNum(v)) {
+       * annotations.add(Formatter.number().format(v)); } else {
+       * annotations.add(matrix.getRowAnnotationText(name, r)); } } }
+       * 
+       * labels.add(Join.on(", ").values(annotations).toString());
+       */
 
-		setWidth(mCharWidth * width);
-	}
+      // labels.add(getLabel(matrix, r, properties));
+    }
 
-	/**
-	 * Gets the label.
-	 *
-	 * @param matrix the matrix
-	 * @param row the row
-	 * @param properties the properties
-	 * @return the label
-	 */
-	public static String getLabel(DataFrame matrix,
-			int row,
-			RowLabelProperties properties) {
-		List<String> annotations = new ArrayList<String>();
-		
-		for (int i = 0; i < matrix.getRowAnnotationNames().size(); ++i) {
-			String name = matrix.getRowAnnotationNames().get(i);
+    setLabels(labels);
+  }
 
-			if (properties.showAnnotations.isVisible(name)) {
+  /**
+   * Sets the labels.
+   *
+   * @param labels the new labels
+   */
+  public void setLabels(String[][] labels) {
+    mLabels = labels;
 
-				double v = matrix.getRowAnnotationValue(name, row);
+    mTitles = new String[mProperties.showAnnotations.getVisibleCount()];
 
-				if (Matrix.isValidMatrixNum(v)) {
-					annotations.add(Formatter.number().format(v));
-				} else {
-					annotations.add(matrix.getRowAnnotationText(name, row));
-				}
-			}
-		}
+    int c = 0;
 
-		return Join.on(", ").values(annotations).toString();
-	}
+    for (int i = 0; i < mMatrix.getRowAnnotationNames().size(); ++i) {
+      String name = mMatrix.getRowAnnotationNames().get(i);
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
-	 */
-	@Override
-	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Object... params) {
-		drawLabels(g2);
-		
-		super.plot(g2, offset, context, params);
-	}
+      if (mProperties.showAnnotations.isVisible(name)) {
+        mTitles[c] = name;
 
-	/**
-	 * Draw labels.
-	 *
-	 * @param g2 the g2
-	 */
-	private void drawLabels(Graphics2D g2) {
-		g2.setColor(mProperties.color);
+        ++c;
+      }
+    }
 
-		int x = 0;
-		int y = (int)-mBlockSize.getH();
-		
-		for (int i = 0; i < mTitles.length; ++i) {
-			String title = mTitles[i];
-			
-			int d = mCharWidth * mWidths[i];
-			
-			int x1 = x + (d - ModernWidget.getStringWidth(g2, title)) / 2;
-			
-			g2.drawString(title, x1, y);
-			
-			x += d + FIELD_GAP;
-		}
-		
-		//if (mTitle != null) {
-		//	g2.drawString(mTitle, (getPreferredSize().width - g2.getFontMetrics().stringWidth(mTitle)), -mBlockSize.getH());
-		//}
+    // Find the max width of each column
+    mWidths = Mathematics.zerosIntArray(mLabels[0].length);
 
-		int h = mBlockSize.getH(); //mBlockSize.getH();
-		
-		y = (int) ((h + g2.getFontMetrics().getAscent() - g2.getFontMetrics().getDescent()) / 2);
+    for (int i = 0; i < mWidths.length; ++i) {
+      mWidths[i] = mTitles[i].length();
 
-		for (int r = 0; r < mLabels.length; ++r) {
-			x = 0;
-			
-			for (int i = 0; i < mWidths.length; ++i) {
-				int d = mCharWidth * mWidths[i];
-				
-				String label = mLabels[r][i];
-				
-				int x1 = x + (d - ModernWidget.getStringWidth(g2, label)) / 2;
-				
-				
-				//if (mTypes.get(i).equals("number")) {
-				//	x1 = x+ d - ModernWidget.getStringWidth(g2, label);
-				//}
+      for (int j = 0; j < mLabels.length; ++j) {
+        mWidths[i] = Math.max(mWidths[i], mLabels[j][i].length());
+      }
+    }
 
-				g2.drawString(label, x1, y);
-				
-				x += d + FIELD_GAP;
-			}
-			
-			y += h;
-		}
-		
-		/*
-		for (String label : mLabels) {
-			g2.drawString(label, 0, y);
+    int width = 0;
 
-			y += mBlockSize.getH();
-		}
-		*/
-	}
+    for (int w : mWidths) {
+      width += w;
+    }
+
+    width += FIELD_GAP * (mWidths.length - 1);
+
+    setWidth(mCharWidth * width);
+  }
+
+  /**
+   * Gets the label.
+   *
+   * @param matrix the matrix
+   * @param row the row
+   * @param properties the properties
+   * @return the label
+   */
+  public static String getLabel(DataFrame matrix,
+      int row,
+      RowLabelProperties properties) {
+    List<String> annotations = new ArrayList<String>();
+
+    for (int i = 0; i < matrix.getRowAnnotationNames().size(); ++i) {
+      String name = matrix.getRowAnnotationNames().get(i);
+
+      if (properties.showAnnotations.isVisible(name)) {
+
+        double v = matrix.getRowAnnotationValue(name, row);
+
+        if (Matrix.isValidMatrixNum(v)) {
+          annotations.add(Formatter.number().format(v));
+        } else {
+          annotations.add(matrix.getRowAnnotationText(name, row));
+        }
+      }
+    }
+
+    return Join.on(", ").values(annotations).toString();
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.
+   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
+   */
+  @Override
+  public void plot(Graphics2D g2,
+      Dimension offset,
+      DrawingContext context,
+      Object... params) {
+    drawLabels(g2);
+
+    super.plot(g2, offset, context, params);
+  }
+
+  /**
+   * Draw labels.
+   *
+   * @param g2 the g2
+   */
+  private void drawLabels(Graphics2D g2) {
+    g2.setColor(mProperties.color);
+
+    int x = 0;
+    int y = (int) -mBlockSize.getH();
+
+    for (int i = 0; i < mTitles.length; ++i) {
+      String title = mTitles[i];
+
+      int d = mCharWidth * mWidths[i];
+
+      int x1 = x + (d - ModernWidget.getStringWidth(g2, title)) / 2;
+
+      g2.drawString(title, x1, y);
+
+      x += d + FIELD_GAP;
+    }
+
+    // if (mTitle != null) {
+    // g2.drawString(mTitle, (getPreferredSize().width -
+    // g2.getFontMetrics().stringWidth(mTitle)), -mBlockSize.getH());
+    // }
+
+    int h = mBlockSize.getH(); // mBlockSize.getH();
+
+    y = (int) ((h + g2.getFontMetrics().getAscent()
+        - g2.getFontMetrics().getDescent()) / 2);
+
+    for (int r = 0; r < mLabels.length; ++r) {
+      x = 0;
+
+      for (int i = 0; i < mWidths.length; ++i) {
+        int d = mCharWidth * mWidths[i];
+
+        String label = mLabels[r][i];
+
+        int x1 = x + (d - ModernWidget.getStringWidth(g2, label)) / 2;
+
+        // if (mTypes.get(i).equals("number")) {
+        // x1 = x+ d - ModernWidget.getStringWidth(g2, label);
+        // }
+
+        g2.drawString(label, x1, y);
+
+        x += d + FIELD_GAP;
+      }
+
+      y += h;
+    }
+
+    /*
+     * for (String label : mLabels) { g2.drawString(label, 0, y);
+     * 
+     * y += mBlockSize.getH(); }
+     */
+  }
 }

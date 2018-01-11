@@ -25,66 +25,73 @@ import org.jebtk.modern.graphics.DrawingContext;
 
 // TODO: Auto-generated Javadoc
 /**
- * Displays brackets to indicate how many samples are up and down
- * regulated based on their z-score.
+ * Displays brackets to indicate how many samples are up and down regulated
+ * based on their z-score.
  *
  * @author Antony Holmes Holmes
  */
-public class UpDownDiffExpBracketsRightPlotElement extends RowMatrixPlotElement {
+public class UpDownDiffExpBracketsRightPlotElement
+    extends RowMatrixPlotElement {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * The up.
-	 */
-	private int up = 0;
+  /**
+   * The up.
+   */
+  private int up = 0;
 
-	/**
-	 * Instantiates a new up down diff exp brackets right plot element.
-	 *
-	 * @param matrix the matrix
-	 * @param width the width
-	 * @param aspectRatio the aspect ratio
-	 */
-	public UpDownDiffExpBracketsRightPlotElement(DataFrame matrix,
-			int width, 
-			DoubleDim aspectRatio) {
-		super(matrix, width, aspectRatio);
+  /**
+   * Instantiates a new up down diff exp brackets right plot element.
+   *
+   * @param matrix the matrix
+   * @param width the width
+   * @param aspectRatio the aspect ratio
+   */
+  public UpDownDiffExpBracketsRightPlotElement(DataFrame matrix, int width,
+      DoubleDim aspectRatio) {
+    super(matrix, width, aspectRatio);
 
-		double[] zscores = matrix.getRowAnnotationValues("Z-score");
+    double[] zscores = matrix.getRowAnnotationValues("Z-score");
 
-		for (double zscore : zscores) {
-			if (zscore >= 0) {
-				++up;
-			}
-		}
-	}
+    for (double zscore : zscores) {
+      if (zscore >= 0) {
+        ++up;
+      }
+    }
+  }
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
-	 */
-	@Override
-	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Object... params) {
-		g2.setColor(Color.BLACK);
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.
+   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
+   */
+  @Override
+  public void plot(Graphics2D g2,
+      Dimension offset,
+      DrawingContext context,
+      Object... params) {
+    g2.setColor(Color.BLACK);
 
-		int y = 0;
-		int w = getPreferredSize().width;
+    int y = 0;
+    int w = getPreferredSize().width;
 
-		g2.drawLine(0, y, w, y);
+    g2.drawLine(0, y, w, y);
 
-		y = (int)(up * mBlockSize.getH());
+    y = (int) (up * mBlockSize.getH());
 
-		g2.drawLine(0, y, w, y);
+    g2.drawLine(0, y, w, y);
 
-		y = (int)(mMatrix.getRows() * mBlockSize.getH());
+    y = (int) (mMatrix.getRows() * mBlockSize.getH());
 
-		g2.drawLine(0, y, w, y);
+    g2.drawLine(0, y, w, y);
 
-		g2.drawLine(w, 0, w, y);
-		
-		super.plot(g2, offset, context, params);
-	}
+    g2.drawLine(w, 0, w, y);
+
+    super.plot(g2, offset, context, params);
+  }
 }

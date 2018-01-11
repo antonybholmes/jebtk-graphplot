@@ -29,100 +29,105 @@ import org.jebtk.modern.graphics.DrawingContext;
  * 
  * @author Antony Holmes Holmes
  */
-public abstract class PlotSeriesLayer extends PlotClippedLayer implements ChangeListener {
+public abstract class PlotSeriesLayer extends PlotClippedLayer
+    implements ChangeListener {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * The member series.
-	 */
-	private String mSeriesName;
+  /**
+   * The member series.
+   */
+  private String mSeriesName;
 
-	/** The m series. */
-	private XYSeries mSeries;
+  /** The m series. */
+  private XYSeries mSeries;
 
-	/**
-	 * Instantiates a new plot series layer.
-	 *
-	 * @param name the name
-	 * @param series the group
-	 */
-	public PlotSeriesLayer(String series) {
-		setSeries(series);
-	}
+  /**
+   * Instantiates a new plot series layer.
+   *
+   * @param name the name
+   * @param series the group
+   */
+  public PlotSeriesLayer(String series) {
+    setSeries(series);
+  }
 
-	/**
-	 * Sets the series.
-	 *
-	 * @param series the new series
-	 */
-	public void setSeries(String series) {
-		mSeriesName = series;
+  /**
+   * Sets the series.
+   *
+   * @param series the new series
+   */
+  public void setSeries(String series) {
+    mSeriesName = series;
 
-		mSeries = null;
+    mSeries = null;
 
-		fireChanged();
-	}
+    fireChanged();
+  }
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotClippedLayer#plotLayer(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.DataFrame)
-	 */
-	@Override
-	public final void plotLayer(Graphics2D g2,
-			DrawingContext context,
-			Figure figure,
-			SubFigure subFigure,
-			Axes axes,
-			Plot plot,
-			DataFrame m) {
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotClippedLayer#plotLayer(
+   * java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
+   * org.abh.lib.math.matrix.DataFrame)
+   */
+  @Override
+  public final void plotLayer(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes,
+      Plot plot,
+      DataFrame m) {
 
-		if (m == null) {
-			return;
-		}
+    if (m == null) {
+      return;
+    }
 
-		if (mSeries == null) {
-			mSeries = plot.getAllSeries().get(mSeriesName);
-		}
+    if (mSeries == null) {
+      mSeries = plot.getAllSeries().get(mSeriesName);
+    }
 
-		plotLayer(g2,
-				context,
-				figure,
-				subFigure,
-				axes,
-				plot,
-				m,
-				mSeries);
-	}
+    plotLayer(g2, context, figure, subFigure, axes, plot, m, mSeries);
+  }
 
-	/**
-	 * Generate a plot given an XYSeries and the colums in the matrix
-	 * that the column refers to.
-	 *
-	 * @param g2 the g2
-	 * @param context the context
-	 * @param figure the figure
-	 * @param axes the axes
-	 * @param plot the plot
-	 * @param m the m
-	 * @param series the series
-	 */
-	public abstract void plotLayer(Graphics2D g2,
-			DrawingContext context,
-			Figure figure,
-			SubFigure subFigure, 
-			Axes axes,
-			Plot plot,
-			DataFrame m, 
-			XYSeries series);
+  /**
+   * Generate a plot given an XYSeries and the colums in the matrix that the
+   * column refers to.
+   *
+   * @param g2 the g2
+   * @param context the context
+   * @param figure the figure
+   * @param axes the axes
+   * @param plot the plot
+   * @param m the m
+   * @param series the series
+   */
+  public abstract void plotLayer(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes,
+      Plot plot,
+      DataFrame m,
+      XYSeries series);
 
-	/* (non-Javadoc)
-	 * @see org.abh.lib.event.ChangeListener#changed(org.abh.lib.event.ChangeEvent)
-	 */
-	@Override
-	public void changed(ChangeEvent e) {
-		fireChanged();
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * org.abh.lib.event.ChangeListener#changed(org.abh.lib.event.ChangeEvent)
+   */
+  @Override
+  public void changed(ChangeEvent e) {
+    fireChanged();
+  }
 }

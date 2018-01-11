@@ -22,26 +22,27 @@ import org.jebtk.core.model.ItemModel;
  * The class Graph2dStyleModel.
  */
 public class Graph2dStyleModel extends ItemModel<PlotStyle> {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	
-	/* (non-Javadoc)
-	 * @see org.abh.common.model.ItemModel#get()
-	 */
-	@Override
-	public PlotStyle get() {
-		PlotStyle style = super.get();
-		
-		if (style == null) {
-			set(PlotStyle.JOINED_SMOOTH);
-			
-			style = super.get();
-		}
-		
-		return style;
-	}
+
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.abh.common.model.ItemModel#get()
+   */
+  @Override
+  public PlotStyle get() {
+    PlotStyle style = super.get();
+
+    if (style == null) {
+      set(PlotStyle.JOINED_SMOOTH);
+
+      style = super.get();
+    }
+
+    return style;
+  }
 }

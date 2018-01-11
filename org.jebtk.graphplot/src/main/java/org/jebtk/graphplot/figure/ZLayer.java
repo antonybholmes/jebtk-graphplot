@@ -26,12 +26,13 @@ import org.jebtk.modern.graphics.ModernCanvasMouseListener;
  * 
  * @author Antony Holmes Holmes
  */
-public interface ZLayer extends ModernCanvasEventProducer, ModernCanvasMouseListener, NameProperty, IdProperty {
-	
-	/**
-	 * Gets the type.
-	 *
-	 * @return the type
-	 */
-	String getType();
+public interface ZLayer extends ModernCanvasEventProducer,
+    ModernCanvasMouseListener, NameProperty, IdProperty {
+
+  /**
+   * Gets the type.
+   *
+   * @return the type
+   */
+  String getType();
 }

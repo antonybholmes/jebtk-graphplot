@@ -23,121 +23,117 @@ import org.jebtk.core.geom.GeomUtils;
 import org.jebtk.core.geom.IntPos2D;
 import org.jebtk.graphplot.figure.GridLocation;
 
-
 // TODO: Auto-generated Javadoc
 /**
  * The class PlotBox.
  */
 public class PlotBoxFloatingStorage extends PlotBoxStorage {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private Map<IntPos2D, PlotBox> mMap =
-			new HashMap<IntPos2D, PlotBox>();
+  private Map<IntPos2D, PlotBox> mMap = new HashMap<IntPos2D, PlotBox>();
 
-	@Override
-	public void addReserved(PlotBox plot, Object... params) {
-		IntPos2D l = GeomUtils.INT_POINT_ZERO;
+  @Override
+  public void addReserved(PlotBox plot, Object... params) {
+    IntPos2D l = GeomUtils.INT_POINT_ZERO;
 
-		if (params.length > 0) {
-			if (params[0] instanceof GridLocation) {
-				l = (IntPos2D)params[0];
-			} else {
-				if (params.length > 0) {
-					if (params[0] instanceof Integer && params[1] instanceof Integer) {
-						l = new IntPos2D((int)params[0], (int)params[1]);
-					}
-				}
-			}
-		}
+    if (params.length > 0) {
+      if (params[0] instanceof GridLocation) {
+        l = (IntPos2D) params[0];
+      } else {
+        if (params.length > 0) {
+          if (params[0] instanceof Integer && params[1] instanceof Integer) {
+            l = new IntPos2D((int) params[0], (int) params[1]);
+          }
+        }
+      }
+    }
 
-		addReserved(plot, l);
-	}
+    addReserved(plot, l);
+  }
 
-	public void addReserved(PlotBox plot, IntPos2D p) {
-		mMap.put(p, plot);
+  public void addReserved(PlotBox plot, IntPos2D p) {
+    mMap.put(p, plot);
 
-		addChildByName(plot);
-	}
+    addChildByName(plot);
+  }
 
-	@Override
-	public PlotBox getChild(Object param, Object... params) {
-		return getChild(parseLocation(param, params));
-	}
-	
-	public PlotBox getChild(IntPos2D p) {
-		return mMap.get(p);
-	}
+  @Override
+  public PlotBox getChild(Object param, Object... params) {
+    return getChild(parseLocation(param, params));
+  }
 
+  public PlotBox getChild(IntPos2D p) {
+    return mMap.get(p);
+  }
 
-	@Override
-	public Iterator<PlotBox> iterator() {
-		return mMap.values().iterator();
-	}
+  @Override
+  public Iterator<PlotBox> iterator() {
+    return mMap.values().iterator();
+  }
 
-	@Override
-	public Iterable<IntPos2D> getPositions() {
-		return mMap.keySet();
-	}
+  @Override
+  public Iterable<IntPos2D> getPositions() {
+    return mMap.keySet();
+  }
 
+  @Override
+  public int getChildCount() {
+    return mMap.size();
+  }
 
-	@Override
-	public int getChildCount() {
-		return mMap.size();
-	}
+  @Override
+  public void clear() {
+    mMap.clear();
 
-	@Override
-	public void clear() {
-		mMap.clear();
+    super.clear();
+  }
 
-		super.clear();
-	}
-	
-	@Override
-	public boolean remove(PlotBox plot) {
-		IntPos2D rl = GeomUtils.INT_POINT_ZERO;
+  @Override
+  public boolean remove(PlotBox plot) {
+    IntPos2D rl = GeomUtils.INT_POINT_ZERO;
 
-		boolean found = false;
+    boolean found = false;
 
-		for (IntPos2D l : mMap.keySet()) {
-			if (mMap.get(l).equals(plot)) {
-				rl = l;
-				found = true;
-				break;
-			}
-		}
+    for (IntPos2D l : mMap.keySet()) {
+      if (mMap.get(l).equals(plot)) {
+        rl = l;
+        found = true;
+        break;
+      }
+    }
 
-		if (found) {
-			remove(rl);
-		}
-		
-		return true;
-	}
+    if (found) {
+      remove(rl);
+    }
 
-	@Override
-	public boolean remove(Object param, Object... params) {
-		remove(parseLocation(param, params));
-		
-		return true;
-	}
+    return true;
+  }
 
-	public void remove(IntPos2D l) {
-		mMap.remove(l);
-	}
+  @Override
+  public boolean remove(Object param, Object... params) {
+    remove(parseLocation(param, params));
 
-	private static IntPos2D parseLocation(Object param, Object... params) {
-		IntPos2D l = GeomUtils.INT_POINT_ZERO;
+    return true;
+  }
 
-		if (param instanceof IntPos2D) {
-			l = (IntPos2D)param;
-		} else {
-			if (params.length > 0) {
-				if (param instanceof Integer && params[0] instanceof Integer) {
-					l = new IntPos2D((int)param, (int)params[0]);
-				}
-			}
-		}
+  public void remove(IntPos2D l) {
+    mMap.remove(l);
+  }
 
-		return l;
-	}
+  private static IntPos2D parseLocation(Object param, Object... params) {
+    IntPos2D l = GeomUtils.INT_POINT_ZERO;
+
+    if (param instanceof IntPos2D) {
+      l = (IntPos2D) param;
+    } else {
+      if (params.length > 0) {
+        if (param instanceof Integer && params[0] instanceof Integer) {
+          l = new IntPos2D((int) param, (int) params[0]);
+        }
+      }
+    }
+
+    return l;
+  }
 }

@@ -23,44 +23,50 @@ import org.jebtk.modern.graphics.DrawingContext;
 // TODO: Auto-generated Javadoc
 /**
  * Draws the grid on the plot.
- *  
+ * 
  * @author Antony Holmes Holmes
  *
  */
 public class AxesBackgroundLayer extends AxesLayer {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	@Override
-	public String getType() {
-		return "Background";
-	}
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.AxesLayer#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes)
-	 */
-	@Override
-	public void drawPlot(Graphics2D g2,
-			DrawingContext context,
-			Figure figure,
-SubFigure subFigure,
-			Axes axes) {
-		if (!axes.getStyle().getFillStyle().getVisible()) {
-			return;
-		}
-		
-		Color color = axes.getStyle().getFillStyle().getColor();
-		
-		g2.setColor(color);
-		
-		int x = 0;
-		int y = 0;
-		int w = axes.getInternalSize().getW();
-		int h = axes.getInternalSize().getH();
-		
-		g2.fillRect(x, y, w, h);
-	}
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
+
+  @Override
+  public String getType() {
+    return "Background";
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.AxesLayer#plot(java.awt.
+   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes)
+   */
+  @Override
+  public void drawPlot(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes) {
+    if (!axes.getStyle().getFillStyle().getVisible()) {
+      return;
+    }
+
+    Color color = axes.getStyle().getFillStyle().getColor();
+
+    g2.setColor(color);
+
+    int x = 0;
+    int y = 0;
+    int w = axes.getInternalSize().getW();
+    int h = axes.getInternalSize().getH();
+
+    g2.fillRect(x, y, w, h);
+  }
 }

@@ -27,14 +27,14 @@ import org.jebtk.modern.graphics.icons.Raster16Icon;
  * The class RotationMultiIcon16.
  */
 public class RotationMultiIcon16 extends MultiIcon {
-	
-	/**
-	 * Instantiates a new rotation multi icon16.
-	 */
-	public RotationMultiIcon16() {
-		addIcon(new Raster16Icon(new ArrowRightVectorIcon()));
-		addIcon(new Raster16Icon(new ArrowDownVectorIcon()));
-		addIcon(new Raster16Icon(new ArrowLeftVectorIcon()));
-		addIcon(new Raster16Icon(new ArrowUpVectorIcon()));
-	}
-}	
+
+  /**
+   * Instantiates a new rotation multi icon16.
+   */
+  public RotationMultiIcon16() {
+    addIcon(new Raster16Icon(new ArrowRightVectorIcon()));
+    addIcon(new Raster16Icon(new ArrowDownVectorIcon()));
+    addIcon(new Raster16Icon(new ArrowLeftVectorIcon()));
+    addIcon(new Raster16Icon(new ArrowUpVectorIcon()));
+  }
+}

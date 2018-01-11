@@ -20,47 +20,44 @@ import java.awt.Dimension;
 import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.math.matrix.DataFrame;
 
-
 // TODO: Auto-generated Javadoc
 /**
  * The class RowMatrixPlotElement.
  */
 public abstract class RowMatrixPlotElement extends MatrixPlotElement {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	protected int mWidth;
-	
-	/**
-	 * Instantiates a new row matrix plot element.
-	 *
-	 * @param matrix the matrix
-	 * @param width the width
-	 * @param aspectRatio the aspect ratio
-	 */
-	public RowMatrixPlotElement(DataFrame matrix, 
-			int width, 
-			DoubleDim aspectRatio) {
-		super(matrix, aspectRatio);
-		
-		setWidth(width);
-	}
-	
-	/**
-	 * Sets the width.
-	 *
-	 * @param width the new width
-	 */
-	public void setWidth(int width) {
-		mWidth = width;
-	}
-	
-	
-	@Override
-	public void plotSize(Dimension d) {
-		d.width += mWidth;
-		d.height += mDrawingDim.mRows * mBlockSize.getH();
-	}
+
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
+  protected int mWidth;
+
+  /**
+   * Instantiates a new row matrix plot element.
+   *
+   * @param matrix the matrix
+   * @param width the width
+   * @param aspectRatio the aspect ratio
+   */
+  public RowMatrixPlotElement(DataFrame matrix, int width,
+      DoubleDim aspectRatio) {
+    super(matrix, aspectRatio);
+
+    setWidth(width);
+  }
+
+  /**
+   * Sets the width.
+   *
+   * @param width the new width
+   */
+  public void setWidth(int width) {
+    mWidth = width;
+  }
+
+  @Override
+  public void plotSize(Dimension d) {
+    d.width += mWidth;
+    d.height += mDrawingDim.mRows * mBlockSize.getH();
+  }
 }

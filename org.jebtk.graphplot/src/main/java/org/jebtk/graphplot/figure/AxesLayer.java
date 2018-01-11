@@ -31,118 +31,117 @@ import org.jebtk.modern.graphics.ImageUtils;
  */
 public abstract class AxesLayer extends Layer {
 
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
+  /** The Constant serialVersionUID. */
+  private static final long serialVersionUID = 1L;
 
-	/** The m buffered image. */
-	private BufferedImage mBufferedImage;
+  /** The m buffered image. */
+  private BufferedImage mBufferedImage;
 
-	/** The m cache axes. */
-	private String mCacheAxes;
-	
-	public AxesLayer() {
-		
-	}
-	
-	public AxesLayer(String name) {
-		super(name);
-	}
+  /** The m cache axes. */
+  private String mCacheAxes;
 
-	/**
-	 * Plot.
-	 *
-	 * @param g2 the g2
-	 * @param context the context
-	 * @param subFigure the sub figure
-	 * @param axes the axes
-	 */
-	@Override
-	public void plot(Graphics2D g2,
-			Dimension offset,
-			DrawingContext context,
-			Object... params) {
-		Figure figure = (Figure)params[0];
-		SubFigure subFigure = (SubFigure)params[1];
-		Axes axes = (Axes)params[2];
+  public AxesLayer() {
 
-		drawPlot(g2, context, figure, subFigure, axes);
-	}
+  }
 
-	/**
-	 * Aa plot.
-	 *
-	 * @param g2 the g 2
-	 * @param context the context
-	 * @param subFigure the sub figure
-	 * @param axes the axes
-	 */
-	public void aaPlot(Graphics2D g2,
-			DrawingContext context,
-			Figure figure,
-			SubFigure subFigure,
-			Axes axes) {
+  public AxesLayer(String name) {
+    super(name);
+  }
 
-		Graphics2D g2Temp = ImageUtils.createAAGraphics(g2);
+  /**
+   * Plot.
+   *
+   * @param g2 the g2
+   * @param context the context
+   * @param subFigure the sub figure
+   * @param axes the axes
+   */
+  @Override
+  public void plot(Graphics2D g2,
+      Dimension offset,
+      DrawingContext context,
+      Object... params) {
+    Figure figure = (Figure) params[0];
+    SubFigure subFigure = (SubFigure) params[1];
+    Axes axes = (Axes) params[2];
 
-		try {
-			drawPlot(g2Temp, context, figure, subFigure, axes);
-		} finally {
-			g2Temp.dispose();
-		}
-	}
+    drawPlot(g2, context, figure, subFigure, axes);
+  }
 
-	/**
-	 * Cache plot.
-	 *
-	 * @param g2 the g 2
-	 * @param context the context
-	 * @param subFigure the sub figure
-	 * @param axes the axes
-	 */
-	public void cachePlot(Graphics2D g2, 
-			DrawingContext context,
-			Figure figure,
-			SubFigure subFigure, 
-			Axes axes) {
-		if (context == DrawingContext.PRINT) {
-			drawPlot(g2, context, figure, subFigure, axes);
-		} else {
-			// Create an image version of the canvas and draw that to spped
-			// up operations
-			if (mBufferedImage == null ||
-					mCacheAxes == null || 
-					!axes.hashId().equals(mCacheAxes)) {
-				// The canvas need only be the size of the available display
-				mBufferedImage = ImageUtils.createImage(axes.getPreferredSize());
+  /**
+   * Aa plot.
+   *
+   * @param g2 the g 2
+   * @param context the context
+   * @param subFigure the sub figure
+   * @param axes the axes
+   */
+  public void aaPlot(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes) {
 
-				Graphics2D g2Temp = ImageUtils.createAAGraphics(mBufferedImage);
+    Graphics2D g2Temp = ImageUtils.createAAGraphics(g2);
 
-				try {
-					drawPlot(g2Temp, context, figure, subFigure, axes);
-				} finally {
-					g2Temp.dispose();
-				}
+    try {
+      drawPlot(g2Temp, context, figure, subFigure, axes);
+    } finally {
+      g2Temp.dispose();
+    }
+  }
 
-				mCacheAxes = axes.hashId();
-			}
+  /**
+   * Cache plot.
+   *
+   * @param g2 the g 2
+   * @param context the context
+   * @param subFigure the sub figure
+   * @param axes the axes
+   */
+  public void cachePlot(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes) {
+    if (context == DrawingContext.PRINT) {
+      drawPlot(g2, context, figure, subFigure, axes);
+    } else {
+      // Create an image version of the canvas and draw that to spped
+      // up operations
+      if (mBufferedImage == null || mCacheAxes == null
+          || !axes.hashId().equals(mCacheAxes)) {
+        // The canvas need only be the size of the available display
+        mBufferedImage = ImageUtils.createImage(axes.getPreferredSize());
 
-			g2.drawImage(mBufferedImage, 0, 0, null);
-		}
-	}
+        Graphics2D g2Temp = ImageUtils.createAAGraphics(mBufferedImage);
 
-	/**
-	 * Draw plot.
-	 *
-	 * @param g2 the g 2
-	 * @param context the context
-	 * @param subFigure the sub figure
-	 * @param axes the axes
-	 */
-	public void drawPlot(Graphics2D g2, 
-			DrawingContext context,
-			Figure figure,
-			SubFigure subFigure, 
-			Axes axes) {
-		// Do nothing
-	}
+        try {
+          drawPlot(g2Temp, context, figure, subFigure, axes);
+        } finally {
+          g2Temp.dispose();
+        }
+
+        mCacheAxes = axes.hashId();
+      }
+
+      g2.drawImage(mBufferedImage, 0, 0, null);
+    }
+  }
+
+  /**
+   * Draw plot.
+   *
+   * @param g2 the g 2
+   * @param context the context
+   * @param subFigure the sub figure
+   * @param axes the axes
+   */
+  public void drawPlot(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes) {
+    // Do nothing
+  }
 }

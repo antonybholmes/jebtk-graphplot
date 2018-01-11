@@ -24,82 +24,83 @@ package org.jebtk.graphplot.figure;
  */
 public enum PlotStyle {
 
-	/**
-	 * The joined.
-	 */
-	JOINED,
+  /**
+   * The joined.
+   */
+  JOINED,
 
-	/**
-	 * The filled.
-	 */
-	FILLED,
+  /**
+   * The filled.
+   */
+  FILLED,
 
-	/**
-	 * The lines.
-	 */
-	LINES,
+  /**
+   * The lines.
+   */
+  LINES,
 
-	/**
-	 * The bars.
-	 */
-	BARS,
+  /**
+   * The bars.
+   */
+  BARS,
 
-	/**
-	 * The scatter.
-	 */
-	SCATTER,
+  /**
+   * The scatter.
+   */
+  SCATTER,
 
-	/**
-	 * The filled smooth.
-	 */
-	FILLED_SMOOTH, 
+  /**
+   * The filled smooth.
+   */
+  FILLED_SMOOTH,
 
-	/**
-	 * The joined smooth.
-	 */
-	JOINED_SMOOTH_ZERO_ENDS, 
+  /**
+   * The joined smooth.
+   */
+  JOINED_SMOOTH_ZERO_ENDS,
 
-	/** The joined smooth. */
-	JOINED_SMOOTH, /** The filled trapezoid. */
-	FILLED_TRAPEZOID, 
+  /** The joined smooth. */
+  JOINED_SMOOTH,
+  /** The filled trapezoid. */
+  FILLED_TRAPEZOID,
 
-	/** The segments. */
-	SEGMENTS, 
+  /** The segments. */
+  SEGMENTS,
 
-	/** The heatmap. */
-	HEATMAP, 
-	
-	/**  Bar chart requiring xy data in matrix form. */
-	BAR_PLOT, 
+  /** The heatmap. */
+  HEATMAP,
 
-	/**  BARS fill the width of a tick and only the y data is required. */
-	JOINED_BARS;
+  /** Bar chart requiring xy data in matrix form. */
+  BAR_PLOT,
 
-	/**
-	 * Parses the.
-	 *
-	 * @param text the text
-	 * @return the figure style
-	 */
-	public static PlotStyle parse(String text) {
-		if (text.equals("joined")) {
-			return PlotStyle.JOINED;
-		} else if (text.equals("filled")) {
-			return PlotStyle.FILLED;
-		} else if (text.equals("lines")) {
-			return PlotStyle.LINES;
-		} else if (text.equals("scatter")) {
-			return PlotStyle.SCATTER;
-		} else if (text.equals("filled_smooth")) {
-			return PlotStyle.FILLED_SMOOTH;
-		} else if (text.equals("joined_smooth")) {
-			return PlotStyle.JOINED_SMOOTH;
-		} else if (text.equals("segments")) {
-			return PlotStyle.SEGMENTS;
-		} else if (text.equals("Heat Map")) {
-			return PlotStyle.HEATMAP;
-		} else {
-			return PlotStyle.BARS;
-		}
-	}
+  /** BARS fill the width of a tick and only the y data is required. */
+  JOINED_BARS;
+
+  /**
+   * Parses the.
+   *
+   * @param text the text
+   * @return the figure style
+   */
+  public static PlotStyle parse(String text) {
+    if (text.equals("joined")) {
+      return PlotStyle.JOINED;
+    } else if (text.equals("filled")) {
+      return PlotStyle.FILLED;
+    } else if (text.equals("lines")) {
+      return PlotStyle.LINES;
+    } else if (text.equals("scatter")) {
+      return PlotStyle.SCATTER;
+    } else if (text.equals("filled_smooth")) {
+      return PlotStyle.FILLED_SMOOTH;
+    } else if (text.equals("joined_smooth")) {
+      return PlotStyle.JOINED_SMOOTH;
+    } else if (text.equals("segments")) {
+      return PlotStyle.SEGMENTS;
+    } else if (text.equals("Heat Map")) {
+      return PlotStyle.HEATMAP;
+    } else {
+      return PlotStyle.BARS;
+    }
+  }
 }

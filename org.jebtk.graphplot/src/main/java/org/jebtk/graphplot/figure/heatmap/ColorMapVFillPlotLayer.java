@@ -30,103 +30,104 @@ import org.jebtk.graphplot.figure.SubFigure;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
-
 // TODO: Auto-generated Javadoc
 /**
  * The class HeatMapFillPlotLayer.
  */
 public class ColorMapVFillPlotLayer extends PlotClippedLayer {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/** The m Y. */
-	private List<Integer> mY = null;
+  /** The m Y. */
+  private List<Integer> mY = null;
 
-	/** The m colors map. */
-	private Map<Integer, Color> mColorsMap =
-			new HashMap<Integer, Color>();
-	
-	@Override
-	public String getType() {
-		return "Color Map V Layer";
-	}
+  /** The m colors map. */
+  private Map<Integer, Color> mColorsMap = new HashMap<Integer, Color>();
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotClippedLayer#plotLayer(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes, edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot, org.abh.lib.math.matrix.DataFrame)
-	 */
-	@Override
-	public void plotLayer(Graphics2D g2,
-			DrawingContext context,
-			Figure figure,
-			SubFigure subFigure,
-			Axes axes,
-			Plot plot,
-			DataFrame m) {
+  @Override
+  public String getType() {
+    return "Color Map V Layer";
+  }
 
-		int x1 = 0; //axes.getMargins().getLeft();
-		int y1 = 0; //axes.getMargins().getTop();
-		int y2 = y1 + axes.getInternalSize().getH() - 1;
-		int w = axes.getInternalSize().getW();
-	
-		int s = cache(context,
-				figure,
-				subFigure,
-				axes,
-				plot,
-				y1);
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotClippedLayer#plotLayer(
+   * java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
+   * org.abh.lib.math.matrix.DataFrame)
+   */
+  @Override
+  public void plotLayer(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes,
+      Plot plot,
+      DataFrame m) {
 
-		for (int y : mY) {
-			g2.setColor(mColorsMap.get(y));
+    int x1 = 0; // axes.getMargins().getLeft();
+    int y1 = 0; // axes.getMargins().getTop();
+    int y2 = y1 + axes.getInternalSize().getH() - 1;
+    int w = axes.getInternalSize().getW();
 
-			g2.fillRect(x1, y2 - y, w, s);
-		}
-	}
+    int s = cache(context, figure, subFigure, axes, plot, y1);
 
-	/**
-	 * Cache.
-	 *
-	 * @param context the context
-	 * @param subFigure the sub figure
-	 * @param axes the axes
-	 * @param plot the plot
-	 * @param y1 the y 1
-	 * @return the int
-	 */
-	protected int cache(DrawingContext context,
-Figure figure,
-			SubFigure subFigure,
-			Axes axes,
-			Plot plot,
-			int y1) {
-		int h = axes.getInternalSize().getH();
+    for (int y : mY) {
+      g2.setColor(mColorsMap.get(y));
 
-		double wd = h;
-		
-		int s = 1; //(int)Math.ceil(wd / (plot.getColorMap().getColorCount() - 1));
-		
-		mY = new UniqueArrayList<Integer>(h);
+      g2.fillRect(x1, y2 - y, w, s);
+    }
+  }
 
-		int p = 0;
-		
-		while (p < wd) {
-			mY.add(p);
-			
-			p += s;
-		}
+  /**
+   * Cache.
+   *
+   * @param context the context
+   * @param subFigure the sub figure
+   * @param axes the axes
+   * @param plot the plot
+   * @param y1 the y 1
+   * @return the int
+   */
+  protected int cache(DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes,
+      Plot plot,
+      int y1) {
+    int h = axes.getInternalSize().getH();
 
-		mColorsMap.clear();
+    double wd = h;
 
-		for (int y : mY) {
-			int index = (int)(y / wd * plot.getColorMap().getColorCount());
+    int s = 1; // (int)Math.ceil(wd / (plot.getColorMap().getColorCount() - 1));
 
-			Color c = plot.getColorMap().getColorByIndex(index);
+    mY = new UniqueArrayList<Integer>(h);
 
-			mColorsMap.put(y, c);
-		}
+    int p = 0;
 
-		return (int)Math.round(s);
-	}
+    while (p < wd) {
+      mY.add(p);
+
+      p += s;
+    }
+
+    mColorsMap.clear();
+
+    for (int y : mY) {
+      int index = (int) (y / wd * plot.getColorMap().getColorCount());
+
+      Color c = plot.getColorMap().getColorByIndex(index);
+
+      mColorsMap.put(y, c);
+    }
+
+    return (int) Math.round(s);
+  }
 }

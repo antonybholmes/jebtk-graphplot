@@ -25,62 +25,61 @@ import java.awt.Color;
  *
  */
 public class FillProperties extends ColorProperties {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * The member pattern.
-	 */
-	private FillPattern mPattern = FillPattern.SOLID;
-	
-	/**
-	 * Instantiates a new fill properties.
-	 */
-	public FillProperties() {
-		this(Color.WHITE);
-	}
-	
-	/**
-	 * Instantiates a new fill properties.
-	 *
-	 * @param color the color
-	 */
-	public FillProperties(Color color) {
-		super(color);
-	}
-	
-	
-	/**
-	 * Copy.
-	 *
-	 * @param style the style
-	 */
-	public void copy(FillProperties style) {
-		mPattern = style.mPattern;
 
-		super.copy(style);
-	}
-	
-	/**
-	 * Returns the line color.
-	 * 
-	 * @return		The line color.
-	 */
-	public FillPattern getPattern() {
-		return mPattern;
-	}
-	
-	/**
-	 * Sets the pattern.
-	 *
-	 * @param pattern the new pattern
-	 */
-	public void setPattern(FillPattern pattern) {
-		mPattern = pattern;
-		
-		fireChanged();
-	}
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
+
+  /**
+   * The member pattern.
+   */
+  private FillPattern mPattern = FillPattern.SOLID;
+
+  /**
+   * Instantiates a new fill properties.
+   */
+  public FillProperties() {
+    this(Color.WHITE);
+  }
+
+  /**
+   * Instantiates a new fill properties.
+   *
+   * @param color the color
+   */
+  public FillProperties(Color color) {
+    super(color);
+  }
+
+  /**
+   * Copy.
+   *
+   * @param style the style
+   */
+  public void copy(FillProperties style) {
+    mPattern = style.mPattern;
+
+    super.copy(style);
+  }
+
+  /**
+   * Returns the line color.
+   * 
+   * @return The line color.
+   */
+  public FillPattern getPattern() {
+    return mPattern;
+  }
+
+  /**
+   * Sets the pattern.
+   *
+   * @param pattern the new pattern
+   */
+  public void setPattern(FillPattern pattern) {
+    mPattern = pattern;
+
+    fireChanged();
+  }
 }

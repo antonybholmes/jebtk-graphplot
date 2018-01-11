@@ -22,109 +22,109 @@ import java.util.Map.Entry;
 
 import org.jebtk.core.event.ChangeListeners;
 
-
-
 // TODO: Auto-generated Javadoc
 /**
- * The class XYSeriesModel keeps track of which series are visible on a
- * plot and.
+ * The class XYSeriesModel keeps track of which series are visible on a plot
+ * and.
  */
-public class XYSeriesModel extends ChangeListeners implements Iterable<XYSeries> {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+public class XYSeriesModel extends ChangeListeners
+    implements Iterable<XYSeries> {
 
-	/** The Constant EMPTY_SERIES. */
-	public static final XYSeriesModel EMPTY_SERIES = 
-			new XYSeriesModel(XYSeriesGroup.EMPTY_GROUP);
-	
-	/**
-	 * The member groups.
-	 */
-	private XYSeriesGroup mGroups = new XYSeriesGroup();
-	
-	/** The m visible map. */
-	private Map<XYSeries, Boolean> mVisibleMap =
-			new HashMap<XYSeries, Boolean>();
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * Instantiates a new XY series model.
-	 *
-	 * @param group the group
-	 */
-	public XYSeriesModel(XYSeriesGroup group) {
-		mGroups = group;
-		
-		for (XYSeries series : group) {
-			setVisible(series, true);
-		}
-	}
-	
-	/**
-	 * Gets the visible.
-	 *
-	 * @param series the series
-	 * @return the visible
-	 */
-	public boolean getVisible(XYSeries series) {
-		return mVisibleMap.containsKey(series) && mVisibleMap.get(series);
-	}
-	
-	/**
-	 * Sets the visible.
-	 *
-	 * @param series the series
-	 * @param visible the visible
-	 */
-	public void setVisible(XYSeries series, boolean visible) {
-		mVisibleMap.put(series, visible);
-		
-		fireChanged();
-	}
+  /** The Constant EMPTY_SERIES. */
+  public static final XYSeriesModel EMPTY_SERIES = new XYSeriesModel(
+      XYSeriesGroup.EMPTY_GROUP);
 
-	/* (non-Javadoc)
-	 * @see java.lang.Iterable#iterator()
-	 */
-	@Override
-	public Iterator<XYSeries> iterator() {
-		return mGroups.iterator();
-	}
+  /**
+   * The member groups.
+   */
+  private XYSeriesGroup mGroups = new XYSeriesGroup();
 
-	/**
-	 * Returns the number of visible groups.
-	 *
-	 * @return the count
-	 */
-	public int getCount() {
-		int c = 0;
-		
-		for (Entry<XYSeries, Boolean> e : mVisibleMap.entrySet()) {
-			if (e.getValue()) {
-				++c;
-			}
-		}
-		
-		return c;
-	}
+  /** The m visible map. */
+  private Map<XYSeries, Boolean> mVisibleMap = new HashMap<XYSeries, Boolean>();
 
-	/**
-	 * Gets the total count.
-	 *
-	 * @return the total count
-	 */
-	public int getTotalCount() {
-		return mGroups.getCount();
-	}
+  /**
+   * Instantiates a new XY series model.
+   *
+   * @param group the group
+   */
+  public XYSeriesModel(XYSeriesGroup group) {
+    mGroups = group;
 
-	/**
-	 * Creates the.
-	 *
-	 * @param group the group
-	 * @return the XY series model
-	 */
-	public static XYSeriesModel create(XYSeriesGroup group) {
-		return new XYSeriesModel(group);
-	}
+    for (XYSeries series : group) {
+      setVisible(series, true);
+    }
+  }
+
+  /**
+   * Gets the visible.
+   *
+   * @param series the series
+   * @return the visible
+   */
+  public boolean getVisible(XYSeries series) {
+    return mVisibleMap.containsKey(series) && mVisibleMap.get(series);
+  }
+
+  /**
+   * Sets the visible.
+   *
+   * @param series the series
+   * @param visible the visible
+   */
+  public void setVisible(XYSeries series, boolean visible) {
+    mVisibleMap.put(series, visible);
+
+    fireChanged();
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Iterable#iterator()
+   */
+  @Override
+  public Iterator<XYSeries> iterator() {
+    return mGroups.iterator();
+  }
+
+  /**
+   * Returns the number of visible groups.
+   *
+   * @return the count
+   */
+  public int getCount() {
+    int c = 0;
+
+    for (Entry<XYSeries, Boolean> e : mVisibleMap.entrySet()) {
+      if (e.getValue()) {
+        ++c;
+      }
+    }
+
+    return c;
+  }
+
+  /**
+   * Gets the total count.
+   *
+   * @return the total count
+   */
+  public int getTotalCount() {
+    return mGroups.getCount();
+  }
+
+  /**
+   * Creates the.
+   *
+   * @param group the group
+   * @return the XY series model
+   */
+  public static XYSeriesModel create(XYSeriesGroup group) {
+    return new XYSeriesModel(group);
+  }
 }

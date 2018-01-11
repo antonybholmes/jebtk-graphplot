@@ -17,39 +17,38 @@ package org.jebtk.graphplot.figure;
 
 // TODO: Auto-generated Javadoc
 /**
- * Translate between graph space and pixel space in the Y axis. Since Java
- * uses inverted coordinates for y (0 is top right) we must invert and
- * correct for this since on a 2D cartesian graph y, y increases from
- * the bottom up.
+ * Translate between graph space and pixel space in the Y axis. Since Java uses
+ * inverted coordinates for y (0 is top right) we must invert and correct for
+ * this since on a 2D cartesian graph y, y increases from the bottom up.
  * 
  * @author Antony Holmes Holmes
  *
  */
 public abstract class AxisTranslationY extends AxisTranslation {
 
-	/**
-	 * Instantiates a new axis translation y.
-	 *
-	 * @param axis the axis
-	 */
-	public AxisTranslationY(Axes axes, Axis axis) {
-		super(axes, axis);
-	}
+  /**
+   * Instantiates a new axis translation y.
+   *
+   * @param axis the axis
+   */
+  public AxisTranslationY(Axes axes, Axis axis) {
+    super(axes, axis);
+  }
 
-	@Override
-	public int getPixels() {
-		return getAxes().getInternalSize().getH();
-	}
+  @Override
+  public int getPixels() {
+    return getAxes().getInternalSize().getH();
+  }
 
-	@Override
-	public int toPlot(double x) {
-		cacheCheck();
+  @Override
+  public int toPlot(double x) {
+    cacheCheck();
 
-		if (!mXMap.containsKey(x)) {
-			// Invert y axis coordinates
-			mXMap.put(x, mXPixels - (int)Math.round(plotNormalize(x) * mXPixels));
-		}
+    if (!mXMap.containsKey(x)) {
+      // Invert y axis coordinates
+      mXMap.put(x, mXPixels - (int) Math.round(plotNormalize(x) * mXPixels));
+    }
 
-		return mXMap.get(x);
-	}
+    return mXMap.get(x);
+  }
 }

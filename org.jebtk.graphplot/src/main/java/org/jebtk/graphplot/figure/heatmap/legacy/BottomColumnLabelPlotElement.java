@@ -25,92 +25,93 @@ import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.widget.ModernWidget;
 
-
 // TODO: Auto-generated Javadoc
 /**
  * The class BottomColumnLabelPlotElement.
  */
 public class BottomColumnLabelPlotElement extends ColumnMatrixPlotElement {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * The member color.
-	 */
-	private Color mColor;
+  /**
+   * The member color.
+   */
+  private Color mColor;
 
-	/**
-	 * Instantiates a new bottom column label plot element.
-	 *
-	 * @param matrix the matrix
-	 * @param aspectRatio the aspect ratio
-	 */
-	public BottomColumnLabelPlotElement(DataFrame matrix,
-			DoubleDim aspectRatio) {
-		this(matrix, aspectRatio, Color.BLACK, 10, 50);
-	}
+  /**
+   * Instantiates a new bottom column label plot element.
+   *
+   * @param matrix the matrix
+   * @param aspectRatio the aspect ratio
+   */
+  public BottomColumnLabelPlotElement(DataFrame matrix, DoubleDim aspectRatio) {
+    this(matrix, aspectRatio, Color.BLACK, 10, 50);
+  }
 
-	/**
-	 * Instantiates a new bottom column label plot element.
-	 *
-	 * @param matrix the matrix
-	 * @param aspectRatio the aspect ratio
-	 * @param color the color
-	 * @param charWidth the char width
-	 * @param maxChars the max chars
-	 */
-	public BottomColumnLabelPlotElement(DataFrame matrix,
-			DoubleDim aspectRatio,
-			Color color,
-			int charWidth,
-			int maxChars) {
-		super(matrix, 
-				aspectRatio,
-				charWidth * TextUtils.maxLength(matrix.getColumnNames()));
+  /**
+   * Instantiates a new bottom column label plot element.
+   *
+   * @param matrix the matrix
+   * @param aspectRatio the aspect ratio
+   * @param color the color
+   * @param charWidth the char width
+   * @param maxChars the max chars
+   */
+  public BottomColumnLabelPlotElement(DataFrame matrix, DoubleDim aspectRatio,
+      Color color, int charWidth, int maxChars) {
+    super(matrix, aspectRatio,
+        charWidth * TextUtils.maxLength(matrix.getColumnNames()));
 
-		mColor = color;
-	}
+    mColor = color;
+  }
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
-	 */
-	@Override
-	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Object... params) {
-		drawLabels(g2);
-		
-		super.plot(g2, offset, context, params);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.
+   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
+   */
+  @Override
+  public void plot(Graphics2D g2,
+      Dimension offset,
+      DrawingContext context,
+      Object... params) {
+    drawLabels(g2);
 
-	/**
-	 * Draw labels.
-	 *
-	 * @param g2 the g2
-	 */
-	private void drawLabels(Graphics2D g2) {
-		g2.setColor(mColor);
+    super.plot(g2, offset, context, params);
+  }
 
-		int xd = (int) ((mBlockSize.getW() - ModernWidget.getStringHeight(g2)) / 2);
+  /**
+   * Draw labels.
+   *
+   * @param g2 the g2
+   */
+  private void drawLabels(Graphics2D g2) {
+    g2.setColor(mColor);
 
-		int x = xd;
-		
-		for (int i = 0; i < mMatrix.getCols(); ++i) {
+    int xd = (int) ((mBlockSize.getW() - ModernWidget.getStringHeight(g2)) / 2);
 
-			Graphics2D g2Temp = (Graphics2D)g2.create();
+    int x = xd;
 
-			try {
-				g2Temp.translate(x, 0);
-				g2Temp.rotate(Math.PI / 2.0);
-				//g2Temp.translate(0, xd);
+    for (int i = 0; i < mMatrix.getCols(); ++i) {
 
-				g2Temp.drawString(mMatrix.getColumnName(i), 0, 0);
-			} finally {
-				g2Temp.dispose();
-			}
+      Graphics2D g2Temp = (Graphics2D) g2.create();
 
-			x += mBlockSize.getW();
-		}
-	}
+      try {
+        g2Temp.translate(x, 0);
+        g2Temp.rotate(Math.PI / 2.0);
+        // g2Temp.translate(0, xd);
+
+        g2Temp.drawString(mMatrix.getColumnName(i), 0, 0);
+      } finally {
+        g2Temp.dispose();
+      }
+
+      x += mBlockSize.getW();
+    }
+  }
 }

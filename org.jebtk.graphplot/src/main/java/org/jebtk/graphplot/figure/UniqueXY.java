@@ -30,255 +30,254 @@ import org.jebtk.math.matrix.MatrixGroup;
 
 // TODO: Auto-generated Javadoc
 /**
- * Stores the max y for a given x so that you can
- * find the unique values of x and the max y
- * at that x for plotting purposes. Should only be used for painting
- * coordinates and not graph plot points.
+ * Stores the max y for a given x so that you can find the unique values of x
+ * and the max y at that x for plotting purposes. Should only be used for
+ * painting coordinates and not graph plot points.
  * 
  * @author Antony Holmes Holmes
  *
  */
 public class UniqueXY implements Iterable<Point>, Comparable<UniqueXY> {
-	//private Map<Integer, Integer> mPointMap = 
-	//		new TreeMap<Integer, Integer>();
+  // private Map<Integer, Integer> mPointMap =
+  // new TreeMap<Integer, Integer>();
 
-	/**
-	 * The member point original map.
-	 */
-	private Map<Integer, DoublePos2D> mPointOriginalMap = 
-			new TreeMap<Integer, DoublePos2D>();
+  /**
+   * The member point original map.
+   */
+  private Map<Integer, DoublePos2D> mPointOriginalMap = new TreeMap<Integer, DoublePos2D>();
 
-	/**
-	 * The member list.
-	 */
-	private List<Point> mList = Collections.emptyList();
+  /**
+   * The member list.
+   */
+  private List<Point> mList = Collections.emptyList();
 
-	/** The m all list. */
-	private List<Point> mAllList;
+  /** The m all list. */
+  private List<Point> mAllList;
 
-	/**
-	 * Instantiates a new unique xy.
-	 *
-	 * @param m the m
-	 * @param series the series
-	 * @param space the space
-	 */
-	public UniqueXY(DataFrame m,
-			XYSeries series,
-			Axes space) {
+  /**
+   * Instantiates a new unique xy.
+   *
+   * @param m the m
+   * @param series the series
+   * @param space the space
+   */
+  public UniqueXY(DataFrame m, XYSeries series, Axes space) {
 
-		this(m, series, space, false);
-	}
+    this(m, series, space, false);
+  }
 
-	/**
-	 * Instantiates a new unique xy.
-	 *
-	 * @param m the m
-	 * @param series the series
-	 * @param axes the axes
-	 * @param zeroEnds the zero ends
-	 */
-	public UniqueXY(DataFrame m,
-			XYSeries series,
-			Axes axes,
-			boolean zeroEnds) {
+  /**
+   * Instantiates a new unique xy.
+   *
+   * @param m the m
+   * @param series the series
+   * @param axes the axes
+   * @param zeroEnds the zero ends
+   */
+  public UniqueXY(DataFrame m, XYSeries series, Axes axes, boolean zeroEnds) {
 
-		Map<Integer, Point> pointMap = new TreeMap<Integer, Point>();
+    Map<Integer, Point> pointMap = new TreeMap<Integer, Point>();
 
-		List<Integer> columns = MatrixGroup.findColumnIndices(m, series);
+    List<Integer> columns = MatrixGroup.findColumnIndices(m, series);
 
-		if (columns.size() > 0) {
-			mAllList = new ArrayList<Point>(m.getRows());
+    if (columns.size() > 0) {
+      mAllList = new ArrayList<Point>(m.getRows());
 
-			for (int i = 0; i < m.getRows(); ++i) {
-				DoublePos2D point = new DoublePos2D(m.getValue(i, columns.get(0)), 
-						m.getValue(i, columns.get(1)));
+      for (int i = 0; i < m.getRows(); ++i) {
+        DoublePos2D point = new DoublePos2D(m.getValue(i, columns.get(0)),
+            m.getValue(i, columns.get(1)));
 
-				Point p = axes.toPlotX1Y1(point);
+        Point p = axes.toPlotX1Y1(point);
 
-				//if (i < 10) {
-				//	System.err.println("unique " + point + " " + p);
-				//}
-				
-				mAllList.add(p);
+        // if (i < 10) {
+        // System.err.println("unique " + point + " " + p);
+        // }
 
-				if (axes.getX1Axis().withinBounds(point.getX())) {
-					if (pointMap.containsKey(p.x)) {
-						if (point.getY() >= 0) {
-							// For points above zero keep the min y we find
-							// (since pixel y coordinates are inverted)
-							if (p.y < pointMap.get(p.x).y) {
-								pointMap.put(p.x, p);
+        mAllList.add(p);
 
-								mPointOriginalMap.put(p.x, point);
-							}
-						} else {
-							if (p.y > pointMap.get(p.x).y) {
-								pointMap.put(p.x, p);
+        if (axes.getX1Axis().withinBounds(point.getX())) {
+          if (pointMap.containsKey(p.x)) {
+            if (point.getY() >= 0) {
+              // For points above zero keep the min y we find
+              // (since pixel y coordinates are inverted)
+              if (p.y < pointMap.get(p.x).y) {
+                pointMap.put(p.x, p);
 
-								mPointOriginalMap.put(p.x, point);
-							}
-						}
-					} else {
-						pointMap.put(p.x, p);
+                mPointOriginalMap.put(p.x, point);
+              }
+            } else {
+              if (p.y > pointMap.get(p.x).y) {
+                pointMap.put(p.x, p);
 
-						mPointOriginalMap.put(p.x, point);
-					}
-				}
-			}
+                mPointOriginalMap.put(p.x, point);
+              }
+            }
+          } else {
+            pointMap.put(p.x, p);
 
-			mAllList = Collections.unmodifiableList(mAllList);
+            mPointOriginalMap.put(p.x, point);
+          }
+        }
+      }
 
-			// Create a sorted list of the points based on the x coordinate
+      mAllList = Collections.unmodifiableList(mAllList);
 
-			mList = new ArrayList<Point>(pointMap.size());
+      // Create a sorted list of the points based on the x coordinate
 
-			for (int x : pointMap.keySet()) {
-				mList.add(pointMap.get(x));
-			}
+      mList = new ArrayList<Point>(pointMap.size());
 
-			if (zeroEnds && mList.size() > 0) {
-				int z = axes.toPlotY1(0);
+      for (int x : pointMap.keySet()) {
+        mList.add(pointMap.get(x));
+      }
 
-				// Force the starting and end coordinates to have a y of zero
-				mList.set(0, new Point(mList.get(0).x, z)); 
-				mList.set(mList.size() - 1, new Point(mList.get(mList.size() - 1).x, z)); 
+      if (zeroEnds && mList.size() > 0) {
+        int z = axes.toPlotY1(0);
 
-				mPointOriginalMap.put(mList.get(0).x, 
-						new DoublePos2D(mPointOriginalMap.get(mList.get(0).x).getX(), 0));
+        // Force the starting and end coordinates to have a y of zero
+        mList.set(0, new Point(mList.get(0).x, z));
+        mList.set(mList.size() - 1,
+            new Point(mList.get(mList.size() - 1).x, z));
 
-				mPointOriginalMap.put(mList.get(mList.size() - 1).x, 
-						new DoublePos2D(mPointOriginalMap.get(mList.get(mList.size() - 1).x).getX(), 0));
-			}
+        mPointOriginalMap.put(mList.get(0).x,
+            new DoublePos2D(mPointOriginalMap.get(mList.get(0).x).getX(), 0));
 
-			mList = Collections.unmodifiableList(mList);
-		}
-	}
+        mPointOriginalMap.put(mList.get(mList.size() - 1).x,
+            new DoublePos2D(
+                mPointOriginalMap.get(mList.get(mList.size() - 1).x).getX(),
+                0));
+      }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Iterable#iterator()
-	 */
-	@Override
-	public Iterator<Point> iterator() {
-		return mList.iterator();
-	}
+      mList = Collections.unmodifiableList(mList);
+    }
+  }
 
-	/**
-	 * Gets the unique x.
-	 *
-	 * @return the unique x
-	 */
-	public List<Point> getUniqueX() {
-		return mList;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Iterable#iterator()
+   */
+  @Override
+  public Iterator<Point> iterator() {
+    return mList.iterator();
+  }
 
-	/**
-	 * Gets the point.
-	 *
-	 * @param i the i
-	 * @return the point
-	 */
-	public Point getPoint(int i) {
-		return mList.get(i);
-	}
+  /**
+   * Gets the unique x.
+   *
+   * @return the unique x
+   */
+  public List<Point> getUniqueX() {
+    return mList;
+  }
 
-	/**
-	 * Gets the point count.
-	 *
-	 * @return the point count
-	 */
-	public int getPointCount() {
-		return mList.size();
-	}
+  /**
+   * Gets the point.
+   *
+   * @param i the i
+   * @return the point
+   */
+  public Point getPoint(int i) {
+    return mList.get(i);
+  }
 
-	/**
-	 * Gets the all points.
-	 *
-	 * @return the all points
-	 */
-	public List<Point> getAllPoints() {
-		return mAllList;
-	}
+  /**
+   * Gets the point count.
+   *
+   * @return the point count
+   */
+  public int getPointCount() {
+    return mList.size();
+  }
 
-	/**
-	 * Original.
-	 *
-	 * @param p the p
-	 * @return the point2 d double
-	 */
-	public DoublePos2D original(Point p) {
-		return original(p.x);
-	}
+  /**
+   * Gets the all points.
+   *
+   * @return the all points
+   */
+  public List<Point> getAllPoints() {
+    return mAllList;
+  }
 
-	/**
-	 * Original.
-	 *
-	 * @param x the x
-	 * @return the point2 d double
-	 */
-	public DoublePos2D original(int x) {
-		return mPointOriginalMap.get(x);
-	}
+  /**
+   * Original.
+   *
+   * @param p the p
+   * @return the point2 d double
+   */
+  public DoublePos2D original(Point p) {
+    return original(p.x);
+  }
 
-	/**
-	 * Closest x.
-	 *
-	 * @param p the p
-	 * @return the point
-	 */
-	public Point closestX(Point p) {
-		return closestX(p.x);
-	}
+  /**
+   * Original.
+   *
+   * @param x the x
+   * @return the point2 d double
+   */
+  public DoublePos2D original(int x) {
+    return mPointOriginalMap.get(x);
+  }
 
-	/**
-	 * Use a binary search to find the closest x in the set of coordinates
-	 * to a given x. Returns null if there are no coordinates in the 
-	 * unique list.
-	 *
-	 * @param x the x
-	 * @return the point
-	 */
-	public Point closestX(int x) {
-		if (mList.size() == 0) {
-			return null;
-		}
+  /**
+   * Closest x.
+   *
+   * @param p the p
+   * @return the point
+   */
+  public Point closestX(Point p) {
+    return closestX(p.x);
+  }
 
-		int si = 0;
-		int se = mList.size() - 1;
+  /**
+   * Use a binary search to find the closest x in the set of coordinates to a
+   * given x. Returns null if there are no coordinates in the unique list.
+   *
+   * @param x the x
+   * @return the point
+   */
+  public Point closestX(int x) {
+    if (mList.size() == 0) {
+      return null;
+    }
 
-		while (se - si > 1) {
-			int i = (si + se) / 2;
+    int si = 0;
+    int se = mList.size() - 1;
 
-			Point p = mList.get(i);
+    while (se - si > 1) {
+      int i = (si + se) / 2;
 
-			if (x > p.x) {
-				si = i;
-			} else if (x < p.x) {
-				se = i;
-			} else {
-				return p;
-			}
-		}
+      Point p = mList.get(i);
 
-		Point x1 = mList.get(si);
-		Point x2 = mList.get(se);
+      if (x > p.x) {
+        si = i;
+      } else if (x < p.x) {
+        se = i;
+      } else {
+        return p;
+      }
+    }
 
-		int d1 = Math.abs(x - x1.x);
-		int d2 = Math.abs(x - x2.x);
+    Point x1 = mList.get(si);
+    Point x2 = mList.get(se);
 
-		if (d1 <= d2) {
-			return x1;
-		} else {
-			return x2;
-		}
+    int d1 = Math.abs(x - x1.x);
+    int d2 = Math.abs(x - x2.x);
 
-	}
+    if (d1 <= d2) {
+      return x1;
+    } else {
+      return x2;
+    }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-	 */
-	@Override
-	public int compareTo(UniqueXY e) {
-		return 0;
-	}
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Comparable#compareTo(java.lang.Object)
+   */
+  @Override
+  public int compareTo(UniqueXY e) {
+    return 0;
+  }
 }

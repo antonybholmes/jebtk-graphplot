@@ -27,89 +27,90 @@ import org.jebtk.core.event.ChangeListeners;
  *
  */
 public class StyleProperties extends ChangeListeners implements ChangeListener {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	
 
-	/**
-	 * The member line style.
-	 */
-	private LineProperties mLineStyle = new LineProperties();
-	
-	/**
-	 * The member fill style.
-	 */
-	private FillProperties mFillStyle = new FillProperties();
-	
-	/**
-	 * Instantiates a new style properties.
-	 */
-	public StyleProperties() {
-		mLineStyle.addChangeListener(this);
-		mFillStyle.addChangeListener(this);
-	}
-	
-	/**
-	 * Copy.
-	 *
-	 * @param style the style
-	 */
-	public void copy(final StyleProperties style) {
-		mLineStyle.copy(style.getLineStyle());
-		mFillStyle.copy(style.getFillStyle());
-		
-		fireChanged();
-	}
-	
-	/**
-	 * Gets the line style.
-	 *
-	 * @return the line style
-	 */
-	public LineProperties getLineStyle() {
-		return mLineStyle;
-	}
-	
-	/**
-	 * Gets the fill style.
-	 *
-	 * @return the fill style
-	 */
-	public FillProperties getFillStyle() {
-		return mFillStyle;
-	}
-	
-	/**
-	 * Sets the visible.
-	 *
-	 * @param visible the new visible
-	 */
-	public void setVisible(boolean visible) {
-		updateVisible(visible);
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-		fireChanged();
-	}
-	
-	/**
-	 * Update visible.
-	 *
-	 * @param visible the visible
-	 */
-	public void updateVisible(boolean visible) {
-		mLineStyle.updateVisible(visible);
-		mFillStyle.updateVisible(visible);
-	}
+  /**
+   * The member line style.
+   */
+  private LineProperties mLineStyle = new LineProperties();
 
-	/* (non-Javadoc)
-	 * @see org.abh.lib.event.ChangeListener#changed(org.abh.lib.event.ChangeEvent)
-	 */
-	@Override
-	public void changed(ChangeEvent e) {
-		fireChanged();
-	}
+  /**
+   * The member fill style.
+   */
+  private FillProperties mFillStyle = new FillProperties();
 
-	
+  /**
+   * Instantiates a new style properties.
+   */
+  public StyleProperties() {
+    mLineStyle.addChangeListener(this);
+    mFillStyle.addChangeListener(this);
+  }
+
+  /**
+   * Copy.
+   *
+   * @param style the style
+   */
+  public void copy(final StyleProperties style) {
+    mLineStyle.copy(style.getLineStyle());
+    mFillStyle.copy(style.getFillStyle());
+
+    fireChanged();
+  }
+
+  /**
+   * Gets the line style.
+   *
+   * @return the line style
+   */
+  public LineProperties getLineStyle() {
+    return mLineStyle;
+  }
+
+  /**
+   * Gets the fill style.
+   *
+   * @return the fill style
+   */
+  public FillProperties getFillStyle() {
+    return mFillStyle;
+  }
+
+  /**
+   * Sets the visible.
+   *
+   * @param visible the new visible
+   */
+  public void setVisible(boolean visible) {
+    updateVisible(visible);
+
+    fireChanged();
+  }
+
+  /**
+   * Update visible.
+   *
+   * @param visible the visible
+   */
+  public void updateVisible(boolean visible) {
+    mLineStyle.updateVisible(visible);
+    mFillStyle.updateVisible(visible);
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * org.abh.lib.event.ChangeListener#changed(org.abh.lib.event.ChangeEvent)
+   */
+  @Override
+  public void changed(ChangeEvent e) {
+    fireChanged();
+  }
+
 }

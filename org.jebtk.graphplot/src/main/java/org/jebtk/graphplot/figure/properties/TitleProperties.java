@@ -27,106 +27,110 @@ import org.jebtk.graphplot.figure.GridLocation;
  * @author Antony Holmes Holmes
  *
  */
-public class TitleProperties extends LocationProperties implements ChangeListener {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * The member font.
-	 */
-	private FontProperties mFont = new FontProperties();
-	
-	/**
-	 * The member name.
-	 */
-	private String mName = TextUtils.EMPTY_STRING;
+public class TitleProperties extends LocationProperties
+    implements ChangeListener {
 
-	/**
-	 * Instantiates a new title properties.
-	 */
-	public TitleProperties() {
-		mFont.setVisible(false);
-		mFont.addChangeListener(this);
-		
-		setInside(false);
-		setPosition(GridLocation.N);
-	}
-	
-	/**
-	 * Copy.
-	 *
-	 * @param title the title
-	 */
-	public void copy(TitleProperties title) {
-		
-		mFont.copy(title.mFont);
-		
-		setText(title.mName);
-		
-		setPosition(title.getPosition());
-		
-		setInside(title.isInside());
-	}
-	
-	/**
-	 * Sets the text.
-	 *
-	 * @param name the new text
-	 * @return the title properties
-	 */
-	public TitleProperties setText(String name) {
-		if (name != null) {
-			mName = name;
-		
-			// If the name is set, make the title visible
-			mFont.setVisible(true);
-		}
-		
-		return this;
-	}
-	
-	/**
-	 * Gets the text.
-	 *
-	 * @return the text
-	 */
-	public String getText() {
-		return mName;
-	}
-	
-	/**
-	 * Gets the font style.
-	 *
-	 * @return the font style
-	 */
-	public FontProperties getFontStyle() {
-		return mFont;
-	}
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/* (non-Javadoc)
-	 * @see org.abh.lib.event.ChangeListener#changed(org.abh.lib.event.ChangeEvent)
-	 */
-	@Override
-	public void changed(ChangeEvent e) {
-		fireChanged();
-	}
+  /**
+   * The member font.
+   */
+  private FontProperties mFont = new FontProperties();
 
-	/**
-	 * Sets whether the title is visible or not. Equivalent to
-	 * getFontStyle().setVisible().
-	 *
-	 * @param visible the new visible
-	 */
-	@Override
-	public void setVisible(boolean visible) {
-		mFont.setVisible(visible);
-	}
-	
-	@Override
-	public boolean getVisible() {
-		return mFont.getVisible();
-	}
+  /**
+   * The member name.
+   */
+  private String mName = TextUtils.EMPTY_STRING;
+
+  /**
+   * Instantiates a new title properties.
+   */
+  public TitleProperties() {
+    mFont.setVisible(false);
+    mFont.addChangeListener(this);
+
+    setInside(false);
+    setPosition(GridLocation.N);
+  }
+
+  /**
+   * Copy.
+   *
+   * @param title the title
+   */
+  public void copy(TitleProperties title) {
+
+    mFont.copy(title.mFont);
+
+    setText(title.mName);
+
+    setPosition(title.getPosition());
+
+    setInside(title.isInside());
+  }
+
+  /**
+   * Sets the text.
+   *
+   * @param name the new text
+   * @return the title properties
+   */
+  public TitleProperties setText(String name) {
+    if (name != null) {
+      mName = name;
+
+      // If the name is set, make the title visible
+      mFont.setVisible(true);
+    }
+
+    return this;
+  }
+
+  /**
+   * Gets the text.
+   *
+   * @return the text
+   */
+  public String getText() {
+    return mName;
+  }
+
+  /**
+   * Gets the font style.
+   *
+   * @return the font style
+   */
+  public FontProperties getFontStyle() {
+    return mFont;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * org.abh.lib.event.ChangeListener#changed(org.abh.lib.event.ChangeEvent)
+   */
+  @Override
+  public void changed(ChangeEvent e) {
+    fireChanged();
+  }
+
+  /**
+   * Sets whether the title is visible or not. Equivalent to
+   * getFontStyle().setVisible().
+   *
+   * @param visible the new visible
+   */
+  @Override
+  public void setVisible(boolean visible) {
+    mFont.setVisible(visible);
+  }
+
+  @Override
+  public boolean getVisible() {
+    return mFont.getVisible();
+  }
 }

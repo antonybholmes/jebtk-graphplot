@@ -25,80 +25,80 @@ import java.awt.Color;
  *
  */
 public abstract class ColorProperties extends VisibleProperties {
-	
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
 
-	/**
-	 * The member color.
-	 */
-	private Color mColor = Color.BLACK;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * Instantiates a new color properties.
-	 */
-	public ColorProperties() {
+  /**
+   * The member color.
+   */
+  private Color mColor = Color.BLACK;
 
-	}
+  /**
+   * Instantiates a new color properties.
+   */
+  public ColorProperties() {
 
-	/**
-	 * Instantiates a new color properties.
-	 *
-	 * @param color the color
-	 */
-	public ColorProperties(Color color) {
-		setColor(color);
-	}
+  }
 
-	/**
-	 * Copy.
-	 *
-	 * @param properties the properties
-	 */
-	public void copy(final ColorProperties properties) {
-		setColor(properties.mColor);
+  /**
+   * Instantiates a new color properties.
+   *
+   * @param color the color
+   */
+  public ColorProperties(Color color) {
+    setColor(color);
+  }
 
-		super.copy(properties);
-	}
+  /**
+   * Copy.
+   *
+   * @param properties the properties
+   */
+  public void copy(final ColorProperties properties) {
+    setColor(properties.mColor);
 
-	/**
-	 * Set the color of an item. Setting the color automatically triggers
-	 * the object to become visible.
-	 * 
-	 * @param color		Font color.
-	 */
-	public void setColor(Color color) {
-		updateColor(color);
-		
-		if (color == null) {
-			// If a null color is specified, default to making element
-			// invisible
-			setVisible(false);
-		} else {
-			// If a color is specified, default to making visible
-			setVisible(true);
-		}
-	}
-	
-	/**
-	 * Update color.
-	 *
-	 * @param color the color
-	 */
-	public void updateColor(Color color) {
-		if (color != null && !color.equals(mColor)) {
-			mColor = color;
-		}
-	}
+    super.copy(properties);
+  }
 
-	/**
-	 * Returns the color.
-	 * 
-	 * @return		The color.
-	 */
-	public Color getColor() {
-		return mColor;
-	}
+  /**
+   * Set the color of an item. Setting the color automatically triggers the
+   * object to become visible.
+   * 
+   * @param color Font color.
+   */
+  public void setColor(Color color) {
+    updateColor(color);
+
+    if (color == null) {
+      // If a null color is specified, default to making element
+      // invisible
+      setVisible(false);
+    } else {
+      // If a color is specified, default to making visible
+      setVisible(true);
+    }
+  }
+
+  /**
+   * Update color.
+   *
+   * @param color the color
+   */
+  public void updateColor(Color color) {
+    if (color != null && !color.equals(mColor)) {
+      mColor = color;
+    }
+  }
+
+  /**
+   * Returns the color.
+   * 
+   * @return The color.
+   */
+  public Color getColor() {
+    return mColor;
+  }
 }

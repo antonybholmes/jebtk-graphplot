@@ -27,55 +27,61 @@ import org.jebtk.modern.graphics.ImageUtils;
  * @author Antony Holmes Holmes
  *
  */
-public abstract class AxesClippedLayer extends AxesLayer  {
+public abstract class AxesClippedLayer extends AxesLayer {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
 
-	public AxesClippedLayer() {
-		// Do nothing
-	}
-	
-	public AxesClippedLayer(String name) {
-		super(name);
-	}
+  public AxesClippedLayer() {
+    // Do nothing
+  }
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.AxesLayer#plot(java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure, edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes)
-	 */
-	@Override
-	public final void drawPlot(Graphics2D g2,
-			DrawingContext context,
-			Figure figure,
-			SubFigure subFigure,
-			Axes axes) {
-		Graphics2D g2Temp = ImageUtils.clone(g2);
+  public AxesClippedLayer(String name) {
+    super(name);
+  }
 
-		try {
-			g2Temp.clipRect(0,
-					0, 
-					axes.getInternalSize().getW(), 
-					axes.getInternalSize().getH());
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.AxesLayer#plot(java.awt.
+   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes)
+   */
+  @Override
+  public final void drawPlot(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes) {
+    Graphics2D g2Temp = ImageUtils.clone(g2);
 
-			plotLayer(g2Temp, context, figure, subFigure, axes);
-		}  finally {
-			g2Temp.dispose();
-		}
-	}
+    try {
+      g2Temp.clipRect(0,
+          0,
+          axes.getInternalSize().getW(),
+          axes.getInternalSize().getH());
 
-	/**
-	 * Plot clipped.
-	 *
-	 * @param g2 the g2
-	 * @param context the context
-	 * @param figure the figure
-	 * @param axes the axes
-	 */
-	public abstract void plotLayer(Graphics2D g2,
-			DrawingContext context,
-			Figure figure,
-			SubFigure subFigure,
-			Axes axes);
+      plotLayer(g2Temp, context, figure, subFigure, axes);
+    } finally {
+      g2Temp.dispose();
+    }
+  }
+
+  /**
+   * Plot clipped.
+   *
+   * @param g2 the g2
+   * @param context the context
+   * @param figure the figure
+   * @param axes the axes
+   */
+  public abstract void plotLayer(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes);
 }

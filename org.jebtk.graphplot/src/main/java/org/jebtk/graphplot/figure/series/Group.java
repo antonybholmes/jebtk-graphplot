@@ -32,138 +32,156 @@ import org.jebtk.core.event.ChangeListeners;
  * @author Antony Holmes Holmes
  * @param <T> the generic type
  */
-public abstract class Group<T extends NameProperty> extends UniqueArrayList<T> implements NameProperty, ChangeEventProducer {
-	
-	//private List<T> mGroups = new UniqueList<T>();
-	
-	/**
-	 * The member group map.
-	 */
-	protected Map<String, T> mGroupMap = new TreeMap<String, T>();
+public abstract class Group<T extends NameProperty> extends UniqueArrayList<T>
+    implements NameProperty, ChangeEventProducer {
 
-	/**
-	 * The member current.
-	 */
-	private T mCurrent;
-	
-	/**
-	 * The member listeners.
-	 */
-	private ChangeListeners mListeners = new ChangeListeners();
-	
-	/**
-	 * Adds the.
-	 *
-	 * @param groups the groups
-	 */
-	public void add(Group<T> groups) {
+  // private List<T> mGroups = new UniqueList<T>();
 
-		for (T g : groups) {
-			add(g);
-		}
-	}
+  /**
+   * The member group map.
+   */
+  protected Map<String, T> mGroupMap = new TreeMap<String, T>();
 
-	/* (non-Javadoc)
-	 * @see org.abh.lib.UniqueList#add(java.lang.Object)
-	 */
-	@Override
-	public boolean add(T g) {
-		super.add(g);
-		mGroupMap.put(g.getName(), g);
-		mCurrent = g;
-		
-		fireChanged();
-		
-		return true;
-	}
-	
-	/**
-	 * Auto create and name a new group.
-	 *
-	 * @return the t
-	 */
-	public abstract T autoCreate();
+  /**
+   * The member current.
+   */
+  private T mCurrent;
 
-	/* (non-Javadoc)
-	 * @see java.util.ArrayList#clear()
-	 */
-	public void clear() {
-		mGroupMap.clear();
-	}
+  /**
+   * The member listeners.
+   */
+  private ChangeListeners mListeners = new ChangeListeners();
 
-	/**
-	 * Return the current object.
-	 *
-	 * @return the current
-	 */
-	public T getCurrent() {
-		if (mCurrent != null) {
-			return mCurrent;
-		}
-		
-		mCurrent = autoCreate();
-		
-		return mCurrent;
-	}
-	
-	/**
-	 * Gets the.
-	 *
-	 * @param name the name
-	 * @return the t
-	 */
-	public T get(String name) {
-		mCurrent = mGroupMap.get(name);
-		
-		return mCurrent;
-	}
-	
-	/* (non-Javadoc)
-	 * @see java.util.ArrayList#get(int)
-	 */
-	public T get(int i) {
-		mCurrent = super.get(i);
-		
-		return mCurrent;
-	}
-	
-	/**
-	 * Gets the count.
-	 *
-	 * @return the count
-	 */
-	public int getCount() {
-		return size();
-	}
+  /**
+   * Adds the.
+   *
+   * @param groups the groups
+   */
+  public void add(Group<T> groups) {
 
-	/* (non-Javadoc)
-	 * @see org.abh.lib.event.ChangeEventProducer#addChangeListener(org.abh.lib.event.ChangeListener)
-	 */
-	@Override
-	public void addChangeListener(ChangeListener l) {
-		mListeners.addChangeListener(l);
-	}
+    for (T g : groups) {
+      add(g);
+    }
+  }
 
-	/* (non-Javadoc)
-	 * @see org.abh.lib.event.ChangeEventProducer#removeChangeListener(org.abh.lib.event.ChangeListener)
-	 */
-	@Override
-	public void removeChangeListener(ChangeListener l) {
-		mListeners.removeChangeListener(l);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.abh.lib.UniqueList#add(java.lang.Object)
+   */
+  @Override
+  public boolean add(T g) {
+    super.add(g);
+    mGroupMap.put(g.getName(), g);
+    mCurrent = g;
 
-	/* (non-Javadoc)
-	 * @see org.abh.lib.event.ChangeEventProducer#fireChanged(org.abh.lib.event.ChangeEvent)
-	 */
-	@Override
-	public void fireChanged(ChangeEvent e) {
-		mListeners.fireChanged(e);
-	}
-	
-	/**
-	 * Fire changed.
-	 */
-	public void fireChanged() {
-		fireChanged(new ChangeEvent(this));
-	}
+    fireChanged();
+
+    return true;
+  }
+
+  /**
+   * Auto create and name a new group.
+   *
+   * @return the t
+   */
+  public abstract T autoCreate();
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.util.ArrayList#clear()
+   */
+  public void clear() {
+    mGroupMap.clear();
+  }
+
+  /**
+   * Return the current object.
+   *
+   * @return the current
+   */
+  public T getCurrent() {
+    if (mCurrent != null) {
+      return mCurrent;
+    }
+
+    mCurrent = autoCreate();
+
+    return mCurrent;
+  }
+
+  /**
+   * Gets the.
+   *
+   * @param name the name
+   * @return the t
+   */
+  public T get(String name) {
+    mCurrent = mGroupMap.get(name);
+
+    return mCurrent;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.util.ArrayList#get(int)
+   */
+  public T get(int i) {
+    mCurrent = super.get(i);
+
+    return mCurrent;
+  }
+
+  /**
+   * Gets the count.
+   *
+   * @return the count
+   */
+  public int getCount() {
+    return size();
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * org.abh.lib.event.ChangeEventProducer#addChangeListener(org.abh.lib.event.
+   * ChangeListener)
+   */
+  @Override
+  public void addChangeListener(ChangeListener l) {
+    mListeners.addChangeListener(l);
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * org.abh.lib.event.ChangeEventProducer#removeChangeListener(org.abh.lib.
+   * event.ChangeListener)
+   */
+  @Override
+  public void removeChangeListener(ChangeListener l) {
+    mListeners.removeChangeListener(l);
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.abh.lib.event.ChangeEventProducer#fireChanged(org.abh.lib.event.
+   * ChangeEvent)
+   */
+  @Override
+  public void fireChanged(ChangeEvent e) {
+    mListeners.fireChanged(e);
+  }
+
+  /**
+   * Fire changed.
+   */
+  public void fireChanged() {
+    fireChanged(new ChangeEvent(this));
+  }
 }

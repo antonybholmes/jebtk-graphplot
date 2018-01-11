@@ -22,14 +22,14 @@ import java.awt.Color;
  * The class LabelProperties.
  */
 public class LabelProperties {
-	
-	/**
-	 * The show.
-	 */
-	public boolean show = true;
-	
-	/**
-	 * The color.
-	 */
-	public Color color = Color.BLACK;
+
+  /**
+   * The show.
+   */
+  public boolean show = true;
+
+  /**
+   * The color.
+   */
+  public Color color = Color.BLACK;
 }
