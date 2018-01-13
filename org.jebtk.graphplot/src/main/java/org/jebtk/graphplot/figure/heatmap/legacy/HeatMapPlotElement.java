@@ -339,8 +339,8 @@ public class HeatMapPlotElement extends MatrixPlotElement {
 
     g2.setColor(mBorder);
 
-    int w = getPreferredSize().width;
-    int h = getPreferredSize().height;
+    int w = getPreferredSize().width - 1;
+    int h = getPreferredSize().height - 1;
 
     g2.drawRect(0, 0, w, h);
   }
