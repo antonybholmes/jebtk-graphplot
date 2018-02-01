@@ -755,6 +755,10 @@ public abstract class PlotBox extends ChangeListeners implements
     return dim;
   }
 
+  /**
+   * Should update dimension to add the size of this plotbox.
+   * @param d
+   */
   public void plotSize(Dimension d) {
     // Do nothing
   }

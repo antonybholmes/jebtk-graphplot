@@ -49,7 +49,7 @@ public class LineProperties extends ColorProperties {
   public LineProperties() {
     // The default color, to override the fill color from which it
     // derived.
-    setColor(Color.BLACK);
+    setColor(Color.DARK_GRAY);
 
     setStroke(StrokeStyle.SINGLE, 1);
   }
