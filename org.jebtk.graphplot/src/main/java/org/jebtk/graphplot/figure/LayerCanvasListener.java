@@ -17,11 +17,11 @@ package org.jebtk.graphplot.figure;
 
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.modern.graphics.CanvasMouseEvent;
-import org.jebtk.modern.graphics.ModernCanvasListener;
-import org.jebtk.modern.graphics.ModernCanvasListeners;
-import org.jebtk.modern.graphics.ModernCanvasMouseEventProducer;
-import org.jebtk.modern.graphics.ModernCanvasMouseListener;
-import org.jebtk.modern.graphics.ModernCanvasMouseListeners;
+import org.jebtk.modern.graphics.CanvasListener;
+import org.jebtk.modern.graphics.CanvasListeners;
+import org.jebtk.modern.graphics.CanvasMouseEventProducer;
+import org.jebtk.modern.graphics.CanvasMouseListener;
+import org.jebtk.modern.graphics.CanvasMouseListeners;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -33,9 +33,9 @@ import org.jebtk.modern.graphics.ModernCanvasMouseListeners;
  *
  * @see LayerCanvasEvent
  */
-public class LayerCanvasListener extends ModernCanvasListeners
-    implements ModernCanvasListener, ModernCanvasMouseListener,
-    ModernCanvasMouseEventProducer {
+public class LayerCanvasListener extends CanvasListeners
+    implements CanvasListener, CanvasMouseListener,
+    CanvasMouseEventProducer {
 
   /**
    * The constant serialVersionUID.
@@ -45,12 +45,12 @@ public class LayerCanvasListener extends ModernCanvasListeners
   /**
    * The member canvas listeners.
    */
-  private ModernCanvasListeners mCanvasListeners = new ModernCanvasListeners();
+  private CanvasListeners mCanvasListeners = new CanvasListeners();
 
   /**
    * The member canvas mouse listeners.
    */
-  private ModernCanvasMouseListeners mCanvasMouseListeners = new ModernCanvasMouseListeners();
+  private CanvasMouseListeners mCanvasMouseListeners = new CanvasMouseListeners();
 
   /*
    * (non-Javadoc)
@@ -191,7 +191,7 @@ public class LayerCanvasListener extends ModernCanvasListeners
    * ModernCanvasMouseListener)
    */
   @Override
-  public void addCanvasMouseListener(ModernCanvasMouseListener l) {
+  public void addCanvasMouseListener(CanvasMouseListener l) {
     mCanvasMouseListeners.addCanvasMouseListener(l);
   }
 
@@ -203,7 +203,7 @@ public class LayerCanvasListener extends ModernCanvasListeners
    * ModernCanvasMouseListener)
    */
   @Override
-  public void removeCanvasMouseListener(ModernCanvasMouseListener l) {
+  public void removeCanvasMouseListener(CanvasMouseListener l) {
     mCanvasMouseListeners.removeCanvasMouseListener(l);
   }
 

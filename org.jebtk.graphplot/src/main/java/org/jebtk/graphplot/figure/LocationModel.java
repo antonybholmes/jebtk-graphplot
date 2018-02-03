@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.jebtk.core.event.ChangeEvent;
-import org.jebtk.modern.graphics.ModernCanvasListener;
+import org.jebtk.modern.graphics.CanvasListener;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -32,7 +32,7 @@ import org.jebtk.modern.graphics.ModernCanvasListener;
  * @param <T> the generic type
  */
 public class LocationModel<T extends ZLayer> extends LayerCanvasListener
-    implements Iterable<GridLocation>, ModernCanvasListener {
+    implements Iterable<GridLocation>, CanvasListener {
 
   /** The Constant serialVersionUID. */
   private static final long serialVersionUID = 1L;

@@ -17,8 +17,8 @@ package org.jebtk.graphplot.figure;
 
 import org.jebtk.core.IdProperty;
 import org.jebtk.core.NameProperty;
-import org.jebtk.modern.graphics.ModernCanvasEventProducer;
-import org.jebtk.modern.graphics.ModernCanvasMouseListener;
+import org.jebtk.modern.graphics.CanvasEventProducer;
+import org.jebtk.modern.graphics.CanvasMouseListener;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -26,8 +26,8 @@ import org.jebtk.modern.graphics.ModernCanvasMouseListener;
  * 
  * @author Antony Holmes Holmes
  */
-public interface ZLayer extends ModernCanvasEventProducer,
-    ModernCanvasMouseListener, NameProperty, IdProperty {
+public interface ZLayer extends CanvasEventProducer,
+    CanvasMouseListener, NameProperty, IdProperty {
 
   /**
    * Gets the type.

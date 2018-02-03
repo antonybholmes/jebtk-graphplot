@@ -26,7 +26,7 @@ import java.util.TreeMap;
 
 import org.jebtk.core.collections.CollectionUtils;
 import org.jebtk.core.event.ChangeEvent;
-import org.jebtk.modern.graphics.ModernCanvasListener;
+import org.jebtk.modern.graphics.CanvasListener;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -36,7 +36,7 @@ import org.jebtk.modern.graphics.ModernCanvasListener;
  * @param <T> the generic type
  */
 public class ZModel<T extends ZLayer> extends LayerCanvasListener
-    implements Iterable<Integer>, ModernCanvasListener {
+    implements Iterable<Integer>, CanvasListener {
 
   /**
    * The constant serialVersionUID.
