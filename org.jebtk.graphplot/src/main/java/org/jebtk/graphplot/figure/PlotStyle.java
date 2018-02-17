@@ -74,7 +74,9 @@ public enum PlotStyle {
   BAR_PLOT,
 
   /** BARS fill the width of a tick and only the y data is required. */
-  JOINED_BARS;
+  JOINED_BARS, 
+  
+  VLINES;
 
   /**
    * Parses the.

@@ -19,6 +19,7 @@ import java.awt.Graphics2D;
 import java.util.List;
 
 import org.jebtk.core.collections.UniqueArrayList;
+import org.jebtk.graphplot.figure.properties.Tick;
 import org.jebtk.graphplot.figure.properties.TickMarkProperties;
 import org.jebtk.modern.graphics.DrawingContext;
 
@@ -80,9 +81,9 @@ public class AxisLayerY1 extends AxisLayerY {
       mMinorTicks = new UniqueArrayList<Integer>(
           axis.getTicks().getMinorTicks().getTickCount());
 
-      for (double y : axis.getTicks().getMinorTicks()) {
+      for (Tick t : axis.getTicks().getMinorTicks()) {
         // if (y != 0) {
-        mMinorTicks.add(axes.toPlotY1(y));
+        mMinorTicks.add(axes.toPlotY1(t.getValue()));
         // }
       }
 

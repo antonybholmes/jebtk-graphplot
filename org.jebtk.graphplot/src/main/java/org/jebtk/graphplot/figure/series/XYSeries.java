@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -36,6 +37,9 @@ import org.jebtk.core.geom.DoublePos2D;
 import org.jebtk.core.io.FileUtils;
 import org.jebtk.core.io.Io;
 import org.jebtk.core.io.PathUtils;
+import org.jebtk.core.json.Json;
+import org.jebtk.core.json.JsonParser;
+import org.jebtk.core.text.RegexUtils;
 import org.jebtk.core.text.TextUtils;
 import org.jebtk.graphplot.ColorCycle;
 import org.jebtk.graphplot.figure.properties.FontProperties;
@@ -826,4 +830,33 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
     return groups;
   }
 
+  
+  public static List<XYSeries> loadJson(Path file) throws IOException {
+    Json json = new JsonParser().parse(file);
+
+    List<XYSeries> ret = new ArrayList<XYSeries>();
+
+    for (Json group : json) {
+      String name = group.getAsString("name");
+      Color color = group.getAsColor("color");
+
+      boolean caseSensitive = false;
+
+      if (group.containsKey("case-sensitive")) {
+        caseSensitive = group.getAsBool("case-sensitive");
+      }
+
+      List<String> regexes = new ArrayList<String>();
+
+      for (Json search : group.get("searches")) {
+        regexes.add(search.getAsString());
+      }
+
+      // System.err.println("case " + caseSensitive);
+
+      ret.add(new XYSeries(name, RegexUtils.compile(regexes), caseSensitive, color));
+    }
+
+    return ret;
+  }
 }

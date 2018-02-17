@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jebtk.core.Mathematics;
+import org.jebtk.core.geom.IntDim;
 import org.jebtk.core.settings.SettingsService;
 import org.jebtk.core.text.TextUtils;
 import org.jebtk.graphplot.figure.Axes;
@@ -56,12 +57,14 @@ import org.jebtk.graphplot.figure.heatmap.GroupColorBarLayer;
 import org.jebtk.graphplot.figure.heatmap.GroupHierarchicalColorBarLayer;
 import org.jebtk.graphplot.figure.heatmap.HeatMapFillPlotLayer;
 import org.jebtk.graphplot.figure.heatmap.HeatMapGridPlotLayer;
+import org.jebtk.graphplot.figure.heatmap.ImageFillPlotLayer;
 import org.jebtk.graphplot.figure.heatmap.RowHierarchicalTreeLayer;
 import org.jebtk.graphplot.figure.properties.MarginProperties;
 import org.jebtk.graphplot.figure.series.XYSeries;
 import org.jebtk.graphplot.figure.series.XYSeriesGroup;
 import org.jebtk.graphplot.plotbox.PlotBoxColumnLayout;
 import org.jebtk.math.Linspace;
+import org.jebtk.math.Normalization;
 import org.jebtk.math.cluster.Cluster;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.math.matrix.utils.MatrixOperations;
@@ -141,6 +144,20 @@ public class PlotFactory {
     plot.addStyle(series.getName(), PlotStyle.LINES);
 
     axes.setAxisLimitsAutoRound();
+  }
+  
+  public static void vlines(DataFrame m, Axes axes) {
+    // First summarize each series
+
+    Plot plot = axes.newPlot();
+
+    plot.setMatrix(m);
+
+    // plot.getPlotLayerZModel().addChild(new LinePlotLayer(series.getName()));
+
+    plot.addStyle(PlotStyle.VLINES);
+
+    axes.getY1Axis().setLimits(0, 1);
   }
 
   /**
@@ -1020,7 +1037,7 @@ public class PlotFactory {
     axes.getX1Axis().setVisible(fullView);
 
     // axes.getChild(GridLocation.S).addChild(new PlotBoxV());
-    axes.getChild(GridLocation.S).addChild(new AxisPlotX1(axes.getX1Axis()));
+    axes.addChild(new AxisPlotX1(axes.getX1Axis()), GridLocation.S);
 
     // If the height of the heatmap is less than the ideal height,
     // turn off labels and the grid.
@@ -1062,7 +1079,7 @@ public class PlotFactory {
 
     // Lets make room for the v color bar
     // axes.getChild(GridLocation.E).addChild(new PlotBoxH());
-    axes.getChild(GridLocation.E).addChild(new AxisPlotY2(axes.getY2Axis()));
+    axes.addChild(new AxisPlotY2(axes.getY2Axis()), GridLocation.E);
 
     // axes.getY1Axis().getLineStyle().setVisible(false);
 
@@ -1071,7 +1088,7 @@ public class PlotFactory {
     }
 
     // Add some space around the plot
-    subFigure.setMargins(100);
+    //subFigure.setMargins(100);
 
     // axes.getY2Axis().setVisible(true);
     // axes.getY2Axis().setLimits(0, m.getRowCount(), 1);
@@ -1087,6 +1104,32 @@ public class PlotFactory {
     // ColorBarVLayer(axes.getColorMap()));
 
     // axes.setAxisLimitsAutoRound();
+  }
+  
+  public static void imShow(DataFrame m,
+      SubFigure subFigure,
+      Axes axes,
+      ColorMap colorMap,
+      Normalization norm) {
+    Plot plot = axes.currentPlot();
+
+    plot.setMatrix(m);
+    plot.setColorMap(colorMap);
+    plot.setNorm(norm);
+
+    plot.addChild(new ImageFillPlotLayer());
+    //plot.addChild(new OutlinePlotLayer());
+
+    axes.getX1Axis().setLimits(0, m.getCols(), 1);
+    axes.getX1Axis().getTicks().getMajorTicks().setLabels(m.getColumnNames());
+    axes.getX1Axis().getTicks().getMajorTicks()
+        .setRotation(-Mathematics.HALF_PI);
+    
+    axes.getX1Axis().setVisible(false);
+
+    axes.getY1Axis().setLimits(0, m.getRows(), 1);
+    axes.getY1Axis().setVisible(false);
+    axes.getY1Axis().getGrid().setVisible(false);
   }
 
   /**

@@ -28,6 +28,7 @@ import org.jebtk.core.settings.SettingsService;
 import org.jebtk.core.text.Formatter;
 import org.jebtk.core.text.Join;
 import org.jebtk.core.text.TextUtils;
+import org.jebtk.math.matrix.CellType;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.math.matrix.Matrix;
 import org.jebtk.modern.graphics.DrawingContext;
@@ -114,13 +115,16 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
         String name = names.get(i);
 
         if (properties.showAnnotations.isVisible(name)) {
+          Matrix annMatrix = matrix.getRowAnnotations(name);
 
-          double v = matrix.getRowAnnotationValue(name, r);
+          //double v = annMatrix.getValue(r, 0); matrix.getRowAnnotationValue(name, r);
 
-          if (Matrix.isValidMatrixNum(v)) {
+          if (annMatrix.getCellType(0, r) == CellType.NUMBER) { //Matrix.isValidMatrixNum(v)) {
             // System.err.println("i " + i + " " + name + " " + r + " " + v + "
             // " + matrix.getRowAnnotationText(name, r));
 
+            double v = annMatrix.getValue(0, r);
+            
             types.set(c, "number");
 
             if (Mathematics.isInt(v)) {

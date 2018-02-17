@@ -122,4 +122,15 @@ public class TickProperties extends ChangeListeners implements ChangeListener {
   public void changed(ChangeEvent e) {
     fireChanged();
   }
+
+  public void setVisible(boolean visible) {
+    updateVisible(visible);
+    
+    fireChanged();
+  }
+  
+  public void updateVisible(boolean visible) {
+    getMajorTicks().updateVisible(visible);
+    getMinorTicks().updateVisible(visible);
+  }
 }

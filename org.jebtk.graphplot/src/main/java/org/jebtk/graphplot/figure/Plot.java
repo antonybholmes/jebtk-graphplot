@@ -29,6 +29,7 @@ import org.jebtk.graphplot.figure.series.XYSeriesGroup;
 import org.jebtk.graphplot.plotbox.PlotBox;
 import org.jebtk.graphplot.plotbox.PlotBoxZLayout;
 import org.jebtk.graphplot.plotbox.PlotBoxZStorage;
+import org.jebtk.math.Normalization;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.math.matrix.MatrixEventListener;
 import org.jebtk.modern.graphics.DrawingContext;
@@ -82,6 +83,8 @@ public class Plot extends PlotBoxGraph
 
   /** The m color map. */
   private ColorMap mColorMap = ColorMap.createBlueWhiteRedMap();
+
+  private Normalization mNorm;
 
   /**
    * Instantiates a new plot.
@@ -165,19 +168,7 @@ public class Plot extends PlotBoxGraph
     }
   }
 
-  /**
-   * Sets the color map.
-   *
-   * @param colorMap the new color map
-   */
-  @Override
-  public void setColorMap(ColorMap colorMap) {
-    if (colorMap != null) {
-      mColorMap = colorMap;
 
-      fireChanged();
-    }
-  }
 
   /**
    * Sets the bar width.
@@ -258,6 +249,37 @@ public class Plot extends PlotBoxGraph
    */
   public ColorMap getColorMap() {
     return mColorMap;
+  }
+  
+  /**
+   * Sets the color map.
+   *
+   * @param colorMap the new color map
+   */
+  @Override
+  public void setColorMap(ColorMap colorMap) {
+    if (colorMap != null) {
+      mColorMap = colorMap;
+
+      fireChanged();
+    }
+  }
+  
+  public Normalization getNorm() {
+    return mNorm;
+  }
+  
+  /**
+   * Sets the color map.
+   *
+   * @param colorMap the new color map
+   */
+  public void setNorm(Normalization norm) {
+    if (norm != null) {
+      mNorm = norm;
+
+      fireChanged();
+    }
   }
 
   /**
@@ -364,6 +386,9 @@ public class Plot extends PlotBoxGraph
       break;
     case LINES:
       plot.addChild(new LinesPlotLayer(series));
+      break;
+    case VLINES:
+      plot.addChild(new VLinesPlotLayer());
       break;
     case BARS:
       plot.addChild(new BarsLayer(series));

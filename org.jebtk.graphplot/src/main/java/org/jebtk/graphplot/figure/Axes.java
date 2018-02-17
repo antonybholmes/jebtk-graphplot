@@ -366,15 +366,15 @@ public class Axes extends PlotBoxGraph {
     setInternalSize(getInternalSize().getW(), h);
   }
 
-  public void setInternalSize(int w, int h) {
-    setInternalSize(new IntDim(w, h));
+  public Axes setInternalSize(int w, int h) {
+    return setInternalSize(new IntDim(w, h));
   }
 
-  public void setInternalSize(Dimension d) {
-    setInternalSize(IntDim.create(d));
+  public Axes setInternalSize(Dimension d) {
+    return setInternalSize(IntDim.create(d));
   }
 
-  public void setInternalSize(IntDim d) {
+  public Axes setInternalSize(IntDim d) {
     if (!d.equals(mInternalSize)) {
       mInternalSize = d;
 
@@ -382,6 +382,8 @@ public class Axes extends PlotBoxGraph {
 
       fireChanged();
     }
+    
+    return this;
   }
 
   public IntDim getInternalSize() {

@@ -17,17 +17,13 @@ package org.jebtk.graphplot.figure.heatmap;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.jebtk.core.Mathematics;
 import org.jebtk.core.collections.DefaultHashMap;
 import org.jebtk.core.collections.HashMapCreator;
 import org.jebtk.core.collections.IterMap;
 import org.jebtk.core.collections.UniqueArrayList;
-import org.jebtk.graphplot.Image;
+import org.jebtk.core.sys.SysUtils;
 import org.jebtk.graphplot.figure.Axes;
 import org.jebtk.graphplot.figure.Figure;
 import org.jebtk.graphplot.figure.Plot;
@@ -35,13 +31,14 @@ import org.jebtk.graphplot.figure.PlotClippedLayer;
 import org.jebtk.graphplot.figure.SubFigure;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
+import org.jebtk.modern.graphics.ImageUtils;
 import org.jebtk.modern.graphics.colormap.ColorMap;
 
 // TODO: Auto-generated Javadoc
 /**
  * The class HeatMapFillPlotLayer.
  */
-public class HeatMapFillPlotLayer extends PlotClippedLayer {
+public class ImageFillPlotLayer extends PlotClippedLayer {
 
   /**
    * The constant serialVersionUID.
@@ -58,9 +55,6 @@ public class HeatMapFillPlotLayer extends PlotClippedLayer {
   protected IterMap<Integer, IterMap<Integer, Color>> mColorsMap = DefaultHashMap
       .create(new HashMapCreator<Integer, Color>());
 
-  /** The m color tile map. */
-  protected Map<Color, BufferedImage> mColorTileMap = new HashMap<Color, BufferedImage>();
-
   /** The m color map. */
   protected ColorMap mColorMap = null;
 
@@ -70,9 +64,13 @@ public class HeatMapFillPlotLayer extends PlotClippedLayer {
   /** The m hash id. */
   protected String mHashId;
 
+  public ImageFillPlotLayer() {
+    setRasterMode(true);
+  }
+  
   @Override
   public String getType() {
-    return "Heat Map Fill Layer";
+    return "Image Fill Layer";
   }
 
   /*
@@ -95,37 +93,36 @@ public class HeatMapFillPlotLayer extends PlotClippedLayer {
       Plot plot,
       DataFrame m) {
 
-    int w = Math.max(1, axes.toPlotX1(1) - axes.toPlotX1(0));
-    int h = Math.max(1, axes.toPlotY1(0) - axes.toPlotY1(1));
 
-    int x1 = 0; // axes.toPlotX1(0);
-    int y1 = 0; // axes.toPlotY1(m.getRowCount());
+    g2.setColor(Color.RED);
+    g2.fillRect(0, 80, 100, 50);
 
-    cache(context, figure, subFigure, axes, plot, m, x1, y1, w, h);
+    //int h = Math.max(1, axes.toPlotY1(0) - axes.toPlotY1(1));
 
-    Graphics2D g2Temp = (Graphics2D) g2.create();
-    g2Temp.translate(x1, y1);
+    cache(context, figure, subFigure, axes, plot, m);
 
-    if (context == DrawingContext.SCREEN) {
-      for (int y : mY) {
-        for (int x : mX) {
-          g2Temp.drawImage(mColorTileMap.get(mColorsMap.get(x).get(y)),
-              x,
-              y,
-              null);
-        }
-      }
-    } else {
-      for (int y : mY) {
-        for (int x : mX) {
-          g2Temp.setColor(mColorsMap.get(x).get(y));
+    for (int i = 0; i < mY.size() - 1; ++i) {
+      SysUtils.err().println("imgage i", i);
+      
+      int y1 = mY.get(i);
+      int y2 = mY.get(i + 1);
+      
+      int h = y1 - y2;
 
-          g2Temp.fillRect(x, y, w, h);
-        }
+      for (int j = 0; j < mX.size() - 1; ++j) {
+        int x = mX.get(j);
+
+        int w = Math.max(2, mX.get(j + 1) - x);
+
+        Color c = mColorsMap.get(x).get(y1);
+
+        g2.setColor(c);
+
+        //SysUtils.err().println("imgage fill", x, y1, w, h, c);
+
+        g2.fillRect(x, y2, w, h);
       }
     }
-
-    g2Temp.dispose();
   }
 
   /**
@@ -146,27 +143,27 @@ public class HeatMapFillPlotLayer extends PlotClippedLayer {
       SubFigure subFigure,
       Axes axes,
       Plot plot,
-      DataFrame m,
-      int x1,
-      int y1,
-      int w,
-      int h) {
+      DataFrame m) {
 
     if (mHashId == null || !mHashId.equals(subFigure.hashId())) {
       mX = new UniqueArrayList<Integer>(m.getCols());
       mY = new UniqueArrayList<Integer>(m.getRows());
 
       for (int i = 0; i < m.getCols(); ++i) {
-        int x = axes.toPlotX1(i) - x1;
+        int x = axes.toPlotX1(i);
 
         mX.add(x);
       }
 
+      mX.add(axes.toPlotX1(m.getCols()));
+
       for (int i = 0; i < m.getRows(); ++i) {
-        int y = axes.toPlotY1(m.getRows() - i) - y1;
+        int y = axes.toPlotY1(m.getRows() - i - 1);
 
         mY.add(y);
       }
+
+      mY.add(axes.toPlotY1(m.getRows()));
     }
 
     // Monitor for changes in the color plot and the normalization method
@@ -177,13 +174,12 @@ public class HeatMapFillPlotLayer extends PlotClippedLayer {
         || !mHashId.equals(subFigure.hashId())) {
 
       mColorsMap.clear();
-      mColorTileMap.clear();
 
       for (int i = 0; i < m.getRows(); ++i) {
-        int y = axes.toPlotY1(m.getRows() - i) - y1;
+        int y = axes.toPlotY1(m.getRows() - i - 1);
 
         for (int j = 0; j < m.getCols(); ++j) {
-          int x = axes.toPlotX1(j) - x1;
+          int x = axes.toPlotX1(j);
 
           if (mColorsMap.get(x).containsKey(y)) {
             continue;
@@ -191,28 +187,11 @@ public class HeatMapFillPlotLayer extends PlotClippedLayer {
 
           double v = m.getValue(i, j);
 
-          Color c;
+          SysUtils.err().println("norm", i, j, v, plot.getNorm().norm(v));
 
-          if (Mathematics.isValidNumber(v)) {
-            c = plot.getColorMap().getColor(plot.getNorm().norm(v));
-          } else {
-            c = Color.WHITE;
-          }
+          Color c = plot.getColorMap().getColor(plot.getNorm().norm(v));
 
           mColorsMap.get(x).put(y, c);
-
-          if (context == DrawingContext.SCREEN) {
-            if (!mColorTileMap.containsKey(c)) {
-              BufferedImage img = Image.createBuffIm(w, h);
-
-              Graphics2D g2Temp = (Graphics2D) img.createGraphics();
-              g2Temp.setColor(c);
-              g2Temp.fillRect(0, 0, img.getWidth(), img.getHeight());
-              g2Temp.dispose();
-
-              mColorTileMap.put(c, img);
-            }
-          }
         }
       }
     }

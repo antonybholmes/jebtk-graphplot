@@ -126,11 +126,11 @@ public class TitleProperties extends LocationProperties
    */
   @Override
   public void setVisible(boolean visible) {
-    mFont.setVisible(visible);
+    getFontStyle().setVisible(visible);
   }
 
   @Override
   public boolean getVisible() {
-    return mFont.getVisible();
+    return getFontStyle().getVisible();
   }
 }

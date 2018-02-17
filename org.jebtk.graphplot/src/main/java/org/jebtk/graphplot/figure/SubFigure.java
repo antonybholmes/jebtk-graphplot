@@ -87,6 +87,19 @@ public class SubFigure extends PlotBoxGraph { // LayoutLayer
   public Axes newAxes() {
     return newAxes(GridLocation.CENTER);
   }
+  
+  /**
+   * Return a new axes object with the compass grid layout enabled.
+   * 
+   * @return
+   */
+  public Axes newGridAxes() {
+    Axes ret = newAxes();
+    ret.setLayout(new PlotBoxCompassGridLayout());
+    ret.setStorage(new PlotBoxCompassGridStorage());
+    
+    return ret;
+  }
 
   /**
    * New axes.

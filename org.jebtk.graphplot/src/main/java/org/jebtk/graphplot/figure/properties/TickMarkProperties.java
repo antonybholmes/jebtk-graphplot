@@ -15,9 +15,8 @@
  */
 package org.jebtk.graphplot.figure.properties;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -37,7 +36,7 @@ import org.jebtk.graphplot.figure.series.XYSeriesGroup;
  *
  */
 public class TickMarkProperties extends ChangeListeners
-    implements Iterable<Double>, ChangeListener {
+    implements Iterable<Tick>, ChangeListener {
 
   /**
    * The constant serialVersionUID.
@@ -55,11 +54,6 @@ public class TickMarkProperties extends ChangeListeners
   private int mSpacing = 4;
 
   /**
-   * The member ticks.
-   */
-  private List<Double> mTicks = new ArrayList<Double>();
-
-  /**
    * The member style.
    */
   private LineProperties mStyle = new LineProperties();
@@ -67,7 +61,7 @@ public class TickMarkProperties extends ChangeListeners
   /**
    * The member labels.
    */
-  private List<String> mLabels = new ArrayList<String>();
+  private List<Tick> mTicks = new ArrayList<Tick>();
 
   /**
    * The member font.
@@ -111,7 +105,7 @@ public class TickMarkProperties extends ChangeListeners
    * @return the min
    */
   public double getMin() {
-    return mTicks.get(0);
+    return mTicks.get(0).getValue();
   }
 
   /**
@@ -120,7 +114,7 @@ public class TickMarkProperties extends ChangeListeners
    * @return the max
    */
   public double getMax() {
-    return mTicks.get(mTicks.size() - 1);
+    return mTicks.get(mTicks.size() - 1).getValue();
   }
 
   /**
@@ -140,8 +134,8 @@ public class TickMarkProperties extends ChangeListeners
    *
    * @return the ticks
    */
-  public List<Double> getTicks() {
-    return new ArrayList<Double>(mTicks);
+  public List<Tick> getTicks() {
+    return Collections.unmodifiableList(mTicks);
   }
 
   /**
@@ -150,15 +144,7 @@ public class TickMarkProperties extends ChangeListeners
    * @param ticks the ticks
    */
   private void updateTicks(List<Double> ticks) {
-    mTicks = CollectionUtils.sort(ticks);
-
-    mLabels = new ArrayList<String>(ticks.size());
-
-    DecimalFormat format = new DecimalFormat("#,###.##");
-
-    for (Double l : ticks) {
-      mLabels.add(format.format(l));
-    }
+    mTicks = CollectionUtils.sort(Tick.toTicks(ticks));
   }
 
   /**
@@ -179,7 +165,7 @@ public class TickMarkProperties extends ChangeListeners
    * @param label the label
    */
   public void setLabel(int i, String label) {
-    mLabels.set(i, label);
+    mTicks.get(i).setName(label);
   }
 
   /**
@@ -214,25 +200,24 @@ public class TickMarkProperties extends ChangeListeners
    *
    * @param labels the new labels
    */
-  public void setLabels(Collection<String> labels) {
+  public void setLabels(List<String> labels) {
     if (labels == null) {
       return;
     }
 
     // If the labels length too short, pad with empty strings
-    mLabels = CollectionUtils
+    labels = CollectionUtils
         .pad(labels, TextUtils.EMPTY_STRING, mTicks.size());
 
+    for (int i = 0; i < labels.size(); ++i) {
+      mTicks.get(i).setName(labels.get(i));
+    }
+    
     mFont.setVisible(true);
   }
-
-  /**
-   * Gets the labels.
-   *
-   * @return the labels
-   */
+  
   public List<String> getLabels() {
-    return new ArrayList<String>(mLabels);
+    return Tick.toString(mTicks);
   }
 
   /**
@@ -242,7 +227,7 @@ public class TickMarkProperties extends ChangeListeners
    * @return the tick
    */
   public double getTick(int i) {
-    return mTicks.get(i);
+    return mTicks.get(i).getValue();
   }
 
   /**
@@ -252,7 +237,7 @@ public class TickMarkProperties extends ChangeListeners
    * @return the label
    */
   public String getLabel(int i) {
-    return mLabels.get(i);
+    return mTicks.get(i).getName();
   }
 
   /**
@@ -303,6 +288,17 @@ public class TickMarkProperties extends ChangeListeners
   public LineProperties getLineStyle() {
     return mStyle;
   }
+  
+  public void setVisible(boolean visible) {
+    updateVisible(visible);
+    
+    fireChanged();
+  }
+  
+  public void updateVisible(boolean visible) {
+    getFontStyle().updateVisible(visible);
+    getLineStyle().updateVisible(visible);
+  }
 
   /**
    * Gets the rotation.
@@ -350,7 +346,9 @@ public class TickMarkProperties extends ChangeListeners
    * @see java.lang.Iterable#iterator()
    */
   @Override
-  public Iterator<Double> iterator() {
+  public Iterator<Tick> iterator() {
     return mTicks.iterator();
   }
+
+  
 }
