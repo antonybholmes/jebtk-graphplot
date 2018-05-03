@@ -23,7 +23,6 @@ import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class MatrixBorderPlotElement.
  */

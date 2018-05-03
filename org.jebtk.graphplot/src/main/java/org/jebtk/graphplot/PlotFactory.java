@@ -73,7 +73,6 @@ import org.jebtk.math.statistics.HistBin;
 import org.jebtk.modern.graphics.colormap.ColorMap;
 import org.jebtk.modern.widget.ModernWidget;
 
-// TODO: Auto-generated Javadoc
 /**
  * Generates pre-designed plots with sane defaults for most users.
  * 

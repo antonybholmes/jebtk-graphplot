@@ -22,7 +22,6 @@ import org.jebtk.graphplot.figure.GridLocation;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.ImageUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class PlotBox.
  */

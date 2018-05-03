@@ -19,7 +19,6 @@ import java.awt.Color;
 
 import org.jebtk.graphplot.AspectRatio;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class HeatMapSettings.
  */

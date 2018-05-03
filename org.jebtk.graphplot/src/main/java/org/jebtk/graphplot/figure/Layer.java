@@ -17,7 +17,6 @@ package org.jebtk.graphplot.figure;
 
 import org.jebtk.graphplot.plotbox.PlotBox;
 
-// TODO: Auto-generated Javadoc
 /**
  * A graph is built from layers which may or may not have a visual component
  * associated with them or may be just a sub collection of elements to make up a

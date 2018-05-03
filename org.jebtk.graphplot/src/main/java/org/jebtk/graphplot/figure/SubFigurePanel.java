@@ -17,7 +17,6 @@ package org.jebtk.graphplot.figure;
 
 import org.jebtk.graphplot.plotbox.PlotBoxPanel;
 
-// TODO: Auto-generated Javadoc
 /**
  * Allows multiple plots to be placed on a grid and drawn together.
  *

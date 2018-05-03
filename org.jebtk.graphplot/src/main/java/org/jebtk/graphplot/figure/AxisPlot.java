@@ -21,7 +21,6 @@ import org.jebtk.core.text.TextUtils;
 import org.jebtk.graphplot.figure.properties.MarginProperties;
 import org.jebtk.modern.widget.ModernWidget;
 
-// TODO: Auto-generated Javadoc
 /**
  * Plot for drawing an axis. Responds to axis visibility properties.
  * 

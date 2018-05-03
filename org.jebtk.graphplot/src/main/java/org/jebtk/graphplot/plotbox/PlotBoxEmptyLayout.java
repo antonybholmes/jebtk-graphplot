@@ -19,7 +19,6 @@ import java.awt.Dimension;
 
 import org.jebtk.core.geom.IntDim;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class EmptyPlotBox.
  */

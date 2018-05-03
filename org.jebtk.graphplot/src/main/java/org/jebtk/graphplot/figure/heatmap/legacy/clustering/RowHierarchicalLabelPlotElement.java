@@ -26,7 +26,6 @@ import org.jebtk.math.cluster.Cluster;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.math.matrix.Matrix;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class RowHierarchicalLabelPlotElement.
  */

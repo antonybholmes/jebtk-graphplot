@@ -22,7 +22,6 @@ import java.util.List;
 
 import org.jebtk.core.geom.IntDim;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class EmptyPlotBox.
  */

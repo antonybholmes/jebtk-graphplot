@@ -22,7 +22,6 @@ import org.jebtk.graphplot.figure.properties.StyleProperties;
 import org.jebtk.graphplot.icons.ShapeStyle;
 import org.jebtk.modern.graphics.ImageUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * Draws a circle at the given point. The circle is centered about the point.
  * 

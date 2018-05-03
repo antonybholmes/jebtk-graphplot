@@ -17,7 +17,6 @@ package org.jebtk.graphplot.figure;
 
 import java.awt.Point;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class QuadValue.
  *

@@ -27,7 +27,6 @@ import org.jebtk.graphplot.plotbox.PlotBox;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.widget.ModernWidget;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class LegendLayer.
  */

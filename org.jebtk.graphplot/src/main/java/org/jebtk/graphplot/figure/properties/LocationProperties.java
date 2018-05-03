@@ -17,7 +17,6 @@ package org.jebtk.graphplot.figure.properties;
 
 import org.jebtk.graphplot.figure.GridLocation;
 
-// TODO: Auto-generated Javadoc
 /**
  * Describes how features that map to a grid location should appear.
  * 

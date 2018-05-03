@@ -31,7 +31,6 @@ import org.jebtk.graphplot.figure.properties.TitleProperties;
 import org.jebtk.graphplot.figure.properties.VisibleProperties;
 import org.jebtk.math.Linspace;
 
-// TODO: Auto-generated Javadoc
 /**
  * Adjust properties for a given axis.
  * 

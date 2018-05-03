@@ -47,7 +47,6 @@ import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.ImageUtils;
 import org.jebtk.modern.graphics.colormap.ColorMap;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class PlotBox.
  */

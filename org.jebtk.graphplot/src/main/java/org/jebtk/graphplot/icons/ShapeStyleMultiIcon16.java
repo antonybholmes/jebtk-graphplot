@@ -18,7 +18,6 @@ package org.jebtk.graphplot.icons;
 import org.jebtk.modern.graphics.icons.MultiIcon;
 import org.jebtk.modern.graphics.icons.Raster16Icon;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class ShapeStyleMultiIcon16.
  */

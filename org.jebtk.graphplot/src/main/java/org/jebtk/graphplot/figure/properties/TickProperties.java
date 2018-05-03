@@ -22,7 +22,6 @@ import org.jebtk.core.event.ChangeListener;
 import org.jebtk.core.event.ChangeListeners;
 import org.jebtk.math.Linspace;
 
-// TODO: Auto-generated Javadoc
 /**
  * Describes the tick marks on an axis.
  * 

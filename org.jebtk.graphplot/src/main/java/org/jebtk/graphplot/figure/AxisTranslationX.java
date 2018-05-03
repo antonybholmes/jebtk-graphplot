@@ -15,7 +15,6 @@
  */
 package org.jebtk.graphplot.figure;
 
-// TODO: Auto-generated Javadoc
 /**
  * Translate between graph space and pixel space in the Y axis. Since Java uses
  * inverted coordinates for y (0 is top right) we must invert and correct for

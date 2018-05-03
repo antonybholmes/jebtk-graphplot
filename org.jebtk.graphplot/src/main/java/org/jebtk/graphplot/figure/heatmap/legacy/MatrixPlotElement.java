@@ -22,7 +22,6 @@ import org.jebtk.graphplot.PlotElement;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.math.matrix.MatrixDim;
 
-// TODO: Auto-generated Javadoc
 /**
  * Plot element that handles data from a matrix.
  * 

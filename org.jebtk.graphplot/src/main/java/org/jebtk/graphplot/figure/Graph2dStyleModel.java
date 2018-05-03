@@ -17,7 +17,6 @@ package org.jebtk.graphplot.figure;
 
 import org.jebtk.core.model.ItemModel;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class Graph2dStyleModel.
  */

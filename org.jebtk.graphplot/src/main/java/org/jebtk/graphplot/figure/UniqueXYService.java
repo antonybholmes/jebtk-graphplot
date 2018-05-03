@@ -21,7 +21,6 @@ import java.util.Map;
 import org.jebtk.graphplot.figure.series.XYSeries;
 import org.jebtk.math.matrix.DataFrame;
 
-// TODO: Auto-generated Javadoc
 /**
  * Stores unique xy coordinates associated with a matrix globally so that
  * multiple plots sharing a matrix can also share unique coordinates.

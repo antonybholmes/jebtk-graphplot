@@ -25,7 +25,6 @@ import org.jebtk.modern.io.PdfGuiFileFilter;
 import org.jebtk.modern.io.PngGuiFileFilter;
 import org.jebtk.modern.io.SvgGuiFileFilter;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ImageDialog.
  */

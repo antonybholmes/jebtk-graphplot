@@ -17,7 +17,6 @@ package org.jebtk.graphplot.figure;
 
 import java.awt.Dimension;
 
-// TODO: Auto-generated Javadoc
 /**
  * Plot for drawing an axis. Responds to axis visibility properties.
  * 

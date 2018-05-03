@@ -21,7 +21,6 @@ import org.jebtk.core.collections.UniqueArrayList;
 import org.jebtk.graphplot.figure.properties.Tick;
 import org.jebtk.modern.widget.ModernWidget;
 
-// TODO: Auto-generated Javadoc
 /**
  * Draws an x axis on a plot
  * 

@@ -20,7 +20,6 @@ import java.awt.Graphics2D;
 import org.jebtk.graphplot.figure.BarChartLayer;
 import org.jebtk.graphplot.figure.properties.FillPattern;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class FillPatternCrossIcon.
  */

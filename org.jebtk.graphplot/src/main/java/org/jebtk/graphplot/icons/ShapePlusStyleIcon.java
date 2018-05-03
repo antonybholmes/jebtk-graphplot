@@ -17,7 +17,6 @@ package org.jebtk.graphplot.icons;
 
 import org.jebtk.graphplot.figure.series.MarkerPlus;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class ShapePlusStyleIcon.
  */

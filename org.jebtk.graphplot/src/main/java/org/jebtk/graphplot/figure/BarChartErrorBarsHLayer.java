@@ -22,7 +22,6 @@ import org.jebtk.graphplot.figure.series.XYSeries;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
-// TODO: Auto-generated Javadoc
 /**
  * Draws lines between series dots.
  * 

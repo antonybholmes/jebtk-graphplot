@@ -21,7 +21,6 @@ import java.awt.geom.GeneralPath;
 import org.jebtk.graphplot.figure.series.XYSeries;
 import org.jebtk.math.matrix.DataFrame;
 
-// TODO: Auto-generated Javadoc
 /**
  * Sets up a spline plot, caching the path to be drawn if necessary to reduce
  * calculation operations.

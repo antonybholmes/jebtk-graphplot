@@ -31,7 +31,6 @@ import org.jebtk.graphplot.figure.properties.MarginProperties;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.ImageUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class PlotBox.
  */

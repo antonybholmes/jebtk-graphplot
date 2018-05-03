@@ -24,7 +24,6 @@ import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.ImageUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * Plot layers control how a plot is visualized within an axes object.
  * 

@@ -22,7 +22,6 @@ import org.jebtk.core.sys.SysUtils;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
-// TODO: Auto-generated Javadoc
 /**
  * Draw vertical lines from 0 to y at each x.
  * 

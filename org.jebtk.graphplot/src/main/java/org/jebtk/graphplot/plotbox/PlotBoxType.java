@@ -15,7 +15,6 @@
  */
 package org.jebtk.graphplot.plotbox;
 
-// TODO: Auto-generated Javadoc
 /**
  * The enum PlotBoxType.
  */

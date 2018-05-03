@@ -50,7 +50,6 @@ import org.jebtk.modern.window.ModernWindow;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.svg.SVGDocument;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class Image.
  */

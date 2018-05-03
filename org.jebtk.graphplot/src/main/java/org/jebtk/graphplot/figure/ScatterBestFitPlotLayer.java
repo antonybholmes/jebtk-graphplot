@@ -34,7 +34,6 @@ import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.math.matrix.MatrixGroup;
 import org.jebtk.modern.graphics.DrawingContext;
 
-// TODO: Auto-generated Javadoc
 /**
  * Concrete implementation of Graph2dCanvas for generating scatter plots.
  *

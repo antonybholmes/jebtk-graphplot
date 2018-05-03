@@ -21,7 +21,6 @@ import java.awt.Font;
 import org.jebtk.graphplot.ModernPlotCanvas;
 import org.jebtk.modern.font.FontService;
 
-// TODO: Auto-generated Javadoc
 /**
  * Describes the font for a plot object.
  * 

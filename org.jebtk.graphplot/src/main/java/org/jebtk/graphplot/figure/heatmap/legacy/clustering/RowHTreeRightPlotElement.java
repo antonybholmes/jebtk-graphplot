@@ -29,7 +29,6 @@ import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.math.cluster.Cluster;
 import org.jebtk.math.matrix.DataFrame;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class RowHierarchicalTreePlotElement.
  */

@@ -21,7 +21,6 @@ import java.awt.geom.GeneralPath;
 
 import org.jebtk.core.ColorUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class JoinedFilledTransStyleIcon.
  */

@@ -17,7 +17,6 @@ package org.jebtk.graphplot.icons;
 
 import org.jebtk.graphplot.figure.series.MarkerMinus;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class ShapeMinusStyleIcon.
  */

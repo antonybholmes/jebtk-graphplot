@@ -25,7 +25,6 @@ import org.jebtk.core.event.ChangeEventProducer;
 import org.jebtk.core.event.ChangeListener;
 import org.jebtk.core.event.ChangeListeners;
 
-// TODO: Auto-generated Javadoc
 /**
  * A generic group object for creating a data group hierarchy.
  *

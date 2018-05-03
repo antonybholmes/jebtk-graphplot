@@ -29,7 +29,6 @@ import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.colormap.ColorMap;
 
-// TODO: Auto-generated Javadoc
 /**
  * Draws a gradient color bar to represent the range of a color map.
  * 

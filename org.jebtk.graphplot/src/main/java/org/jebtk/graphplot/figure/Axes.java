@@ -49,7 +49,6 @@ import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.math.matrix.MatrixGroup;
 import org.jebtk.modern.graphics.DrawingContext;
 
-// TODO: Auto-generated Javadoc
 /**
  * Represents a 2D Cartesian graph. This class draws basic axes and titles but
  * should be subclassed to provide specific plot functionality.

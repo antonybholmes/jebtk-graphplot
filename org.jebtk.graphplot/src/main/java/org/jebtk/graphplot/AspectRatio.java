@@ -15,7 +15,6 @@
  */
 package org.jebtk.graphplot;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class AspectRatio.
  */

@@ -18,7 +18,6 @@ package org.jebtk.graphplot.figure.properties;
 import org.jebtk.core.event.ChangeListeners;
 import org.jebtk.core.geom.IntDim;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class DataPointShape.
  */

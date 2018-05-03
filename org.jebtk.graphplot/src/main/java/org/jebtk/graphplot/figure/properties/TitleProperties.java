@@ -20,7 +20,6 @@ import org.jebtk.core.event.ChangeListener;
 import org.jebtk.core.text.TextUtils;
 import org.jebtk.graphplot.figure.GridLocation;
 
-// TODO: Auto-generated Javadoc
 /**
  * Represents a title.
  * 

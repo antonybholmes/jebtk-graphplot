@@ -29,7 +29,6 @@ import org.jebtk.core.event.ChangeListener;
 import org.jebtk.core.event.ChangeListeners;
 import org.jebtk.core.geom.IntPos2D;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class PlotBox.
  */

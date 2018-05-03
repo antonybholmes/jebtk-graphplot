@@ -18,7 +18,6 @@ package org.jebtk.graphplot.figure;
 import java.util.Arrays;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Enum GridLocation.
  */

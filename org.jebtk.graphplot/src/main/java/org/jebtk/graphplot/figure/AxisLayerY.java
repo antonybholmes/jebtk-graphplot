@@ -20,7 +20,6 @@ import java.util.List;
 
 import org.jebtk.core.Mathematics;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Y1 and Y2 labels are essentially the same accept for where the labels are
  * positioned.

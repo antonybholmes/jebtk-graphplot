@@ -22,7 +22,6 @@ import org.jebtk.modern.graphics.icons.ArrowUpVectorIcon;
 import org.jebtk.modern.graphics.icons.MultiIcon;
 import org.jebtk.modern.graphics.icons.Raster16Icon;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class RotationMultiIcon16.
  */

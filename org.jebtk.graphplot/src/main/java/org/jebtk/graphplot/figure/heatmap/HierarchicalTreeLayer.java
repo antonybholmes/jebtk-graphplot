@@ -28,7 +28,6 @@ import org.jebtk.core.settings.SettingsService;
 import org.jebtk.graphplot.figure.PlotLayer;
 import org.jebtk.math.cluster.Cluster;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class RowHierarchicalTreeLayer.
  */

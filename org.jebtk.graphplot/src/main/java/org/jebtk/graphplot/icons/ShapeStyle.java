@@ -25,7 +25,6 @@ import org.jebtk.graphplot.figure.series.MarkerPlus;
 import org.jebtk.graphplot.figure.series.MarkerSquare;
 import org.jebtk.graphplot.figure.series.MarkerTriangle;
 
-// TODO: Auto-generated Javadoc
 /**
  * The enum ShapeStyle.
  */

@@ -20,7 +20,6 @@ import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
 import org.jebtk.math.matrix.DataFrame;
 
-// TODO: Auto-generated Javadoc
 /**
  * A collection of series groups.
  * 

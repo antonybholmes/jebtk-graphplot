@@ -17,7 +17,6 @@ package org.jebtk.graphplot.figure.heatmap.legacy;
 
 import java.awt.Color;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class LabelProperties.
  */

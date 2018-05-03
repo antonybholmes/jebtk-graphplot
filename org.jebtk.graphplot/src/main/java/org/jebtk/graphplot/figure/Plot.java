@@ -35,7 +35,6 @@ import org.jebtk.math.matrix.MatrixEventListener;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.colormap.ColorMap;
 
-// TODO: Auto-generated Javadoc
 /**
  * Represents a 2D Cartesian graph. This class draws basic axes and titles but
  * should be subclassed to provide specific plot functionality.

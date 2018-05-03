@@ -19,7 +19,6 @@ import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
 import org.jebtk.core.event.ChangeListeners;
 
-// TODO: Auto-generated Javadoc
 /**
  * Represents a point in an XYSeries.
  * 

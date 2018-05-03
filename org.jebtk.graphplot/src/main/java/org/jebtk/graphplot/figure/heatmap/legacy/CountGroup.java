@@ -18,7 +18,6 @@ package org.jebtk.graphplot.figure.heatmap.legacy;
 import org.jebtk.core.NameProperty;
 import org.jebtk.core.text.TextUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class CountGroup.
  */

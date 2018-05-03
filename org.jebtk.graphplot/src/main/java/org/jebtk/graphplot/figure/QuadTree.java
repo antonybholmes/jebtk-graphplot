@@ -27,7 +27,6 @@ import java.util.Set;
 
 import org.jebtk.core.IdObject;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class QuadTree.
  *

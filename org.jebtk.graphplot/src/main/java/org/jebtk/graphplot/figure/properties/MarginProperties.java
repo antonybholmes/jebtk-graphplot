@@ -20,7 +20,6 @@ import org.jebtk.core.event.ChangeListener;
 import org.jebtk.core.event.ChangeListeners;
 import org.jebtk.core.text.TextUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * Describes the margins on a plot.
  * 

@@ -19,7 +19,6 @@ import java.awt.Dimension;
 
 import org.jebtk.core.geom.IntDim;
 
-// TODO: Auto-generated Javadoc
 /**
  * Represents a 2D Cartesian graph. This class draws basic axes and titles but
  * should be subclassed to provide specific plot functionality.

@@ -20,7 +20,6 @@ import org.jebtk.core.NameProperty;
 import org.jebtk.modern.graphics.CanvasEventProducer;
 import org.jebtk.modern.graphics.CanvasMouseListener;
 
-// TODO: Auto-generated Javadoc
 /**
  * All layers should implement this interface.
  * 

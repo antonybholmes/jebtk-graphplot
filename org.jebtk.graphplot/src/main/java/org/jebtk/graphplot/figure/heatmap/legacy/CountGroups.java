@@ -22,7 +22,6 @@ import java.util.List;
 
 import org.jebtk.math.matrix.Matrix;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class CountGroups.
  */

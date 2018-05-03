@@ -20,7 +20,6 @@ import java.awt.Graphics2D;
 
 import org.jebtk.modern.graphics.DrawingContext;
 
-// TODO: Auto-generated Javadoc
 /**
  * Add a centered title to a plot.
  *

@@ -22,7 +22,6 @@ import java.util.Map.Entry;
 
 import org.jebtk.core.event.ChangeListeners;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class XYSeriesModel keeps track of which series are visible on a plot
  * and.

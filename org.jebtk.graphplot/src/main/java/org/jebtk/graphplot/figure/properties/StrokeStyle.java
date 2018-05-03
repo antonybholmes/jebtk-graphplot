@@ -20,7 +20,6 @@ import java.awt.Stroke;
 
 import org.jebtk.modern.theme.ModernTheme;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Enum StrokeStyle.
  */

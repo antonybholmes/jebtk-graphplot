@@ -21,7 +21,6 @@ import java.util.TreeMap;
 
 import org.jebtk.graphplot.figure.GridLocation;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class PlotBox.
  */

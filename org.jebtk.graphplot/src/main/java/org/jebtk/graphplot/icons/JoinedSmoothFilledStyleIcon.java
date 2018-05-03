@@ -20,7 +20,6 @@ import java.awt.Graphics2D;
 
 import org.jebtk.core.ColorUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class JoinedSmoothFilledStyleIcon.
  */

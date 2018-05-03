@@ -23,7 +23,6 @@ import org.jebtk.core.event.ChangeListener;
 import org.jebtk.graphplot.ModernPlotCanvas;
 import org.jebtk.modern.graphics.DrawingContext;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class PlotBox.
  */

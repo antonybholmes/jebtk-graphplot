@@ -17,7 +17,6 @@ package org.jebtk.graphplot.icons;
 
 import java.awt.Graphics2D;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class JoinedStyleIcon.
  */

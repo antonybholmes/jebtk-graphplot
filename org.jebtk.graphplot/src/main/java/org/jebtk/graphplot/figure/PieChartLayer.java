@@ -28,7 +28,6 @@ import org.jebtk.math.matrix.DoubleMatrix;
 import org.jebtk.math.matrix.MatrixGroup;
 import org.jebtk.modern.graphics.DrawingContext;
 
-// TODO: Auto-generated Javadoc
 /**
  * Draw a pie chart.
  *

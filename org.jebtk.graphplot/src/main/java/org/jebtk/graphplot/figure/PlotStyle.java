@@ -15,7 +15,6 @@
  */
 package org.jebtk.graphplot.figure;
 
-// TODO: Auto-generated Javadoc
 /**
  * Contols how peaks are displayed.
  * 

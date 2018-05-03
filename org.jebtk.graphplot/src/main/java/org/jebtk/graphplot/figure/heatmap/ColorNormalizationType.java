@@ -15,7 +15,6 @@
  */
 package org.jebtk.graphplot.figure.heatmap;
 
-// TODO: Auto-generated Javadoc
 /**
  * The enum ColorStandardization.
  */

@@ -22,7 +22,6 @@ import java.util.List;
 import org.jebtk.core.event.ChangeListeners;
 import org.jebtk.math.matrix.MatrixGroup;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class MatrixGroupModel.
  */

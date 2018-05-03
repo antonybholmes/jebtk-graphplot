@@ -24,7 +24,6 @@ import org.jebtk.modern.graphics.ImageUtils;
 import org.jebtk.modern.theme.ThemeService;
 import org.jebtk.modern.zoom.ZoomCanvas;
 
-// TODO: Auto-generated Javadoc
 /**
  * A panel designed for drawing operations/graphics that is scroll aware, the
  * graphics context is translated to match the scroll parameters. This removes

@@ -19,7 +19,6 @@ import java.awt.Point;
 import java.util.HashSet;
 import java.util.Set;
 
-// TODO: Auto-generated Javadoc
 /**
  * Can store x y positions in use. Useful for testing whether to draw a shape
  * over another one if they are occupying the same space.

@@ -23,7 +23,6 @@ import org.jebtk.modern.graphics.CanvasMouseEventProducer;
 import org.jebtk.modern.graphics.CanvasMouseListener;
 import org.jebtk.modern.graphics.CanvasMouseListeners;
 
-// TODO: Auto-generated Javadoc
 /**
  * The listener interface for receiving layerCanvas events. The class that is
  * interested in processing a layerCanvas event implements this interface, and

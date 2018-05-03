@@ -18,7 +18,6 @@ package org.jebtk.graphplot.figure.heatmap.legacy;
 import java.util.HashMap;
 import java.util.Map;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class RowLabelProperties.
  */

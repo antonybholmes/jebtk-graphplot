@@ -21,7 +21,6 @@ import java.util.Map;
 import org.jebtk.core.Mathematics;
 import org.jebtk.core.text.TextUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * Translate between graph space and pixel space.
  * 

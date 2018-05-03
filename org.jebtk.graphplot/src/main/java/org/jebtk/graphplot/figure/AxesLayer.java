@@ -22,7 +22,6 @@ import java.awt.image.BufferedImage;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.ImageUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * Each layer of the graph can respond to changes.
  * 

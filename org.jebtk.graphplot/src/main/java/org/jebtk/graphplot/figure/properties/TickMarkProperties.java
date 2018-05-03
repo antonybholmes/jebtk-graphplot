@@ -28,7 +28,6 @@ import org.jebtk.core.text.TextUtils;
 import org.jebtk.graphplot.figure.series.XYAxesGroup;
 import org.jebtk.graphplot.figure.series.XYSeriesGroup;
 
-// TODO: Auto-generated Javadoc
 /**
  * Describes the ticks on an axis.
  * 

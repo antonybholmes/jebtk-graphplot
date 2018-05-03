@@ -21,7 +21,6 @@ import java.awt.Point;
 import org.jebtk.graphplot.figure.properties.StyleProperties;
 import org.jebtk.graphplot.icons.ShapeStyle;
 
-// TODO: Auto-generated Javadoc
 /**
  * Draws a square at the given point. The square is centered about the point.
  * 

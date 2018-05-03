@@ -24,7 +24,6 @@ import org.jebtk.graphplot.figure.series.XYSeries;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.math.statistics.Statistics;
 
-// TODO: Auto-generated Javadoc
 /**
  * Box and whisker plot using a summary matrix.
  * 

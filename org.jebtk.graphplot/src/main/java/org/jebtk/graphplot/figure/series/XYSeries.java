@@ -49,7 +49,6 @@ import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.math.matrix.MatrixGroup;
 import org.jebtk.math.statistics.Statistics;
 
-// TODO: Auto-generated Javadoc
 /**
  * A set of data points to plot as well as how they should be plotted.
  * 

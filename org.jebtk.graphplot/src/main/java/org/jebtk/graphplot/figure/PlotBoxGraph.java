@@ -35,7 +35,6 @@ import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.colormap.ColorMap;
 
-// TODO: Auto-generated Javadoc
 /**
  * A Figure is a collection of axes layered on top of each other. In a simple
  * plot, there will be typically only be one set of axes.

@@ -20,7 +20,6 @@ import java.awt.Graphics2D;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
-// TODO: Auto-generated Javadoc
 /**
  * Draw an outline around the plot. The color is determined by the line color of
  * the x axis.

@@ -15,7 +15,6 @@
  */
 package org.jebtk.graphplot.figure.heatmap.legacy;
 
-// TODO: Auto-generated Javadoc
 /**
  * Control the placement of labels.
  * 

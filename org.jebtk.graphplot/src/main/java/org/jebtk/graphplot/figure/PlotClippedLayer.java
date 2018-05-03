@@ -15,7 +15,6 @@
  */
 package org.jebtk.graphplot.figure;
 
-// TODO: Auto-generated Javadoc
 /**
  * Each layer of the graph can respond to changes.
  * 

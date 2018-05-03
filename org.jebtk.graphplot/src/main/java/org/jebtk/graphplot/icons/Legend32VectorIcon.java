@@ -21,7 +21,6 @@ import java.awt.Graphics2D;
 import org.jebtk.core.ColorUtils;
 import org.jebtk.modern.graphics.icons.ModernVectorIcon;
 
-// TODO: Auto-generated Javadoc
 /**
  * Download arrow vector icon.
  * 

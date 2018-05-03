@@ -19,7 +19,6 @@ import java.awt.Dimension;
 
 import org.jebtk.core.geom.IntDim;
 
-// TODO: Auto-generated Javadoc
 /**
  * Draws a gradient color bar to represent the range of a color map.
  * 

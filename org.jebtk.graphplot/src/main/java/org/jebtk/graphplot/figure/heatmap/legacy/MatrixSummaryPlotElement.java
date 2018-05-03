@@ -25,7 +25,6 @@ import org.jebtk.core.text.Formatter;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
-// TODO: Auto-generated Javadoc
 /**
  * Details how the matrix was transformed and writes this on the plot.
  * 

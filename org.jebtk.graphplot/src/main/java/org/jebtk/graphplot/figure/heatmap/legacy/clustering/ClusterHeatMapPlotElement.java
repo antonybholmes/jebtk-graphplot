@@ -26,7 +26,6 @@ import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.colormap.ColorMap;
 
-// TODO: Auto-generated Javadoc
 /**
  * A heatmap that allows for column and row swapping based upon clustering.
  * 

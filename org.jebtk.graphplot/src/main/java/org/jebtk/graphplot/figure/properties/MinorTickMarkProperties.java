@@ -17,7 +17,6 @@ package org.jebtk.graphplot.figure.properties;
 
 import org.jebtk.math.Linspace;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class MinorTickMarkProperties.
  */

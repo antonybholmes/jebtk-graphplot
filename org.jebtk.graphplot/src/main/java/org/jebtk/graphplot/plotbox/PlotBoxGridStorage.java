@@ -20,7 +20,6 @@ import java.util.Iterator;
 import org.jebtk.core.geom.GeomUtils;
 import org.jebtk.core.geom.IntPos2D;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class PlotBox.
  */

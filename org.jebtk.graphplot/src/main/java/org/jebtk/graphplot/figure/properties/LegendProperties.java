@@ -19,7 +19,6 @@ import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
 import org.jebtk.graphplot.figure.GridLocation;
 
-// TODO: Auto-generated Javadoc
 /**
  * Describes how the legend should appear on a plot.
  * 

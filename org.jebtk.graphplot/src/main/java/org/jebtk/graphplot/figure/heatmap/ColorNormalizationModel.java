@@ -17,7 +17,6 @@ package org.jebtk.graphplot.figure.heatmap;
 
 import org.jebtk.core.model.ItemModel;
 
-// TODO: Auto-generated Javadoc
 /**
  * Model for sharing a color map.
  * 

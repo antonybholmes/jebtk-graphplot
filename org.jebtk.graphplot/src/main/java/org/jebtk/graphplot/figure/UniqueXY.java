@@ -28,7 +28,6 @@ import org.jebtk.graphplot.figure.series.XYSeries;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.math.matrix.MatrixGroup;
 
-// TODO: Auto-generated Javadoc
 /**
  * Stores the max y for a given x so that you can find the unique values of x
  * and the max y at that x for plotting purposes. Should only be used for

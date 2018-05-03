@@ -17,7 +17,6 @@ package org.jebtk.graphplot.figure.properties;
 
 import org.jebtk.core.event.ChangeListeners;
 
-// TODO: Auto-generated Javadoc
 /**
  * Specify if a graph element is visible or not.
  *

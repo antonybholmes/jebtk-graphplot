@@ -20,7 +20,6 @@ import java.awt.Dimension;
 import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.math.matrix.DataFrame;
 
-// TODO: Auto-generated Javadoc
 /**
  * Plot element that handles data from a matrix.
  * 

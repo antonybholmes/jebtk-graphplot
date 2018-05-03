@@ -21,7 +21,6 @@ import java.awt.image.BufferedImage;
 
 import org.jebtk.modern.graphics.DrawingContext;
 
-// TODO: Auto-generated Javadoc
 /**
  * Cache a drawing as an image to reduce drawing time.
  *

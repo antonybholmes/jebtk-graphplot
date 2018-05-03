@@ -17,7 +17,6 @@ package org.jebtk.graphplot.figure.properties;
 
 import java.awt.Color;
 
-// TODO: Auto-generated Javadoc
 /**
  * Describes the font for a plot object.
  * 

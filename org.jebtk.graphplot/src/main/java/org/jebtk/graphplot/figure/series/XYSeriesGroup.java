@@ -41,7 +41,6 @@ import org.jebtk.math.cluster.Cluster;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.math.matrix.MatrixGroup;
 
-// TODO: Auto-generated Javadoc
 /**
  * A collection of series.
  *

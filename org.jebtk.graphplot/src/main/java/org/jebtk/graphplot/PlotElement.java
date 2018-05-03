@@ -17,7 +17,6 @@ package org.jebtk.graphplot;
 
 import org.jebtk.graphplot.plotbox.PlotBox;
 
-// TODO: Auto-generated Javadoc
 /**
  * Plot element that handles data from a matrix.
  * 

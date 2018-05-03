@@ -20,7 +20,6 @@ import java.awt.Color;
 import org.jebtk.core.ColorUtils;
 import org.jebtk.core.settings.SettingsService;
 
-// TODO: Auto-generated Javadoc
 /**
  * Controls how grid lines appear on plots.
  *

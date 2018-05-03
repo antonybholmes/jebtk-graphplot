@@ -24,7 +24,6 @@ import java.util.Map;
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.modern.graphics.CanvasListener;
 
-// TODO: Auto-generated Javadoc
 /**
  * Represents a series of objects stored at different z layers.
  *

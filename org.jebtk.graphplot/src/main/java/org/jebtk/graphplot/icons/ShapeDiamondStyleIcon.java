@@ -17,7 +17,6 @@ package org.jebtk.graphplot.icons;
 
 import org.jebtk.graphplot.figure.series.MarkerDiamond;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class ShapeDiamondStyleIcon.
  */

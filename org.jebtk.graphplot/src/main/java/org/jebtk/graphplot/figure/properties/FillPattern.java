@@ -15,7 +15,6 @@
  */
 package org.jebtk.graphplot.figure.properties;
 
-// TODO: Auto-generated Javadoc
 /**
  * The enum FillPattern.
  */

@@ -30,7 +30,6 @@ import org.jebtk.graphplot.plotbox.PlotBoxRowsLayout;
 import org.jebtk.graphplot.plotbox.PlotBoxStorage;
 import org.jebtk.modern.graphics.DrawingContext;
 
-// TODO: Auto-generated Javadoc
 /**
  * Allows multiple plots to be placed on a grid and drawn together.
  *

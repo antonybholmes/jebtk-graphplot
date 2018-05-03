@@ -22,7 +22,6 @@ import java.awt.geom.GeneralPath;
 import org.jebtk.graphplot.figure.properties.StyleProperties;
 import org.jebtk.graphplot.icons.ShapeStyle;
 
-// TODO: Auto-generated Javadoc
 /**
  * Draws a diamond at the given point. The square is centered about the point.
  * 

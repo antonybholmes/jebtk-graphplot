@@ -23,7 +23,6 @@ import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
-// TODO: Auto-generated Javadoc
 /**
  * Writes the number of samples that are up and down regulated on the plot.
  * 

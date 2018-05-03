@@ -22,7 +22,6 @@ import org.jebtk.graphplot.figure.properties.StyleProperties;
 import org.jebtk.graphplot.figure.series.Marker;
 import org.jebtk.modern.graphics.icons.ModernVectorIcon;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class ShapeStyleIcon.
  */

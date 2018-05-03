@@ -29,7 +29,6 @@ import org.jebtk.graphplot.figure.SubFigure;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class HeatMapOutlinePlotLayer.
  */

@@ -20,7 +20,6 @@ import java.awt.Color;
 import org.jebtk.core.Cycle;
 import org.jebtk.modern.graphics.colormap.ColorMap;
 
-// TODO: Auto-generated Javadoc
 /**
  * Color list to cycle through to choose how things are colored.
  * 

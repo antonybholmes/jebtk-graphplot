@@ -23,7 +23,6 @@ import org.jebtk.core.geom.GeomUtils;
 import org.jebtk.core.geom.IntPos2D;
 import org.jebtk.graphplot.figure.GridLocation;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class PlotBox.
  */
