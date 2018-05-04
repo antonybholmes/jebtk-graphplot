@@ -201,10 +201,10 @@ public class ColorBar extends PlotElementFixedSize {
     int offset = l1 / 2; // g2.getFontMetrics().stringWidth(t) / 2;
     g2.drawLine(offset, y, offset, y + TICK_SIZE);
 
-    offset = (l1 + getPreferredSize().width - (l1 + l2) / 2) / 2;
+    offset = l1 + (getPreferredSize().width - l1 - l2) / 2;
     g2.drawLine(offset, y, offset, y + TICK_SIZE);
 
-    offset = getPreferredSize().width - l2 / 2 - 1;
+    offset = getPreferredSize().width - l2 / 2;
     g2.drawLine(offset, y, offset, y + TICK_SIZE);
   }
 }
