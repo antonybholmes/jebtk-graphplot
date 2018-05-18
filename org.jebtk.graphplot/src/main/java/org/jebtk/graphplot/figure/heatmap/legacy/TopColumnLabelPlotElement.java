@@ -83,7 +83,7 @@ public class TopColumnLabelPlotElement extends ColumnMatrixPlotElement {
 
     mGroupMap = XYSeriesGroup.arrangeGroupsByIndex(matrix, groups);
 
-    mColorByGroup = properties.getAsBool("plot.labels.color-by-group");
+    mColorByGroup = properties.getBool("plot.labels.color-by-group");
   }
 
   /*

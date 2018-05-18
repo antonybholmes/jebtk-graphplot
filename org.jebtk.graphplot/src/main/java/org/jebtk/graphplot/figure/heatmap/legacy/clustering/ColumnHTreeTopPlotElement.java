@@ -114,8 +114,8 @@ public class ColumnHTreeTopPlotElement extends ColumnMatrixPlotElement {
     super(matrix, aspectRatio, height);
 
     mRootCluster = rootCluster;
-    mColor = properties.getAsColor("plot.tree.vert.color");
-    mColorLeaf = properties.getAsBool("plot.tree.vert.leaf.color");
+    mColor = properties.getColor("plot.tree.vert.color");
+    mColorLeaf = properties.getBool("plot.tree.vert.leaf.color");
 
     // map indices to the groups occupying them
     mGroupMap = XYSeriesGroup.arrangeGroupsByIndex(matrix, groups);

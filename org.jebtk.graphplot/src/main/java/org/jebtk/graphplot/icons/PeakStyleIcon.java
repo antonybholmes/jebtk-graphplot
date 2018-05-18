@@ -31,7 +31,7 @@ public class PeakStyleIcon extends ModernVectorIcon {
    * The constant LINE_COLOR.
    */
   protected static final Color LINE_COLOR = ThemeService.getInstance().colors()
-      .getColorHighlight(4);
+      .getTheme(4);
 
   /*
    * (non-Javadoc)
