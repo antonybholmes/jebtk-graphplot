@@ -40,11 +40,11 @@ public abstract class HierarchicalTreeLayer extends PlotLayer {
 
   /** The Constant GAP. */
   protected static final int GAP = SettingsService.getInstance()
-      .getAsInt("graphplot.cluster.tree.gap");
+      .getInt("graphplot.cluster.tree.gap");
 
   /** The Constant GROUP_GAP. */
   protected static final int GROUP_GAP = SettingsService.getInstance()
-      .getAsInt("graphplot.cluster.tree.groups.gap");
+      .getInt("graphplot.cluster.tree.groups.gap");
 
   /**
    * The member root cluster.

@@ -42,13 +42,13 @@ public abstract class ModernPlotCanvas extends ZoomCanvas {
   /**
    * The constant PLOT_FONT.
    */
-  public static final Font PLOT_FONT = ThemeService.loadFont("plot.fonts.text");
+  public static final Font PLOT_FONT = ThemeService.loadFont("plot.getFonts.text");
 
   /**
    * The constant PLOT_BOLD_FONT.
    */
   public static final Font PLOT_BOLD_FONT = ThemeService
-      .loadFont("plot.fonts.bold-text");
+      .loadFont("plot.getFonts.bold-text");
 
   /**
    * Instantiates a new modern plot canvas.

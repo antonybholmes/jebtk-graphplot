@@ -39,7 +39,7 @@ public class GroupColorBarPlotElement extends ColumnMatrixPlotElement {
 
   /** The Constant HEIGHT. */
   private static final int HEIGHT = SettingsService.getInstance()
-      .getAsInt("graphplot.plot.group.block-size");
+      .getInt("graphplot.plot.group.block-size");
 
   /**
    * The max rows.

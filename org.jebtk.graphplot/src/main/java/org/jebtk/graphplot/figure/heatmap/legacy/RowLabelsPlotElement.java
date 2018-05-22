@@ -76,7 +76,7 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
   /** The Constant FIELD_GAP. */
   // Pixel gap between fields
   private static final int FIELD_GAP = SettingsService.getInstance()
-      .getAsInt("graphplot.plot.field-gap");
+      .getInt("graphplot.plot.field-gap");
 
   /**
    * Instantiates a new row labels plot element.

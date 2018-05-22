@@ -36,7 +36,7 @@ public class GridProperties extends LineProperties {
    * The constant GRID_COLOR.
    */
   public static final Color GRID_COLOR = ColorUtils.decodeHtmlColor(
-      SettingsService.getInstance().getAsString("plot.grid.color"));
+      SettingsService.getInstance().getString("plot.grid.color"));
 
   /**
    * Instantiates a new grid properties.

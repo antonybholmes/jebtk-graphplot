@@ -40,11 +40,11 @@ public class GroupColorBarLayer extends PlotLayer {
 
   /** The Constant HEIGHT. */
   protected static final int HEIGHT = SettingsService.getInstance()
-      .getAsInt("graphplot.heatmap.colorbar.height");
+      .getInt("graphplot.heatmap.colorbar.height");
 
   /** The Constant OFFSET. */
   protected static final int OFFSET = SettingsService.getInstance()
-      .getAsInt("graphplot.heatmap.colorbar.offset");
+      .getInt("graphplot.heatmap.colorbar.offset");
 
   /**
    * The max rows.

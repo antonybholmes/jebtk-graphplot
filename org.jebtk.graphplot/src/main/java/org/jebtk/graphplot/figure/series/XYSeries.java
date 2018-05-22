@@ -836,19 +836,19 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
     List<XYSeries> ret = new ArrayList<XYSeries>();
 
     for (Json group : json) {
-      String name = group.getAsString("name");
-      Color color = group.getAsColor("color");
+      String name = group.getString("name");
+      Color color = group.getColor("color");
 
       boolean caseSensitive = false;
 
       if (group.containsKey("case-sensitive")) {
-        caseSensitive = group.getAsBool("case-sensitive");
+        caseSensitive = group.getBool("case-sensitive");
       }
 
       List<String> regexes = new ArrayList<String>();
 
       for (Json search : group.get("searches")) {
-        regexes.add(search.getAsString());
+        regexes.add(search.getString());
       }
 
       // System.err.println("case " + caseSensitive);

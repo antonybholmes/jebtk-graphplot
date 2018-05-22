@@ -83,11 +83,11 @@ public class PlotFactory {
 
   /** The Constant DEFAULT_HEATMAP_SIZE. */
   public static final int DEFAULT_HEATMAP_SIZE = SettingsService.getInstance()
-      .getAsInt("graphplot.heatmap.width");
+      .getInt("graphplot.heatmap.width");
 
   /** The Constant BOX_WHISKER_WIDTH. */
   private static final int BOX_WHISKER_WIDTH = SettingsService.getInstance()
-      .getAsInt("graphplot.boxwhiskers.width");
+      .getInt("graphplot.boxwhiskers.width");
 
   /** The Constant COLOR_BAR_WIDTH. */
   private static final int COLOR_BAR_WIDTH = 30;

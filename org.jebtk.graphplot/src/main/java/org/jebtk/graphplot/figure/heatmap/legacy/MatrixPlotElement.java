@@ -39,7 +39,7 @@ public abstract class MatrixPlotElement extends PlotElement {
    * The constant BLOCK_SIZE.
    */
   public static final int BLOCK_SIZE = SettingsService.getInstance()
-      .getAsInt("graphplot.plot.block-size");
+      .getInt("graphplot.plot.block-size");
 
   public static IntDim DEFAULT_BLOCK = new IntDim(BLOCK_SIZE, BLOCK_SIZE);
 

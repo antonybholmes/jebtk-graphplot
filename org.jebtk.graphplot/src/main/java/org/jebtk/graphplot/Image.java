@@ -445,7 +445,7 @@ public class Image {
    */
   public static Path saveFile(ModernWindow parent, Path pwd)
       throws IOException {
-    return ImageDialog.save(parent).image().getFile(pwd);
+    return ImageDialog.save(parent).getImage().getFile(pwd);
   }
 
   /**
