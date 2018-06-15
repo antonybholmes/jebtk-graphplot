@@ -166,7 +166,7 @@ public class HeatMapPlotElement extends MatrixPlotElement {
     int w = mBlockSize.getW();
     int h = mBlockSize.getH();
 
-    if (context == DrawingContext.SCREEN) {
+    if (context == DrawingContext.UI) {
       for (int i = 0; i < mDrawingDim.mRows; ++i) {
         int x = 0;
 
@@ -252,7 +252,7 @@ public class HeatMapPlotElement extends MatrixPlotElement {
       mBlankImage = ImageUtils.createImage(mBlockSize);
 
       Graphics g = mBlankImage.getGraphics();
-      Graphics2D g2 = ImageUtils.createAAGraphics(g);
+      Graphics2D g2 = ImageUtils.createAATextGraphics(g);
       g2.setColor(ModernWidget.DARK_LINE_COLOR);
       g2.drawLine(0, (int) mBlockSize.getH(), (int) mBlockSize.getW(), 0);
     }

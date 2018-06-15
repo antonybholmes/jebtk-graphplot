@@ -42,13 +42,13 @@ public abstract class ModernPlotCanvas extends ZoomCanvas {
   /**
    * The constant PLOT_FONT.
    */
-  public static final Font PLOT_FONT = ThemeService.loadFont("plot.getFonts.text");
+  public static final Font PLOT_FONT = ThemeService.loadFont("plot.fonts.text");
 
   /**
    * The constant PLOT_BOLD_FONT.
    */
   public static final Font PLOT_BOLD_FONT = ThemeService
-      .loadFont("plot.getFonts.bold-text");
+      .loadFont("plot.fonts.bold-text");
 
   /**
    * Instantiates a new modern plot canvas.
@@ -83,7 +83,7 @@ public abstract class ModernPlotCanvas extends ZoomCanvas {
    * Graphics2D)
    */
   @Override
-  public final void drawCanvasForeground(Graphics2D g2,
+  public final void drawCanvas(Graphics2D g2,
       DrawingContext context) {
 
     Graphics2D g2Temp = ImageUtils.clone(g2);

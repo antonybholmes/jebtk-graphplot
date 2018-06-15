@@ -65,7 +65,7 @@ public class ImageCachePlotElement extends PlotElement {
 
     Graphics2D g2 = (Graphics2D) bi.getGraphics();
 
-    mElement.plot(g2, DrawingContext.SCREEN);
+    mElement.plot(g2, DrawingContext.UI);
   }
 
   /*

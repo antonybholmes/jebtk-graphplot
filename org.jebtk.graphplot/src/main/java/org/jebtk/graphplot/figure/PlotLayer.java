@@ -107,7 +107,7 @@ public abstract class PlotLayer extends Layer {
       Axes axes,
       Plot plot,
       DataFrame m) {
-    if (context == DrawingContext.SCREEN) {
+    if (context == DrawingContext.UI) {
       screenPlotLayer(g2, context, figure, subFigure, axes, plot, m);
     } else {
       clipPlotLayer(g2, context, figure, subFigure, axes, plot, m);
@@ -150,7 +150,7 @@ public abstract class PlotLayer extends Layer {
       DataFrame m) {
 
     // Anti-alias by default
-    Graphics2D g2Temp = ImageUtils.createAAGraphics(g2);
+    Graphics2D g2Temp = ImageUtils.createAATextGraphics(g2);
 
     try {
       clipPlotLayer(g2Temp, context, figure, subFigure, axes, plot, m);

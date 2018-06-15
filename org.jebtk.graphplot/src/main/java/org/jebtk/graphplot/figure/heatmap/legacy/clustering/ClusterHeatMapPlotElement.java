@@ -166,7 +166,7 @@ public class ClusterHeatMapPlotElement extends HeatMapPlotElement {
   protected void drawMatrix(Graphics2D g2, DrawingContext context) {
     int y = 0;
 
-    if (context == DrawingContext.SCREEN) {
+    if (context == DrawingContext.UI) {
       for (int i = 0; i < mMatrix.getRows(); ++i) {
         int x = 0;
 

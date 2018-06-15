@@ -105,7 +105,7 @@ public class HeatMapFillPlotLayer extends PlotClippedLayer {
     Graphics2D g2Temp = (Graphics2D) g2.create();
     g2Temp.translate(x1, y1);
 
-    if (context == DrawingContext.SCREEN) {
+    if (context == DrawingContext.UI) {
       for (int y : mY) {
         for (int x : mX) {
           g2Temp.drawImage(mColorTileMap.get(mColorsMap.get(x).get(y)),
@@ -200,7 +200,7 @@ public class HeatMapFillPlotLayer extends PlotClippedLayer {
 
           mColorsMap.get(x).put(y, c);
 
-          if (context == DrawingContext.SCREEN) {
+          if (context == DrawingContext.UI) {
             if (!mColorTileMap.containsKey(c)) {
               BufferedImage img = Image.createBuffIm(w, h);
 

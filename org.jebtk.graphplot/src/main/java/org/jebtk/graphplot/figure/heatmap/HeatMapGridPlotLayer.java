@@ -103,7 +103,7 @@ public class HeatMapGridPlotLayer extends PlotClippedLayer {
       }
     }
 
-    if (context == DrawingContext.SCREEN) {
+    if (context == DrawingContext.UI) {
       BufferedImage xImg = Image.createTransBuffIm(x2 - x1 + 1, 1);
       BufferedImage yImg = Image.createTransBuffIm(1, y2 - y1 + 1);
 

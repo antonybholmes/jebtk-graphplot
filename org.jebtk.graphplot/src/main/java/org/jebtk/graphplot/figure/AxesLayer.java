@@ -81,7 +81,7 @@ public abstract class AxesLayer extends Layer {
       SubFigure subFigure,
       Axes axes) {
 
-    Graphics2D g2Temp = ImageUtils.createAAGraphics(g2);
+    Graphics2D g2Temp = ImageUtils.createAATextGraphics(g2);
 
     try {
       drawPlot(g2Temp, context, figure, subFigure, axes);
@@ -103,7 +103,7 @@ public abstract class AxesLayer extends Layer {
       Figure figure,
       SubFigure subFigure,
       Axes axes) {
-    if (context == DrawingContext.PRINT) {
+    if (context == DrawingContext.OUTPUT) {
       drawPlot(g2, context, figure, subFigure, axes);
     } else {
       // Create an image version of the canvas and draw that to spped
@@ -113,7 +113,7 @@ public abstract class AxesLayer extends Layer {
         // The canvas need only be the size of the available display
         mBufferedImage = ImageUtils.createImage(axes.getPreferredSize());
 
-        Graphics2D g2Temp = ImageUtils.createAAGraphics(mBufferedImage);
+        Graphics2D g2Temp = ImageUtils.createAATextGraphics(mBufferedImage);
 
         try {
           drawPlot(g2Temp, context, figure, subFigure, axes);

@@ -107,7 +107,7 @@ public class Image {
       // canvas.updateViewRectangle(canvas.getCanvasSize());
 
       // Create the drawing
-      canvas.drawCanvasForeground(g2, DrawingContext.PRINT);
+      canvas.rasterCanvas(g2, DrawingContext.OUTPUT);
 
       // Writer out = new PathWriter(file);
       Writer out = FileUtils.newBufferedWriter(file); // new
@@ -154,7 +154,7 @@ public class Image {
       // canvas.updateViewRectangle(canvas.getCanvasSize());
 
       // Create the drawing
-      canvas.plot(g2, DrawingContext.PRINT);
+      canvas.plot(g2, DrawingContext.OUTPUT);
 
       // Writer out = new PathWriter(file);
       Writer out = FileUtils.newBufferedWriter(file); // new
@@ -334,7 +334,7 @@ public class Image {
           BufferedImage.TYPE_INT_RGB);
     }
 
-    Graphics2D g2 = ImageUtils.createAAGraphics(bufferedImage.createGraphics());
+    Graphics2D g2 = ImageUtils.createAATextGraphics(bufferedImage.createGraphics());
 
     // temp store the current view rectangle
     // IntRect tempRect = canvas.getViewRect();
@@ -353,7 +353,7 @@ public class Image {
       // Create a view rect big enough for the whole canvas
       // canvas.updateViewRectangle(canvas.getCanvasSize());
 
-      canvas.drawCanvasForeground(g2, DrawingContext.PRINT);
+      canvas.rasterCanvas(g2, DrawingContext.OUTPUT);
     } finally {
       g2.dispose();
     }
@@ -377,7 +377,7 @@ public class Image {
           BufferedImage.TYPE_INT_RGB);
     }
 
-    Graphics2D g2 = ImageUtils.createAAGraphics(bufferedImage.createGraphics());
+    Graphics2D g2 = ImageUtils.createAATextGraphics(bufferedImage.createGraphics());
 
     // temp store the current view rectangle
     // IntRect tempRect = canvas.getViewRect();
@@ -394,7 +394,7 @@ public class Image {
       // Create a view rect big enough for the whole canvas
       // canvas.updateViewRectangle(canvas.getCanvasSize());
 
-      canvas.plot(g2, DrawingContext.PRINT);
+      canvas.plot(g2, DrawingContext.OUTPUT);
     } finally {
       g2.dispose();
     }
@@ -524,7 +524,7 @@ public class Image {
 
       g2.setFont(ModernPlotCanvas.PLOT_FONT);
 
-      canvas.drawCanvasForeground(g2, DrawingContext.PRINT);
+      canvas.rasterCanvas(g2, DrawingContext.OUTPUT);
 
       g2.finish();
     } finally {

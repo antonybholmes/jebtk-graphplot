@@ -51,7 +51,7 @@ import org.jebtk.modern.graphics.colormap.ColorMap;
  * The class PlotBox.
  */
 public abstract class PlotBox extends ChangeListeners implements
-    Iterable<PlotBox>, IdProperty, NameProperty, PlotHashProperty, UidProperty {
+Iterable<PlotBox>, IdProperty, NameProperty, PlotHashProperty, UidProperty {
 
   private static final long serialVersionUID = 1L;
 
@@ -302,7 +302,7 @@ public abstract class PlotBox extends ChangeListeners implements
       Dimension offset,
       DrawingContext context,
       Object... params) {
-    if (context == DrawingContext.SCREEN) {
+    if (context == DrawingContext.UI) {
       plotScreen(g2, offset, context, params);
     } else {
       plotLayer(g2, offset, context, params);
@@ -326,10 +326,8 @@ public abstract class PlotBox extends ChangeListeners implements
 
     if (mRasterMode) {
       plotRaster(g2, offset, context, params);
-    } else if (mAAMode) {
-      plotAA(g2, offset, context, params);
     } else {
-      plotLayer(g2, offset, context, params);
+      plotAA(g2, offset, context, params);
     }
   }
 
@@ -338,13 +336,17 @@ public abstract class PlotBox extends ChangeListeners implements
       DrawingContext context,
       Object... params) {
 
-    // Anti-alias by default
-    Graphics2D g2Temp = ImageUtils.createAAGraphics(g2);
+    if (mAAMode) {
+      // Anti-alias by default
+      Graphics2D g2Temp = ImageUtils.createAATextGraphics(g2);
 
-    try {
-      plotLayer(g2Temp, offset, context, params);
-    } finally {
-      g2Temp.dispose();
+      try {
+        plotLayer(g2Temp, offset, context, params);
+      } finally {
+        g2Temp.dispose();
+      }
+    } else {
+      plotLayer(g2, offset, context, params);
     }
   }
 
@@ -377,14 +379,7 @@ public abstract class PlotBox extends ChangeListeners implements
       Graphics2D g2Temp = ImageUtils.createGraphics(mBufferedImage);
 
       try {
-        if (mAAMode) {
-          // Do not allow these methods to update the offset since
-          // this method does it as well. We only want to update
-          // this once to ensure dimensions are correct.
-          plotAA(g2Temp, new Dimension(), context, params);
-        } else {
-          plotLayer(g2Temp, new Dimension(), context, params);
-        }
+        plotAA(g2Temp, new Dimension(), context, params);
       } finally {
         g2Temp.dispose();
       }

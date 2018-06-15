@@ -155,7 +155,7 @@ public class ClusterHeatMapFillPlotLayer extends HeatMapFillPlotLayer {
 
           mColorsMap.get(x).put(y, c);
 
-          if (context == DrawingContext.SCREEN) {
+          if (context == DrawingContext.UI) {
             if (!mColorTileMap.containsKey(c)) {
               BufferedImage img = Image.createBuffIm(w, h);
 
