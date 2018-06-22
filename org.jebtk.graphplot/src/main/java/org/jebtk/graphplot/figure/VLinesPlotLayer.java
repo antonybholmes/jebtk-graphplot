@@ -73,7 +73,7 @@ public class VLinesPlotLayer extends PlotClippedLayer {
       
       g2.drawLine(x, y1, x, y2);
       
-      SysUtils.err().println("vlines", x, y1, y2, m.getValue(0, i), axes.getX1Axis().getMax());
+      //SysUtils.err().println("vlines", x, y1, y2, m.getValue(0, i), axes.getX1Axis().getMax());
     }
   }
 

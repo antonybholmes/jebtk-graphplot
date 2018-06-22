@@ -93,9 +93,6 @@ public class ImageFillPlotLayer extends PlotClippedLayer {
       DataFrame m) {
 
 
-    g2.setColor(Color.RED);
-    g2.fillRect(0, 80, 100, 50);
-
     //int h = Math.max(1, axes.toPlotY1(0) - axes.toPlotY1(1));
 
     cache(context, figure, subFigure, axes, plot, m);
@@ -144,6 +141,8 @@ public class ImageFillPlotLayer extends PlotClippedLayer {
       Plot plot,
       DataFrame m) {
 
+    System.err.println("wtf " + m.getShape());
+    
     if (mHashId == null || !mHashId.equals(subFigure.hashId())) {
       mX = new UniqueArrayList<Integer>(m.getCols());
       mY = new UniqueArrayList<Integer>(m.getRows());
@@ -152,6 +151,8 @@ public class ImageFillPlotLayer extends PlotClippedLayer {
         int x = axes.toPlotX1(i);
 
         mX.add(x);
+        
+        System.err.println("img " + x + " " + i);
       }
 
       mX.add(axes.toPlotX1(m.getCols()));

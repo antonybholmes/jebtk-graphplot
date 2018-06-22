@@ -139,6 +139,11 @@ public class AxisLayerX1 extends AxisLayerX {
         // for (double y : axis.getTicks().getMajorTicks()) {
         double x = axis.getTicks().getMajorTicks().getTick(i);
 
+        // Don't plot labels outside the limits
+        if (x > axis.getMax()) {
+          continue;
+        }
+        
         // if (t != 0) {
         mMajorTicks.add(axes.toPlotX1(x));
         mMajorTickLabels.add(axis.getTicks().getMajorTicks().getLabel(i));

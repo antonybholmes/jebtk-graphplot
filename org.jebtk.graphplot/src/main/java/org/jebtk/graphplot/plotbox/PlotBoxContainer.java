@@ -73,8 +73,7 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
   }
 
   public PlotBoxContainer(PlotBoxStorage storage, PlotBoxLayout layout) {
-    setStorage(storage);
-    setLayout(layout);
+    setLayout(storage, layout);
   }
 
   @Override
@@ -93,6 +92,21 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
 
   public void setLayout(PlotBoxLayout layout) {
     mLayout = layout;
+  }
+  
+  public void setLayout(PlotBoxStorage storage, PlotBoxLayout layout) {
+    setStorage(storage);
+    setLayout(layout);
+  }
+  
+  /**
+   * Set the layout to use z layers.
+   * @return
+   */
+  public PlotBoxContainer setZLayout() {
+    setLayout(new PlotBoxZStorage(), new PlotBoxZLayout());
+    
+    return this;
   }
 
   public PlotBoxLayout getPlotBoxLayout() {
@@ -124,6 +138,13 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
     setMargins(mMargins.getTop(),
         mMargins.getLeft(),
         margin,
+        mMargins.getRight());
+  }
+  
+  public void setTopMargin(int margin) {
+    setMargins(margin,
+        mMargins.getLeft(),
+        mMargins.getBottom(),
         mMargins.getRight());
   }
 

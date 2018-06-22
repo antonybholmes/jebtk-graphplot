@@ -255,7 +255,9 @@ public class Axis extends VisibleProperties
     mMin = min;
     mMax = max;
 
-    getTicks().setTicks(Linspace.evenlySpaced(min, max, step));
+    // Extend ticks past end so that if the limits are not whole steps,
+    // they do not end prematurely.
+    getTicks().setTicks(Linspace.evenlySpaced(min, max + step, step));
   }
 
   /**
