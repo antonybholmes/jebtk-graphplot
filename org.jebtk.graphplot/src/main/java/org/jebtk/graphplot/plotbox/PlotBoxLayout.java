@@ -33,10 +33,10 @@ public abstract class PlotBoxLayout {
   }
 
   /**
-   * Gets the plot size recursive.
+   * Calculates the size of the plot based on the layout of its children.
    *
-   * @param plotBox the plot box
-   * @param dim the dim
+   * @param plotBox   the plot box
+   * @param dim       the dim
    * @return the plot size recursive
    */
   public abstract void plotSize(PlotBox plotBox, Dimension dim);

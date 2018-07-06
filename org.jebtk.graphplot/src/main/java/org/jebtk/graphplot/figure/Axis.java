@@ -255,8 +255,8 @@ public class Axis extends VisibleProperties
     mMin = min;
     mMax = max;
 
-    // Extend ticks past end so that if the limits are not whole steps,
-    // they do not end prematurely.
+    // Extend ticks past end so that if the end is not a multiple of the
+    // step size, the ticks do not end abruptly.
     getTicks().setTicks(Linspace.evenlySpaced(min, max + step, step));
   }
 
@@ -274,7 +274,7 @@ public class Axis extends VisibleProperties
    * @param max The max limit.
    */
   public void setLimits(double min, double max) {
-    double step = CalcStepSize(max - min);
+    double step = calcStepSize(max - min);
 
     setLimits(min, max, step);
   }
@@ -289,18 +289,19 @@ public class Axis extends VisibleProperties
   }
 
   /**
-   * Set the limits and auto round the min and max to make the plot more
-   * aesthetically pleasing.
+   * Set the limits and auto round the min and max to multiples of the step
+   * size to make the plot more aesthetically pleasing.
    *
    * @param min the min
    * @param max the max
    */
   public void setLimitsAutoRound(double min, double max) {
-    double step = CalcStepSize(max - min);
+    double step = calcStepSize(max - min);
 
     if (min >= 0) {
       min = step * (int) (min / step);
     } else {
+      // Treat min like max and extend beyond the min
       min = step * ((int) (min / step) - 1);
     }
 
@@ -391,7 +392,7 @@ public class Axis extends VisibleProperties
    * @param range the range
    * @return the float
    */
-  public static double CalcStepSize(double range) {
+  public static double calcStepSize(double range) {
     if (range < 1) {
       return range;
     }

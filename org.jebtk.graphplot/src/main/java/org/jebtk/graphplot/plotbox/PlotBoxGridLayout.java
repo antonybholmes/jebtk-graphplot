@@ -62,9 +62,6 @@ public class PlotBoxGridLayout extends PlotBoxLayout {
       }
     }
 
-    // System.err.println(" plot grid " + Arrays.toString(mWidths) + " " +
-    // Arrays.toString(mHeights));
-
     for (int i = 0; i < mWidths.length; ++i) {
       dim.width += mWidths[i];
     }

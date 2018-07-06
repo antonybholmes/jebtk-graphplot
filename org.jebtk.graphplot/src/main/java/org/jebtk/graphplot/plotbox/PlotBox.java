@@ -51,7 +51,7 @@ import org.jebtk.modern.graphics.colormap.ColorMap;
  * The class PlotBox.
  */
 public abstract class PlotBox extends ChangeListeners implements
-Iterable<PlotBox>, IdProperty, NameProperty, PlotHashProperty, UidProperty {
+    Iterable<PlotBox>, IdProperty, NameProperty, PlotHashProperty, UidProperty {
 
   private static final long serialVersionUID = 1L;
 
@@ -176,7 +176,7 @@ Iterable<PlotBox>, IdProperty, NameProperty, PlotHashProperty, UidProperty {
   }
 
   public void setLayout(PlotBoxLayout layout) {
-
+    // Do nothing
   }
 
   public PlotBoxLayout getPlotBoxLayout() {
@@ -331,6 +331,14 @@ Iterable<PlotBox>, IdProperty, NameProperty, PlotHashProperty, UidProperty {
     }
   }
 
+  /**
+   * Optionally plot using anti-aliasing.
+   * 
+   * @param g2
+   * @param offset
+   * @param context
+   * @param params
+   */
   public void plotAA(Graphics2D g2,
       Dimension offset,
       DrawingContext context,
@@ -371,8 +379,6 @@ Iterable<PlotBox>, IdProperty, NameProperty, PlotHashProperty, UidProperty {
 
       Dimension s = getPreferredSize();
 
-      System.err.println("raster " + getName() + " " + getClass() + " " + s);
-
       // Make it one pixel bigger to account for borders being drawn
       mBufferedImage = ImageUtils.createImage(s.width + 1, s.height + 1);
 
@@ -408,17 +414,6 @@ Iterable<PlotBox>, IdProperty, NameProperty, PlotHashProperty, UidProperty {
   }
 
   public PlotBox addChild(PlotBox plot, Object... params) {
-    return addReserved(plot, params);
-  }
-
-  /**
-   * Add a child to a reserved location.
-   * 
-   * @param plot
-   * @param i
-   * @return
-   */
-  public PlotBox addReserved(PlotBox plot, Object... params) {
     return this;
   }
 
@@ -587,6 +582,7 @@ Iterable<PlotBox>, IdProperty, NameProperty, PlotHashProperty, UidProperty {
         return p;
       }
 
+      // Explore its children
       for (PlotBox c : p) {
         stack.push(c);
       }
@@ -751,6 +747,7 @@ Iterable<PlotBox>, IdProperty, NameProperty, PlotHashProperty, UidProperty {
 
   /**
    * Should update dimension to add the size of this plotbox.
+   * 
    * @param d
    */
   public void plotSize(Dimension d) {

@@ -30,7 +30,8 @@ import org.jebtk.core.event.ChangeListeners;
 import org.jebtk.core.geom.IntPos2D;
 
 /**
- * The class PlotBox.
+ * Backend storage of plots for plot layouts. This allows plots to be optimally
+ * stored for use with a plot layout.
  */
 public abstract class PlotBoxStorage extends ChangeListeners
     implements Iterable<PlotBox>, ChangeListener {
@@ -46,7 +47,7 @@ public abstract class PlotBoxStorage extends ChangeListeners
   private Map<Integer, PlotBox> mIdMap = new HashMap<Integer, PlotBox>();
   private Map<String, PlotBox> mNameMap = new TreeMap<String, PlotBox>();
 
-  public void addChildByName(PlotBox plot) {
+  public void add(PlotBox plot, Object... params) {
     plot.addChangeListener(this);
 
     mIdMap.put(plot.getId(), plot);
@@ -55,21 +56,7 @@ public abstract class PlotBoxStorage extends ChangeListeners
     fireChanged();
   }
 
-  public void addChild(PlotBox plot, Object... params) {
-    addReserved(plot, params);
-  }
-
-  /**
-   * Add a child to a reserved location.
-   * 
-   * @param plot
-   * @param i
-   */
-  public void addReserved(PlotBox plot, Object... params) {
-    addChildByName(plot);
-  }
-
-  public abstract PlotBox getChild(Object param, Object... params);
+  public abstract PlotBox get(Object param, Object... params);
 
   public boolean remove(PlotBox plot) {
     return false;
@@ -79,11 +66,17 @@ public abstract class PlotBoxStorage extends ChangeListeners
     return false;
   }
 
-  public PlotBox getChildByName(String name) {
+  public PlotBox getByName(String name) {
     return mNameMap.get(name);
   }
 
-  public PlotBox getChildById(int id) {
+  /**
+   * Return a plot with a given id.
+   * 
+   * @param id
+   * @return
+   */
+  public PlotBox getById(int id) {
     return mIdMap.get(id);
   }
 
@@ -191,7 +184,7 @@ public abstract class PlotBoxStorage extends ChangeListeners
     clear();
 
     for (PlotBox c : plots) {
-      addChild(c);
+      add(c);
     }
   }
 

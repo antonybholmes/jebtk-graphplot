@@ -24,7 +24,7 @@ import org.jebtk.core.geom.IntPos2D;
 import org.jebtk.graphplot.figure.GridLocation;
 
 /**
- * The class PlotBox.
+ * Store plots at arbitrary locations.
  */
 public class PlotBoxFloatingStorage extends PlotBoxStorage {
 
@@ -33,7 +33,7 @@ public class PlotBoxFloatingStorage extends PlotBoxStorage {
   private Map<IntPos2D, PlotBox> mMap = new HashMap<IntPos2D, PlotBox>();
 
   @Override
-  public void addReserved(PlotBox plot, Object... params) {
+  public void add(PlotBox plot, Object... params) {
     IntPos2D l = GeomUtils.INT_POINT_ZERO;
 
     if (params.length > 0) {
@@ -48,17 +48,17 @@ public class PlotBoxFloatingStorage extends PlotBoxStorage {
       }
     }
 
-    addReserved(plot, l);
+    add(plot, l);
   }
 
-  public void addReserved(PlotBox plot, IntPos2D p) {
+  public void add(PlotBox plot, IntPos2D p) {
     mMap.put(p, plot);
 
-    addChildByName(plot);
+    super.add(plot);
   }
 
   @Override
-  public PlotBox getChild(Object param, Object... params) {
+  public PlotBox get(Object param, Object... params) {
     return getChild(parseLocation(param, params));
   }
 

@@ -21,20 +21,20 @@ import org.jebtk.core.geom.GeomUtils;
 import org.jebtk.core.geom.IntPos2D;
 
 /**
- * The class PlotBox.
+ * Store plots on a grid
  */
 public class PlotBoxGridStorage extends PlotBoxStorage {
 
   private static final long serialVersionUID = 1L;
 
-  private PlotBox[][] mLocations;
+  private final PlotBox[][] mLocations;
 
   public PlotBoxGridStorage(int rows, int columns) {
     mLocations = new PlotBox[rows][columns];
   }
 
   @Override
-  public void addReserved(PlotBox plot, Object... params) {
+  public void add(PlotBox plot, Object... params) {
     int row = 0;
     int col = 0;
 
@@ -48,21 +48,21 @@ public class PlotBoxGridStorage extends PlotBoxStorage {
       }
     }
 
-    addReserved(plot, row, col);
+    add(plot, row, col);
   }
 
-  public void addReserved(PlotBox plot, int row, int col) {
+  public void add(PlotBox plot, int row, int col) {
     mLocations[row][col] = plot;
 
-    addChildByName(plot);
+    super.add(plot);
   }
 
   public void addChild(PlotBox plot) {
-    addChild(plot, 0, 0);
+    add(plot, 0, 0);
   }
 
   @Override
-  public PlotBox getChild(Object param, Object... params) {
+  public PlotBox get(Object param, Object... params) {
 
     int row = 0;
     int col = 0;

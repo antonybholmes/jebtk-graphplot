@@ -89,13 +89,6 @@ public abstract class PlotBoxGraph extends PlotBoxContainer { // LayoutLayer
   }
 
   @Override
-  public PlotBox addReserved(PlotBox plot, Object... params) {
-    cacheCurrent(plot);
-
-    return super.addReserved(plot, params);
-  }
-
-  @Override
   public <T extends PlotBox> PlotBox setChildren(List<T> plots) {
     for (T plot : ReverseIterator.create(plots)) {
       if (cacheCurrent(plot)) {

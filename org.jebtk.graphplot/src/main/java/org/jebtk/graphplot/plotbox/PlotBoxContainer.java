@@ -41,11 +41,9 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
    */
   private static final long serialVersionUID = 1L;
 
-  // private IntPos2D mPos = GeomUtils.INT_POINT_ZERO;
+  private MarginProperties mMargins = MarginProperties.DEFAULT_MARGIN;
 
   private PlotBoxLayout mLayout = null;
-
-  private MarginProperties mMargins = MarginProperties.DEFAULT_MARGIN;
 
   private PlotBoxStorage mStorage;
 
@@ -93,19 +91,20 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
   public void setLayout(PlotBoxLayout layout) {
     mLayout = layout;
   }
-  
+
   public void setLayout(PlotBoxStorage storage, PlotBoxLayout layout) {
     setStorage(storage);
     setLayout(layout);
   }
-  
+
   /**
    * Set the layout to use z layers.
+   * 
    * @return
    */
   public PlotBoxContainer setZLayout() {
     setLayout(new PlotBoxZStorage(), new PlotBoxZLayout());
-    
+
     return this;
   }
 
@@ -140,7 +139,7 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
         margin,
         mMargins.getRight());
   }
-  
+
   public void setTopMargin(int margin) {
     setMargins(margin,
         mMargins.getLeft(),
@@ -252,38 +251,24 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
 
   @Override
   public PlotBox addChild(PlotBox plot, Object... params) {
-    mStorage.addChild(plot, params);
-
-    return this;
-  }
-
-  /**
-   * Add a child to a reserved location.
-   * 
-   * @param plot
-   * @param i
-   * @return
-   */
-  @Override
-  public PlotBox addReserved(PlotBox plot, Object... params) {
-    mStorage.addReserved(plot, params);
+    mStorage.add(plot, params);
 
     return this;
   }
 
   @Override
   public PlotBox getChild(Object param, Object... params) {
-    return mStorage.getChild(param, params);
+    return mStorage.get(param, params);
   }
 
   @Override
   public PlotBox getChildByName(String name) {
-    return mStorage.getChildByName(name);
+    return mStorage.getByName(name);
   }
 
   @Override
   public PlotBox getChildById(int id) {
-    return mStorage.getChildById(id);
+    return mStorage.getById(id);
   }
 
   @Override

@@ -31,7 +31,7 @@ public class PlotBoxZStorage extends PlotBoxStorage {
   private int mUnused = 0;
 
   @Override
-  public void addChild(PlotBox plot, Object... params) {
+  public void add(PlotBox plot, Object... params) {
     int z = 0;
 
     if (params.length > 0 && params[0] instanceof Integer) {
@@ -40,11 +40,13 @@ public class PlotBoxZStorage extends PlotBoxStorage {
       z = getUnusedZ();
     }
 
-    addChild(plot, z);
+    add(plot, z);
   }
 
-  public void addChild(PlotBox plot, int z) {
-    addReserved(plot, z);
+  public void add(PlotBox plot, int z) {
+    mMap.put(z, plot);
+
+    super.add(plot, z);
 
     // keep track of where we can likely search from to find the next
     // unused z
@@ -52,24 +54,7 @@ public class PlotBoxZStorage extends PlotBoxStorage {
   }
 
   @Override
-  public void addReserved(PlotBox plot, Object... params) {
-    int z = 0;
-
-    if (params.length > 0 && params[0] instanceof Integer) {
-      z = (int) params[0];
-    }
-
-    addReserved(plot, z);
-  }
-
-  public void addReserved(PlotBox plot, int z) {
-    mMap.put(z, plot);
-
-    addChildByName(plot);
-  }
-
-  @Override
-  public PlotBox getChild(Object param, Object... params) {
+  public PlotBox get(Object param, Object... params) {
     return mMap.get(param);
   }
 

@@ -26,13 +26,6 @@ import org.jebtk.modern.graphics.ImageUtils;
  */
 public class PlotBoxRowLayout extends PlotBoxLayout {
 
-  /**
-   * Gets the plot size recursive.
-   *
-   * @param plotBox the plot box
-   * @param dim the dim
-   * @return the plot size recursive
-   */
   @Override
   public void plotSize(PlotBox plotBox, Dimension dim) {
     int width = 0;

@@ -36,7 +36,7 @@ public class PlotBoxCompassGridStorage extends PlotBoxStorage {
   private Map<GridLocation, PlotBox> mMap = new TreeMap<GridLocation, PlotBox>();
 
   @Override
-  public void addReserved(PlotBox plot, Object... params) {
+  public void add(PlotBox plot, Object... params) {
     GridLocation l = GridLocation.CENTER;
 
     if (params.length > 0) {
@@ -51,17 +51,17 @@ public class PlotBoxCompassGridStorage extends PlotBoxStorage {
       }
     }
 
-    addReserved(plot, l);
+    add(plot, l);
   }
 
-  public void addReserved(PlotBox plot, GridLocation l) {
+  public void add(PlotBox plot, GridLocation l) {
     mMap.put(l, plot);
 
-    addChildByName(plot);
+    super.add(plot, l);
   }
 
   @Override
-  public PlotBox getChild(Object param, Object... params) {
+  public PlotBox get(Object param, Object... params) {
     return getChild(parseLocation(param, params));
   }
 

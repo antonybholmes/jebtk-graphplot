@@ -33,13 +33,10 @@ public class PlotBoxDimStorage extends PlotBoxStorage {
    */
   private List<PlotBox> mChildren = new ArrayList<PlotBox>(100);
 
-  public void addChild(Collection<PlotBox> plotBoxes) {
-    addChildren(plotBoxes);
-  }
 
   public void addChildren(Collection<PlotBox> plotBoxes) {
     for (PlotBox b : plotBoxes) {
-      addChild(b);
+      add(b);
     }
   }
 
@@ -49,10 +46,10 @@ public class PlotBoxDimStorage extends PlotBoxStorage {
    * @param plotBox the plot box
    */
   @Override
-  public void addReserved(PlotBox plot, Object... params) {
+  public void add(PlotBox plot, Object... params) {
     mChildren.add(plot);
 
-    super.addReserved(plot, params);
+    super.add(plot, params);
   }
 
   /**
@@ -62,7 +59,7 @@ public class PlotBoxDimStorage extends PlotBoxStorage {
    * @return the child
    */
   @Override
-  public PlotBox getChild(Object param, Object... params) {
+  public PlotBox get(Object param, Object... params) {
     int i = 0;
 
     if (param instanceof Integer) {
@@ -117,5 +114,4 @@ public class PlotBoxDimStorage extends PlotBoxStorage {
   public int getChildCount() {
     return mChildren.size();
   }
-
 }

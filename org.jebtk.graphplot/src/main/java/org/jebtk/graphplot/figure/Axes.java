@@ -338,17 +338,17 @@ public class Axes extends PlotBoxGraph {
     mY2Axis.getTitle().setText("Y");
     mY2Axis.setVisible(false);
 
-    addReserved(new Grid2dLayer(), RESERVED_Z_GRID);
-    addReserved(new AxisLayerX1(), RESERVED_Z_X_AXIS_1);
-    addReserved(new AxisLayerX2(), RESERVED_Z_X_AXIS_2);
-    addReserved(new AxisLayerY1(), RESERVED_Z_Y_AXIS_1);
-    addReserved(new AxisLayerY2(), RESERVED_Z_Y_AXIS_2);
+    addChild(new Grid2dLayer(), RESERVED_Z_GRID);
+    addChild(new AxisLayerX1(), RESERVED_Z_X_AXIS_1);
+    addChild(new AxisLayerX2(), RESERVED_Z_X_AXIS_2);
+    addChild(new AxisLayerY1(), RESERVED_Z_Y_AXIS_1);
+    addChild(new AxisLayerY2(), RESERVED_Z_Y_AXIS_2);
 
     // DO NOT NEED
     // mAxesLayers.setZ(new LabelPlotLayer(), 4000);
 
-    addReserved(new LegendLayer(), RESERVED_Z_LEGEND);
-    addReserved(new AxesTitleLayer(), RESERVED_Z_TITLE);
+    addChild(new LegendLayer(), RESERVED_Z_LEGEND);
+    addChild(new AxesTitleLayer(), RESERVED_Z_TITLE);
   }
 
   @Override
