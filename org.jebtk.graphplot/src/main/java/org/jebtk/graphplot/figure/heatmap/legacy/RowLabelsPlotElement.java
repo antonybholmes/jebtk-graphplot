@@ -97,7 +97,7 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
     // List<String> labels = new ArrayList<String>(matrix.getRowCount());
 
     String[][] labels = new String[matrix.getRows()][properties.showAnnotations
-        .getVisibleCount()];
+                                                     .getVisibleCount()];
 
     List<String> types = CollectionUtils.replicate("string",
         properties.showAnnotations.getVisibleCount());
@@ -118,17 +118,21 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
 
           //double v = annMatrix.getValue(r, 0); matrix.getRowAnnotationValue(name, r);
 
+          //System.err.println("i " + i + " " + name + " " + r + " " + 
+          //    matrix.getRowAnnotationText(name, r) + " " + annMatrix.getCellType(0, r));
+
+          //System.err.println("sdfsdfsdf " + annMatrix.getClass() + " " + annMatrix.getType());
+          
           if (annMatrix.getCellType(0, r) == CellType.NUMBER) { //Matrix.isValidMatrixNum(v)) {
-            // System.err.println("i " + i + " " + name + " " + r + " " + v + "
-            // " + matrix.getRowAnnotationText(name, r));
+
 
             double v = annMatrix.getValue(0, r);
-            
+
             types.set(c, "number");
 
             if (Mathematics.isInt(v)) {
-              // System.err.println("i " + i + " " + name + " " + r + " " + v +
-              // " " + matrix.getRowAnnotationText(name, r));
+              System.err.println("i " + i + " " + name + " " + r + " " + v +
+                  " " + matrix.getRowAnnotationText(name, r));
 
               String ln = lnames.get(name);
 

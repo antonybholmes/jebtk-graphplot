@@ -172,6 +172,10 @@ public class HeatMapPlotElement extends MatrixPlotElement {
 
         for (int j = 0; j < mDrawingDim.mCols; ++j) {
           double v = getValue(i, j);
+          
+          //System.err.println("hmm " + i + " " + j + " " + mMatrix.getText(i,
+          //    j) + " " + mMatrix.getValue(i, j) + " " + x + " " + y + " " + mBlockSize);
+
 
           if (Mathematics.isValidNumber(v)) {
             g2.drawImage(cacheCell(mColorMap.getColor(v)), x, y, null);
@@ -189,9 +193,7 @@ public class HeatMapPlotElement extends MatrixPlotElement {
         int x = 0;
 
         for (int j = 0; j < mDrawingDim.mCols; ++j) {
-          // System.err.println("hmm " + i + " " + j + " " + mMatrix.getText(i,
-          // j) + " " + mMatrix.getValue(i, j));
-
+          
           double v = getValue(i, j);
 
           if (Mathematics.isValidNumber(v)) {
