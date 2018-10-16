@@ -47,6 +47,12 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
 
   private PlotBoxStorage mStorage;
 
+  /**
+   * Determines whether to pass on changeevents when part of a plot is
+   * updated.
+   */
+  private boolean mFireEvents = true;
+
   public PlotBoxContainer(String id) {
     this(id, new PlotBoxDimStorage(), new PlotBoxColumnLayout());
   }
@@ -358,5 +364,28 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
   @Override
   public void changed(ChangeEvent e) {
     fireChanged();
+  }
+  
+  @Override
+  public void fireChanged() {
+    if (mFireEvents) {
+      super.fireChanged();
+    }
+  }
+  
+  /**
+   * Control whether events are fired or not. Useful if applying multiple
+   * properties at once with triggering multiple events. If set to true,
+   * will trigger a changeevent.
+   * 
+   * @param fireEvents    Whether to forward plot change events up the
+   *                      hierarchy.
+   */
+  public void setFireEvents(boolean fireEvents) {
+    mFireEvents = fireEvents;
+    
+    if (fireEvents) {
+      fireChanged();
+    }
   }
 }
