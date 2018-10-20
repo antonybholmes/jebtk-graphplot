@@ -39,7 +39,7 @@ import org.apache.xmlgraphics.java2d.ps.EPSDocumentGraphics2D;
 import org.jebtk.core.geom.IntDim;
 import org.jebtk.core.io.FileUtils;
 import org.jebtk.core.io.PathUtils;
-import org.jebtk.core.io.Temp;
+import org.jebtk.core.io.TmpService;
 import org.jebtk.graphplot.plotbox.PlotBox;
 import org.jebtk.modern.dialog.ModernDialogStatus;
 import org.jebtk.modern.dialog.ModernMessageDialog;
@@ -232,7 +232,7 @@ public class Image {
       Transcoder transcoder,
       Path file) throws IOException, TranscoderException {
 
-    Path svgPath = Temp.createTempFile("svg");
+    Path svgPath = TmpService.getInstance().newTmpFile("svg");
 
     translateSvg(canvas, svgPath);
 
@@ -256,7 +256,7 @@ public class Image {
   public static void translate(PlotBox canvas, Transcoder transcoder, Path file)
       throws IOException, TranscoderException {
 
-    Path svgPath = Temp.createTempFile("svg");
+    Path svgPath = TmpService.getInstance().newTmpFile("svg");
 
     translateSvg(canvas, svgPath);
 
