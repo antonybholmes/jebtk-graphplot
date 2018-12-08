@@ -417,20 +417,26 @@ public class XYSeriesGroup extends Group<XYSeries> implements ChangeListener {
     for (int key : orderedKeys) {
       List<XYSeries> temp = new ArrayList<XYSeries>();
 
-      for (XYSeries group : groups.get(key)) {
-        if (used.contains(group)) {
-          continue;
+      System.err.println("key " + key + " " + groups.get(key));
+
+      XYSeriesGroup keyGroups = groups.get(key);
+
+      if (keyGroups != null) {
+        for (XYSeries group : keyGroups) {
+          if (used.contains(group)) {
+            continue;
+          }
+
+          temp.add(group);
+          used.add(group);
         }
 
-        temp.add(group);
-        used.add(group);
-      }
+        // sort the groups by name
+        Collections.sort(temp);
 
-      // sort the groups by name
-      Collections.sort(temp);
-
-      for (XYSeries x : temp) {
-        ret.add(x);
+        for (XYSeries x : temp) {
+          ret.add(x);
+        }
       }
     }
 

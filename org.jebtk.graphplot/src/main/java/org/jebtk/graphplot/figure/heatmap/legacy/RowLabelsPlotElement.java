@@ -131,9 +131,6 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
             types.set(c, "number");
 
             if (Mathematics.isInt(v)) {
-              System.err.println("i " + i + " " + name + " " + r + " " + v +
-                  " " + matrix.getRowAnnotationText(name, r));
-
               String ln = lnames.get(name);
 
               int vi = (int) v;

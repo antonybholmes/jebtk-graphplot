@@ -16,7 +16,7 @@
 	<setting name="graphplot.cluster.tree.gap" value="10" />
 	<setting name="graphplot.cluster.tree.groups.gap" value="10" />
 	
-	<setting name="graphplot.plot.char-width" value="12" />
+	<setting name="graphplot.plot.char-width" value="14" />
 	
 	<setting name="graphplot.plot.block-size" value="20" />
 	<setting name="graphplot.plot.group.block-size" value="16" />

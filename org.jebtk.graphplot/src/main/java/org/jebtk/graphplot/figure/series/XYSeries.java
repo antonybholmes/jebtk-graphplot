@@ -851,9 +851,7 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
         regexes.add(search.getString());
       }
 
-      // System.err.println("case " + caseSensitive);
-
-      ret.add(new XYSeries(name, RegexUtils.compile(regexes), caseSensitive, color));
+      ret.add(new XYSeries(name, RegexUtils.compile(regexes, caseSensitive), caseSensitive, color));
     }
 
     return ret;
