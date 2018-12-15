@@ -132,13 +132,7 @@ public abstract class PlotLayer extends Layer {
       Plot plot,
       DataFrame m) {
 
-    if (mRasterMode) {
-      rasterPlotLayer(g2, context, figure, subFigure, axes, plot, m);
-    } else if (mAAMode) {
-      aaPlotLayer(g2, context, figure, subFigure, axes, plot, m);
-    } else {
-      clipPlotLayer(g2, context, figure, subFigure, axes, plot, m);
-    }
+    rasterPlotLayer(g2, context, figure, subFigure, axes, plot, m);
   }
 
   public void aaPlotLayer(Graphics2D g2,
@@ -149,13 +143,17 @@ public abstract class PlotLayer extends Layer {
       Plot plot,
       DataFrame m) {
 
-    // Anti-alias by default
-    Graphics2D g2Temp = ImageUtils.createAATextGraphics(g2);
+    if (getAAModes().size() > 0) {
+      // Anti-alias by default
+      Graphics2D g2Temp = ImageUtils.createAAGraphics(g2, getAAModes());
 
-    try {
-      clipPlotLayer(g2Temp, context, figure, subFigure, axes, plot, m);
-    } finally {
-      g2Temp.dispose();
+      try {
+        clipPlotLayer(g2Temp, context, figure, subFigure, axes, plot, m);
+      } finally {
+        g2Temp.dispose();
+      }
+    } else {
+      clipPlotLayer(g2, context, figure, subFigure, axes, plot, m);
     }
   }
 
@@ -176,28 +174,30 @@ public abstract class PlotLayer extends Layer {
       Axes axes,
       Plot plot,
       DataFrame m) {
-    // Create an image version of the canvas and draw that to spped
-    // up operations
-    if (mBufferedImage == null || figure.invalidated()
-        || subFigure.invalidated() || axes.invalidated()
-        || plot.invalidated()) {
-      // The canvas need only be the size of the available display
-      mBufferedImage = ImageUtils.createImage(axes.getPreferredSize());
+    if (mRasterMode) {
 
-      Graphics2D g2Temp = ImageUtils.createGraphics(mBufferedImage);
 
-      try {
-        if (mAAMode) {
+      // Create an image version of the canvas and draw that to spped
+      // up operations
+      if (mBufferedImage == null || figure.invalidated()
+          || subFigure.invalidated() || axes.invalidated()
+          || plot.invalidated()) {
+        // The canvas need only be the size of the available display
+        mBufferedImage = ImageUtils.createImage(axes.getPreferredSize());
+
+        Graphics2D g2Temp = ImageUtils.createGraphics(mBufferedImage);
+
+        try {
           aaPlotLayer(g2Temp, context, figure, subFigure, axes, plot, m);
-        } else {
-          clipPlotLayer(g2Temp, context, figure, subFigure, axes, plot, m);
+        } finally {
+          g2Temp.dispose();
         }
-      } finally {
-        g2Temp.dispose();
       }
-    }
 
-    g2.drawImage(mBufferedImage, 0, 0, null);
+      g2.drawImage(mBufferedImage, 0, 0, null);
+    } else {
+      aaPlotLayer(g2, context, figure, subFigure, axes, plot, m);
+    }
   }
 
   public void clipPlotLayer(Graphics2D g2,

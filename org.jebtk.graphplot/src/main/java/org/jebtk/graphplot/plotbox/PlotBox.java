@@ -43,6 +43,7 @@ import org.jebtk.graphplot.figure.PlotHashProperty;
 import org.jebtk.graphplot.figure.PlotStyle;
 import org.jebtk.graphplot.figure.properties.MarginProperties;
 import org.jebtk.math.matrix.DataFrame;
+import org.jebtk.modern.graphics.AAModes;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.ImageUtils;
 import org.jebtk.modern.graphics.colormap.ColorMap;
@@ -60,8 +61,10 @@ public abstract class PlotBox extends ChangeListeners implements
   private String mName;
   private String mPlotName;
 
-  protected boolean mAAMode = false;
+  protected AAModes mAAModes = new AAModes();
+
   protected boolean mRasterMode = false;
+  
   protected boolean mClipMode = false;
 
   private BufferedImage mBufferedImage;
@@ -86,6 +89,15 @@ public abstract class PlotBox extends ChangeListeners implements
     this();
 
     setName(name);
+  }
+  
+  /**
+   * Set how the component uses anti-aliasing.
+   * 
+   * @return
+   */
+  public AAModes getAAModes() {
+    return mAAModes;
   }
 
   @Override
@@ -248,18 +260,6 @@ public abstract class PlotBox extends ChangeListeners implements
   }
 
   /**
-   * Sets whether to show the layer with anti-aliasing switched on. This options
-   * only affects on screen rendering.
-   * 
-   * @param on
-   */
-  public void setAAMode(boolean on) {
-    mAAMode = on;
-
-    fireChanged();
-  }
-
-  /**
    * Sets whether the layer should be cached as an image rather than being
    * rendered with primitives.
    * 
@@ -344,9 +344,9 @@ public abstract class PlotBox extends ChangeListeners implements
       DrawingContext context,
       Object... params) {
 
-    if (mAAMode) {
+    if (getAAModes().size() > 0) {
       // Anti-alias by default
-      Graphics2D g2Temp = ImageUtils.createAATextGraphics(g2);
+      Graphics2D g2Temp = ImageUtils.createAAGraphics(g2, getAAModes());
 
       try {
         plotLayer(g2Temp, offset, context, params);
