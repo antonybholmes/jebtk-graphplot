@@ -27,7 +27,7 @@ import org.jebtk.modern.graphics.ImageUtils;
 /**
  * Plot layers control how a plot is visualized within an axes object.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public abstract class PlotLayer extends Layer {

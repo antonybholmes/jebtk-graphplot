@@ -102,7 +102,7 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
     List<String> types = CollectionUtils.replicate("string",
         properties.showAnnotations.getVisibleCount());
 
-    List<String> names = matrix.getRowAnnotationNames();
+    List<String> names = matrix.getIndex().getNames();
     // List<String> lnames = TextUtils.toLowerCase(names);
 
     Map<String, String> lnames = TextUtils.toLowerCaseMap(names);
@@ -114,12 +114,12 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
         String name = names.get(i);
 
         if (properties.showAnnotations.isVisible(name)) {
-          Matrix annMatrix = matrix.getRowAnnotations(name);
+          Matrix annMatrix = matrix.getIndex().getAnnotation(name);
 
-          //double v = annMatrix.getValue(r, 0); matrix.getRowAnnotationValue(name, r);
+          //double v = annMatrix.getValue(r, 0); matrix.getIndex().getAnnotationValue(name, r);
 
           //System.err.println("i " + i + " " + name + " " + r + " " + 
-          //    matrix.getRowAnnotationText(name, r) + " " + annMatrix.getCellType(0, r));
+          //    matrix.getIndex().getText(name, r) + " " + annMatrix.getCellType(0, r));
 
           //System.err.println("sdfsdfsdf " + annMatrix.getClass() + " " + annMatrix.getType());
           
@@ -146,7 +146,7 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
               labels[r][c] = Formatter.number().format(v);
             }
           } else {
-            labels[r][c] = matrix.getRowAnnotationText(name, r);
+            labels[r][c] = matrix.getIndex().getText(name, r);
           }
 
           ++c;
@@ -157,34 +157,34 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
        * List<String> annotations = new ArrayList<String>();
        * 
        * if
-       * (properties.showAnnotations.get(matrix.getRowAnnotationNames().get(0)))
+       * (properties.showAnnotations.get(matrix.getIndex().getNames().get(0)))
        * { text.append(matrix.getRowName(r)); }
        * 
        * 
        * 
-       * for (int i = 1; i < matrix.getRowAnnotationNames().size(); ++i) {
-       * String name = matrix.getRowAnnotationNames().get(i);
+       * for (int i = 1; i < matrix.getIndex().getNames().size(); ++i) {
+       * String name = matrix.getIndex().getNames().get(i);
        * 
        * if (properties.showAnnotations.get(name)) {
-       * extra.add(matrix.getRowAnnotationText(name, i)); } }
+       * extra.add(matrix.getIndex().getText(name, i)); } }
        * 
        * if (extra.size() > 0) {
        * text.append(" (").append(TextUtils.commaJoin(extra)).append(")"); }
        */
 
       /*
-       * for (int i = 0; i < matrix.getRowAnnotationNames().size(); ++i) {
-       * String name = matrix.getRowAnnotationNames().get(i);
+       * for (int i = 0; i < matrix.getIndex().getNames().size(); ++i) {
+       * String name = matrix.getIndex().getNames().get(i);
        * 
        * if (properties.showAnnotations != null &&
        * properties.showAnnotations.containsKey(name) &&
        * properties.showAnnotations.get(name)) {
        * 
-       * double v = matrix.getRowAnnotationValue(name, r);
+       * double v = matrix.getIndex().getAnnotationValue(name, r);
        * 
        * if (Matrix.isValidMatrixNum(v)) {
        * annotations.add(Formatter.number().format(v)); } else {
-       * annotations.add(matrix.getRowAnnotationText(name, r)); } } }
+       * annotations.add(matrix.getIndex().getText(name, r)); } } }
        * 
        * labels.add(Join.on(", ").values(annotations).toString());
        */
@@ -207,8 +207,8 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
 
     int c = 0;
 
-    for (int i = 0; i < mMatrix.getRowAnnotationNames().size(); ++i) {
-      String name = mMatrix.getRowAnnotationNames().get(i);
+    for (int i = 0; i < mMatrix.getIndex().getNames().size(); ++i) {
+      String name = mMatrix.getIndex().getNames().get(i);
 
       if (mProperties.showAnnotations.isVisible(name)) {
         mTitles[c] = name;
@@ -252,17 +252,17 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
       RowLabelProperties properties) {
     List<String> annotations = new ArrayList<String>();
 
-    for (int i = 0; i < matrix.getRowAnnotationNames().size(); ++i) {
-      String name = matrix.getRowAnnotationNames().get(i);
+    for (int i = 0; i < matrix.getIndex().getNames().size(); ++i) {
+      String name = matrix.getIndex().getNames().get(i);
 
       if (properties.showAnnotations.isVisible(name)) {
 
-        double v = matrix.getRowAnnotationValue(name, row);
+        double v = matrix.getIndex().getValue(name, row);
 
         if (Matrix.isValidMatrixNum(v)) {
           annotations.add(Formatter.number().format(v));
         } else {
-          annotations.add(matrix.getRowAnnotationText(name, row));
+          annotations.add(matrix.getIndex().getText(name, row));
         }
       }
     }

@@ -24,7 +24,7 @@ import org.jebtk.graphplot.icons.ShapeStyle;
 /**
  * Draws a square at the given point. The square is centered about the point.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class MarkerBar extends Marker {

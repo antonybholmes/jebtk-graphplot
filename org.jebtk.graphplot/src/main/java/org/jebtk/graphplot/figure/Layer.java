@@ -22,7 +22,7 @@ import org.jebtk.graphplot.plotbox.PlotBox;
  * associated with them or may be just a sub collection of elements to make up a
  * plot.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public abstract class Layer extends PlotBox {
 

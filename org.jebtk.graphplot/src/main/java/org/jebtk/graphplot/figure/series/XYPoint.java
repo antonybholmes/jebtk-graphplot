@@ -22,7 +22,7 @@ import org.jebtk.core.event.ChangeListeners;
 /**
  * Represents a point in an XYSeries.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class XYPoint extends ChangeListeners implements ChangeListener {

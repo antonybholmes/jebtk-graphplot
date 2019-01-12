@@ -27,7 +27,7 @@ import org.jebtk.modern.graphics.DrawingContext;
  * Displays brackets to indicate how many samples are up and down regulated
  * based on their z-score.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public class UpDownDiffExpBracketsRightPlotElement
     extends RowMatrixPlotElement {
@@ -53,7 +53,7 @@ public class UpDownDiffExpBracketsRightPlotElement
       DoubleDim aspectRatio) {
     super(matrix, width, aspectRatio);
 
-    double[] zscores = matrix.getRowAnnotationValues("Z-score");
+    double[] zscores = matrix.getIndex().getValues("Z-score");
 
     for (double zscore : zscores) {
       if (zscore >= 0) {

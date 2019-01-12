@@ -24,7 +24,7 @@ import org.jebtk.modern.font.FontService;
 /**
  * Describes the font for a plot object.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class FontProperties extends ColorProperties {

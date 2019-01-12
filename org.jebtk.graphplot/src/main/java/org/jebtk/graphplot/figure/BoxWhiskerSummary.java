@@ -27,7 +27,7 @@ import org.jebtk.math.statistics.Statistics;
 /**
  * Box and whisker plot using a summary matrix.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class BoxWhiskerSummary extends XYSeries {

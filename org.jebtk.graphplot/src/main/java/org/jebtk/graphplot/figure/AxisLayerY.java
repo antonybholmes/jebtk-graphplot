@@ -24,7 +24,7 @@ import org.jebtk.core.Mathematics;
  * The Y1 and Y2 labels are essentially the same accept for where the labels are
  * positioned.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public abstract class AxisLayerY extends AxesLayer {

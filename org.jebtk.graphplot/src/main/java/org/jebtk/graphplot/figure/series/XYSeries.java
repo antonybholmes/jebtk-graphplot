@@ -52,7 +52,7 @@ import org.jebtk.math.statistics.Statistics;
 /**
  * A set of data points to plot as well as how they should be plotted.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class XYSeries extends MatrixGroup implements ChangeListener {

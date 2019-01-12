@@ -44,7 +44,7 @@ import org.jebtk.math.matrix.MatrixGroup;
 /**
  * A collection of series.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public class XYSeriesGroup extends Group<XYSeries> implements ChangeListener {
   /**
@@ -386,7 +386,7 @@ public class XYSeriesGroup extends Group<XYSeries> implements ChangeListener {
    * @param groups the groups
    * @return the list
    */
-  public static List<List<Integer>> findIndices(List<String> ids,
+  public static List<List<Integer>> findIndices(String[] ids,
       XYSeriesGroup groups) {
     List<List<Integer>> ret = new ArrayList<List<Integer>>();
 

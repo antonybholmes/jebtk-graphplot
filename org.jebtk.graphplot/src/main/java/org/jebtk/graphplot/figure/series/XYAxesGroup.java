@@ -23,7 +23,7 @@ import org.jebtk.math.matrix.DataFrame;
 /**
  * A collection of series groups.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class XYAxesGroup extends Group<XYSeriesGroup>

@@ -18,7 +18,7 @@ package org.jebtk.graphplot.figure;
 /**
  * Each layer of the graph can respond to changes.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public abstract class PlotClippedLayer extends PlotLayer {

@@ -28,7 +28,7 @@ import org.jebtk.modern.graphics.DrawingContext;
 /**
  * Details how the matrix was transformed and writes this on the plot.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class MatrixSummaryPlotElement extends RowMatrixPlotElement {

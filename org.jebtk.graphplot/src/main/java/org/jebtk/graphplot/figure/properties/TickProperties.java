@@ -25,7 +25,7 @@ import org.jebtk.math.Linspace;
 /**
  * Describes the tick marks on an axis.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public class TickProperties extends ChangeListeners implements ChangeListener {
 

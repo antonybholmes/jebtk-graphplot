@@ -18,7 +18,7 @@ package org.jebtk.graphplot.figure;
 /**
  * Contols how peaks are displayed.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public enum PlotStyle {

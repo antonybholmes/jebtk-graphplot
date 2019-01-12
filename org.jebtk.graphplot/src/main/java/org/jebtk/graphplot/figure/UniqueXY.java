@@ -33,7 +33,7 @@ import org.jebtk.math.matrix.MatrixGroup;
  * and the max y at that x for plotting purposes. Should only be used for
  * painting coordinates and not graph plot points.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class UniqueXY implements Iterable<Point>, Comparable<UniqueXY> {

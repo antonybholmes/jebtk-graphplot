@@ -23,7 +23,7 @@ import org.jebtk.modern.graphics.CanvasMouseListener;
 /**
  * All layers should implement this interface.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public interface ZLayer extends CanvasEventProducer,
     CanvasMouseListener, NameProperty, IdProperty {

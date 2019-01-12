@@ -32,7 +32,7 @@ import org.jebtk.modern.graphics.DrawingContext;
 /**
  * Sort the labels using the hierarchical tree.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class ColumnHLabelBottomPlotElement extends ColumnMatrixPlotElement {

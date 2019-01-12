@@ -27,7 +27,7 @@ import org.jebtk.modern.graphics.DrawingContext;
  * Displays brackets to indicate how many samples are up and down regulated
  * based on their z-score.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public class CountBracketRightPlotElement extends RowMatrixPlotElement {
 

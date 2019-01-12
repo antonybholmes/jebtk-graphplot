@@ -26,7 +26,7 @@ import org.jebtk.modern.graphics.DrawingContext;
 /**
  * Writes the number of samples that are up and down regulated on the plot.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class UpDownDiffExpPlotElement extends RowMatrixPlotElement {
@@ -65,7 +65,7 @@ public class UpDownDiffExpPlotElement extends RowMatrixPlotElement {
 
     mColor = color;
 
-    double[] zscores = matrix.getRowAnnotationValues("Z-score");
+    double[] zscores = matrix.getIndex().getValues("Z-score");
 
     for (double zscore : zscores) {
       if (zscore >= 0) {

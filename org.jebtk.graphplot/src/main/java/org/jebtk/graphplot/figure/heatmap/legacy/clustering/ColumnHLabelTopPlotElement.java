@@ -26,7 +26,7 @@ import org.jebtk.modern.widget.ModernWidget;
 /**
  * Sort the labels using the hierarchical tree.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class ColumnHLabelTopPlotElement extends ColumnHLabelBottomPlotElement {

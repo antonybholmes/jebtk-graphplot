@@ -25,7 +25,7 @@ import org.jebtk.math.matrix.DataFrame;
  * Sets up a spline plot, caching the path to be drawn if necessary to reduce
  * calculation operations.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public abstract class SplinePlotLayer extends PathPlotLayer {
 

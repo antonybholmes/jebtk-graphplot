@@ -26,7 +26,7 @@ import org.jebtk.modern.graphics.DrawingContext;
 /**
  * Writes the number of samples that are up and down regulated on the plot.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class CountPlotElement extends RowMatrixPlotElement {

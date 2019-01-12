@@ -23,7 +23,7 @@ import org.jebtk.modern.graphics.DrawingContext;
 /**
  * Add a centered title to a plot.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public class TitleTopRightPlotLayer extends AxesTitleLayer {
 

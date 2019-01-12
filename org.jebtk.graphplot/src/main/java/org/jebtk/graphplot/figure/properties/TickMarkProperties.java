@@ -31,7 +31,7 @@ import org.jebtk.graphplot.figure.series.XYSeriesGroup;
 /**
  * Describes the ticks on an axis.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class TickMarkProperties extends ChangeListeners
@@ -210,6 +210,21 @@ public class TickMarkProperties extends ChangeListeners
 
     for (int i = 0; i < labels.size(); ++i) {
       mTicks.get(i).setName(labels.get(i));
+    }
+    
+    mFont.setVisible(true);
+  }
+  
+  public void setLabels(String[] labels) {
+    if (labels == null) {
+      return;
+    }
+
+    // If the labels length too short, pad with empty strings
+    labels = TextUtils.pad(labels, TextUtils.EMPTY_STRING, mTicks.size());
+
+    for (int i = 0; i < labels.length; ++i) {
+      mTicks.get(i).setName(labels[i]);
     }
     
     mFont.setVisible(true);

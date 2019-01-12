@@ -76,7 +76,7 @@ import org.jebtk.modern.widget.ModernWidget;
 /**
  * Generates pre-designed plots with sane defaults for most users.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class PlotFactory {
@@ -1064,7 +1064,7 @@ public class PlotFactory {
     axes.getY2Axis().getTicks()
         .setTicks(Linspace.evenlySpaced(0.5, m.getRows() - 0.5, 1));
 
-    if (m.getRowAnnotationNames().size() > 0) {
+    if (m.getIndex().getNames().size() > 0) {
       axes.getY2Axis().getTicks().getMajorTicks().setLabels(m.getRowNames());
     }
 

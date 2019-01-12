@@ -22,7 +22,7 @@ import org.jebtk.modern.graphics.DrawingContext;
 /**
  * Draws the grid on the plot.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class Grid2dLayer extends AxesLayer {

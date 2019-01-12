@@ -28,7 +28,7 @@ import org.jebtk.modern.graphics.DrawingContext;
  * Sets up a spline plot, caching the path to be drawn if necessary to reduce
  * calculation operations.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public abstract class PathPlotLayer extends UniqueXYLayer {
 

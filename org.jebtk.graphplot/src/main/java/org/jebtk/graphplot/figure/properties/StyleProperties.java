@@ -22,7 +22,7 @@ import org.jebtk.core.event.ChangeListeners;
 /**
  * Set the color of a plot element.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class StyleProperties extends ChangeListeners implements ChangeListener {

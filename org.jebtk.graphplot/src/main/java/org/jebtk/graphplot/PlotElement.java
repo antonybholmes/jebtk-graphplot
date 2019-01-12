@@ -20,7 +20,7 @@ import org.jebtk.graphplot.plotbox.PlotBox;
 /**
  * Plot element that handles data from a matrix.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public abstract class PlotElement extends PlotBox {

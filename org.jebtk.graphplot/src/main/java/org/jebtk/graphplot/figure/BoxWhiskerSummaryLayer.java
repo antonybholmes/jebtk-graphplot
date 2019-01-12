@@ -24,7 +24,7 @@ import org.jebtk.modern.graphics.DrawingContext;
 /**
  * Concrete implementation of Graph2dCanvas for generating scatter plots.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public class BoxWhiskerSummaryLayer extends PlotClippedLayer {
 

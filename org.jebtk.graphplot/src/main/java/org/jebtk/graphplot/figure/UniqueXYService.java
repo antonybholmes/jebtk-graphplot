@@ -25,7 +25,7 @@ import org.jebtk.math.matrix.DataFrame;
  * Stores unique xy coordinates associated with a matrix globally so that
  * multiple plots sharing a matrix can also share unique coordinates.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class UniqueXYService {

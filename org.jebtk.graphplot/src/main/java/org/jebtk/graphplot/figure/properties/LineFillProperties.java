@@ -24,7 +24,7 @@ import org.jebtk.core.event.ChangeListeners;
 /**
  * Set the color and stroke of a line on a plot element.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class LineFillProperties extends ChangeListeners

@@ -18,7 +18,7 @@ package org.jebtk.graphplot;
 /**
  * Represents a string mapping from one entity to another.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class Alias {

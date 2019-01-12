@@ -22,7 +22,7 @@ import org.jebtk.core.geom.IntDim;
 /**
  * Draws a gradient color bar to represent the range of a color map.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class PlotElementFixedSize extends PlotElement {

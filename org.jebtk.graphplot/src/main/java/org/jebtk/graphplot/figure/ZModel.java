@@ -31,7 +31,7 @@ import org.jebtk.modern.graphics.CanvasListener;
 /**
  * Represents a series of objects stored at different z layers.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  * @param <T> the generic type
  */
 public class ZModel<T extends ZLayer> extends LayerCanvasListener

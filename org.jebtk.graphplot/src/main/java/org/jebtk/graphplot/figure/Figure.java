@@ -33,7 +33,7 @@ import org.jebtk.modern.graphics.DrawingContext;
 /**
  * Allows multiple plots to be placed on a grid and drawn together.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public class Figure extends PlotBoxGraph {
 

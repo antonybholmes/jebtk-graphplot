@@ -23,7 +23,7 @@ import java.util.Set;
  * Can store x y positions in use. Useful for testing whether to draw a shape
  * over another one if they are occupying the same space.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public class Occupied2d {
 

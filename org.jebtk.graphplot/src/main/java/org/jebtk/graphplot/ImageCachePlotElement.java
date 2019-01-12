@@ -24,7 +24,7 @@ import org.jebtk.modern.graphics.DrawingContext;
 /**
  * Cache a drawing as an image to reduce drawing time.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public class ImageCachePlotElement extends PlotElement {
 

@@ -25,7 +25,7 @@ import org.jebtk.graphplot.icons.ShapeStyle;
 /**
  * Draws a diamond at the given point. The square is centered about the point.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class MarkerDiamond extends Marker {

@@ -27,7 +27,7 @@ import org.jebtk.modern.widget.ModernWidget;
 /**
  * Draws an x axis on a plot
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public abstract class AxisLayerX extends AxesLayer {

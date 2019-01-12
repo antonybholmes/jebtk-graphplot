@@ -26,7 +26,7 @@ import org.jebtk.modern.graphics.DrawingContext;
 /**
  * Fills in line series.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class FillPlotLayer extends PathPlotLayer {

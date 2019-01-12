@@ -23,7 +23,7 @@ import org.jebtk.core.text.TextUtils;
 /**
  * Describes the margins on a plot.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class MarginProperties extends ChangeListeners

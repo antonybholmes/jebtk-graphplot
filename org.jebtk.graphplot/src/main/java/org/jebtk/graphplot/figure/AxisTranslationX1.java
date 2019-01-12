@@ -20,7 +20,7 @@ package org.jebtk.graphplot.figure;
  * inverted coordinates for y (0 is top right) we must invert and correct for
  * this since on a 2D cartesian graph y, y increases from the bottom up.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class AxisTranslationX1 extends AxisTranslationX {

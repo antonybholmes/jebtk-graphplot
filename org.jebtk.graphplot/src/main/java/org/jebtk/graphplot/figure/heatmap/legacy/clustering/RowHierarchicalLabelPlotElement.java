@@ -72,13 +72,13 @@ public class RowHierarchicalLabelPlotElement extends RowLabelsPlotElement {
          * 
          * List<String> extra = new ArrayList<String>();
          * 
-         * for (int i = 0; i < matrix.getRowAnnotationNames().size(); ++i) {
-         * String name = matrix.getRowAnnotationNames().get(i);
+         * for (int i = 0; i < matrix.getIndex().getNames().size(); ++i) {
+         * String name = matrix.getIndex().getNames().get(i);
          * 
          * if (properties.showAnnotations != null &&
          * properties.showAnnotations.containsKey(name) &&
          * properties.showAnnotations.get(name)) {
-         * extra.add(matrix.getRowAnnotationText(name, cluster.getId())); } }
+         * extra.add(matrix.getIndex().getText(name, cluster.getId())); } }
          * 
          * text.append(" ").append(TextUtils.join(extra, "; "));
          * 
@@ -91,17 +91,17 @@ public class RowHierarchicalLabelPlotElement extends RowLabelsPlotElement {
 
         int c = 0;
 
-        for (int i = 0; i < matrix.getRowAnnotationNames().size(); ++i) {
-          String name = matrix.getRowAnnotationNames().get(i);
+        for (int i = 0; i < matrix.getIndex().getNames().size(); ++i) {
+          String name = matrix.getIndex().getNames().get(i);
 
           if (properties.showAnnotations.isVisible(name)) {
 
-            double v = matrix.getRowAnnotationValue(name, r);
+            double v = matrix.getIndex().getValue(name, r);
 
             if (Matrix.isValidMatrixNum(v)) {
               labels[r][c] = Formatter.number().format(v);
             } else {
-              labels[r][c] = matrix.getRowAnnotationText(name, r);
+              labels[r][c] = matrix.getIndex().getText(name, r);
             }
 
             ++c;

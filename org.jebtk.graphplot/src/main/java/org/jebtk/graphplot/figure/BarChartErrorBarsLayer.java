@@ -29,7 +29,7 @@ import org.jebtk.modern.graphics.DrawingContext;
 /**
  * Draws lines between series dots.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class BarChartErrorBarsLayer extends PlotClippedLayer {

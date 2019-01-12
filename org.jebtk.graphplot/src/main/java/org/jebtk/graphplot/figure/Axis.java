@@ -34,7 +34,7 @@ import org.jebtk.math.Linspace;
 /**
  * Adjust properties for a given axis.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class Axis extends VisibleProperties

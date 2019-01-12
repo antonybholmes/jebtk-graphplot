@@ -28,7 +28,7 @@ import org.jebtk.modern.graphics.colormap.ColorMap;
 /**
  * Draws a gradient color bar to represent the range of a color map.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class ColorBar extends PlotElementFixedSize {

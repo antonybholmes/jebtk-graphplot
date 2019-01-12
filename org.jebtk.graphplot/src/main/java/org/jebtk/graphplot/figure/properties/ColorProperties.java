@@ -20,7 +20,7 @@ import java.awt.Color;
 /**
  * Describes the font for a plot object.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public abstract class ColorProperties extends VisibleProperties {

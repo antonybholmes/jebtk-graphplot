@@ -705,7 +705,9 @@ public abstract class PlotBox extends ChangeListeners implements
     ls.add(name.toLowerCase());
 
     if (names.length > 0) {
-      ls.addAll(TextUtils.toLowerCase(names));
+      for (String n : TextUtils.toLowerCase(names)) {
+        ls.add(n);
+      }
     }
 
     Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);

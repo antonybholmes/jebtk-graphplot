@@ -24,7 +24,7 @@ import org.jebtk.modern.graphics.DrawingContext;
  * Draw an outline around the plot. The color is determined by the line color of
  * the x axis.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class OutlinePlotLayer extends PlotLayer {

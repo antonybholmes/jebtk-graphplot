@@ -22,7 +22,7 @@ import org.jebtk.graphplot.figure.GridLocation;
 /**
  * Describes how the legend should appear on a plot.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class LegendProperties extends LocationProperties

@@ -29,7 +29,7 @@ import org.jebtk.modern.graphics.colormap.ColorMap;
 /**
  * A heatmap that allows for column and row swapping based upon clustering.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class ClusterHeatMapPlotElement extends HeatMapPlotElement {

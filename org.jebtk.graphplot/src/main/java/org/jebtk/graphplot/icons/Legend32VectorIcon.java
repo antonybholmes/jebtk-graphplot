@@ -24,7 +24,7 @@ import org.jebtk.modern.graphics.icons.ModernVectorIcon;
 /**
  * Download arrow vector icon.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class Legend32VectorIcon extends ModernVectorIcon {

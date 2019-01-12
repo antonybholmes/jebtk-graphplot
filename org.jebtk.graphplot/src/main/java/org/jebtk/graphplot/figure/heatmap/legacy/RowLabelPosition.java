@@ -18,7 +18,7 @@ package org.jebtk.graphplot.figure.heatmap.legacy;
 /**
  * Control the placement of labels.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public enum RowLabelPosition {

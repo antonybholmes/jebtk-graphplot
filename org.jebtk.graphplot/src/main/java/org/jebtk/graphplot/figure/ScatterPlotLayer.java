@@ -25,7 +25,7 @@ import org.jebtk.modern.graphics.DrawingContext;
 /**
  * Plot each series point as a shape.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public class ScatterPlotLayer extends UniqueXYLayer {
 

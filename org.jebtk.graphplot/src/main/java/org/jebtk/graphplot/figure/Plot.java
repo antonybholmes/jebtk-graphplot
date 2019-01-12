@@ -39,7 +39,7 @@ import org.jebtk.modern.graphics.colormap.ColorMap;
  * Represents a 2D Cartesian graph. This class draws basic axes and titles but
  * should be subclassed to provide specific plot functionality.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class Plot extends PlotBoxGraph

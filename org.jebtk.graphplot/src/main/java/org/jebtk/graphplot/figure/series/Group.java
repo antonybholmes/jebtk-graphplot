@@ -28,7 +28,7 @@ import org.jebtk.core.event.ChangeListeners;
 /**
  * A generic group object for creating a data group hierarchy.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  * @param <T> the generic type
  */
 public abstract class Group<T extends NameProperty> extends UniqueArrayList<T>

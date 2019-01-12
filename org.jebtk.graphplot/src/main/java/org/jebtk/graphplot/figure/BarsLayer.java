@@ -25,7 +25,7 @@ import org.jebtk.modern.graphics.DrawingContext;
 /**
  * Draws a series as set of bars.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public class BarsLayer extends UniqueXYLayer {
 

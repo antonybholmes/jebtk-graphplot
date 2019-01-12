@@ -20,7 +20,7 @@ import java.awt.Color;
 /**
  * Set the color and stroke of a line on a plot element.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class FillProperties extends ColorProperties {

@@ -20,7 +20,7 @@ import java.awt.Dimension;
 /**
  * Plot for drawing an axis. Responds to axis visibility properties.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class AxisPlotX1 extends AxisPlot {

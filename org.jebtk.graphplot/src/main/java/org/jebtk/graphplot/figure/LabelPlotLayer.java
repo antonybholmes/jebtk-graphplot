@@ -26,7 +26,7 @@ import org.jebtk.modern.widget.ModernWidget;
 /**
  * Concrete implementation of Graph2dCanvas for generating scatter plots.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public class LabelPlotLayer extends PlotLayer {
 

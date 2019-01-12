@@ -25,7 +25,7 @@ import org.jebtk.modern.graphics.ImageUtils;
 /**
  * Draws a circle at the given point. The circle is centered about the point.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class MarkerCircle extends Marker {

@@ -29,7 +29,7 @@ import org.jebtk.modern.zoom.ZoomCanvas;
  * graphics context is translated to match the scroll parameters. This removes
  * the need to move the actual panel around in the scroll pane.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public abstract class ModernPlotCanvas extends ZoomCanvas {

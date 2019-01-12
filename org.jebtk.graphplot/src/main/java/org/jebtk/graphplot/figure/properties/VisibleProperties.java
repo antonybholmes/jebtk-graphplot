@@ -20,7 +20,7 @@ import org.jebtk.core.event.ChangeListeners;
 /**
  * Specify if a graph element is visible or not.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public abstract class VisibleProperties extends ChangeListeners {
 

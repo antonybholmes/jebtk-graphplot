@@ -23,7 +23,7 @@ import org.jebtk.graphplot.figure.GridLocation;
 /**
  * Represents a title.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class TitleProperties extends LocationProperties

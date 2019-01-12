@@ -24,7 +24,7 @@ import org.jebtk.modern.graphics.DrawingContext;
 /**
  * Draws a mean line for a box whisker plot.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public class BoxWhiskerMeanLayer extends PlotSeriesLayer {
 

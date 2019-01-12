@@ -24,7 +24,7 @@ import org.jebtk.modern.graphics.DrawingContext;
 /**
  * Draws lines between points specified as x1,y1,x2,y2 in a nx4 matrix.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public class SegmentsPlotLayer extends PlotSeriesLayer {
 

@@ -24,7 +24,7 @@ import org.jebtk.math.matrix.DataFrame;
 /**
  * Fills in line series.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class FillTrapezoidPlotLayer extends FillPlotLayer {

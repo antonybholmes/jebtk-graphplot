@@ -23,7 +23,7 @@ import org.jebtk.core.settings.SettingsService;
 /**
  * Controls how grid lines appear on plots.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public class GridProperties extends LineProperties {
 

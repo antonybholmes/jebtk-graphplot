@@ -24,7 +24,7 @@ import org.jebtk.modern.widget.ModernWidget;
 /**
  * Add a centered title to a plot.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public class AxesTitleLayer extends AxesLayer {
 

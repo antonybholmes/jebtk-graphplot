@@ -23,7 +23,7 @@ import org.jebtk.math.matrix.DataFrame;
 /**
  * Plot element that handles data from a matrix.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public abstract class ColumnMatrixPlotElement extends MatrixPlotElement {

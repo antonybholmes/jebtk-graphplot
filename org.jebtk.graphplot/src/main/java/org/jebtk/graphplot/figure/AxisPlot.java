@@ -24,7 +24,7 @@ import org.jebtk.modern.widget.ModernWidget;
 /**
  * Plot for drawing an axis. Responds to axis visibility properties.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class AxisPlot extends Plot {

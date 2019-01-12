@@ -26,7 +26,7 @@ import org.jebtk.modern.graphics.DrawingContext;
 /**
  * Draw a specific series.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public abstract class PlotSeriesLayer extends PlotClippedLayer
     implements ChangeListener {

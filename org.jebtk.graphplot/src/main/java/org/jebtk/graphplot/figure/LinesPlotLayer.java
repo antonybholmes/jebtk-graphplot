@@ -25,7 +25,7 @@ import org.jebtk.modern.graphics.DrawingContext;
 /**
  * Draw vertical lines from 0 to y at each x.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class LinesPlotLayer extends UniqueXYLayer {

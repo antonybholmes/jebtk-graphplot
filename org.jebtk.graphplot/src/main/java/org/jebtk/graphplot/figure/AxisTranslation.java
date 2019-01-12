@@ -24,7 +24,7 @@ import org.jebtk.core.text.TextUtils;
 /**
  * Translate between graph space and pixel space.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public abstract class AxisTranslation {

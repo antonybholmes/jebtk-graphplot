@@ -20,7 +20,7 @@ import org.jebtk.graphplot.plotbox.PlotBoxPanel;
 /**
  * Allows multiple plots to be placed on a grid and drawn together.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public class SubFigurePanel extends PlotBoxPanel {
 

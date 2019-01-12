@@ -23,7 +23,7 @@ import org.jebtk.modern.graphics.colormap.ColorMap;
 /**
  * Color list to cycle through to choose how things are colored.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class ColorCycle extends Cycle<Color> {

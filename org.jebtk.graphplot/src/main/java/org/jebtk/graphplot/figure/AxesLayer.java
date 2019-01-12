@@ -25,7 +25,7 @@ import org.jebtk.modern.graphics.ImageUtils;
 /**
  * Each layer of the graph can respond to changes.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public abstract class AxesLayer extends Layer {
