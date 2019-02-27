@@ -63,7 +63,7 @@ public class RowHTreeLeftPlotElement extends RowMatrixPlotElement {
    */
   public RowHTreeLeftPlotElement(DataFrame matrix, int width,
       DoubleDim aspectRatio, Cluster rootCluster, Color color) {
-    super(matrix, width, aspectRatio);
+    super(matrix, aspectRatio, width);
 
     mColor = color;
     mRootCluster = rootCluster;

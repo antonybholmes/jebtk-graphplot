@@ -51,7 +51,7 @@ public class UpDownDiffExpBracketsRightPlotElement
    */
   public UpDownDiffExpBracketsRightPlotElement(DataFrame matrix, int width,
       DoubleDim aspectRatio) {
-    super(matrix, width, aspectRatio);
+    super(matrix, aspectRatio, width);
 
     double[] zscores = matrix.getIndex().getValues("Z-score");
 

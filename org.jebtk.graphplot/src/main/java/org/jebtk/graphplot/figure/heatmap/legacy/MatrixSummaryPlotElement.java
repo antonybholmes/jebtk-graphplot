@@ -97,7 +97,7 @@ public class MatrixSummaryPlotElement extends RowMatrixPlotElement {
    */
   public MatrixSummaryPlotElement(DataFrame matrix, List<String> history,
       DoubleDim aspectRatio, int width, Color color) {
-    super(matrix, width, aspectRatio);
+    super(matrix, aspectRatio, width);
 
     mHistory = history;
     mColor = color;

@@ -16,9 +16,9 @@
 package org.jebtk.graphplot.figure;
 
 import org.jebtk.core.event.ChangeEvent;
-import org.jebtk.modern.graphics.CanvasMouseEvent;
 import org.jebtk.modern.graphics.CanvasListener;
 import org.jebtk.modern.graphics.CanvasListeners;
+import org.jebtk.modern.graphics.CanvasMouseEvent;
 import org.jebtk.modern.graphics.CanvasMouseEventProducer;
 import org.jebtk.modern.graphics.CanvasMouseListener;
 import org.jebtk.modern.graphics.CanvasMouseListeners;

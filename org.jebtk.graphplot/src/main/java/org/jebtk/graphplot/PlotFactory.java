@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jebtk.core.Mathematics;
-import org.jebtk.core.geom.IntDim;
 import org.jebtk.core.settings.SettingsService;
 import org.jebtk.core.text.TextUtils;
 import org.jebtk.graphplot.figure.Axes;

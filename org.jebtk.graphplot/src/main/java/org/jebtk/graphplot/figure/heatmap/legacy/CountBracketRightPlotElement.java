@@ -53,7 +53,7 @@ public class CountBracketRightPlotElement extends RowMatrixPlotElement {
    */
   public CountBracketRightPlotElement(DataFrame matrix, CountGroups countGroups,
       int width, DoubleDim aspectRatio, Color color) {
-    super(matrix, width, aspectRatio);
+    super(matrix, aspectRatio, width);
     mColor = color;
     mCountGroups = countGroups;
   }

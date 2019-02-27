@@ -102,7 +102,7 @@ public class NumericalRowLabelsPlotElement extends RowMatrixPlotElement {
   public NumericalRowLabelsPlotElement(DataFrame matrix, String title,
       List<Double> values, int width, DoubleDim aspectRatio, Color color,
       String format) {
-    super(matrix, width, aspectRatio);
+    super(matrix, aspectRatio, width);
 
     mTitle = title;
     mColor = color;

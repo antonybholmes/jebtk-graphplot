@@ -20,6 +20,8 @@ import java.awt.Graphics2D;
 import java.util.Map;
 
 import org.jebtk.core.geom.DoubleDim;
+import org.jebtk.core.settings.SettingsService;
+import org.jebtk.graphplot.figure.heatmap.legacy.GroupProperties;
 import org.jebtk.graphplot.figure.heatmap.legacy.RowMatrixPlotElement;
 import org.jebtk.graphplot.figure.series.XYSeriesGroup;
 import org.jebtk.math.matrix.DataFrame;
@@ -34,6 +36,9 @@ public class RowGroupColorBarPlotElement extends RowMatrixPlotElement {
    * The constant serialVersionUID.
    */
   private static final long serialVersionUID = 1L;
+  
+  private static final int WIDTH = SettingsService.getInstance()
+      .getInt("graphplot.plot.group.block-size");
 
   /**
    * The member map.
@@ -48,11 +53,11 @@ public class RowGroupColorBarPlotElement extends RowMatrixPlotElement {
    * @param width the width
    * @param aspectRatio the aspect ratio
    */
-  public RowGroupColorBarPlotElement(DataFrame m, XYSeriesGroup groups,
-      int width, DoubleDim aspectRatio) {
-    super(m, width, aspectRatio);
+  public RowGroupColorBarPlotElement(DataFrame matrix, DoubleDim aspectRatio,
+      XYSeriesGroup groups, GroupProperties properties) {
+    super(matrix, aspectRatio, WIDTH);
 
-    mMap = XYSeriesGroup.arrangeGroupsByIndex(m, groups);
+    mMap = XYSeriesGroup.arrangeGroupsByIndex(matrix, groups);
   }
 
   /*
@@ -71,6 +76,8 @@ public class RowGroupColorBarPlotElement extends RowMatrixPlotElement {
     int y = 0;
 
     for (int i : mMap.keySet()) {
+      System.err.println("row g " + i + " " + mMap.get(i));
+      
       XYSeriesGroup groups = mMap.get(i);
 
       y = i * mBlockSize.getH();

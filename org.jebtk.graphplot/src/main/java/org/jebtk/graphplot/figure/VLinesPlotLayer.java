@@ -18,7 +18,6 @@ package org.jebtk.graphplot.figure;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import org.jebtk.core.sys.SysUtils;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
 

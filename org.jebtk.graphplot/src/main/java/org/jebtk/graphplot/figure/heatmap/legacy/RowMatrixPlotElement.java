@@ -38,8 +38,8 @@ public abstract class RowMatrixPlotElement extends MatrixPlotElement {
    * @param width the width
    * @param aspectRatio the aspect ratio
    */
-  public RowMatrixPlotElement(DataFrame matrix, int width,
-      DoubleDim aspectRatio) {
+  public RowMatrixPlotElement(DataFrame matrix,
+      DoubleDim aspectRatio, int width) {
     super(matrix, aspectRatio);
 
     setWidth(width);

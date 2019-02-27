@@ -50,7 +50,7 @@ public class UpDownDiffExpBracketsLeftPlotElement extends RowMatrixPlotElement {
    */
   public UpDownDiffExpBracketsLeftPlotElement(DataFrame matrix, int width,
       DoubleDim aspectRatio) {
-    super(matrix, width, aspectRatio);
+    super(matrix, aspectRatio, width);
 
     double[] zscores = matrix.getIndex().getValues("Z-score");
 

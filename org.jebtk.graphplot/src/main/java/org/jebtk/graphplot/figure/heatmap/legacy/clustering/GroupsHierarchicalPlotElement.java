@@ -73,6 +73,8 @@ public class GroupsHierarchicalPlotElement extends MatrixPlotElement {
 
     mWidth = width;
 
+    
+    
     if (groups == null) {
       return;
     }
@@ -82,6 +84,7 @@ public class GroupsHierarchicalPlotElement extends MatrixPlotElement {
     mGroups = XYSeriesGroup.orderGroups(
         XYSeriesGroup.arrangeGroupsByCluster(matrix, groups, rootCluster));
 
+
     if (mGroups == null) {
       return;
     }
@@ -90,6 +93,8 @@ public class GroupsHierarchicalPlotElement extends MatrixPlotElement {
         groups);
 
     for (List<Integer> group : indices) {
+      System.err.println("g test " + group);
+      
       if (group.size() == 0) {
         continue;
       }
@@ -154,7 +159,10 @@ public class GroupsHierarchicalPlotElement extends MatrixPlotElement {
 
   @Override
   public void plotSize(Dimension d) {
+    
     d.width += mWidth;
     d.height += mHeight;
+    
+    System.err.print("gphpe " + d + " " + mHeight);
   }
 }

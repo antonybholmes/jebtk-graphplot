@@ -31,7 +31,6 @@ import org.jebtk.graphplot.figure.PlotClippedLayer;
 import org.jebtk.graphplot.figure.SubFigure;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
-import org.jebtk.modern.graphics.ImageUtils;
 import org.jebtk.modern.graphics.colormap.ColorMap;
 
 /**

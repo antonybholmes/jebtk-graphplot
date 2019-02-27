@@ -61,7 +61,7 @@ public class UpDownDiffExpPlotElement extends RowMatrixPlotElement {
    */
   public UpDownDiffExpPlotElement(DataFrame matrix, int width,
       DoubleDim aspectRatio, Color color) {
-    super(matrix, width, aspectRatio);
+    super(matrix, aspectRatio, width);
 
     mColor = color;
 

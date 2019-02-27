@@ -19,7 +19,6 @@ import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -850,6 +849,8 @@ public class XYSeries extends MatrixGroup implements ChangeListener {
       for (Json search : group.get("searches")) {
         regexes.add(search.getString());
       }
+      
+      System.err.println("grpj " + name + " " + regexes);
 
       ret.add(new XYSeries(name, RegexUtils.compile(regexes, caseSensitive), caseSensitive, color));
     }

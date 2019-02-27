@@ -88,7 +88,7 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
    */
   public RowLabelsPlotElement(DataFrame matrix, RowLabelProperties properties,
       DoubleDim aspectRatio, int charWidth) {
-    super(matrix, -1, aspectRatio);
+    super(matrix, aspectRatio, -1);
 
     // mTitle = title;
     mProperties = properties;

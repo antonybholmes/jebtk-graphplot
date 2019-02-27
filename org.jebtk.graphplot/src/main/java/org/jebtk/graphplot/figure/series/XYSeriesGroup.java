@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
@@ -376,6 +377,7 @@ public class XYSeriesGroup extends Group<XYSeries> implements ChangeListener {
    */
   public static List<List<Integer>> findColumnIndices(DataFrame matrix,
       XYSeriesGroup groups) {
+    System.err.println("find ind " + Arrays.toString(matrix.getColumnNames()));
     return findIndices(matrix.getColumnNames(), groups);
   }
 

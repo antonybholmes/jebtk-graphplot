@@ -55,7 +55,7 @@ public class CountPlotElement extends RowMatrixPlotElement {
    */
   public CountPlotElement(DataFrame matrix, CountGroups countGroups, int width,
       DoubleDim aspectRatio, Color color) {
-    super(matrix, width, aspectRatio);
+    super(matrix, aspectRatio, width);
 
     mCountGroups = countGroups;
     mColor = color;
