@@ -112,7 +112,7 @@ public class FillPlotLayer extends PathPlotLayer {
     GeneralPath path = new GeneralPath();
 
     int y0 = Math.min(axes.toPlotY1(0),
-        axes.toPlotY1(axes.getY1Axis().getMin()));
+        axes.toPlotY1(axes.getY1Axis().getLimits().getMin()));
 
     path.moveTo(xy.getPoint(0).x, y0);
 

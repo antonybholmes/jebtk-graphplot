@@ -86,7 +86,7 @@ public class SplineFillPlotLayer extends SplinePlotLayer {
     // zero point
     // knotsX[0] = xy.getPoint(0).getX();
     // knotsY[0] = Math.min(axes.toPlotY1(0),
-    // axes.toPlotY1(axes.getY1Axis().getMin()));
+    // axes.toPlotY1(axes.getY1Axis().getLimits().getMin()));
 
     for (int i = 0; i < xy.getPointCount(); ++i) {
       p = xy.getPoint(i);
@@ -105,7 +105,7 @@ public class SplineFillPlotLayer extends SplinePlotLayer {
 
     GeneralPath path = new GeneralPath();
 
-    int miny = axes.toPlotY1(Math.max(0, axes.getY1Axis().getMin()));
+    int miny = axes.toPlotY1(Math.max(0, axes.getY1Axis().getLimits().getMin()));
 
     path.moveTo(knotsX[0], miny);
     path.lineTo(knotsX[0], knotsY[0]);

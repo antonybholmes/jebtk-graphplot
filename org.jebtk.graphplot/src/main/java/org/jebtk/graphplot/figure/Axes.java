@@ -716,10 +716,10 @@ public class Axes extends PlotBoxGraph {
   public String hashId() {
     return Join.onDash()
         .values(getPreferredSize(),
-            getX1Axis().getMin(),
-            getX1Axis().getMax(),
-            getY1Axis().getMin(),
-            getY1Axis().getMax())
+            getX1Axis().getLimits().getMin(),
+            getX1Axis().getLimits().getMax(),
+            getY1Axis().getLimits().getMin(),
+            getY1Axis().getLimits().getMax())
         .toString();
   }
 

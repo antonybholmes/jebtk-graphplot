@@ -197,7 +197,7 @@ public class ScatterBestFitPlotLayer extends PlotSeriesLayer {
     }
 
     System.err.println("C" + columns + " " + Arrays.toString(knotsX) + " "
-        + axes.getX1Axis().getMin() + " " + axes.getX1Axis().getMax());
+        + axes.getX1Axis().getLimits().getMin() + " " + axes.getX1Axis().getLimits().getMax());
 
     //
     // Create an iterpolation

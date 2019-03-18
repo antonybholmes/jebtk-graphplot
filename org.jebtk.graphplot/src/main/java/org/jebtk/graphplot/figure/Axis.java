@@ -44,16 +44,7 @@ public class Axis extends VisibleProperties
    * The constant serialVersionUID.
    */
   private static final long serialVersionUID = 1L;
-
-  /**
-   * The member min.
-   */
-  private double mMin = 0;
-
-  /**
-   * The member max.
-   */
-  private double mMax = 1;
+  
 
   /**
    * The member stroke.
@@ -81,6 +72,8 @@ public class Axis extends VisibleProperties
   /** The m name. */
   private String mName;
 
+  private AxisLimits mLimits = new AxisLimits(0, 1);
+
   /**
    * Instantiates a new axis.
    *
@@ -95,6 +88,7 @@ public class Axis extends VisibleProperties
     mGrid.addChangeListener(this);
     mTitle.addChangeListener(this);
     mStroke.addChangeListener(this);
+    mLimits.addChangeListener(this);
   }
 
   /**
@@ -164,44 +158,8 @@ public class Axis extends VisibleProperties
     fireChanged();
   }
 
-  /**
-   * Set the min limit of this axis.
-   *
-   * @param min the new min
-   */
-  public void setMin(double min) {
-    mMin = min;
-
-    setLimits();
-  }
-
-  /**
-   * Returns the min limit of the axis.
-   * 
-   * @return The min limit.
-   */
-  public double getMin() {
-    return mMin;
-  }
-
-  /**
-   * Sets the max.
-   *
-   * @param max the new max
-   */
-  public void setMax(double max) {
-    mMax = max;
-
-    setLimits();
-  }
-
-  /**
-   * Returns the max limit of the axis.
-   * 
-   * @return The max limit.
-   */
-  public double getMax() {
-    return mMax;
+  public AxisLimits getLimits() {
+    return mLimits;
   }
 
   /**
@@ -220,7 +178,7 @@ public class Axis extends VisibleProperties
    * @return true, if successful
    */
   public boolean withinBounds(double x) {
-    return x >= mMin && x <= mMax;
+    return mLimits.withinBounds(x);
   }
 
   /**
@@ -230,7 +188,7 @@ public class Axis extends VisibleProperties
    * @return the double
    */
   public double bound(double x) {
-    return Math.min(mMax, Math.max(mMin, x));
+    return Math.min(mLimits.getMax(), Math.max(mLimits.getMin(), x));
   }
 
   /*
@@ -252,19 +210,11 @@ public class Axis extends VisibleProperties
    * @param step the step
    */
   public void setLimits(double min, double max, double step) {
-    mMin = min;
-    mMax = max;
+    mLimits.update(min, max);
 
     // Extend ticks past end so that if the end is not a multiple of the
     // step size, the ticks do not end abruptly.
-    getTicks().setTicks(Linspace.evenlySpaced(min, max + step, step));
-  }
-
-  /**
-   * Sets the limits.
-   */
-  public void setLimits() {
-    setLimits(mMin, mMax);
+    getTicks().setTicks(Linspace.evenlySpaced(mLimits.getMin(), mLimits.getMax() + step, step));
   }
 
   /**
@@ -296,6 +246,7 @@ public class Axis extends VisibleProperties
    * @param max the max
    */
   public void setLimitsAutoRound(double min, double max) {
+    
     double step = calcStepSize(max - min);
 
     if (min >= 0) {
@@ -328,7 +279,7 @@ public class Axis extends VisibleProperties
    * Display tick marks only at the minimum and maximum of the axis.
    */
   public void startEndTicksOnly() {
-    List<Double> range = Linspace.range(mMin, mMax);
+    List<Double> range = Linspace.range(mLimits.getMin(), mLimits.getMax());
 
     getTicks().setTicks(range);
   }
@@ -342,8 +293,8 @@ public class Axis extends VisibleProperties
   @Override
   public String hashId() {
     return TextUtils.join(TextUtils.COLON_DELIMITER,
-        getMin(),
-        getMax(),
+        mLimits.getMin(),
+        mLimits.getMax(),
         getTicks().getMajorTicks().getTickCount(),
         getTicks().getMinorTicks().getTickCount());
   }
@@ -387,7 +338,8 @@ public class Axis extends VisibleProperties
   }
 
   /**
-   * Calc step size.
+   * Use an empirical rule to determine how big the tick size should be 
+   * automatically based on the min max range.
    *
    * @param range the range
    * @return the float

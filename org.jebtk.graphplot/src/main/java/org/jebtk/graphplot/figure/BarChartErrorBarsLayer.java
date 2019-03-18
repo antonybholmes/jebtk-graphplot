@@ -84,7 +84,7 @@ public class BarChartErrorBarsLayer extends PlotClippedLayer {
 
     offset = (1.0 - bw) / 2.0;
 
-    x = 0; // axes.toPlotX(axes.getXAxis().getMin());
+    x = 0; // axes.toPlotX(axes.getXAxis().getLimits().getMin());
 
     double[] means = DoubleMatrix.columnMeans(m);
     double[] sds = DoubleMatrix.columnPopStdDev(m);

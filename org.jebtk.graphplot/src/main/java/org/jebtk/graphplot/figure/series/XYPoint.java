@@ -165,8 +165,8 @@ public class XYPoint extends ChangeListeners implements ChangeListener {
    */
   /*
    * public static boolean withinGraphBounds(XYPoint point, AxisProperties
-   * xAxis, AxisProperties yAxis) { return point.getX() >= xAxis.getMin() &&
-   * point.getX() <= xAxis.getMax() && point.getY() >= yAxis.getMin() &&
-   * point.getY() <= yAxis.getMax(); }
+   * xAxis, AxisProperties yAxis) { return point.getX() >= xAxis.getLimits().getMin() &&
+   * point.getX() <= xAxis.getLimits().getMax() && point.getY() >= yAxis.getLimits().getMin() &&
+   * point.getY() <= yAxis.getLimits().getMax(); }
    */
 }

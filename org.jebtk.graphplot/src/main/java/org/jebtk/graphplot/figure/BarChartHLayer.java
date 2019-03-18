@@ -80,7 +80,7 @@ public class BarChartHLayer extends PlotClippedLayer {
     double[] means = DoubleMatrix.columnMeans(m);
 
     // y is draw in negative direction
-    x = bw; // 1 + bw; //axes.toPlotX(axes.getXAxis().getMin());
+    x = bw; // 1 + bw; //axes.toPlotX(axes.getXAxis().getLimits().getMin());
 
     for (XYSeries series : plot.getAllSeries()) {
       List<Integer> columns = MatrixGroup.findColumnIndices(m, series);

@@ -63,7 +63,7 @@ public class VLinesPlotLayer extends PlotClippedLayer {
       DataFrame m) {
 
     int y1 = axes.toPlotY1(0);
-    int y2 = axes.toPlotY1(axes.getY1Axis().getMax());
+    int y2 = axes.toPlotY1(axes.getY1Axis().getLimits().getMax());
     
     g2.setColor(Color.BLACK);
 
@@ -72,7 +72,7 @@ public class VLinesPlotLayer extends PlotClippedLayer {
       
       g2.drawLine(x, y1, x, y2);
       
-      //SysUtils.err().println("vlines", x, y1, y2, m.getValue(0, i), axes.getX1Axis().getMax());
+      //SysUtils.err().println("vlines", x, y1, y2, m.getValue(0, i), axes.getX1Axis().getLimits().getMax());
     }
   }
 

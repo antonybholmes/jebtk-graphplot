@@ -253,9 +253,9 @@ public abstract class PlotLayer extends Layer {
         m.hashCode(),
         axes.getMargins(),
         axes.getPreferredSize(),
-        axes.getX1Axis().getMin(),
-        axes.getX1Axis().getMax(),
-        axes.getY1Axis().getMin(),
-        axes.getY1Axis().getMax());
+        axes.getX1Axis().getLimits().getMin(),
+        axes.getX1Axis().getLimits().getMax(),
+        axes.getY1Axis().getLimits().getMin(),
+        axes.getY1Axis().getLimits().getMax());
   }
 }

@@ -106,7 +106,7 @@ public abstract class AxisLayerY extends AxesLayer {
       g2.drawLine(x, 0, x, axes.getInternalSize().getH());
 
       // Draw a line at y = 0
-      if (axis.getShowZerothLine() && axis.getMin() < 0 && axis.getMax() > 0) {
+      if (axis.getShowZerothLine() && axis.getLimits().getMin() < 0 && axis.getLimits().getMax() > 0) {
         x = 0;
         int y = axes.toPlotY1(0);
 

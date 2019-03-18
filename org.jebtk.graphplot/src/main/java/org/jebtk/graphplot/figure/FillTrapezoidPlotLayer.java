@@ -68,12 +68,12 @@ public class FillTrapezoidPlotLayer extends FillPlotLayer {
 
     int yMin;
 
-    if (axes.getY1Axis().getMin() <= 0 && axes.getY1Axis().getMax() > 0) {
+    if (axes.getY1Axis().getLimits().getMin() <= 0 && axes.getY1Axis().getLimits().getMax() > 0) {
       yMin = axes.toPlotY1(0);
-    } else if (axes.getY1Axis().getMin() >= 0) {
-      yMin = axes.toPlotY1(axes.getY1Axis().getMin());
+    } else if (axes.getY1Axis().getLimits().getMin() >= 0) {
+      yMin = axes.toPlotY1(axes.getY1Axis().getLimits().getMin());
     } else {
-      yMin = axes.toPlotY1(axes.getY1Axis().getMax());
+      yMin = axes.toPlotY1(axes.getY1Axis().getLimits().getMax());
     }
 
     GeneralPath path = new GeneralPath();

@@ -109,8 +109,8 @@ public abstract class AxisTranslation {
    * Redraw.
    */
   private void cache() {
-    mXMin = mAxis.getMin();
-    mXDiff = mAxis.getMax() - mXMin;
+    mXMin = mAxis.getLimits().getMin();
+    mXDiff = mAxis.getLimits().getMax() - mXMin;
     mXPixels = getPixels();
 
     clearCaches();

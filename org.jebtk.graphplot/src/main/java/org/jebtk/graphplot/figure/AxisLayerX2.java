@@ -61,7 +61,7 @@ public class AxisLayerX2 extends AxisLayerX {
       // If xmin is less than zero and xmax greater than zero,
       // draw a line at x=0
 
-      if (axis.getShowZerothLine() && axis.getMin() < 0 && axis.getMax() > 0) {
+      if (axis.getShowZerothLine() && axis.getLimits().getMin() < 0 && axis.getLimits().getMax() > 0) {
         int x = axes.toPlotX2(0);
         y = axes.getMargins().getTop();
 

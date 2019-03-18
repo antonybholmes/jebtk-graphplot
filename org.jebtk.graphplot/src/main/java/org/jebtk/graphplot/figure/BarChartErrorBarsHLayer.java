@@ -80,7 +80,7 @@ public class BarChartErrorBarsHLayer extends PlotClippedLayer {
 
     offset = (1.0 - bw) / 2.0;
 
-    x = 0; // axes.toPlotX(axes.getXAxis().getMin());
+    x = 0; // axes.toPlotX(axes.getXAxis().getLimits().getMin());
 
     for (XYSeries series : plot.getAllSeries()) {
       y = XYSeries.mean(m, series);
