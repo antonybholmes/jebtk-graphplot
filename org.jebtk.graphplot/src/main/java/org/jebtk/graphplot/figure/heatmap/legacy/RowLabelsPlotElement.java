@@ -31,8 +31,8 @@ import org.jebtk.core.text.TextUtils;
 import org.jebtk.math.matrix.CellType;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.math.matrix.Matrix;
+import org.jebtk.modern.ModernWidget;
 import org.jebtk.modern.graphics.DrawingContext;
-import org.jebtk.modern.widget.ModernWidget;
 
 /**
  * The class RowLabelsPlotElement.

@@ -4,10 +4,10 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jebtk.core.NameProperty;
+import org.jebtk.core.NameGetter;
 import org.jebtk.core.event.ChangeListeners;
 
-public class Tick extends ChangeListeners implements Comparable<Tick>, NameProperty {
+public class Tick extends ChangeListeners implements Comparable<Tick>, NameGetter {
 
   private static final long serialVersionUID = 1L;
   private String mName;

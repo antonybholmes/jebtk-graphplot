@@ -19,8 +19,8 @@ import java.awt.Graphics2D;
 
 import org.jebtk.core.collections.UniqueArrayList;
 import org.jebtk.graphplot.figure.properties.Tick;
+import org.jebtk.modern.ModernWidget;
 import org.jebtk.modern.graphics.DrawingContext;
-import org.jebtk.modern.widget.ModernWidget;
 
 /**
  * Draws an x axis on a plot

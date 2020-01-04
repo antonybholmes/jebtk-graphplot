@@ -21,7 +21,7 @@ import java.awt.Graphics2D;
 import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.math.cluster.Cluster;
 import org.jebtk.math.matrix.DataFrame;
-import org.jebtk.modern.widget.ModernWidget;
+import org.jebtk.modern.ModernWidget;
 
 /**
  * Sort the labels using the hierarchical tree.

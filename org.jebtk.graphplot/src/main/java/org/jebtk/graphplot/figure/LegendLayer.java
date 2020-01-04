@@ -24,8 +24,8 @@ import java.util.TreeMap;
 
 import org.jebtk.graphplot.figure.series.XYSeries;
 import org.jebtk.graphplot.plotbox.PlotBox;
+import org.jebtk.modern.ModernWidget;
 import org.jebtk.modern.graphics.DrawingContext;
-import org.jebtk.modern.widget.ModernWidget;
 
 /**
  * The class LegendLayer.

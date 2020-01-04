@@ -15,13 +15,13 @@
  */
 package org.jebtk.graphplot.figure.heatmap.legacy;
 
-import org.jebtk.core.NameProperty;
+import org.jebtk.core.NameGetter;
 import org.jebtk.core.text.TextUtils;
 
 /**
  * The Class CountGroup.
  */
-public class CountGroup implements NameProperty {
+public class CountGroup implements NameGetter {
 
   /** The m name. */
   private String mName;

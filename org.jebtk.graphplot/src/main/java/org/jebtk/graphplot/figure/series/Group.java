@@ -18,7 +18,7 @@ package org.jebtk.graphplot.figure.series;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.jebtk.core.NameProperty;
+import org.jebtk.core.NameGetter;
 import org.jebtk.core.collections.UniqueArrayList;
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeEventProducer;
@@ -31,8 +31,8 @@ import org.jebtk.core.event.ChangeListeners;
  * @author Antony Holmes
  * @param <T> the generic type
  */
-public abstract class Group<T extends NameProperty> extends UniqueArrayList<T>
-    implements NameProperty, ChangeEventProducer {
+public abstract class Group<T extends NameGetter> extends UniqueArrayList<T>
+    implements NameGetter, ChangeEventProducer {
 
   // private List<T> mGroups = new UniqueList<T>();
 

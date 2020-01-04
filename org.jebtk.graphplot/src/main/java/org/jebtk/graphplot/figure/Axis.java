@@ -20,7 +20,7 @@ import java.awt.Font;
 import java.util.List;
 
 import org.jebtk.core.Mathematics;
-import org.jebtk.core.NameProperty;
+import org.jebtk.core.NameGetter;
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
 import org.jebtk.core.text.TextUtils;
@@ -38,7 +38,7 @@ import org.jebtk.math.Linspace;
  *
  */
 public class Axis extends VisibleProperties
-    implements NameProperty, PlotHashProperty, ChangeListener {
+    implements NameGetter, PlotHashProperty, ChangeListener {
 
   /**
    * The constant serialVersionUID.

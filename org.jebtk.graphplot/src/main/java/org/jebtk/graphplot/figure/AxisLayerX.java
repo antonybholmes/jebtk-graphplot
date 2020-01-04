@@ -20,9 +20,9 @@ import java.util.List;
 
 import org.jebtk.core.Mathematics;
 import org.jebtk.graphplot.figure.properties.TickMarkProperties;
+import org.jebtk.modern.ModernWidget;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.ImageUtils;
-import org.jebtk.modern.widget.ModernWidget;
 
 /**
  * Draws an x axis on a plot

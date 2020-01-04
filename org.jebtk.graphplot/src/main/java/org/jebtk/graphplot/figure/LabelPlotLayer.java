@@ -20,8 +20,8 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 
 import org.jebtk.math.matrix.DataFrame;
+import org.jebtk.modern.ModernWidget;
 import org.jebtk.modern.graphics.DrawingContext;
-import org.jebtk.modern.widget.ModernWidget;
 
 /**
  * Concrete implementation of Graph2dCanvas for generating scatter plots.

@@ -26,10 +26,10 @@ import java.util.Map;
 import org.jebtk.core.Mathematics;
 import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.math.matrix.DataFrame;
+import org.jebtk.modern.ModernWidget;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.ImageUtils;
 import org.jebtk.modern.graphics.colormap.ColorMap;
-import org.jebtk.modern.widget.ModernWidget;
 
 /**
  * The class HeatMapPlotElement.

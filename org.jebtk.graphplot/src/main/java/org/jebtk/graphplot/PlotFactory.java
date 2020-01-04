@@ -69,8 +69,8 @@ import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.math.matrix.utils.MatrixOperations;
 import org.jebtk.math.matrix.utils.MatrixUtils;
 import org.jebtk.math.statistics.HistBin;
+import org.jebtk.modern.ModernWidget;
 import org.jebtk.modern.graphics.colormap.ColorMap;
-import org.jebtk.modern.widget.ModernWidget;
 
 /**
  * Generates pre-designed plots with sane defaults for most users.

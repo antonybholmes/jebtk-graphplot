@@ -19,8 +19,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import org.jebtk.core.ColorUtils;
+import org.jebtk.modern.ModernWidget;
 import org.jebtk.modern.graphics.icons.ModernVectorIcon;
-import org.jebtk.modern.widget.ModernWidget;
 
 /**
  * Simple pane icon.

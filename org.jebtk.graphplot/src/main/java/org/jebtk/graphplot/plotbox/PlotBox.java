@@ -31,7 +31,7 @@ import java.util.Set;
 
 import org.jebtk.core.IdProperty;
 import org.jebtk.core.IntId;
-import org.jebtk.core.NameProperty;
+import org.jebtk.core.NameGetter;
 import org.jebtk.core.UidProperty;
 import org.jebtk.core.event.ChangeListeners;
 import org.jebtk.core.geom.IntPos2D;
@@ -52,7 +52,7 @@ import org.jebtk.modern.graphics.colormap.ColorMap;
  * The class PlotBox.
  */
 public abstract class PlotBox extends ChangeListeners implements
-    Iterable<PlotBox>, IdProperty, NameProperty, PlotHashProperty, UidProperty {
+    Iterable<PlotBox>, IdProperty, NameGetter, PlotHashProperty, UidProperty {
 
   private static final long serialVersionUID = 1L;
 

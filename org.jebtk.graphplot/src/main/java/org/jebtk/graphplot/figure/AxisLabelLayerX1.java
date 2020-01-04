@@ -23,9 +23,9 @@ import org.jebtk.core.collections.UniqueArrayList;
 import org.jebtk.graphplot.figure.properties.Tick;
 import org.jebtk.graphplot.figure.properties.TickMarkProperties;
 import org.jebtk.math.matrix.DataFrame;
+import org.jebtk.modern.ModernWidget;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.ImageUtils;
-import org.jebtk.modern.widget.ModernWidget;
 
 /**
  * Draws an x axis on a plot
