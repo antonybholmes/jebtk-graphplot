@@ -159,10 +159,7 @@ public class GroupsHierarchicalPlotElement extends MatrixPlotElement {
 
   @Override
   public void plotSize(Dimension d) {
-    
     d.width += mWidth;
     d.height += mHeight;
-    
-    System.err.print("gphpe " + d + " " + mHeight);
   }
 }

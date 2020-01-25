@@ -56,16 +56,16 @@ public class HeatMapPlotElement extends MatrixPlotElement {
    */
   private Color mOutline = null;
 
-  /**
-   * The member grid color.
-   */
-  private Color mGridColor = null;
-
   /** The m cell image cache. */
   private Map<Color, BufferedImage> mCellImageCache = new HashMap<Color, BufferedImage>();
 
   /** The m blank image. */
   private BufferedImage mBlankImage;
+
+  private Color mGridRowColor;
+
+  private Color mGridColColor;
+
 
   /**
    * Instantiates a new heat map plot element.
@@ -101,7 +101,16 @@ public class HeatMapPlotElement extends MatrixPlotElement {
    *          null.
    */
   public void setGridColor(Color gridColor) {
-    mGridColor = gridColor;
+    setGridRowColor(gridColor);
+    setGridColColor(gridColor);
+  }
+
+  public void setGridRowColor(Color gridColor) {
+    mGridRowColor = gridColor;
+  }
+
+  public void setGridColColor(Color gridColor) {
+    mGridColColor = gridColor;
   }
 
   /**
@@ -118,9 +127,10 @@ public class HeatMapPlotElement extends MatrixPlotElement {
    *
    * @param outline the new outline color
    */
-  public void setOutlineColor(Color outline) {
-    mOutline = outline;
+  public void setOutlineColor(Color color) {
+    mOutline = color;
   }
+
 
   /*
    * (non-Javadoc)
@@ -172,7 +182,7 @@ public class HeatMapPlotElement extends MatrixPlotElement {
 
         for (int j = 0; j < mDrawingDim.mCols; ++j) {
           double v = getValue(i, j);
-          
+
           //System.err.println("hmm " + i + " " + j + " " + mMatrix.getText(i,
           //    j) + " " + mMatrix.getValue(i, j) + " " + x + " " + y + " " + mBlockSize);
 
@@ -193,7 +203,7 @@ public class HeatMapPlotElement extends MatrixPlotElement {
         int x = 0;
 
         for (int j = 0; j < mDrawingDim.mCols; ++j) {
-          
+
           double v = getValue(i, j);
 
           if (Mathematics.isValidNumber(v)) {
@@ -268,34 +278,38 @@ public class HeatMapPlotElement extends MatrixPlotElement {
    * @param g2 the g2
    */
   private void drawGrid(Graphics2D g2) {
-    if (mGridColor == null) {
-      return;
-    }
-
-    g2.setColor(mGridColor);
 
     int w = getPreferredSize().width - 1;
     int h = getPreferredSize().height - 1;
 
-    int y = 0;
-
     int w2 = mBlockSize.getW();
     int h2 = mBlockSize.getH();
 
-    for (int i = 0; i <= mDrawingDim.mRows; ++i) {
-      g2.drawLine(0, y, w, y);
+    
+    if (mGridRowColor != null) {
 
-      y += h2;
+      g2.setColor(mGridRowColor);
+
+      int y = 0;
+      
+      for (int i = 0; i <= mDrawingDim.mRows; ++i) {
+        g2.drawLine(0, y, w, y);
+
+        y += h2;
+      }
     }
 
-    int x = 0;
+    if (mGridColColor != null) {
+      g2.setColor(mGridColColor);
 
-    for (int i = 0; i <= mDrawingDim.mCols; ++i) {
-      g2.drawLine(x, 0, x, h);
+      int x = 0;
 
-      x += w2;
+      for (int i = 0; i <= mDrawingDim.mCols; ++i) {
+        g2.drawLine(x, 0, x, h);
+
+        x += w2;
+      }
     }
-
   }
 
   /**
