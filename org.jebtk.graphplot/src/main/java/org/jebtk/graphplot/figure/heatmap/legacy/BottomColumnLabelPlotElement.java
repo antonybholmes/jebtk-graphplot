@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
+import org.jebtk.core.Props;
 import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.core.text.TextUtils;
 import org.jebtk.math.matrix.DataFrame;
@@ -78,10 +79,10 @@ public class BottomColumnLabelPlotElement extends ColumnMatrixPlotElement {
   public void plot(Graphics2D g2,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
+      Props props) {
     drawLabels(g2);
 
-    super.plot(g2, offset, context, params);
+    super.plot(g2, offset, context, props);
   }
 
   /**

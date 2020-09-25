@@ -18,6 +18,8 @@ package org.jebtk.graphplot.icons;
 import java.awt.Graphics2D;
 import java.awt.geom.GeneralPath;
 
+import org.jebtk.core.Props;
+
 /**
  * The class JoinedFilledStyleIcon.
  */
@@ -35,8 +37,8 @@ public class JoinedFilledStyleIcon extends PeakStyleIcon {
       int y,
       int w,
       int h,
-      Object... params) {
-    super.drawIcon(g2, x, y, w, h, params);
+      Props props) {
+    super.drawIcon(g2, x, y, w, h, props);
 
     x = 5;
     y = 5;

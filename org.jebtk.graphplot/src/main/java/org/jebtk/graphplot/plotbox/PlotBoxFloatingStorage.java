@@ -19,9 +19,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.jebtk.core.Props;
 import org.jebtk.core.geom.GeomUtils;
 import org.jebtk.core.geom.IntPos2D;
-import org.jebtk.graphplot.figure.GridLocation;
 
 /**
  * Store plots at arbitrary locations.
@@ -33,22 +33,8 @@ public class PlotBoxFloatingStorage extends PlotBoxStorage {
   private Map<IntPos2D, PlotBox> mMap = new HashMap<IntPos2D, PlotBox>();
 
   @Override
-  public void add(PlotBox plot, Object... params) {
-    IntPos2D l = GeomUtils.INT_POINT_ZERO;
-
-    if (params.length > 0) {
-      if (params[0] instanceof GridLocation) {
-        l = (IntPos2D) params[0];
-      } else {
-        if (params.length > 0) {
-          if (params[0] instanceof Integer && params[1] instanceof Integer) {
-            l = new IntPos2D((int) params[0], (int) params[1]);
-          }
-        }
-      }
-    }
-
-    add(plot, l);
+  public void add(PlotBox plot, Object p) {
+    add(plot, parseLocation(p));
   }
 
   public void add(PlotBox plot, IntPos2D p) {
@@ -58,8 +44,8 @@ public class PlotBoxFloatingStorage extends PlotBoxStorage {
   }
 
   @Override
-  public PlotBox get(Object param, Object... params) {
-    return getChild(parseLocation(param, params));
+  public PlotBox get(Object p) {
+    return getChild(parseLocation(p));
   }
 
   public PlotBox getChild(IntPos2D p) {
@@ -110,8 +96,8 @@ public class PlotBoxFloatingStorage extends PlotBoxStorage {
   }
 
   @Override
-  public boolean remove(Object param, Object... params) {
-    remove(parseLocation(param, params));
+  public boolean remove(Object p) {
+    remove(parseLocation(p));
 
     return true;
   }
@@ -120,17 +106,11 @@ public class PlotBoxFloatingStorage extends PlotBoxStorage {
     mMap.remove(l);
   }
 
-  private static IntPos2D parseLocation(Object param, Object... params) {
+  private static IntPos2D parseLocation(Object p) {
     IntPos2D l = GeomUtils.INT_POINT_ZERO;
 
-    if (param instanceof IntPos2D) {
-      l = (IntPos2D) param;
-    } else {
-      if (params.length > 0) {
-        if (param instanceof Integer && params[0] instanceof Integer) {
-          l = new IntPos2D((int) param, (int) params[0]);
-        }
-      }
+    if (p != null) {
+      l = (IntPos2D) p;
     }
 
     return l;

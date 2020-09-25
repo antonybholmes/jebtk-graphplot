@@ -24,6 +24,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.jebtk.core.Props;
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
 import org.jebtk.core.event.ChangeListeners;
@@ -47,7 +48,11 @@ public abstract class PlotBoxStorage extends ChangeListeners
   private Map<Integer, PlotBox> mIdMap = new HashMap<Integer, PlotBox>();
   private Map<String, PlotBox> mNameMap = new TreeMap<String, PlotBox>();
 
-  public void add(PlotBox plot, Object... params) {
+  public void add(PlotBox plot) {
+    add(plot, null);
+  }
+  
+  public void add(PlotBox plot, Object p) {
     plot.addChangeListener(this);
 
     mIdMap.put(plot.getId(), plot);
@@ -56,13 +61,13 @@ public abstract class PlotBoxStorage extends ChangeListeners
     fireChanged();
   }
 
-  public abstract PlotBox get(Object param, Object... params);
+  public abstract PlotBox get(Object p);
 
   public boolean remove(PlotBox plot) {
     return false;
   }
 
-  public boolean remove(Object param, Object... params) {
+  public boolean remove(Object p) {
     return false;
   }
 

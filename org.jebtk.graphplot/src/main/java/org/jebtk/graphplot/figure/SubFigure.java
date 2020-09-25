@@ -20,6 +20,7 @@ import java.awt.Graphics2D;
 import java.util.List;
 
 import org.jebtk.core.IntId;
+import org.jebtk.core.Props;
 import org.jebtk.core.StringId;
 import org.jebtk.core.stream.ListReduceFunction;
 import org.jebtk.core.stream.Stream;
@@ -132,8 +133,8 @@ public class SubFigure extends PlotBoxGraph { // LayoutLayer
     return (Axes) c;
   }
 
-  public Axes getAxes(int name) {
-    return getAxes(name, GridLocation.CENTER);
+  public Axes getAxes(int id) {
+    return getAxes(id, GridLocation.CENTER);
   }
 
   public Axes getAxes(int id, GridLocation l) {
@@ -182,6 +183,10 @@ public class SubFigure extends PlotBoxGraph { // LayoutLayer
     return mCurrentSubFigure;
   }
 
+  private void addChild(PlotBox f, GridLocation l) {
+    addChild(f, new Props().set("location", l));
+  }
+
   public SubFigure currentSubFigure() {
     return currentSubFigure(GridLocation.CENTER);
   }
@@ -217,6 +222,10 @@ public class SubFigure extends PlotBoxGraph { // LayoutLayer
   // public void addChild(Axes axes, GridLocation l) {
   // addChild(axes, l);
   // }
+
+  private void addChild(Plot plot, GridLocation l) {
+    addChild(plot, new Props().set("location", l));
+  }
 
   /*
    * (non-Javadoc)
@@ -291,10 +300,12 @@ public class SubFigure extends PlotBoxGraph { // LayoutLayer
   public void plot(Graphics2D g2,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
-    Figure figure = (Figure) params[0];
+      Props props) {
+    //Figure figure = (Figure) props[0];
+    
+    props.set("subfigure", this);
 
-    super.plot(g2, offset, context, figure, this);
+    super.plot(g2, offset, context, props); //figure, this);
   }
 
   public static String createSubFigureId(int id) {

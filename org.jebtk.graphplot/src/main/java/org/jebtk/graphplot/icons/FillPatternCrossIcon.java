@@ -17,6 +17,7 @@ package org.jebtk.graphplot.icons;
 
 import java.awt.Graphics2D;
 
+import org.jebtk.core.Props;
 import org.jebtk.graphplot.figure.BarChartLayer;
 import org.jebtk.graphplot.figure.properties.FillPattern;
 
@@ -37,8 +38,8 @@ public class FillPatternCrossIcon extends FillPatternIcon {
       int y,
       int w,
       int h,
-      Object... params) {
-    super.drawIcon(g2, x, y, w, h, params);
+      Props props) {
+    super.drawIcon(g2, x, y, w, h, props);
 
     BarChartLayer.patternFill(g2, FillPattern.CROSS_HATCH, x, y, w, h);
   }

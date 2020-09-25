@@ -24,6 +24,7 @@ import java.util.Deque;
 import java.util.List;
 import java.util.Set;
 
+import org.jebtk.core.Props;
 import org.jebtk.core.collections.ReverseIterator;
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
@@ -82,10 +83,10 @@ public abstract class PlotBoxGraph extends PlotBoxContainer { // LayoutLayer
   }
 
   @Override
-  public PlotBox addChild(PlotBox plot, Object... params) {
+  public PlotBox addChild(PlotBox plot, Object p) {
     cacheCurrent(plot);
 
-    return super.addChild(plot, params);
+    return super.addChild(plot, p);
   }
 
   @Override
@@ -313,8 +314,8 @@ public abstract class PlotBoxGraph extends PlotBoxContainer { // LayoutLayer
   public void plot(Graphics2D g2,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
-    super.plot(g2, offset, context, params);
+      Props props) {
+    super.plot(g2, offset, context, props);
 
     ++mDrawCounter;
   }

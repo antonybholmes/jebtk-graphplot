@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jebtk.core.Mathematics;
+import org.jebtk.core.Props;
 import org.jebtk.core.settings.SettingsService;
 import org.jebtk.core.text.TextUtils;
 import org.jebtk.graphplot.figure.Axes;
@@ -1035,7 +1036,7 @@ public class PlotFactory {
     axes.getX1Axis().setVisible(fullView);
 
     // axes.getChild(GridLocation.S).addChild(new PlotBoxV());
-    axes.addChild(new AxisPlotX1(axes.getX1Axis()), GridLocation.S);
+    axes.addChild(new AxisPlotX1(axes.getX1Axis()), new Props().set("location", GridLocation.S));
 
     // If the height of the heatmap is less than the ideal height,
     // turn off labels and the grid.
@@ -1077,7 +1078,8 @@ public class PlotFactory {
 
     // Lets make room for the v color bar
     // axes.getChild(GridLocation.E).addChild(new PlotBoxH());
-    axes.addChild(new AxisPlotY2(axes.getY2Axis()), GridLocation.E);
+    axes.addChild(new AxisPlotY2(axes.getY2Axis()), 
+        new Props().set("location", GridLocation.E));
 
     // axes.getY1Axis().getLineStyle().setVisible(false);
 
@@ -1173,7 +1175,7 @@ public class PlotFactory {
     axis.setLimits(0, 1);
     axis.setVisible(false);
 
-    axes.getChild(GridLocation.N).addChild(new MarginFillerV(10));
+    axes.getChild(new Props().set("location", GridLocation.N)).addChild(new MarginFillerV(10));
     axes.setMargins(100);
     axes.setBottomMargin(autoSetX1LabelMargin(axes));
   }
@@ -1208,7 +1210,7 @@ public class PlotFactory {
 
     Axes colorBarAxes = new Axes(name);
 
-    axes.getChild(GridLocation.E).addChild(colorBarAxes);
+    axes.getChild(new Props().set("location", GridLocation.E)).addChild(colorBarAxes);
 
     Plot plot = new Plot("Color Bar Plot");
     plot.setColorMap(colorMap);
@@ -1216,7 +1218,8 @@ public class PlotFactory {
     plot.addChild(new OutlinePlotLayer());
     colorBarAxes.addChild(plot);
 
-    colorBarAxes.addChild(new AxisPlotY2(axes.getY2Axis()), GridLocation.E);
+    colorBarAxes.addChild(new AxisPlotY2(axes.getY2Axis()), 
+        new Props().set("location", GridLocation.E));
 
     Axis axis = colorBarAxes.getY1Axis();
 
@@ -1238,7 +1241,7 @@ public class PlotFactory {
 
     colorBarAxes.setInternalSize(COLOR_BAR_WIDTH, 200);
 
-    colorBarAxes.getChild(GridLocation.W).addChild(new MarginFillerH(20));
+    colorBarAxes.getChild(new Props().set("location", GridLocation.W)).addChild(new MarginFillerH(20));
   }
 
   /**

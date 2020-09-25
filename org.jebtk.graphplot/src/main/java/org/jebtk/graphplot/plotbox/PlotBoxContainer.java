@@ -21,6 +21,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.jebtk.core.Function;
+import org.jebtk.core.Props;
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
 import org.jebtk.core.geom.IntPos2D;
@@ -233,7 +234,7 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
   public void plotLayer(Graphics2D g2,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
+      Props props) {
 
     Graphics2D g2Temp = ImageUtils.clone(g2);
 
@@ -241,7 +242,7 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
       // Translate to account for padding.
       g2Temp.translate(mMargins.getLeft(), mMargins.getTop());
 
-      mLayout.plot(g2Temp, this, offset, context, params);
+      mLayout.plot(g2Temp, this, offset, context, props);
     } finally {
       g2Temp.dispose();
     }
@@ -256,15 +257,15 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
   }
 
   @Override
-  public PlotBox addChild(PlotBox plot, Object... params) {
-    mStorage.add(plot, params);
+  public PlotBox addChild(PlotBox plot, Object p) {
+    mStorage.add(plot, p);
 
     return this;
   }
 
   @Override
-  public PlotBox getChild(Object param, Object... params) {
-    return mStorage.get(param, params);
+  public PlotBox getChild(Object p) {
+    return mStorage.get(p);
   }
 
   @Override
@@ -342,8 +343,8 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
   }
 
   @Override
-  public boolean remove(Object param, Object... params) {
-    return mStorage.remove(param, params);
+  public boolean remove(Object p) {
+    return mStorage.remove(p);
   }
 
   /**

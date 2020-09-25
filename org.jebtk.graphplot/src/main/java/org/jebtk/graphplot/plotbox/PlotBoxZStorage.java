@@ -19,6 +19,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.jebtk.core.Props;
+
 /**
  * The class PlotBox.
  */
@@ -31,11 +33,11 @@ public class PlotBoxZStorage extends PlotBoxStorage {
   private int mUnused = 0;
 
   @Override
-  public void add(PlotBox plot, Object... params) {
+  public void add(PlotBox plot, Object p) {
     int z = 0;
 
-    if (params.length > 0 && params[0] instanceof Integer) {
-      z = (int) params[0];
+    if (p != null) {
+      z = (int) p;
     } else {
       z = getUnusedZ();
     }
@@ -54,8 +56,8 @@ public class PlotBoxZStorage extends PlotBoxStorage {
   }
 
   @Override
-  public PlotBox get(Object param, Object... params) {
-    return mMap.get(param);
+  public PlotBox get(Object p) {
+    return mMap.get((int)p);
   }
 
   @Override
@@ -108,23 +110,13 @@ public class PlotBoxZStorage extends PlotBoxStorage {
   }
 
   @Override
-  public boolean remove(Object param, Object... params) {
-    remove(parseZ(param, params));
+  public boolean remove(Object p) {
+    remove((int)p);
 
     return true;
   }
 
   public void remove(int i) {
     mMap.remove(i);
-  }
-
-  private static int parseZ(Object param, Object... params) {
-    int z = 0;
-
-    if (param instanceof Integer) {
-      z = (int) param;
-    }
-
-    return z;
   }
 }

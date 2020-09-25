@@ -32,6 +32,7 @@ import java.util.Set;
 import org.jebtk.core.IdProperty;
 import org.jebtk.core.IntId;
 import org.jebtk.core.NameGetter;
+import org.jebtk.core.Props;
 import org.jebtk.core.UidProperty;
 import org.jebtk.core.event.ChangeListeners;
 import org.jebtk.core.geom.IntPos2D;
@@ -281,31 +282,36 @@ public abstract class PlotBox extends ChangeListeners implements
 
     fireChanged();
   }
+  
+  public final void plot(Graphics2D g2,
+      DrawingContext context) {
+    plot(g2, context, new Props());
+  }
 
   public final void plot(Graphics2D g2,
       DrawingContext context,
-      Object... params) {
+      Props props) {
     if (getVisible()) {
-      plot(g2, new Dimension(0, 0), context, params);
+      plot(g2, new Dimension(0, 0), context, props);
     }
   }
 
   public void plot(Graphics2D g2,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
+      Props props) {
 
-    plotContext(g2, offset, context, params);
+    plotContext(g2, offset, context, props);
   }
 
   public void plotContext(Graphics2D g2,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
+      Props props) {
     if (context == DrawingContext.UI) {
-      plotScreen(g2, offset, context, params);
+      plotScreen(g2, offset, context, props);
     } else {
-      plotLayer(g2, offset, context, params);
+      plotLayer(g2, offset, context, props);
     }
   }
 
@@ -322,12 +328,12 @@ public abstract class PlotBox extends ChangeListeners implements
   public void plotScreen(Graphics2D g2,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
+      Props props) {
 
     if (mRasterMode) {
-      plotRaster(g2, offset, context, params);
+      plotRaster(g2, offset, context, props);
     } else {
-      plotAA(g2, offset, context, params);
+      plotAA(g2, offset, context, props);
     }
   }
 
@@ -337,24 +343,24 @@ public abstract class PlotBox extends ChangeListeners implements
    * @param g2
    * @param offset
    * @param context
-   * @param params
+   * @param props
    */
   public void plotAA(Graphics2D g2,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
+      Props props) {
 
     if (getAAModes().size() > 0) {
       // Anti-alias by default
       Graphics2D g2Temp = ImageUtils.createAAGraphics(g2, getAAModes());
 
       try {
-        plotLayer(g2Temp, offset, context, params);
+        plotLayer(g2Temp, offset, context, props);
       } finally {
         g2Temp.dispose();
       }
     } else {
-      plotLayer(g2, offset, context, params);
+      plotLayer(g2, offset, context, props);
     }
   }
 
@@ -371,7 +377,7 @@ public abstract class PlotBox extends ChangeListeners implements
   public void plotRaster(Graphics2D g2,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
+      Props props) {
     // Create an image version of the canvas and draw that to spped
     // up operations
     if (mBufferedImage == null) {
@@ -385,7 +391,7 @@ public abstract class PlotBox extends ChangeListeners implements
       Graphics2D g2Temp = ImageUtils.createGraphics(mBufferedImage);
 
       try {
-        plotAA(g2Temp, new Dimension(), context, params);
+        plotAA(g2Temp, new Dimension(), context, props);
       } finally {
         g2Temp.dispose();
       }
@@ -409,15 +415,19 @@ public abstract class PlotBox extends ChangeListeners implements
   public void plotLayer(Graphics2D g2,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
+      Props props) {
     plotSize(offset);
   }
+  
+  public PlotBox addChild(PlotBox plot) {
+    return addChild(plot, null);
+  }
 
-  public PlotBox addChild(PlotBox plot, Object... params) {
+  public PlotBox addChild(PlotBox plot, Object p) {
     return this;
   }
 
-  public PlotBox getChild(Object param, Object... params) {
+  public PlotBox getChild(Object p) {
     return null;
   }
 
@@ -425,7 +435,7 @@ public abstract class PlotBox extends ChangeListeners implements
     return false;
   }
 
-  public boolean remove(Object param, Object... params) {
+  public boolean remove(Object p) {
     return false;
   }
 
@@ -839,4 +849,26 @@ public abstract class PlotBox extends ChangeListeners implements
     return plot.getName().toLowerCase().equals(ln)
         || plot.getPlotName().toLowerCase().equals(ln);
   }
+
+  /*
+  public PlotBox getChild(IntPos2D p) {
+    return getChild(new Props().set("location", p));
+  }
+
+  public PlotBox getChild(int i, int j) {
+    return getChild(new Props().set("row", i).set("col", j));
+  }
+
+  public PlotBox getChild(GridLocation l) {
+    return getChild(new Props().set("location", l));
+  }
+  
+  public void addChild(PlotBox plot, int z) {
+    addChild(plot, new Props().set("z", z));
+  }
+  
+  public PlotBox getChild(int z) {
+    return getChild(new Props().set("z", z));
+  }
+  */
 }

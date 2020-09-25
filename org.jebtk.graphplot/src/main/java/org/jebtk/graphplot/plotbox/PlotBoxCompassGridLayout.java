@@ -18,6 +18,8 @@ package org.jebtk.graphplot.plotbox;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
+import org.jebtk.core.Props;
+import org.jebtk.core.geom.IntCell;
 import org.jebtk.graphplot.figure.GridLocation;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.ImageUtils;
@@ -94,7 +96,7 @@ public class PlotBoxCompassGridLayout extends PlotBoxLayout {
       PlotBox plot,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
+      Props props) {
     //
     // Plot
     //
@@ -107,10 +109,10 @@ public class PlotBoxCompassGridLayout extends PlotBoxLayout {
 
         try {
           for (int j = 0; j < 3; ++j) {
-            PlotBox child = plot.getChild(i, j);
+            PlotBox child = plot.getChild(IntCell.create(i, j)); //new Props().set("row", i).set("col", j));
 
             if (child != null) {
-              child.plot(g2Temp2, new Dimension(0, 0), context, params);
+              child.plot(g2Temp2, new Dimension(0, 0), context, props);
             }
 
             g2Temp2.translate(mWidths[j], 0);
@@ -125,6 +127,6 @@ public class PlotBoxCompassGridLayout extends PlotBoxLayout {
       g2Temp.dispose();
     }
 
-    super.plot(g2, plot, offset, context, params);
+    super.plot(g2, plot, offset, context, props);
   }
 }

@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
+import org.jebtk.core.Props;
 import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
@@ -54,10 +55,10 @@ public class MatrixBorderPlotElement extends MatrixPlotElement {
   public void plot(Graphics2D g2,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
+      Props props) {
     drawBorder(g2);
 
-    super.plot(g2, offset, context, params);
+    super.plot(g2, offset, context, props);
   }
 
   /**

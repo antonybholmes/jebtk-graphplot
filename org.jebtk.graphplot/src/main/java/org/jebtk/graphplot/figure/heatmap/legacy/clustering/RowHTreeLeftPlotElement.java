@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.jebtk.core.Props;
 import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.graphplot.figure.heatmap.legacy.RowMatrixPlotElement;
 import org.jebtk.math.cluster.Cluster;
@@ -80,10 +81,10 @@ public class RowHTreeLeftPlotElement extends RowMatrixPlotElement {
   public void plot(Graphics2D g2,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
+      Props props) {
     drawTree(g2);
 
-    super.plot(g2, offset, context, params);
+    super.plot(g2, offset, context, props);
   }
 
   /**

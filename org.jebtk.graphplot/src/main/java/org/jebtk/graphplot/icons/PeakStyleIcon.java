@@ -18,6 +18,7 @@ package org.jebtk.graphplot.icons;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import org.jebtk.core.Props;
 import org.jebtk.modern.ModernWidget;
 import org.jebtk.modern.graphics.icons.ModernVectorIcon;
 import org.jebtk.modern.theme.ThemeService;
@@ -46,7 +47,7 @@ public class PeakStyleIcon extends ModernVectorIcon {
       int y,
       int w,
       int h,
-      Object... params) {
+      Props props) {
     g2.setColor(Color.WHITE);
     g2.fillRect(x, y, w, h);
 

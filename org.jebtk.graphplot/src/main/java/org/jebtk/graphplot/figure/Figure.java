@@ -17,9 +17,12 @@ package org.jebtk.graphplot.figure;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.jebtk.core.Function;
 import org.jebtk.core.IntId;
+import org.jebtk.core.Props;
 import org.jebtk.core.StringId;
 import org.jebtk.core.stream.Stream;
 import org.jebtk.graphplot.plotbox.PlotBox;
@@ -115,7 +118,7 @@ public class Figure extends PlotBoxGraph {
    * @return the axes
    */
   public SubFigure getSubFigure(String name) {
-    return (SubFigure) getChild(name);
+    return (SubFigure) getChildByName(name); //(SubFigure) getChild(name);
   }
 
   /**
@@ -160,8 +163,10 @@ public class Figure extends PlotBoxGraph {
   public void plot(Graphics2D g2,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
-    super.plot(g2, offset, context, this);
+      Props props) {
+    props.set("figure", this);
+    
+    super.plot(g2, offset, context, props); //this);
   }
 
   public static Figure createFigure() {

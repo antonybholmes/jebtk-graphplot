@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
+import org.jebtk.core.Props;
 import org.jebtk.graphplot.figure.Axes;
 import org.jebtk.graphplot.figure.SubFigure;
 import org.jebtk.math.cluster.Cluster;
@@ -72,9 +73,9 @@ public class RowHierarchicalTreeLayer extends HierarchicalTreeLayer {
   public void plot(Graphics2D g2,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
-    SubFigure subFigure = (SubFigure) params[0];
-    Axes axes = (Axes) params[1];
+      Props props) {
+    SubFigure subFigure = (SubFigure) props.get("subfigure");
+    Axes axes = (Axes) props.get("axes");
 
     g2.setColor(mColor);
 

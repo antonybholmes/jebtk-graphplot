@@ -17,7 +17,10 @@ package org.jebtk.graphplot.plotbox;
 
 import java.util.Iterator;
 
+import org.jebtk.core.Props;
 import org.jebtk.core.geom.GeomUtils;
+import org.jebtk.core.geom.IntCell;
+import org.jebtk.core.geom.IntDim;
 import org.jebtk.core.geom.IntPos2D;
 
 /**
@@ -34,21 +37,18 @@ public class PlotBoxGridStorage extends PlotBoxStorage {
   }
 
   @Override
-  public void add(PlotBox plot, Object... params) {
-    int row = 0;
-    int col = 0;
+  public void add(PlotBox plot, Object p) {
+    IntCell c = IntCell.ZERO;
 
-    if (params.length > 1) {
-      if (params[0] instanceof Integer) {
-        row = (int) params[0];
-      }
-
-      if (params[1] instanceof Integer) {
-        col = (int) params[1];
-      }
+    if (p != null) {
+      c = (IntCell)p;
     }
 
-    add(plot, row, col);
+    add(plot, c);
+  }
+  
+  public void add(PlotBox plot, IntCell c) {
+    add(plot, c.row, c.col);
   }
 
   public void add(PlotBox plot, int row, int col) {
@@ -62,22 +62,18 @@ public class PlotBoxGridStorage extends PlotBoxStorage {
   }
 
   @Override
-  public PlotBox get(Object param, Object... params) {
+  public PlotBox get(Object p) {
+    IntCell c = IntCell.ZERO;
 
-    int row = 0;
-    int col = 0;
-
-    if (param instanceof Integer) {
-      row = (int) param;
+    if (p != null) {
+      c = (IntCell)p;
     }
 
-    if (params.length > 0) {
-      if (params[0] instanceof Integer) {
-        col = (int) params[0];
-      }
-    }
-
-    return getChild(row, col);
+    return getChild(c);
+  }
+  
+  public PlotBox getChild(IntCell c) {
+    return getChild(c.row, c.col);
   }
 
   public PlotBox getChild(int row, int col) {
@@ -115,30 +111,27 @@ public class PlotBoxGridStorage extends PlotBoxStorage {
     }
 
     if (found) {
-      remove(rl);
+      remove(0, 0);
     }
 
     return true;
   }
 
   @Override
-  public boolean remove(Object param, Object... params) {
-    int row = 0;
-    int col = 0;
+  public boolean remove(Object p) {
+    IntCell c = IntCell.ZERO;
 
-    if (param instanceof Integer) {
-      row = (int) param;
+    if (p != null) {
+      c = (IntCell)p;
     }
 
-    if (params.length > 0) {
-      if (params[0] instanceof Integer) {
-        col = (int) params[0];
-      }
-    }
-
-    remove(row, col);
+    remove(c);
 
     return true;
+  }
+  
+  public void remove(IntCell c) {
+    remove(c.row, c.col);
   }
 
   public void remove(int i, int j) {

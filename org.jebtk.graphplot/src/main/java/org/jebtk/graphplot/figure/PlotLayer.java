@@ -19,6 +19,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import org.jebtk.core.Props;
 import org.jebtk.core.text.TextUtils;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
@@ -81,18 +82,18 @@ public abstract class PlotLayer extends Layer {
   public void plot(Graphics2D g2,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
+      Props props) {
     // System.err.println("plot layer " + getName());
 
-    Figure figure = (Figure) params[0];
-    SubFigure subFigure = (SubFigure) params[1];
-    Axes axes = (Axes) params[2];
-    Plot plot = (Plot) params[3];
+    Figure figure = (Figure) props.get("figure");
+    SubFigure subFigure = (SubFigure) props.get("subfigure");
+    Axes axes = (Axes) props.get("axes");
+    Plot plot = (Plot) props.get("plot");
 
     DataFrame m = null;
 
-    if (params.length > 4) {
-      m = (DataFrame) params[4];
+    if (props.contains("dataframe")) {
+      m = (DataFrame) props.get("dataframe");
     } else {
       m = plot.getMatrix();
     }

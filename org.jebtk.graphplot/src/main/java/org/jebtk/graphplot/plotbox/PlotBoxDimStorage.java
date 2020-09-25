@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import org.jebtk.core.Props;
 import org.jebtk.core.collections.CollectionUtils;
 
 /**
@@ -46,10 +47,10 @@ public class PlotBoxDimStorage extends PlotBoxStorage {
    * @param plotBox the plot box
    */
   @Override
-  public void add(PlotBox plot, Object... params) {
+  public void add(PlotBox plot, Object p) {
     mChildren.add(plot);
 
-    super.add(plot, params);
+    super.add(plot, p);
   }
 
   /**
@@ -59,16 +60,8 @@ public class PlotBoxDimStorage extends PlotBoxStorage {
    * @return the child
    */
   @Override
-  public PlotBox get(Object param, Object... params) {
-    int i = 0;
-
-    if (param instanceof Integer) {
-      i = (int) param;
-    } else {
-      i = 0;
-    }
-
-    return getChild(i);
+  public PlotBox get(Object p) {
+    return getChild((int)p);
   }
 
   public PlotBox getChild(int index) {
@@ -87,10 +80,8 @@ public class PlotBoxDimStorage extends PlotBoxStorage {
   }
 
   @Override
-  public boolean remove(Object param, Object... params) {
-    if (param instanceof Integer) {
-      mChildren.remove((int) param);
-    }
+  public boolean remove(Object p) {
+    mChildren.remove((int)p);
 
     return true;
   }

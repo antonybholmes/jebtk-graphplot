@@ -20,6 +20,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.GeneralPath;
 
 import org.jebtk.core.ColorUtils;
+import org.jebtk.core.Props;
 
 /**
  * The class JoinedFilledTransStyleIcon.
@@ -44,8 +45,8 @@ public class JoinedFilledTransStyleIcon extends PeakStyleIcon {
       int y,
       int w,
       int h,
-      Object... params) {
-    super.drawIcon(g2, x, y, w, h, params);
+      Props props) {
+    super.drawIcon(g2, x, y, w, h, props);
 
     x = 5;
     y = 5;

@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
+import org.jebtk.core.Props;
 import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
@@ -72,7 +73,7 @@ public class UpDownDiffExpBracketsLeftPlotElement extends RowMatrixPlotElement {
   public void plot(Graphics2D g2,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
+      Props props) {
     g2.setColor(Color.BLACK);
 
     int y = 0;
@@ -90,6 +91,6 @@ public class UpDownDiffExpBracketsLeftPlotElement extends RowMatrixPlotElement {
 
     g2.drawLine(0, 0, 0, y);
 
-    super.plot(g2, offset, context, params);
+    super.plot(g2, offset, context, props);
   }
 }

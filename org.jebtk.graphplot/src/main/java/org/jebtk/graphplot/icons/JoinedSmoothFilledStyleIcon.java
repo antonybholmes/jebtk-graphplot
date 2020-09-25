@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import org.jebtk.core.ColorUtils;
+import org.jebtk.core.Props;
 
 /**
  * The class JoinedSmoothFilledStyleIcon.
@@ -43,8 +44,8 @@ public class JoinedSmoothFilledStyleIcon extends PeakStyleIcon {
       int y,
       int w,
       int h,
-      Object... params) {
-    super.drawIcon(g2, x, y, w, h, params);
+      Props props) {
+    super.drawIcon(g2, x, y, w, h, props);
 
     x = 5;
     y = 5;

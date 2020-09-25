@@ -18,6 +18,7 @@ package org.jebtk.graphplot.plotbox;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
+import org.jebtk.core.Props;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.ImageUtils;
 
@@ -70,7 +71,7 @@ public class PlotBoxRowsLayout extends PlotBoxLayout {
       PlotBox plotBox,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
+      Props props) {
     Graphics2D subg2 = ImageUtils.clone(g2);
 
     int rows = plotBox.getChildCount() / mCols
@@ -96,7 +97,7 @@ public class PlotBoxRowsLayout extends PlotBoxLayout {
         tempOffset.width = 0;
         tempOffset.height = 0;
 
-        child.plot(subg2, tempOffset, context, params);
+        child.plot(subg2, tempOffset, context, props);
 
         subg2.translate(tempOffset.width, 0);
 
@@ -112,7 +113,7 @@ public class PlotBoxRowsLayout extends PlotBoxLayout {
       subg2.dispose();
     }
 
-    super.plot(g2, plotBox, offset, context, params);
+    super.plot(g2, plotBox, offset, context, props);
   }
 
   private void sizes(PlotBox plotBox, int rows, int[] widths, int[] heights) {

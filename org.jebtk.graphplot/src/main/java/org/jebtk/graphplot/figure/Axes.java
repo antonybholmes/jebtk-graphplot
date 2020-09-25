@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.jebtk.core.IntId;
+import org.jebtk.core.Props;
 import org.jebtk.core.StringId;
 import org.jebtk.core.collections.DefaultHashMap;
 import org.jebtk.core.collections.HashMapCreator;
@@ -351,6 +352,8 @@ public class Axes extends PlotBoxGraph {
     addChild(new AxesTitleLayer(), RESERVED_Z_TITLE);
   }
 
+
+
   @Override
   protected boolean cacheCurrent(PlotBox plot) {
     if (plot instanceof Plot) {
@@ -437,7 +440,7 @@ public class Axes extends PlotBoxGraph {
    * @return the axes
    */
   public Plot getPlot(String name) {
-    PlotBox c = getChild(name);
+    PlotBox c = getChildByName(name);
 
     if (c == null || !(c instanceof Plot) || !c.getName().equals(name)) {
       c = newPlot(name);
@@ -1050,11 +1053,13 @@ public class Axes extends PlotBoxGraph {
   public void plot(Graphics2D g2,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
-    Figure figure = (Figure) params[0];
-    SubFigure subFigure = (SubFigure) params[1];
+      Props props) {
+    //Figure figure = (Figure) props[0];
+    //SubFigure subFigure = (SubFigure) props[1];
+    
+    props.set("axes", this);
 
-    super.plot(g2, offset, context, figure, subFigure, this);
+    super.plot(g2, offset, context, props); //figure, subFigure, this);
   }
 
   /**

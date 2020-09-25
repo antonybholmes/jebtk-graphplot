@@ -18,6 +18,7 @@ package org.jebtk.graphplot.plotbox;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
+import org.jebtk.core.Props;
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
 import org.jebtk.graphplot.ModernPlotCanvas;
@@ -50,8 +51,8 @@ public class PlotBoxPanel extends ModernPlotCanvas implements ChangeListener {
   }
 
   @Override
-  public void plot(Graphics2D g2, DrawingContext context, Object... params) {
-    mPlot.plot(g2, context, params);
+  public void plot(Graphics2D g2, DrawingContext context, Props props) {
+    mPlot.plot(g2, context, props);
   }
 
   // @Override

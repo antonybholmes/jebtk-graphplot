@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
+import org.jebtk.core.Props;
 import org.jebtk.core.geom.IntDim;
 import org.jebtk.core.text.Formatter;
 import org.jebtk.core.text.Formatter.NumberFormatter;
@@ -108,7 +109,7 @@ public class ColorBar extends PlotElementFixedSize {
   public void plot(Graphics2D g2,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
+      Props props) {
     NumberFormatter nf = Formatter.number().dp(2);
 
     int l1 = g2.getFontMetrics().stringWidth(nf.format(mMin));
@@ -118,7 +119,7 @@ public class ColorBar extends PlotElementFixedSize {
     drawRangeBarTicks(g2, l1, l2);
     drawRangeBarLabels(g2, l1, l2, nf);
 
-    super.plot(g2, offset, context, params);
+    super.plot(g2, offset, context, props);
   }
 
   /**

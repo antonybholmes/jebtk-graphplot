@@ -18,6 +18,7 @@ package org.jebtk.graphplot.plotbox;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
+import org.jebtk.core.Props;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.ImageUtils;
 
@@ -67,7 +68,7 @@ public class PlotBoxColumnLayout extends PlotBoxLayout {
       PlotBox plot,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
+      Props props) {
     Graphics2D g2Temp = ImageUtils.clone(g2);
 
     Dimension tempOffset = new Dimension(0, 0);
@@ -77,7 +78,7 @@ public class PlotBoxColumnLayout extends PlotBoxLayout {
         tempOffset.width = 0;
         tempOffset.height = 0;
 
-        child.plot(g2Temp, tempOffset, context, params);
+        child.plot(g2Temp, tempOffset, context, props);
 
         g2Temp.translate(tempOffset.width, 0);
       }
@@ -85,6 +86,6 @@ public class PlotBoxColumnLayout extends PlotBoxLayout {
       g2Temp.dispose();
     }
 
-    super.plot(g2, plot, offset, context, params);
+    super.plot(g2, plot, offset, context, props);
   }
 }

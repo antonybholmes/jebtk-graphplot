@@ -19,6 +19,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
+import org.jebtk.core.Props;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.ImageUtils;
 import org.jebtk.modern.theme.ThemeService;
@@ -91,7 +92,7 @@ public abstract class ModernPlotCanvas extends ZoomCanvas {
     try {
       g2Temp.setFont(getFont());
 
-      plot(g2Temp, context);
+      plot(g2Temp, context, new Props());
     } finally {
       g2Temp.dispose();
     }
@@ -105,5 +106,5 @@ public abstract class ModernPlotCanvas extends ZoomCanvas {
    */
   public abstract void plot(Graphics2D g2,
       DrawingContext context,
-      Object... params);
+      Props props);
 }

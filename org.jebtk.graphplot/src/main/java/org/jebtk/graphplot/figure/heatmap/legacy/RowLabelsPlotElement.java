@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.jebtk.core.Mathematics;
+import org.jebtk.core.Props;
 import org.jebtk.core.collections.CollectionUtils;
 import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.core.settings.SettingsService;
@@ -281,10 +282,10 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
   public void plot(Graphics2D g2,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
+      Props props) {
     drawLabels(g2);
 
-    super.plot(g2, offset, context, params);
+    super.plot(g2, offset, context, props);
   }
 
   /**

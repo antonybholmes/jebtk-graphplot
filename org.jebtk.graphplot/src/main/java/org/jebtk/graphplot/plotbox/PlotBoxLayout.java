@@ -18,6 +18,7 @@ package org.jebtk.graphplot.plotbox;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
+import org.jebtk.core.Props;
 import org.jebtk.modern.graphics.DrawingContext;
 
 /**
@@ -44,8 +45,8 @@ public abstract class PlotBoxLayout {
   public final void plot(Graphics2D g2,
       PlotBox plot,
       DrawingContext context,
-      Object... params) {
-    plot(g2, plot, new Dimension(0, 0), context, params);
+      Props props) {
+    plot(g2, plot, new Dimension(0, 0), context, props);
   }
 
   /**
@@ -60,7 +61,7 @@ public abstract class PlotBoxLayout {
       PlotBox plotBox,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
+      Props props) {
     plotSize(plotBox, offset);
   }
 

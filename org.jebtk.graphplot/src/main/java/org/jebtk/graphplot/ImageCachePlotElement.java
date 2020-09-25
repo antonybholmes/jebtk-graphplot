@@ -19,6 +19,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import org.jebtk.core.Props;
 import org.jebtk.modern.graphics.DrawingContext;
 
 /**
@@ -65,7 +66,7 @@ public class ImageCachePlotElement extends PlotElement {
 
     Graphics2D g2 = (Graphics2D) bi.getGraphics();
 
-    mElement.plot(g2, DrawingContext.UI);
+    mElement.plot(g2, DrawingContext.UI, null);
   }
 
   /*
@@ -79,7 +80,7 @@ public class ImageCachePlotElement extends PlotElement {
   public void plot(Graphics2D g2,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
+      Props props) {
     g2.drawImage(bi, 0, 0, null);
   }
 

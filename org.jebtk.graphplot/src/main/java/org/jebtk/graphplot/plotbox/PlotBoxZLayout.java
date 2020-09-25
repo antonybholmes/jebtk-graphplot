@@ -18,6 +18,7 @@ package org.jebtk.graphplot.plotbox;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
+import org.jebtk.core.Props;
 import org.jebtk.modern.graphics.DrawingContext;
 
 /**
@@ -64,7 +65,7 @@ public class PlotBoxZLayout extends PlotBoxLayout {
       PlotBox plot,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
+      Props props) {
     Dimension tempOffset = new Dimension(0, 0);
 
     for (int z : plot.getZ()) {
@@ -73,9 +74,9 @@ public class PlotBoxZLayout extends PlotBoxLayout {
 
       PlotBox child = plot.getChild(z);
 
-      child.plot(g2, tempOffset, context, params);
+      child.plot(g2, tempOffset, context, props);
     }
 
-    super.plot(g2, plot, offset, context, params);
+    super.plot(g2, plot, offset, context, props);
   }
 }

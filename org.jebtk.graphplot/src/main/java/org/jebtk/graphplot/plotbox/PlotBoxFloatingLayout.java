@@ -18,6 +18,7 @@ package org.jebtk.graphplot.plotbox;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
+import org.jebtk.core.Props;
 import org.jebtk.core.geom.IntPos2D;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.ImageUtils;
@@ -69,7 +70,7 @@ public class PlotBoxFloatingLayout extends PlotBoxLayout {
       PlotBox plot,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
+      Props props) {
     for (IntPos2D p : plot.getPositions()) {
       PlotBox child = plot.getChild(p);
 
@@ -80,12 +81,12 @@ public class PlotBoxFloatingLayout extends PlotBoxLayout {
       try {
         g2Temp.translate(p.getX(), p.getY());
 
-        child.plot(g2Temp, tempOffset, context, params);
+        child.plot(g2Temp, tempOffset, context, props);
       } finally {
         g2Temp.dispose();
       }
     }
 
-    super.plot(g2, plot, offset, context, params);
+    super.plot(g2, plot, offset, context, props);
   }
 }

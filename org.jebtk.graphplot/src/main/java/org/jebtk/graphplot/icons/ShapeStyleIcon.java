@@ -18,6 +18,7 @@ package org.jebtk.graphplot.icons;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
+import org.jebtk.core.Props;
 import org.jebtk.graphplot.figure.properties.StyleProperties;
 import org.jebtk.graphplot.figure.series.Marker;
 import org.jebtk.modern.graphics.icons.ModernVectorIcon;
@@ -57,7 +58,7 @@ public class ShapeStyleIcon extends ModernVectorIcon {
       int y,
       int w,
       int h,
-      Object... params) {
+      Props props) {
     mShape.setSize(h);
 
     mShape.plot(g2, DEFAULT_STYLE, new Point(x + w / 2, y + h / 2));

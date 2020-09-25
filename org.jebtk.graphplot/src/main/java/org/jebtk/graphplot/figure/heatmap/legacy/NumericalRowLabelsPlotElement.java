@@ -21,6 +21,7 @@ import java.awt.Graphics2D;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import org.jebtk.core.Props;
 import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
@@ -122,7 +123,7 @@ public class NumericalRowLabelsPlotElement extends RowMatrixPlotElement {
   public void plot(Graphics2D g2,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
+      Props props) {
     drawLabels(g2);
   }
 

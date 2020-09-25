@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.jebtk.core.Mathematics;
+import org.jebtk.core.Props;
 import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.ModernWidget;
@@ -143,7 +144,7 @@ public class HeatMapPlotElement extends MatrixPlotElement {
   public void plotLayer(Graphics2D g2,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
+      Props props) {
 
     drawMatrix(g2, context);
 
@@ -159,7 +160,7 @@ public class HeatMapPlotElement extends MatrixPlotElement {
      * g2.drawImage(image, 0, 0, null);
      */
 
-    super.plotLayer(g2, offset, context, params);
+    super.plotLayer(g2, offset, context, props);
   }
 
   /**
@@ -224,11 +225,11 @@ public class HeatMapPlotElement extends MatrixPlotElement {
 
   private double getValue(int i, int j) {
     if (mScaleYMode) {
-      i = (i * mRatio.mH) >> 16;
+      i = (i * mRatio.h) >> 16;
     }
 
     if (mScaleXMode) {
-      j = (j * mRatio.mW) >> 16;
+      j = (j * mRatio.w) >> 16;
     }
 
     return mMatrix.getValue(i, j);

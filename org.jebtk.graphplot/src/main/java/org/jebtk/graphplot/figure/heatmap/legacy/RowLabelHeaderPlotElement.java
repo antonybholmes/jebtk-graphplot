@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
+import org.jebtk.core.Props;
 import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
@@ -70,7 +71,7 @@ public class RowLabelHeaderPlotElement extends MatrixPlotElement {
   public void plot(Graphics2D g2,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
+      Props props) {
     g2.setColor(Color.BLACK);
 
     int y = (mHeight + g2.getFontMetrics().getAscent()
@@ -78,7 +79,7 @@ public class RowLabelHeaderPlotElement extends MatrixPlotElement {
 
     g2.drawString(getName(), 0, y);
 
-    super.plot(g2, offset, context, params);
+    super.plot(g2, offset, context, props);
   }
 
   @Override

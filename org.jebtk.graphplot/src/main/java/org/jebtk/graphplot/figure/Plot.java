@@ -21,6 +21,7 @@ import java.util.Set;
 
 import org.jebtk.core.IntId;
 import org.jebtk.core.Mathematics;
+import org.jebtk.core.Props;
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
 import org.jebtk.graphplot.figure.heatmap.HeatMapFillPlotLayer;
@@ -132,6 +133,7 @@ public class Plot extends PlotBoxGraph
     }
   }
 
+
   /**
    * Sets the xy plot layers visible.
    *
@@ -211,15 +213,17 @@ public class Plot extends PlotBoxGraph
   public void plot(Graphics2D g2,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
-    // SubFigure figure = (SubFigure)params[0];
-    // Axes axes = (Axes)params[1];
+      Props props) {
+    // SubFigure figure = (SubFigure)props[0];
+    // Axes axes = (Axes)props[1];
 
-    Figure figure = (Figure) params[0];
-    SubFigure subFigure = (SubFigure) params[1];
-    Axes axes = (Axes) params[2];
+    //Figure figure = (Figure) props.get("figure");
+    //SubFigure subFigure = (SubFigure) props.get("subfigure");
+    //Axes axes = (Axes) props.get("axes");
+    
+    props.set("plot", this);
 
-    super.plot(g2, offset, context, figure, subFigure, axes, this);
+    super.plot(g2, offset, context, props); //figure, subFigure, axes, this);
   }
 
   /**

@@ -20,7 +20,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.Map;
 
-import org.jebtk.core.Properties;
+import org.jebtk.core.Props;
 import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.core.text.TextUtils;
 import org.jebtk.graphplot.figure.series.XYSeriesGroup;
@@ -58,7 +58,7 @@ public class TopColumnLabelPlotElement extends ColumnMatrixPlotElement {
    * @param properties the properties
    */
   public TopColumnLabelPlotElement(DataFrame matrix, XYSeriesGroup groups,
-      DoubleDim aspectRatio, Properties properties) {
+      DoubleDim aspectRatio, Props properties) {
     this(matrix, groups, aspectRatio, properties, Color.BLACK, 10, 50);
   }
 
@@ -74,7 +74,7 @@ public class TopColumnLabelPlotElement extends ColumnMatrixPlotElement {
    * @param maxChars the max chars
    */
   public TopColumnLabelPlotElement(DataFrame matrix, XYSeriesGroup groups,
-      DoubleDim aspectRatio, Properties properties, Color color, int charWidth,
+      DoubleDim aspectRatio, Props properties, Color color, int charWidth,
       int maxChars) {
     super(matrix, aspectRatio,
         charWidth * TextUtils.maxLength(matrix.getColumnNames()));
@@ -97,10 +97,10 @@ public class TopColumnLabelPlotElement extends ColumnMatrixPlotElement {
   public void plot(Graphics2D g2,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
+      Props props) {
     drawLabels(g2);
 
-    super.plot(g2, offset, context, params);
+    super.plot(g2, offset, context, props);
   }
 
   /**

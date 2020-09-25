@@ -73,7 +73,6 @@ public class AxisLayerX1 extends AxisLayerX {
    */
   @Override
   public void drawAxisLine(Graphics2D g2, Axes axes, Axis axis, int y) {
-
     if (axis.getLineStyle().getVisible()) {
       g2.setStroke(axis.getLineStyle().getStroke());
 

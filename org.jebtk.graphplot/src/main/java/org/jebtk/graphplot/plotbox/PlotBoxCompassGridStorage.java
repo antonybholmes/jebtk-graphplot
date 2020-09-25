@@ -19,6 +19,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.jebtk.core.geom.IntCell;
 import org.jebtk.graphplot.figure.GridLocation;
 
 /**
@@ -36,18 +37,17 @@ public class PlotBoxCompassGridStorage extends PlotBoxStorage {
   private Map<GridLocation, PlotBox> mMap = new TreeMap<GridLocation, PlotBox>();
 
   @Override
-  public void add(PlotBox plot, Object... params) {
+  public void add(PlotBox plot, Object p) {
     GridLocation l = GridLocation.CENTER;
 
-    if (params.length > 0) {
-      if (params[0] instanceof GridLocation) {
-        l = (GridLocation) params[0];
+    if (p != null) {
+      if (p instanceof GridLocation) {
+        l = (GridLocation) p;
+      } else if (p instanceof IntCell) {
+        IntCell c = (IntCell)p;
+        l = ROWS[c.row][c.col];
       } else {
-        if (params.length > 1) {
-          if (params[0] instanceof Integer && params[1] instanceof Integer) {
-            l = ROWS[(int) params[0]][(int) params[1]];
-          }
-        }
+        // do nothing
       }
     }
 
@@ -57,12 +57,12 @@ public class PlotBoxCompassGridStorage extends PlotBoxStorage {
   public void add(PlotBox plot, GridLocation l) {
     mMap.put(l, plot);
 
-    super.add(plot, l);
+    super.add(plot, l); //new Props().set("location", l));
   }
 
   @Override
-  public PlotBox get(Object param, Object... params) {
-    return getChild(parseLocation(param, params));
+  public PlotBox get(Object p) {
+    return getChild(parseLocation(p));
   }
 
   public PlotBox getChild(GridLocation l) {
@@ -101,8 +101,8 @@ public class PlotBoxCompassGridStorage extends PlotBoxStorage {
   }
 
   @Override
-  public boolean remove(Object param, Object... params) {
-    remove(parseLocation(param, params));
+  public boolean remove(Object p) {
+    remove(parseLocation(p));
 
     return true;
   }
@@ -111,16 +111,17 @@ public class PlotBoxCompassGridStorage extends PlotBoxStorage {
     mMap.remove(l);
   }
 
-  private static GridLocation parseLocation(Object param, Object... params) {
+  private static GridLocation parseLocation(Object p) {
     GridLocation l = GridLocation.CENTER;
 
-    if (param instanceof GridLocation) {
-      l = (GridLocation) param;
-    } else {
-      if (params.length > 0) {
-        if (param instanceof Integer && params[0] instanceof Integer) {
-          l = ROWS[(int) param][(int) params[0]];
-        }
+    if (p != null) {
+      if (p instanceof GridLocation) {
+        l = (GridLocation) p;
+      } else if (p instanceof IntCell) {
+        IntCell c = (IntCell) p;
+        l = ROWS[c.row][c.col];
+      } else {
+        // Do nothing
       }
     }
 

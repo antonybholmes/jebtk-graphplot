@@ -19,6 +19,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import org.jebtk.core.Props;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.ImageUtils;
 
@@ -59,10 +60,10 @@ public abstract class AxesLayer extends Layer {
   public void plot(Graphics2D g2,
       Dimension offset,
       DrawingContext context,
-      Object... params) {
-    Figure figure = (Figure) params[0];
-    SubFigure subFigure = (SubFigure) params[1];
-    Axes axes = (Axes) params[2];
+      Props props) {
+    Figure figure = (Figure) props.get("figure");
+    SubFigure subFigure = (SubFigure) props.get("subfigure");
+    Axes axes = (Axes) props.get("axes");
 
     drawPlot(g2, context, figure, subFigure, axes);
   }
