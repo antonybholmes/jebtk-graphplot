@@ -23,37 +23,37 @@ package org.jebtk.graphplot.figure;
  */
 public abstract class PlotClippedLayer extends PlotLayer {
 
-  private static final PlotClip CLIP = new PlotClipRectY();
+	private static final PlotClip CLIP = new PlotClipRectY();
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-  public PlotClippedLayer() {
-    setClip(CLIP);
-  }
+	public PlotClippedLayer() {
+		setClip(CLIP);
+	}
 
-  public PlotClippedLayer(String name) {
-    super(name);
+	public PlotClippedLayer(String name) {
+		super(name);
 
-    setClip(CLIP);
-  }
+		setClip(CLIP);
+	}
 
-  @Override
-  public String getType() {
-    return "Plot Clipped Layer";
-  }
+	@Override
+	public String getType() {
+		return "Plot Clipped Layer";
+	}
 
-  /*
-   * @Override public final void plotContext(Graphics2D g2, DrawingContext
-   * context, Figure figure, SubFigure subFigure, Axes axes, Plot plot,
-   * DataFrame m) { Graphics2D g2Temp = ImageUtils.clone(g2);
-   * 
-   * try { g2Temp.clipRect(0, 0, axes.getInternalSize().getW(),
-   * axes.getInternalSize().getH());
-   * 
-   * super.plotContext(g2Temp, context, figure, subFigure, axes, plot, m); }
-   * finally { g2Temp.dispose(); } }
-   */
+	/*
+	 * @Override public final void plotContext(Graphics2D g2, DrawingContext
+	 * context, Figure figure, SubFigure subFigure, Axes axes, Plot plot, DataFrame
+	 * m) { Graphics2D g2Temp = ImageUtils.clone(g2);
+	 * 
+	 * try { g2Temp.clipRect(0, 0, axes.getInternalSize().getW(),
+	 * axes.getInternalSize().getH());
+	 * 
+	 * super.plotContext(g2Temp, context, figure, subFigure, axes, plot, m); }
+	 * finally { g2Temp.dispose(); } }
+	 */
 }

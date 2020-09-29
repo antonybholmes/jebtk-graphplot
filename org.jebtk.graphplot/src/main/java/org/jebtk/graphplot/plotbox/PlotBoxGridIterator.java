@@ -14,76 +14,76 @@ import java.util.Iterator;
  */
 public class PlotBoxGridIterator<T> implements Iterator<T> {
 
-  private T[][] mData;
+	private T[][] mData;
 
-  private int mC = -1;
+	private int mC = -1;
 
-  private int mLastIndex;
+	private int mLastIndex;
 
-  public PlotBoxGridIterator(T[][] data) {
-    mData = data;
+	public PlotBoxGridIterator(T[][] data) {
+		mData = data;
 
-    mLastIndex = mData.length * mData[0].length - 1;
-  }
+		mLastIndex = mData.length * mData[0].length - 1;
+	}
 
-  @Override
-  public boolean hasNext() {
-    if (mC >= mLastIndex) {
-      return false;
-    }
+	@Override
+	public boolean hasNext() {
+		if (mC >= mLastIndex) {
+			return false;
+		}
 
-    int c = 0; // mC + 1;
+		int c = 0; // mC + 1;
 
-    // int i = c / mData[0].length * mData[0].length + c % mData[0].length;
+		// int i = c / mData[0].length * mData[0].length + c % mData[0].length;
 
-    for (int i = 0; i < mData.length; ++i) {
-      for (int j = 0; j < mData[0].length; ++j) {
-        if (c > mC) {
-          return mData[i][j] != null;
-        }
+		for (int i = 0; i < mData.length; ++i) {
+			for (int j = 0; j < mData[0].length; ++j) {
+				if (c > mC) {
+					return mData[i][j] != null;
+				}
 
-        ++c;
-      }
-    }
+				++c;
+			}
+		}
 
-    return false;
-  }
+		return false;
+	}
 
-  @Override
-  public T next() {
-    T ret = null;
+	@Override
+	public T next() {
+		T ret = null;
 
-    int c = 0;
+		int c = 0;
 
-    for (int i = 0; i < mData.length; ++i) {
-      for (int j = 0; j < mData[0].length; ++j) {
-        if (c > mC) {
-          T v = mData[i][j];
+		for (int i = 0; i < mData.length; ++i) {
+			for (int j = 0; j < mData[0].length; ++j) {
+				if (c > mC) {
+					T v = mData[i][j];
 
-          mC = c;
+					mC = c;
 
-          if (v != null) {
-            ret = v;
-            break;
-          }
+					if (v != null) {
+						ret = v;
+						break;
+					}
 
-        }
+				}
 
-        ++c;
-      }
+				++c;
+			}
 
-      if (ret != null) {
-        break;
-      }
-    }
+			if (ret != null) {
+				break;
+			}
+		}
 
-    return ret;
-  }
+		return ret;
+	}
 
-  @Override
-  public void remove() {
-    // TODO Auto-generated method stub
+	@Override
+	public void remove() {
+		// TODO Auto-generated method stub
 
-  }
+	}
 
 }

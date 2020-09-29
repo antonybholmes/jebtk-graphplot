@@ -25,41 +25,40 @@ import org.jebtk.math.matrix.MatrixGroup;
 /**
  * The class MatrixGroupModel.
  */
-public class MatrixGroupModel extends ChangeListeners
-    implements Iterable<MatrixGroup> {
+public class MatrixGroupModel extends ChangeListeners implements Iterable<MatrixGroup> {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-  /**
-   * The member groups.
-   */
-  private List<MatrixGroup> mGroups = new ArrayList<MatrixGroup>();
+	/**
+	 * The member groups.
+	 */
+	private List<MatrixGroup> mGroups = new ArrayList<MatrixGroup>();
 
-  /**
-   * Sets the groups.
-   *
-   * @param groups the new groups
-   */
-  public void setGroups(List<MatrixGroup> groups) {
-    if (groups == null) {
-      return;
-    }
+	/**
+	 * Sets the groups.
+	 *
+	 * @param groups the new groups
+	 */
+	public void setGroups(List<MatrixGroup> groups) {
+		if (groups == null) {
+			return;
+		}
 
-    mGroups = new ArrayList<MatrixGroup>(groups);
+		mGroups = new ArrayList<MatrixGroup>(groups);
 
-    fireChanged();
-  }
+		fireChanged();
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Iterable#iterator()
-   */
-  @Override
-  public Iterator<MatrixGroup> iterator() {
-    return mGroups.iterator();
-  }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Iterable#iterator()
+	 */
+	@Override
+	public Iterator<MatrixGroup> iterator() {
+		return mGroups.iterator();
+	}
 }

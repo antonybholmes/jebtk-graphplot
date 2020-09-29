@@ -20,7 +20,7 @@ import java.util.Deque;
 
 import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.core.text.Formatter;
-import org.jebtk.graphplot.figure.heatmap.legacy.RowLabelProperties;
+import org.jebtk.graphplot.figure.heatmap.legacy.RowLabelProps;
 import org.jebtk.graphplot.figure.heatmap.legacy.RowLabelsPlotElement;
 import org.jebtk.math.cluster.Cluster;
 import org.jebtk.math.matrix.DataFrame;
@@ -31,85 +31,83 @@ import org.jebtk.math.matrix.Matrix;
  */
 public class RowHierarchicalLabelPlotElement extends RowLabelsPlotElement {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-  /**
-   * Instantiates a new row hierarchical label plot element.
-   *
-   * @param matrix the matrix
-   * @param rootCluster the root cluster
-   * @param properties the properties
-   * @param aspectRatio the aspect ratio
-   * @param charWidth the char width
-   */
-  public RowHierarchicalLabelPlotElement(DataFrame matrix, Cluster rootCluster,
-      RowLabelProperties properties, DoubleDim aspectRatio, int charWidth) {
-    super(matrix, properties, aspectRatio, charWidth);
+	/**
+	 * Instantiates a new row hierarchical label plot element.
+	 *
+	 * @param matrix      the matrix
+	 * @param rootCluster the root cluster
+	 * @param Props       the properties
+	 * @param aspectRatio the aspect ratio
+	 * @param charWidth   the char width
+	 */
+	public RowHierarchicalLabelPlotElement(DataFrame matrix, Cluster rootCluster, RowLabelProps properties,
+			DoubleDim aspectRatio, int charWidth) {
+		super(matrix, properties, aspectRatio, charWidth);
 
-    Deque<Cluster> stack = new ArrayDeque<Cluster>();
+		Deque<Cluster> stack = new ArrayDeque<Cluster>();
 
-    stack.push(rootCluster);
+		stack.push(rootCluster);
 
-    String[][] labels = new String[matrix.getRows()][properties.showAnnotations
-        .getVisibleCount()];
+		String[][] labels = new String[matrix.getRows()][properties.showAnnotations.getVisibleCount()];
 
-    while (stack.size() > 0) {
-      Cluster cluster = stack.pop();
+		while (stack.size() > 0) {
+			Cluster cluster = stack.pop();
 
-      if (cluster.isParent()) {
-        Cluster c1 = cluster.getChild1();
-        Cluster c2 = cluster.getChild2();
+			if (cluster.isParent()) {
+				Cluster c1 = cluster.getChild1();
+				Cluster c2 = cluster.getChild2();
 
-        stack.push(c2);
-        stack.push(c1);
-      } else {
-        /*
-         * StringBuilder text = new
-         * StringBuilder(matrix.getRowName(cluster.getId()));
-         * 
-         * List<String> extra = new ArrayList<String>();
-         * 
-         * for (int i = 0; i < matrix.getIndex().getNames().size(); ++i) {
-         * String name = matrix.getIndex().getNames().get(i);
-         * 
-         * if (properties.showAnnotations != null &&
-         * properties.showAnnotations.containsKey(name) &&
-         * properties.showAnnotations.get(name)) {
-         * extra.add(matrix.getIndex().getText(name, cluster.getId())); } }
-         * 
-         * text.append(" ").append(TextUtils.join(extra, "; "));
-         * 
-         * labels.add(text.toString());
-         */
+				stack.push(c2);
+				stack.push(c1);
+			} else {
+				/*
+				 * StringBuilder text = new StringBuilder(matrix.getRowName(cluster.getId()));
+				 * 
+				 * List<String> extra = new ArrayList<String>();
+				 * 
+				 * for (int i = 0; i < matrix.getIndex().getNames().size(); ++i) { String name =
+				 * matrix.getIndex().getNames().get(i);
+				 * 
+				 * if (properties.showAnnotations != null &&
+				 * properties.showAnnotations.containsKey(name) &&
+				 * properties.showAnnotations.get(name)) {
+				 * extra.add(matrix.getIndex().getText(name, cluster.getId())); } }
+				 * 
+				 * text.append(" ").append(TextUtils.join(extra, "; "));
+				 * 
+				 * labels.add(text.toString());
+				 */
 
-        // labels.add(getLabel(matrix, cluster.getId(), properties));
+				// labels.add(getLabel(matrix, cluster.getId(), properties));
 
-        int r = cluster.getId();
+				int r = cluster.getId();
 
-        int c = 0;
+				int c = 0;
 
-        for (int i = 0; i < matrix.getIndex().getNames().size(); ++i) {
-          String name = matrix.getIndex().getNames().get(i);
+				for (int i = 0; i < matrix.getIndex().getNames().size(); ++i) {
+					String name = matrix.getIndex().getNames().get(i);
 
-          if (properties.showAnnotations.isVisible(name)) {
+					if (properties.showAnnotations.isVisible(name)) {
 
-            double v = matrix.getIndex().getValue(name, r);
+						double v = matrix.getIndex().getValue(name, r);
 
-            if (Matrix.isValidMatrixNum(v)) {
-              labels[r][c] = Formatter.number().format(v);
-            } else {
-              labels[r][c] = matrix.getIndex().getText(name, r);
-            }
+						if (Matrix.isValidMatrixNum(v)) {
+							labels[r][c] = Formatter.number().format(v);
+						} else {
+							labels[r][c] = matrix.getIndex().getText(name, r);
+						}
 
-            ++c;
-          }
-        }
-      }
-    }
+						++c;
+					}
+				}
+			}
+		}
 
-    setLabels(labels);
-  }
+		setLabels(labels);
+	}
 }

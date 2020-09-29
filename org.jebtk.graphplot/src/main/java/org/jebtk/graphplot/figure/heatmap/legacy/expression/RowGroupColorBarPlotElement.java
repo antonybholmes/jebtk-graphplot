@@ -19,9 +19,10 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.Map;
 
+import org.jebtk.core.Props;
 import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.core.settings.SettingsService;
-import org.jebtk.graphplot.figure.heatmap.legacy.GroupProperties;
+import org.jebtk.graphplot.figure.heatmap.legacy.GroupProps;
 import org.jebtk.graphplot.figure.heatmap.legacy.RowMatrixPlotElement;
 import org.jebtk.graphplot.figure.series.XYSeriesGroup;
 import org.jebtk.math.matrix.DataFrame;
@@ -32,63 +33,58 @@ import org.jebtk.modern.graphics.DrawingContext;
  */
 public class RowGroupColorBarPlotElement extends RowMatrixPlotElement {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
-  
-  private static final int WIDTH = SettingsService.getInstance()
-      .getInt("graphplot.plot.group.block-size");
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-  /**
-   * The member map.
-   */
-  private Map<Integer, XYSeriesGroup> mMap;
+	private static final int WIDTH = SettingsService.getInstance().getInt("graphplot.plot.group.block-size");
 
-  /**
-   * Instantiates a new row group color bar plot element.
-   *
-   * @param m the m
-   * @param groups the groups
-   * @param width the width
-   * @param aspectRatio the aspect ratio
-   */
-  public RowGroupColorBarPlotElement(DataFrame matrix, DoubleDim aspectRatio,
-      XYSeriesGroup groups, GroupProperties properties) {
-    super(matrix, aspectRatio, WIDTH);
+	/**
+	 * The member map.
+	 */
+	private Map<Integer, XYSeriesGroup> mMap;
 
-    mMap = XYSeriesGroup.arrangeGroupsByIndex(matrix, groups);
-  }
+	/**
+	 * Instantiates a new row group color bar plot element.
+	 *
+	 * @param m           the m
+	 * @param groups      the groups
+	 * @param width       the width
+	 * @param aspectRatio the aspect ratio
+	 */
+	public RowGroupColorBarPlotElement(DataFrame matrix, DoubleDim aspectRatio, XYSeriesGroup groups,
+			GroupProps properties) {
+		super(matrix, aspectRatio, WIDTH);
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.
-   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
-   */
-  @Override
-  public void plot(Graphics2D g2,
-      Dimension offset,
-      DrawingContext context,
-      Object... params) {
-    int x = 0;
-    int y = 0;
+		mMap = XYSeriesGroup.arrangeGroupsByIndex(matrix, groups);
+	}
 
-    for (int i : mMap.keySet()) {
-      System.err.println("row g " + i + " " + mMap.get(i));
-      
-      XYSeriesGroup groups = mMap.get(i);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.
+	 * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
+	 */
+	@Override
+	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Props params) {
+		int x = 0;
+		int y = 0;
 
-      y = i * mBlockSize.getH();
+		for (int i : mMap.keySet()) {
+			System.err.println("row g " + i + " " + mMap.get(i));
 
-      g2.setColor(groups.get(0).getColor());
+			XYSeriesGroup groups = mMap.get(i);
 
-      g2.fillRect(x, y, getPreferredSize().width, mBlockSize.getH());
+			y = i * mBlockSize.getH();
 
-      // y += blockSize.height;
-    }
+			g2.setColor(groups.get(0).getColor());
 
-    super.plot(g2, offset, context, params);
-  }
+			g2.fillRect(x, y, getPreferredSize().width, mBlockSize.getH());
+
+			// y += blockSize.height;
+		}
+
+		super.plot(g2, offset, context, params);
+	}
 }

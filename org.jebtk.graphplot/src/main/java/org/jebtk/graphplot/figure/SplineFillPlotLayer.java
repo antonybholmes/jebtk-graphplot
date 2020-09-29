@@ -30,143 +30,123 @@ import org.jebtk.modern.graphics.DrawingContext;
  */
 public class SplineFillPlotLayer extends SplinePlotLayer {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-  /**
-   * Instantiates a new spline fill plot layer.
-   *
-   * @param series the series
-   */
-  public SplineFillPlotLayer(String series) {
-    super(series, false);
-  }
+	/**
+	 * Instantiates a new spline fill plot layer.
+	 *
+	 * @param series the series
+	 */
+	public SplineFillPlotLayer(String series) {
+		super(series, false);
+	}
 
-  @Override
-  public String getType() {
-    return "Spline Fill Layer";
-  }
+	@Override
+	public String getType() {
+		return "Spline Fill Layer";
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.PathPlotLayer#getPath(java.
-   * lang.String, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
-   * org.abh.lib.math.matrix.DataFrame,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXY)
-   */
-  @Override
-  protected GeneralPath getPath(Figure figure,
-      SubFigure subFigure,
-      Axes axes,
-      Plot plot,
-      DataFrame m,
-      XYSeries series,
-      UniqueXY xy) {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.PathPlotLayer#getPath(java.
+	 * lang.String, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
+	 * org.abh.lib.math.matrix.DataFrame,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXY)
+	 */
+	@Override
+	protected GeneralPath getPath(Figure figure, SubFigure subFigure, Axes axes, Plot plot, DataFrame m,
+			XYSeries series, UniqueXY xy) {
 
-    // create zero points
-    int n = xy.getPointCount();
+		// create zero points
+		int n = xy.getPointCount();
 
-    if (n < 3) {
-      return null;
-    }
+		if (n < 3) {
+			return null;
+		}
 
-    Point p;
+		Point p;
 
-    // grab (x,y) coordinates of the control points
-    double[] knotsX = new double[n];
-    double[] knotsY = new double[n];
+		// grab (x,y) coordinates of the control points
+		double[] knotsX = new double[n];
+		double[] knotsY = new double[n];
 
-    // zero point
-    // knotsX[0] = xy.getPoint(0).getX();
-    // knotsY[0] = Math.min(axes.toPlotY1(0),
-    // axes.toPlotY1(axes.getY1Axis().getLimits().getMin()));
+		// zero point
+		// knotsX[0] = xy.getPoint(0).getX();
+		// knotsY[0] = Math.min(axes.toPlotY1(0),
+		// axes.toPlotY1(axes.getY1Axis().getLimits().getMin()));
 
-    for (int i = 0; i < xy.getPointCount(); ++i) {
-      p = xy.getPoint(i);
+		for (int i = 0; i < xy.getPointCount(); ++i) {
+			p = xy.getPoint(i);
 
-      knotsX[i] = p.x;
-      knotsY[i] = p.y;
-    }
+			knotsX[i] = p.x;
+			knotsY[i] = p.y;
+		}
 
-    // zero end point
-    // knotsX[n - 1] = xy.getPoint(xy.getPointCount() - 1).getX();
-    // knotsY[n - 1] = knotsY[0];
+		// zero end point
+		// knotsX[n - 1] = xy.getPoint(xy.getPointCount() - 1).getX();
+		// knotsY[n - 1] = knotsY[0];
 
-    // computes control points p1 and p2 for x and y direction
-    double[] px = computeControlPoints(knotsX);
-    double[] py = computeControlPoints(knotsY);
+		// computes control points p1 and p2 for x and y direction
+		double[] px = computeControlPoints(knotsX);
+		double[] py = computeControlPoints(knotsY);
 
-    GeneralPath path = new GeneralPath();
+		GeneralPath path = new GeneralPath();
 
-    int miny = axes.toPlotY1(Math.max(0, axes.getY1Axis().getLimits().getMin()));
+		int miny = axes.toPlotY1(Math.max(0, axes.getY1Axis().getLimits().getMin()));
 
-    path.moveTo(knotsX[0], miny);
-    path.lineTo(knotsX[0], knotsY[0]);
+		path.moveTo(knotsX[0], miny);
+		path.lineTo(knotsX[0], knotsY[0]);
 
-    int p2Index = n - 1;
+		int p2Index = n - 1;
 
-    for (int i = 0; i < n - 1; ++i) {
-      p = xy.getPoint(i + 1);
-      path.curveTo(px[i],
-          py[i],
-          px[p2Index + i],
-          py[p2Index + i],
-          knotsX[i + 1],
-          knotsY[i + 1]);
-    }
+		for (int i = 0; i < n - 1; ++i) {
+			p = xy.getPoint(i + 1);
+			path.curveTo(px[i], py[i], px[p2Index + i], py[p2Index + i], knotsX[i + 1], knotsY[i + 1]);
+		}
 
-    path.lineTo(knotsX[knotsX.length - 1], miny);
-    path.closePath();
+		path.lineTo(knotsX[knotsX.length - 1], miny);
+		path.closePath();
 
-    return path;
-  }
+		return path;
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.PathPlotLayer#plotLayer(
-   * java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
-   * org.abh.lib.math.matrix.DataFrame,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXY,
-   * java.awt.geom.GeneralPath)
-   */
-  @Override
-  public void plotLayer(Graphics2D g2,
-      DrawingContext context,
-      Figure figure,
-      SubFigure subFigure,
-      Axes axes,
-      Plot plot,
-      DataFrame m,
-      XYSeries series,
-      UniqueXY xy,
-      GeneralPath path) {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PathPlotLayer#plotLayer(
+	 * java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
+	 * org.abh.lib.math.matrix.DataFrame,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXY,
+	 * java.awt.geom.GeneralPath)
+	 */
+	@Override
+	public void plotLayer(Graphics2D g2, DrawingContext context, Figure figure, SubFigure subFigure, Axes axes,
+			Plot plot, DataFrame m, XYSeries series, UniqueXY xy, GeneralPath path) {
 
-    /*
-     * if (series.getStyle().getLineStyle().getVisible()) {
-     * g2.setColor(series.getStyle().getLineStyle().getColor());
-     * g2.setStroke(series.getStyle().getLineStyle().getStroke());
-     * g2.draw(path); }
-     */
+		/*
+		 * if (series.getStyle().getLineStyle().getVisible()) {
+		 * g2.setColor(series.getStyle().getLineStyle().getColor());
+		 * g2.setStroke(series.getStyle().getLineStyle().getStroke()); g2.draw(path); }
+		 */
 
-    // System.err.println("spline " + plot.getName() + " " + plot.getId() + " "
-    // + series.getStyle().getFillStyle().getVisible());
+		// System.err.println("spline " + plot.getName() + " " + plot.getId() + " "
+		// + series.getStyle().getFillStyle().getVisible());
 
-    if (series.getStyle().getFillStyle().getVisible()) {
-      g2.setColor(series.getStyle().getFillStyle().getColor());
-      g2.fill(path);
-    }
-  }
+		if (series.getStyle().getFillStyle().getVisible()) {
+			g2.setColor(series.getStyle().getFillStyle().getColor());
+			g2.fill(path);
+		}
+	}
 }

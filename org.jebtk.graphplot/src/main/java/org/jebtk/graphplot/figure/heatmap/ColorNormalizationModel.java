@@ -25,13 +25,13 @@ import org.jebtk.core.model.ItemModel;
  */
 public class ColorNormalizationModel extends ItemModel<ColorNormalization> {
 
-  /** The Constant serialVersionUID. */
-  private static final long serialVersionUID = 1L;
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
 
-  /**
-   * Instantiates a new color standardization model.
-   */
-  public ColorNormalizationModel() {
-    set(ColorNormalization.NONE);
-  }
+	/**
+	 * Instantiates a new color standardization model.
+	 */
+	public ColorNormalizationModel() {
+		set(ColorNormalization.NONE);
+	}
 }

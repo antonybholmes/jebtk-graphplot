@@ -32,83 +32,78 @@ import org.jebtk.modern.graphics.DrawingContext;
  */
 public class BarChartHLayer extends PlotClippedLayer {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-  @Override
-  public String getType() {
-    return "Bar Chart Horizontal Layer";
-  }
+	@Override
+	public String getType() {
+		return "Bar Chart Horizontal Layer";
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotClippedLayer#plotLayer(
-   * java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
-   * org.abh.lib.math.matrix.DataFrame)
-   */
-  @Override
-  public void plotLayer(Graphics2D g2,
-      DrawingContext context,
-      Figure figure,
-      SubFigure subFigure,
-      Axes axes,
-      Plot plot,
-      DataFrame m) {
-    double x;
-    int x1;
-    int y1;
-    int y2;
-    double bw;
-    int bwp;
-    double offset;
-    int h;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotClippedLayer#plotLayer(
+	 * java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
+	 * org.abh.lib.math.matrix.DataFrame)
+	 */
+	@Override
+	public void plotLayer(Graphics2D g2, DrawingContext context, Figure figure, SubFigure subFigure, Axes axes,
+			Plot plot, DataFrame m) {
+		double x;
+		int x1;
+		int y1;
+		int y2;
+		double bw;
+		int bwp;
+		double offset;
+		int h;
 
-    y1 = axes.toPlotX1(0);
+		y1 = axes.toPlotX1(0);
 
-    bw = plot.getBarWidth();
-    bwp = axes.toPlotY1(0) - axes.toPlotY1(bw);
+		bw = plot.getBarWidth();
+		bwp = axes.toPlotY1(0) - axes.toPlotY1(bw);
 
-    offset = (1.0 - bw) / 2.0;
+		offset = (1.0 - bw) / 2.0;
 
-    double[] means = DoubleMatrix.columnMeans(m);
+		double[] means = DoubleMatrix.columnMeans(m);
 
-    // y is draw in negative direction
-    x = bw; // 1 + bw; //axes.toPlotX(axes.getXAxis().getLimits().getMin());
+		// y is draw in negative direction
+		x = bw; // 1 + bw; //axes.toPlotX(axes.getXAxis().getLimits().getMin());
 
-    for (XYSeries series : plot.getAllSeries()) {
-      List<Integer> columns = MatrixGroup.findColumnIndices(m, series);
+		for (XYSeries series : plot.getAllSeries()) {
+			List<Integer> columns = MatrixGroup.findColumnIndices(m, series);
 
-      int c = columns.get(0);
+			int c = columns.get(0);
 
-      x1 = axes.toPlotY1(x + offset);
-      y2 = axes.toPlotX1(means[c]);
+			x1 = axes.toPlotY1(x + offset);
+			y2 = axes.toPlotX1(means[c]);
 
-      h = y2 - y1 + 1;
+			h = y2 - y1 + 1;
 
-      if (series.getStyle().getFillStyle().getVisible()) {
-        // System.err.println("has " + series.getTitle().getText());
+			if (series.getStyle().getFillStyle().getVisible()) {
+				// System.err.println("has " + series.getTitle().getText());
 
-        g2.setColor(series.getStyle().getFillStyle().getColor());
+				g2.setColor(series.getStyle().getFillStyle().getColor());
 
-        g2.fillRect(y1, x1, h, bwp); // h);
-      }
+				g2.fillRect(y1, x1, h, bwp); // h);
+			}
 
-      if (series.getStyle().getLineStyle().getVisible()) {
-        g2.setStroke(series.getStyle().getLineStyle().getStroke());
-        g2.setColor(series.getStyle().getLineStyle().getColor());
+			if (series.getStyle().getLineStyle().getVisible()) {
+				g2.setStroke(series.getStyle().getLineStyle().getStroke());
+				g2.setColor(series.getStyle().getLineStyle().getColor());
 
-        g2.drawRect(y1, x1, h, bwp);
-      }
+				g2.drawRect(y1, x1, h, bwp);
+			}
 
-      ++x;
-    }
-  }
+			++x;
+		}
+	}
 
 }

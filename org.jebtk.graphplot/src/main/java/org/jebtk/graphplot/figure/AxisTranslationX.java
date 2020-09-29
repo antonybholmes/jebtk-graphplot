@@ -25,18 +25,18 @@ package org.jebtk.graphplot.figure;
  */
 public abstract class AxisTranslationX extends AxisTranslation {
 
-  /**
-   * Instantiates a new axis translation y.
-   *
-   * @param axis the axis
-   */
-  public AxisTranslationX(Axes axes, Axis axis) {
-    super(axes, axis);
-  }
+	/**
+	 * Instantiates a new axis translation y.
+	 *
+	 * @param axis the axis
+	 */
+	public AxisTranslationX(Axes axes, Axis axis) {
+		super(axes, axis);
+	}
 
-  @Override
-  public int getPixels() {
-    return getAxes().getInternalSize().getW();
-  }
+	@Override
+	public int getPixels() {
+		return getAxes().getInternalSize().getW();
+	}
 
 }

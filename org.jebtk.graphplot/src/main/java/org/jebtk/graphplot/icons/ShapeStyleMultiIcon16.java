@@ -23,17 +23,17 @@ import org.jebtk.modern.graphics.icons.Raster16Icon;
  */
 public class ShapeStyleMultiIcon16 extends MultiIcon {
 
-  /**
-   * Instantiates a new shape style multi icon16.
-   */
-  public ShapeStyleMultiIcon16() {
-    addIcon(new Raster16Icon(new ShapeBarStyleIcon()));
-    addIcon(new Raster16Icon(new ShapeCircleStyleIcon()));
-    addIcon(new Raster16Icon(new ShapeCrossStyleIcon()));
-    addIcon(new Raster16Icon(new ShapeDiamondStyleIcon()));
-    addIcon(new Raster16Icon(new ShapeMinusStyleIcon()));
-    addIcon(new Raster16Icon(new ShapePlusStyleIcon()));
-    addIcon(new Raster16Icon(new ShapeSquareStyleIcon()));
-    addIcon(new Raster16Icon(new ShapeTriangleStyleIcon()));
-  }
+	/**
+	 * Instantiates a new shape style multi icon16.
+	 */
+	public ShapeStyleMultiIcon16() {
+		addIcon(new Raster16Icon(new ShapeBarStyleIcon()));
+		addIcon(new Raster16Icon(new ShapeCircleStyleIcon()));
+		addIcon(new Raster16Icon(new ShapeCrossStyleIcon()));
+		addIcon(new Raster16Icon(new ShapeDiamondStyleIcon()));
+		addIcon(new Raster16Icon(new ShapeMinusStyleIcon()));
+		addIcon(new Raster16Icon(new ShapePlusStyleIcon()));
+		addIcon(new Raster16Icon(new ShapeSquareStyleIcon()));
+		addIcon(new Raster16Icon(new ShapeTriangleStyleIcon()));
+	}
 }

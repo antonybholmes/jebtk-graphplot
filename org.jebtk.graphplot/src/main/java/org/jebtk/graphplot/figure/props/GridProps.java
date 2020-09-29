@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jebtk.graphplot.figure.properties;
+package org.jebtk.graphplot.figure.props;
 
 import java.awt.Color;
 
@@ -25,27 +25,27 @@ import org.jebtk.core.settings.SettingsService;
  *
  * @author Antony Holmes
  */
-public class GridProperties extends LineProperties {
+public class GridProps extends LineProps {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-  /**
-   * The constant GRID_COLOR.
-   */
-  public static final Color GRID_COLOR = ColorUtils.decodeHtmlColor(
-      SettingsService.getInstance().getString("plot.grid.color"));
+	/**
+	 * The constant GRID_COLOR.
+	 */
+	public static final Color GRID_COLOR = ColorUtils
+			.decodeHtmlColor(SettingsService.getInstance().getString("plot.grid.color"));
 
-  /**
-   * Instantiates a new grid properties.
-   */
-  public GridProperties() {
-    // setStroke(StrokeStyle.DASHED, 1);
-    setColor(GRID_COLOR);
+	/**
+	 * Instantiates a new grid properties.
+	 */
+	public GridProps() {
+		// setStroke(StrokeStyle.DASHED, 1);
+		setColor(GRID_COLOR);
 
-    // Default to not being visible.
-    setVisible(false);
-  }
+		// Default to not being visible.
+		setVisible(false);
+	}
 }

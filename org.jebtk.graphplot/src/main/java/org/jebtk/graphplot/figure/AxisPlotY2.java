@@ -25,30 +25,30 @@ import java.awt.Dimension;
  */
 public class AxisPlotY2 extends AxisPlot {
 
-  /** The Constant serialVersionUID. */
-  private static final long serialVersionUID = 1L;
-  private int mWidth;
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
+	private int mWidth;
 
-  /**
-   * Instantiates a new axis plot y2.
-   *
-   * @param axis the axis
-   */
-  public AxisPlotY2(Axis axis) {
-    super("Axis Plot Y2", axis);
+	/**
+	 * Instantiates a new axis plot y2.
+	 *
+	 * @param axis the axis
+	 */
+	public AxisPlotY2(Axis axis) {
+		super("Axis Plot Y2", axis);
 
-    setZ(new AxisLabelLayerY2());
-    mWidth = autoSetLabelMargin(axis);
-  }
+		setZ(new AxisLabelLayerY2());
+		mWidth = autoSetLabelMargin(axis);
+	}
 
-  @Override
-  public String getType() {
-    return "Axis Y2 Label Plot Layer";
-  }
+	@Override
+	public String getType() {
+		return "Axis Y2 Label Plot Layer";
+	}
 
-  @Override
-  public void plotSize(Dimension d) {
-    d.height += mWidth;
-  }
+	@Override
+	public void plotSize(Dimension d) {
+		d.height += mWidth;
+	}
 
 }

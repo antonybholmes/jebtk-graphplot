@@ -18,7 +18,7 @@ package org.jebtk.graphplot.figure;
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
 import org.jebtk.core.text.TextUtils;
-import org.jebtk.graphplot.figure.properties.MarginProperties;
+import org.jebtk.graphplot.figure.props.MarginProps;
 import org.jebtk.modern.ModernWidget;
 
 /**
@@ -29,63 +29,60 @@ import org.jebtk.modern.ModernWidget;
  */
 public class AxisPlot extends Plot {
 
-  /** The Constant serialVersionUID. */
-  private static final long serialVersionUID = 1L;
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
 
-  /** The m axis. */
-  private Axis mAxis;
+	/** The m axis. */
+	private Axis mAxis;
 
-  /**
-   * Instantiates a new plot.
-   *
-   * @param name the name
-   * @param axis the axis
-   */
-  public AxisPlot(String name, Axis axis) {
-    super(name);
+	/**
+	 * Instantiates a new plot.
+	 *
+	 * @param name the name
+	 * @param axis the axis
+	 */
+	public AxisPlot(String name, Axis axis) {
+		super(name);
 
-    mAxis = axis;
+		mAxis = axis;
 
-    setVisible(mAxis.getVisible());
+		setVisible(mAxis.getVisible());
 
-    mAxis.addChangeListener(new ChangeListener() {
+		mAxis.addChangeListener(new ChangeListener() {
 
-      @Override
-      public void changed(ChangeEvent e) {
-        setVisible(mAxis.getVisible());
-      }
-    });
-  }
+			@Override
+			public void changed(ChangeEvent e) {
+				setVisible(mAxis.getVisible());
+			}
+		});
+	}
 
-  /**
-   * Auto set label margin.
-   *
-   * @param axis the axis
-   * @return the int
-   */
-  public static int autoSetLabelMargin(Axis axis) {
+	/**
+	 * Auto set label margin.
+	 *
+	 * @param axis the axis
+	 * @return the int
+	 */
+	public static int autoSetLabelMargin(Axis axis) {
 
-    int w = 0;
+		int w = 0;
 
-    String text = TextUtils
-        .maxString(axis.getTicks().getMajorTicks().getLabels());
+		String text = TextUtils.maxString(axis.getTicks().getMajorTicks().getLabels());
 
-    w = ModernWidget.getStringWidth(
-        axis.getTicks().getMajorTicks().getFontStyle().getFont(),
-        text);
+		w = ModernWidget.getStringWidth(axis.getTicks().getMajorTicks().getFontStyle().getFont(), text);
 
-    w += axis.getTicks().getMajorTicks().getTickSpacing();
+		w += axis.getTicks().getMajorTicks().getTickSpacing();
 
-    if (!axis.getTicks().getDrawInside()) {
-      w += axis.getTicks().getMajorTicks().getTickSize();
-    }
+		if (!axis.getTicks().getDrawInside()) {
+			w += axis.getTicks().getMajorTicks().getTickSize();
+		}
 
-    // Increase by 20%
-    w = w * 12 / 10;
+		// Increase by 20%
+		w = w * 12 / 10;
 
-    // axes.getMargins().setBottom(Math.max(w,
-    // MarginProperties.DEFAULT_MARGIN));
+		// axes.getMargins().setBottom(Math.max(w,
+		// MarginProps.DEFAULT_MARGIN));
 
-    return Math.max(w, MarginProperties.DEFAULT_SIZE);
-  }
+		return Math.max(w, MarginProps.DEFAULT_SIZE);
+	}
 }

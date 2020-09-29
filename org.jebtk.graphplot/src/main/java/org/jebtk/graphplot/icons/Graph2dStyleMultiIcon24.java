@@ -23,20 +23,20 @@ import org.jebtk.modern.graphics.icons.Raster24Icon;
  */
 public class Graph2dStyleMultiIcon24 extends MultiIcon {
 
-  /**
-   * Instantiates a new graph2d style multi icon24.
-   */
-  public Graph2dStyleMultiIcon24() {
-    // addIcon(new Raster24Icon(new JoinedFilledStyleIcon()));
-    addIcon(new Raster24Icon(new JoinedStyleIcon()));
-    addIcon(new Raster24Icon(new JoinedSmoothStyleIcon()));
-    addIcon(new Raster24Icon(new JoinedFilledTransStyleIcon()));
-    addIcon(new Raster24Icon(new JoinedSmoothFilledStyleIcon()));
+	/**
+	 * Instantiates a new graph2d style multi icon24.
+	 */
+	public Graph2dStyleMultiIcon24() {
+		// addIcon(new Raster24Icon(new JoinedFilledStyleIcon()));
+		addIcon(new Raster24Icon(new JoinedStyleIcon()));
+		addIcon(new Raster24Icon(new JoinedSmoothStyleIcon()));
+		addIcon(new Raster24Icon(new JoinedFilledTransStyleIcon()));
+		addIcon(new Raster24Icon(new JoinedSmoothFilledStyleIcon()));
 
-    addIcon(new Raster24Icon(new LinesStyleIcon()));
-    addIcon(new Raster24Icon(new BarsStyleIcon()));
-    addIcon(new Raster24Icon(new ScatterStyleIcon()));
+		addIcon(new Raster24Icon(new LinesStyleIcon()));
+		addIcon(new Raster24Icon(new BarsStyleIcon()));
+		addIcon(new Raster24Icon(new ScatterStyleIcon()));
 
-    addIcon(new Raster24Icon(new HeatMap32VectorIcon()));
-  }
+		addIcon(new Raster24Icon(new HeatMap32VectorIcon()));
+	}
 }

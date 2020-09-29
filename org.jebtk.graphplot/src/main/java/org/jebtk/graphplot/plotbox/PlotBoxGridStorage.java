@@ -17,131 +17,93 @@ package org.jebtk.graphplot.plotbox;
 
 import java.util.Iterator;
 
-import org.jebtk.core.geom.GeomUtils;
-import org.jebtk.core.geom.IntPos2D;
-
 /**
  * Store plots on a grid
  */
 public class PlotBoxGridStorage extends PlotBoxStorage {
 
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  private final PlotBox[][] mLocations;
+	private final PlotBox[][] mLocations;
 
-  public PlotBoxGridStorage(int rows, int columns) {
-    mLocations = new PlotBox[rows][columns];
-  }
+	public PlotBoxGridStorage(int rows, int columns) {
+		mLocations = new PlotBox[rows][columns];
+	}
 
-  @Override
-  public void add(PlotBox plot, Object... params) {
-    int row = 0;
-    int col = 0;
+//  @Override
+//  public void add(PlotBox plot, Props params) {
+//    int row = 0;
+//    int col = 0;
+//
+//    if (params.length > 1) {
+//      if (params[0] instanceof Integer) {
+//        row = (int) params[0];
+//      }
+//
+//      if (params[1] instanceof Integer) {
+//        col = (int) params[1];
+//      }
+//    }
+//
+//    add(plot, row, col);
+//  }
 
-    if (params.length > 1) {
-      if (params[0] instanceof Integer) {
-        row = (int) params[0];
-      }
+	@Override
+	public void add(PlotBox plot, int row, int col) {
+		mLocations[row][col] = plot;
 
-      if (params[1] instanceof Integer) {
-        col = (int) params[1];
-      }
-    }
+		super.add(plot);
+	}
 
-    add(plot, row, col);
-  }
+	@Override
+	public void add(PlotBox plot) {
+		add(plot, 0, 0);
+	}
 
-  public void add(PlotBox plot, int row, int col) {
-    mLocations[row][col] = plot;
+	@Override
+	public PlotBox get(int row, int col) {
+		return mLocations[row][col];
+	}
 
-    super.add(plot);
-  }
+	@Override
+	public Iterator<PlotBox> iterator() {
+		return new PlotBoxGridIterator<PlotBox>(mLocations);
+	}
 
-  public void addChild(PlotBox plot) {
-    add(plot, 0, 0);
-  }
+	@Override
+	public int getChildCount() {
+		return mLocations.length * mLocations[0].length;
+	}
 
-  @Override
-  public PlotBox get(Object param, Object... params) {
+	@Override
+	public boolean remove(PlotBox plot) {
+		boolean found = false;
 
-    int row = 0;
-    int col = 0;
+		for (int i = 0; i < mLocations.length; ++i) {
+			for (int j = 0; j < mLocations[0].length; ++j) {
+				if (mLocations[i][j].equals(plot)) {
+					remove(i, j);
+					found = true;
+					break;
+				}
+			}
 
-    if (param instanceof Integer) {
-      row = (int) param;
-    }
+			if (found) {
+				break;
+			}
+		}
 
-    if (params.length > 0) {
-      if (params[0] instanceof Integer) {
-        col = (int) params[0];
-      }
-    }
+		if (found) {
+			remove(0, 0);
+		}
 
-    return getChild(row, col);
-  }
+		return true;
+	}
 
-  public PlotBox getChild(int row, int col) {
-    return mLocations[row][col];
-  }
-
-  @Override
-  public Iterator<PlotBox> iterator() {
-    return new PlotBoxGridIterator<PlotBox>(mLocations);
-  }
-
-  @Override
-  public int getChildCount() {
-    return mLocations.length * mLocations[0].length;
-  }
-
-  @Override
-  public boolean remove(PlotBox plot) {
-    IntPos2D rl = GeomUtils.INT_POINT_ZERO;
-
-    boolean found = false;
-
-    for (int i = 0; i < mLocations.length; ++i) {
-      for (int j = 0; j < mLocations[0].length; ++j) {
-        if (mLocations[i][j].equals(plot)) {
-          remove(i, j);
-          found = true;
-          break;
-        }
-      }
-
-      if (found) {
-        break;
-      }
-    }
-
-    if (found) {
-      remove(rl);
-    }
-
-    return true;
-  }
-
-  @Override
-  public boolean remove(Object param, Object... params) {
-    int row = 0;
-    int col = 0;
-
-    if (param instanceof Integer) {
-      row = (int) param;
-    }
-
-    if (params.length > 0) {
-      if (params[0] instanceof Integer) {
-        col = (int) params[0];
-      }
-    }
-
-    remove(row, col);
-
-    return true;
-  }
-
-  public void remove(int i, int j) {
-    mLocations[i][j] = null;
-  }
+	@Override
+	public boolean remove(int i, int j) {
+		mLocations[i][j] = null;
+		
+		return true;
+	}
 }

@@ -13,31 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jebtk.graphplot.figure.properties;
+package org.jebtk.graphplot.figure.heatmap.legacy;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.Color;
 
 /**
- * The class MajorTickMarkProperties.
+ * The class GroupProperties.
  */
-public class MajorTickMarkProperties extends TickMarkProperties {
+public class GroupProps extends LabelProps {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * The show colors.
+	 */
+	public boolean showColors = true;
 
-  /**
-   * Instantiates a new major tick mark properties.
-   */
-  public MajorTickMarkProperties() {
-    List<Double> ticks = new ArrayList<Double>();
+	/**
+	 * The border color.
+	 */
+	public Color borderColor = Color.BLACK;
 
-    ticks.add(0.0);
-    ticks.add(1.0);
+	/**
+	 * The show border.
+	 */
+	public boolean showBorder = true;
 
-    setTicks(ticks);
-  }
+	/**
+	 * The show grid.
+	 */
+	public boolean showGrid = false;
 
+	/**
+	 * The grid color.
+	 */
+	public Color gridColor = Color.BLACK;
 }

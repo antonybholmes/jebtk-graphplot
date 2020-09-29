@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
+import org.jebtk.core.Props;
 import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
@@ -31,63 +32,59 @@ import org.jebtk.modern.graphics.DrawingContext;
  */
 public class CountBracketRightPlotElement extends RowMatrixPlotElement {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-  /** The m count groups. */
-  private CountGroups mCountGroups;
+	/** The m count groups. */
+	private CountGroups mCountGroups;
 
-  /** The m color. */
-  private Color mColor;
+	/** The m color. */
+	private Color mColor;
 
-  /**
-   * Instantiates a new count bracket right plot element.
-   *
-   * @param matrix the matrix
-   * @param countGroups the count groups
-   * @param width the width
-   * @param aspectRatio the aspect ratio
-   * @param color the color
-   */
-  public CountBracketRightPlotElement(DataFrame matrix, CountGroups countGroups,
-      int width, DoubleDim aspectRatio, Color color) {
-    super(matrix, aspectRatio, width);
-    mColor = color;
-    mCountGroups = countGroups;
-  }
+	/**
+	 * Instantiates a new count bracket right plot element.
+	 *
+	 * @param matrix      the matrix
+	 * @param countGroups the count groups
+	 * @param width       the width
+	 * @param aspectRatio the aspect ratio
+	 * @param color       the color
+	 */
+	public CountBracketRightPlotElement(DataFrame matrix, CountGroups countGroups, int width, DoubleDim aspectRatio,
+			Color color) {
+		super(matrix, aspectRatio, width);
+		mColor = color;
+		mCountGroups = countGroups;
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.
-   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
-   */
-  @Override
-  public void plot(Graphics2D g2,
-      Dimension offset,
-      DrawingContext context,
-      Object... params) {
-    g2.setColor(mColor);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.
+	 * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
+	 */
+	@Override
+	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Props params) {
+		g2.setColor(mColor);
 
-    int y1 = 0;
-    int y2;
-    int w = getPreferredSize().width;
+		int y1 = 0;
+		int y2;
+		int w = getPreferredSize().width;
 
-    // int h = mBlockSize.getH();
-    double r = mAspectRatio.getH();
+		// int h = mBlockSize.getH();
+		double r = mAspectRatio.getH();
 
-    for (CountGroup countGroup : mCountGroups) {
-      y1 = (int) (countGroup.getStart() * r);
-      y2 = (int) ((countGroup.getEnd() + 1) * r);
+		for (CountGroup countGroup : mCountGroups) {
+			y1 = (int) (countGroup.getStart() * r);
+			y2 = (int) ((countGroup.getEnd() + 1) * r);
 
-      g2.drawLine(0, y1, w, y1);
-      g2.drawLine(w, y1, w, y2);
-      g2.drawLine(0, y2, w, y2);
-    }
+			g2.drawLine(0, y1, w, y1);
+			g2.drawLine(w, y1, w, y2);
+			g2.drawLine(0, y2, w, y2);
+		}
 
-    super.plot(g2, offset, context, params);
-  }
+		super.plot(g2, offset, context, params);
+	}
 }

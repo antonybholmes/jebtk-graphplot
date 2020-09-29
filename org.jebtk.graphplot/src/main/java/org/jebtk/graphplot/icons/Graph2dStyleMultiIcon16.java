@@ -23,20 +23,20 @@ import org.jebtk.modern.graphics.icons.Raster16Icon;
  */
 public class Graph2dStyleMultiIcon16 extends MultiIcon {
 
-  /**
-   * Instantiates a new graph2d style multi icon16.
-   */
-  public Graph2dStyleMultiIcon16() {
-    addIcon(new Raster16Icon(new JoinedStyleIcon()));
-    addIcon(new Raster16Icon(new JoinedSmoothStyleIcon()));
-    addIcon(new Raster16Icon(new JoinedFilledTransStyleIcon()));
-    addIcon(new Raster16Icon(new JoinedSmoothFilledStyleIcon()));
+	/**
+	 * Instantiates a new graph2d style multi icon16.
+	 */
+	public Graph2dStyleMultiIcon16() {
+		addIcon(new Raster16Icon(new JoinedStyleIcon()));
+		addIcon(new Raster16Icon(new JoinedSmoothStyleIcon()));
+		addIcon(new Raster16Icon(new JoinedFilledTransStyleIcon()));
+		addIcon(new Raster16Icon(new JoinedSmoothFilledStyleIcon()));
 
-    addIcon(new Raster16Icon(new LinesStyleIcon()));
-    addIcon(new Raster16Icon(new BarsStyleIcon()));
-    addIcon(new Raster16Icon(new ScatterStyleIcon()));
+		addIcon(new Raster16Icon(new LinesStyleIcon()));
+		addIcon(new Raster16Icon(new BarsStyleIcon()));
+		addIcon(new Raster16Icon(new ScatterStyleIcon()));
 
-    addIcon(new Raster16Icon(new HeatMap32VectorIcon()));
+		addIcon(new Raster16Icon(new HeatMap32VectorIcon()));
 
-  }
+	}
 }

@@ -40,261 +40,254 @@ import org.jebtk.modern.graphics.DrawingContext;
  */
 public class BoxWhiskerScatterLayer2 extends PlotClippedLayer {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
-
-  /**
-   * Instantiates a new box whisker scatter layer.
-   */
-  private double mX;
-
-  /** The m hash id. */
-  private String mHashId;
-
-  /** The m point map. */
-  private ListMultiMap<XYSeries, IntPos2D> mPointMap;
-
-  /** The m point2 group map. */
-  private Map<IntPos2D, Integer> mPoint2GroupMap;
-
-  /** The m bin size. */
-  private int mBinSize = 0;
-
-  /** The m half bin size. */
-  private int mHalfBinSize;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-  /** The m gap size. */
-  private int mGapSize;
+	/**
+	 * Instantiates a new box whisker scatter layer.
+	 */
+	private double mX;
 
-  /** The m group size map. */
-  private Map<Integer, Integer> mGroupSizeMap;
+	/** The m hash id. */
+	private String mHashId;
 
-  /** The m W. */
-  private double mW;
+	/** The m point map. */
+	private ListMultiMap<XYSeries, IntPos2D> mPointMap;
 
-  /**
-   * Instantiates a new box whisker scatter layer2.
-   *
-   * @param x the x
-   */
-  public BoxWhiskerScatterLayer2(double x) {
-    this(x, 1);
-  }
+	/** The m point2 group map. */
+	private Map<IntPos2D, Integer> mPoint2GroupMap;
 
-  /**
-   * Instantiates a new box whisker scatter layer 2.
-   *
-   * @param x the x
-   * @param w the w
-   */
-  public BoxWhiskerScatterLayer2(double x, double w) {
-    this(x, w, true);
-  }
+	/** The m bin size. */
+	private int mBinSize = 0;
 
-  /**
-   * Instantiates a new box whisker scatter layer2.
-   *
-   * @param x the x
-   * @param w the w
-   * @param visible the visible
-   */
-  public BoxWhiskerScatterLayer2(double x, double w, boolean visible) {
-    mX = x;
-    mW = w;
+	/** The m half bin size. */
+	private int mHalfBinSize;
 
-    setVisible(visible);
-  }
+	/** The m gap size. */
+	private int mGapSize;
 
-  @Override
-  public String getType() {
-    return "Box Whisker Scatter Layer";
-  }
+	/** The m group size map. */
+	private Map<Integer, Integer> mGroupSizeMap;
 
-  @Override
-  public final void plotLayer(Graphics2D g2,
-      DrawingContext context,
-      Figure figure,
-      SubFigure subFigure,
-      Axes axes,
-      Plot plot,
-      DataFrame m) {
-
-    // the width of the arms of the plot
-    int y;
-    int x;
-
-    int plotX = axes.toPlotX1(mX);
-
-    int plotW = axes.toPlotX1(mW);
-
-    if (mHashId == null || !mHashId.equals(axes.hashId())) {
-
-      SetMultiMap<IntPos2D, Integer> point2YBinMap = HashSetMultiMap.create();
-
-      ListMultiMap<Integer, IntPos2D> yBin2PointMap = ArrayListMultiMap
-          .create();
-
-      // Determine the maximum marker size
-      for (XYSeries s : plot.getAllSeries()) {
-        mBinSize = Math.max(mBinSize, s.getMarker().getSize());
-      }
-
-      mHalfBinSize = mBinSize / 2;
+	/** The m W. */
+	private double mW;
 
-      mGapSize = mBinSize / 4;
+	/**
+	 * Instantiates a new box whisker scatter layer2.
+	 *
+	 * @param x the x
+	 */
+	public BoxWhiskerScatterLayer2(double x) {
+		this(x, 1);
+	}
 
-      mPointMap = ArrayListMultiMap.create();
+	/**
+	 * Instantiates a new box whisker scatter layer 2.
+	 *
+	 * @param x the x
+	 * @param w the w
+	 */
+	public BoxWhiskerScatterLayer2(double x, double w) {
+		this(x, w, true);
+	}
 
-      for (XYSeries s : plot.getAllSeries()) {
-        m = s.getMatrix();
+	/**
+	 * Instantiates a new box whisker scatter layer2.
+	 *
+	 * @param x       the x
+	 * @param w       the w
+	 * @param visible the visible
+	 */
+	public BoxWhiskerScatterLayer2(double x, double w, boolean visible) {
+		mX = x;
+		mW = w;
 
-        for (int i = 0; i < m.getRows(); ++i) {
-          double p = m.getValue(i, 0);
+		setVisible(visible);
+	}
 
-          // Plot the limits
-          y = axes.toPlotY1(p);
+	@Override
+	public String getType() {
+		return "Box Whisker Scatter Layer";
+	}
 
-          int y1 = y - mHalfBinSize;
-          int y2 = y + mHalfBinSize;
+	@Override
+	public final void plotLayer(Graphics2D g2, DrawingContext context, Figure figure, SubFigure subFigure, Axes axes,
+			Plot plot, DataFrame m) {
 
-          int bin1 = y1 / mBinSize;
-          int bin2 = y2 / mBinSize;
+		// the width of the arms of the plot
+		int y;
+		int x;
 
-          // Clone point but update location
-          IntPos2D newPoint = new IntPos2D(plotX, y);
+		int plotX = axes.toPlotX1(mX);
+
+		int plotW = axes.toPlotX1(mW);
+
+		if (mHashId == null || !mHashId.equals(axes.hashId())) {
+
+			SetMultiMap<IntPos2D, Integer> point2YBinMap = HashSetMultiMap.create();
+
+			ListMultiMap<Integer, IntPos2D> yBin2PointMap = ArrayListMultiMap.create();
+
+			// Determine the maximum marker size
+			for (XYSeries s : plot.getAllSeries()) {
+				mBinSize = Math.max(mBinSize, s.getMarker().getSize());
+			}
+
+			mHalfBinSize = mBinSize / 2;
+
+			mGapSize = mBinSize / 4;
+
+			mPointMap = ArrayListMultiMap.create();
+
+			for (XYSeries s : plot.getAllSeries()) {
+				m = s.getMatrix();
+
+				for (int i = 0; i < m.getRows(); ++i) {
+					double p = m.getValue(i, 0);
+
+					// Plot the limits
+					y = axes.toPlotY1(p);
+
+					int y1 = y - mHalfBinSize;
+					int y2 = y + mHalfBinSize;
 
-          // if (!point2BinMap.containsKey(newPoint)) {
-          // point2BinMap.put(newPoint, new HashSet<Integer>());
-          // }
+					int bin1 = y1 / mBinSize;
+					int bin2 = y2 / mBinSize;
 
-          point2YBinMap.get(newPoint).add(bin1);
-          point2YBinMap.get(newPoint).add(bin2);
+					// Clone point but update location
+					IntPos2D newPoint = new IntPos2D(plotX, y);
+
+					// if (!point2BinMap.containsKey(newPoint)) {
+					// point2BinMap.put(newPoint, new HashSet<Integer>());
+					// }
 
-          // Points that might be overlapping will be in the same bin
-          yBin2PointMap.get(bin1).add(newPoint);
-          yBin2PointMap.get(bin2).add(newPoint);
+					point2YBinMap.get(newPoint).add(bin1);
+					point2YBinMap.get(newPoint).add(bin2);
 
-          mPointMap.get(s).add(newPoint);
-        }
-      }
+					// Points that might be overlapping will be in the same bin
+					yBin2PointMap.get(bin1).add(newPoint);
+					yBin2PointMap.get(bin2).add(newPoint);
 
-      //
-      // See what overlaps
-      //
+					mPointMap.get(s).add(newPoint);
+				}
+			}
 
-      mPoint2GroupMap = new HashMap<IntPos2D, Integer>();
+			//
+			// See what overlaps
+			//
 
-      Map<Integer, Set<IntPos2D>> overlap2PointMap = DefaultHashMap
-          .create(new HashSetCreator<IntPos2D>());
+			mPoint2GroupMap = new HashMap<IntPos2D, Integer>();
 
-      int group = 0;
+			Map<Integer, Set<IntPos2D>> overlap2PointMap = DefaultHashMap.create(new HashSetCreator<IntPos2D>());
 
-      for (XYSeries s : mPointMap.keySet()) {
-        for (IntPos2D p : mPointMap.get(s)) {
-          // See what other points are in the bin
-          for (int bin : point2YBinMap.get(p)) {
-            for (IntPos2D p2 : yBin2PointMap.get(bin)) {
-              // These points are broadly on the same y point, but
-              // can have different x coordinates or overlap.
-              // We now test whether they overlap so we can
-              // separate the points by x-coordinate.
+			int group = 0;
 
-              if (Geometry.overlap(p, p2, mBinSize)) {
+			for (XYSeries s : mPointMap.keySet()) {
+				for (IntPos2D p : mPointMap.get(s)) {
+					// See what other points are in the bin
+					for (int bin : point2YBinMap.get(p)) {
+						for (IntPos2D p2 : yBin2PointMap.get(bin)) {
+							// These points are broadly on the same y point, but
+							// can have different x coordinates or overlap.
+							// We now test whether they overlap so we can
+							// separate the points by x-coordinate.
 
-                int g;
+							if (Geometry.overlap(p, p2, mBinSize)) {
 
-                // The group is determined by whether there is
-                // already a point in the map
-                if (mPoint2GroupMap.containsKey(p)) {
-                  g = mPoint2GroupMap.get(p);
-                } else if (mPoint2GroupMap.containsKey(p2)) {
-                  g = mPoint2GroupMap.get(p2);
-                } else {
-                  g = group++;
-                }
+								int g;
 
-                // Only add the point if it is not already
-                // in there. This means the point is assigned
-                // to the first group and no other.
-                if (!mPoint2GroupMap.containsKey(p)) {
-                  mPoint2GroupMap.put(p, g);
-                  overlap2PointMap.get(g).add(p);
-                }
+								// The group is determined by whether there is
+								// already a point in the map
+								if (mPoint2GroupMap.containsKey(p)) {
+									g = mPoint2GroupMap.get(p);
+								} else if (mPoint2GroupMap.containsKey(p2)) {
+									g = mPoint2GroupMap.get(p2);
+								} else {
+									g = group++;
+								}
 
-                if (!mPoint2GroupMap.containsKey(p2)) {
-                  mPoint2GroupMap.put(p2, g);
-                  overlap2PointMap.get(g).add(p2);
-                }
-              }
-            }
-          }
-        }
-      }
+								// Only add the point if it is not already
+								// in there. This means the point is assigned
+								// to the first group and no other.
+								if (!mPoint2GroupMap.containsKey(p)) {
+									mPoint2GroupMap.put(p, g);
+									overlap2PointMap.get(g).add(p);
+								}
 
-      // Now we need to count the number of points in each group
-      // This is because the same coordinate will of course appear as a
-      // unique entry in the mapping sets, but we need to know how wide
-      // each group is
+								if (!mPoint2GroupMap.containsKey(p2)) {
+									mPoint2GroupMap.put(p2, g);
+									overlap2PointMap.get(g).add(p2);
+								}
+							}
+						}
+					}
+				}
+			}
 
-      mGroupSizeMap = DefaultHashMap.create(0);
+			// Now we need to count the number of points in each group
+			// This is because the same coordinate will of course appear as a
+			// unique entry in the mapping sets, but we need to know how wide
+			// each group is
 
-      for (XYSeries s : mPointMap.keySet()) {
-        for (IntPos2D p : mPointMap.get(s)) {
-          int g = mPoint2GroupMap.get(p);
+			mGroupSizeMap = DefaultHashMap.create(0);
 
-          mGroupSizeMap.put(g, mGroupSizeMap.get(g) + 1);
-        }
-      }
+			for (XYSeries s : mPointMap.keySet()) {
+				for (IntPos2D p : mPointMap.get(s)) {
+					int g = mPoint2GroupMap.get(p);
 
-      mHashId = axes.hashId();
-    }
+					mGroupSizeMap.put(g, mGroupSizeMap.get(g) + 1);
+				}
+			}
 
-    // We know the max width of the block, so we can determine the
-    // spread of each group. e.g if there are two points in a group,
-    // evenly spread those points into two groups
+			mHashId = axes.hashId();
+		}
 
-    Map<Integer, Integer> groupGapMap = DefaultHashMap.create(0);
+		// We know the max width of the block, so we can determine the
+		// spread of each group. e.g if there are two points in a group,
+		// evenly spread those points into two groups
 
-    for (int g : mGroupSizeMap.keySet()) {
-      int s = mGroupSizeMap.get(g);
+		Map<Integer, Integer> groupGapMap = DefaultHashMap.create(0);
 
-      if (s == 1) {
-        groupGapMap.put(g, 0);
-      } else {
-        groupGapMap.put(g, Math.min(mBinSize + mGapSize, plotW / (s - 1)));
-      }
-    }
+		for (int g : mGroupSizeMap.keySet()) {
+			int s = mGroupSizeMap.get(g);
 
-    Map<Integer, Integer> groupOffsetMap = DefaultHashMap.create(0);
+			if (s == 1) {
+				groupGapMap.put(g, 0);
+			} else {
+				groupGapMap.put(g, Math.min(mBinSize + mGapSize, plotW / (s - 1)));
+			}
+		}
 
-    for (int g : mGroupSizeMap.keySet()) {
-      int s = mGroupSizeMap.get(g);
+		Map<Integer, Integer> groupOffsetMap = DefaultHashMap.create(0);
 
-      int gap = groupGapMap.get(g);
+		for (int g : mGroupSizeMap.keySet()) {
+			int s = mGroupSizeMap.get(g);
 
-      // Centre the width required about x
-      int offsetX = plotX - (gap * (s - 1)) / 2;
+			int gap = groupGapMap.get(g);
 
-      groupOffsetMap.put(g, offsetX);
-    }
+			// Centre the width required about x
+			int offsetX = plotX - (gap * (s - 1)) / 2;
 
-    Map<Integer, Integer> groupIndexMap = DefaultHashMap.create(0);
+			groupOffsetMap.put(g, offsetX);
+		}
 
-    for (XYSeries s : mPointMap.keySet()) {
-      for (IntPos2D p : mPointMap.get(s)) {
-        int g = mPoint2GroupMap.get(p);
+		Map<Integer, Integer> groupIndexMap = DefaultHashMap.create(0);
 
-        int gap = groupGapMap.get(g);
+		for (XYSeries s : mPointMap.keySet()) {
+			for (IntPos2D p : mPointMap.get(s)) {
+				int g = mPoint2GroupMap.get(p);
 
-        x = groupOffsetMap.get(g) + groupIndexMap.get(g) * gap;
+				int gap = groupGapMap.get(g);
 
-        // Increment the group index since we have used this position
-        groupIndexMap.put(g, groupIndexMap.get(g) + 1);
+				x = groupOffsetMap.get(g) + groupIndexMap.get(g) * gap;
 
-        s.getMarker().plot(g2, s.getMarkerStyle(), new Point(x, p.getY()));
-      }
-    }
-  }
+				// Increment the group index since we have used this position
+				groupIndexMap.put(g, groupIndexMap.get(g) + 1);
+
+				s.getMarker().plot(g2, s.getMarkerStyle(), new Point(x, p.getY()));
+			}
+		}
+	}
 }

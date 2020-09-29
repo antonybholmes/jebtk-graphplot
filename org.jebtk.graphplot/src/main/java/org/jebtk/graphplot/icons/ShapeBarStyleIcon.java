@@ -22,10 +22,10 @@ import org.jebtk.graphplot.figure.series.MarkerBar;
  */
 public class ShapeBarStyleIcon extends ShapeStyleIcon {
 
-  /**
-   * Instantiates a new shape bar style icon.
-   */
-  public ShapeBarStyleIcon() {
-    super(new MarkerBar());
-  }
+	/**
+	 * Instantiates a new shape bar style icon.
+	 */
+	public ShapeBarStyleIcon() {
+		super(new MarkerBar());
+	}
 }

@@ -24,15 +24,15 @@ import org.jebtk.graphplot.plotbox.PlotBoxPanel;
  */
 public class FigurePanel extends PlotBoxPanel {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-  /**
-   * Instantiates a new figure.
-   */
-  public FigurePanel(Figure figure) {
-    super(figure);
-  }
+	/**
+	 * Instantiates a new figure.
+	 */
+	public FigurePanel(Figure figure) {
+		super(figure);
+	}
 }

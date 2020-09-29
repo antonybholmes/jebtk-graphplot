@@ -29,96 +29,90 @@ import org.jebtk.modern.graphics.DrawingContext;
  */
 public class BoxWhiskerBoxLayer extends PlotSeriesLayer {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-  /** The m x. */
-  private double mX;
+	/** The m x. */
+	private double mX;
 
-  /**
-   * Instantiates a new box whisker box layer.
-   *
-   * @param name the name
-   * @param x the x
-   */
-  public BoxWhiskerBoxLayer(String name, double x) {
-    this(name, x, true);
-  }
+	/**
+	 * Instantiates a new box whisker box layer.
+	 *
+	 * @param name the name
+	 * @param x    the x
+	 */
+	public BoxWhiskerBoxLayer(String name, double x) {
+		this(name, x, true);
+	}
 
-  /**
-   * Instantiates a new box whisker box layer.
-   *
-   * @param name the name
-   * @param x the x
-   * @param visible the visible
-   */
-  public BoxWhiskerBoxLayer(String name, double x, boolean visible) {
-    super(name);
+	/**
+	 * Instantiates a new box whisker box layer.
+	 *
+	 * @param name    the name
+	 * @param x       the x
+	 * @param visible the visible
+	 */
+	public BoxWhiskerBoxLayer(String name, double x, boolean visible) {
+		super(name);
 
-    mX = x;
+		mX = x;
 
-    setVisible(visible);
-  }
+		setVisible(visible);
+	}
 
-  @Override
-  public String getType() {
-    return "Box Whisker Box Layer";
-  }
+	@Override
+	public String getType() {
+		return "Box Whisker Box Layer";
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotClippedLayer#plotLayer(
-   * java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
-   * org.abh.lib.math.matrix.DataFrame)
-   */
-  @Override
-  public void plotLayer(Graphics2D g2,
-      DrawingContext context,
-      Figure figure,
-      SubFigure subFigure,
-      Axes axes,
-      Plot plot,
-      DataFrame m,
-      XYSeries series) {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotClippedLayer#plotLayer(
+	 * java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
+	 * org.abh.lib.math.matrix.DataFrame)
+	 */
+	@Override
+	public void plotLayer(Graphics2D g2, DrawingContext context, Figure figure, SubFigure subFigure, Axes axes,
+			Plot plot, DataFrame m, XYSeries series) {
 
-    // int realX = 0;
+		// int realX = 0;
 
-    // the width of the arms of the plot
-    int y;
-    int w;
-    int h;
-    int x1;
-    int x2;
+		// the width of the arms of the plot
+		int y;
+		int w;
+		int h;
+		int x1;
+		int x2;
 
-    // for (XYSeries series : plot.getAllSeries()) {
-    BoxWhiskerSummary s = (BoxWhiskerSummary) series;
+		// for (XYSeries series : plot.getAllSeries()) {
+		BoxWhiskerSummary s = (BoxWhiskerSummary) series;
 
-    x1 = axes.toPlotX1(mX + 1 - plot.getBarWidth());
-    x2 = axes.toPlotX1(mX + plot.getBarWidth());
-    w = x2 - x1 + 1;
+		x1 = axes.toPlotX1(mX + 1 - plot.getBarWidth());
+		x2 = axes.toPlotX1(mX + plot.getBarWidth());
+		w = x2 - x1 + 1;
 
-    // the box
-    g2.setColor(Color.WHITE);
-    y = axes.toPlotY1(s.getQ3());
+		// the box
+		g2.setColor(Color.WHITE);
+		y = axes.toPlotY1(s.getQ3());
 
-    h = axes.toPlotY1(s.getQ1()) - axes.toPlotY1(s.getQ3());
+		h = axes.toPlotY1(s.getQ1()) - axes.toPlotY1(s.getQ3());
 
-    g2.fillRect(x1, y, w, h);
+		g2.fillRect(x1, y, w, h);
 
-    g2.setColor(s.getStyle().getLineStyle().getColor());
+		g2.setColor(s.getStyle().getLineStyle().getColor());
 
-    g2.drawRect(x1, y, w, h);
+		g2.drawRect(x1, y, w, h);
 
-    // the median line
-    y = axes.toPlotY1(s.getMedian());
+		// the median line
+		y = axes.toPlotY1(s.getMedian());
 
-    g2.drawLine(x1, y, x2, y);
-  }
+		g2.drawLine(x1, y, x2, y);
+	}
 }

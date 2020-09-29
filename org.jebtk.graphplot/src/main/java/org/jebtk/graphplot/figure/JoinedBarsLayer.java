@@ -29,78 +29,70 @@ import org.jebtk.modern.graphics.DrawingContext;
  */
 public class JoinedBarsLayer extends UniqueXYLayer {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-  /**
-   * Instantiates a new joined bars layer.
-   *
-   * @param series the series
-   */
-  public JoinedBarsLayer(String series) {
-    super(series);
-  }
+	/**
+	 * Instantiates a new joined bars layer.
+	 *
+	 * @param series the series
+	 */
+	public JoinedBarsLayer(String series) {
+		super(series);
+	}
 
-  @Override
-  public String getType() {
-    return "Joined Bars Layer";
-  }
+	@Override
+	public String getType() {
+		return "Joined Bars Layer";
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXYLayer#plotLayer(
-   * java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
-   * org.abh.lib.math.matrix.DataFrame,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXY)
-   */
-  @Override
-  public void plotLayer(Graphics2D g2,
-      DrawingContext context,
-      Figure figure,
-      SubFigure subFigure,
-      Axes axes,
-      Plot plot,
-      DataFrame m,
-      XYSeries series,
-      UniqueXY xy) {
-    int h;
-    int w;
-    int y1 = axes.toPlotY1(0);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXYLayer#plotLayer(
+	 * java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
+	 * org.abh.lib.math.matrix.DataFrame,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXY)
+	 */
+	@Override
+	public void plotLayer(Graphics2D g2, DrawingContext context, Figure figure, SubFigure subFigure, Axes axes,
+			Plot plot, DataFrame m, XYSeries series, UniqueXY xy) {
+		int h;
+		int w;
+		int y1 = axes.toPlotY1(0);
 
-    Point p;
-    Point p2;
+		Point p;
+		Point p2;
 
-    for (int i = 0; i < xy.getPointCount() - 1; ++i) {
-      p = xy.getPoint(i);
-      p2 = xy.getPoint(i + 1);
+		for (int i = 0; i < xy.getPointCount() - 1; ++i) {
+			p = xy.getPoint(i);
+			p2 = xy.getPoint(i + 1);
 
-      h = y1 - p2.y;
-      w = p2.x - p.x;
+			h = y1 - p2.y;
+			w = p2.x - p.x;
 
-      if (series.getStyle().getFillStyle().getVisible()) {
-        // System.err.println("has " + series.getTitle().getText());
+			if (series.getStyle().getFillStyle().getVisible()) {
+				// System.err.println("has " + series.getTitle().getText());
 
-        g2.setColor(series.getStyle().getFillStyle().getColor());
+				g2.setColor(series.getStyle().getFillStyle().getColor());
 
-        // System.err.println("run " + x1 + " " + y1 + " " + y2 + " " + w);
+				// System.err.println("run " + x1 + " " + y1 + " " + y2 + " " + w);
 
-        g2.fillRect(p.x, p2.y, w, h); // h);
-      }
+				g2.fillRect(p.x, p2.y, w, h); // h);
+			}
 
-      if (series.getStyle().getLineStyle().getVisible()) {
-        g2.setStroke(series.getStyle().getLineStyle().getStroke());
-        g2.setColor(series.getStyle().getLineStyle().getColor());
+			if (series.getStyle().getLineStyle().getVisible()) {
+				g2.setStroke(series.getStyle().getLineStyle().getStroke());
+				g2.setColor(series.getStyle().getLineStyle().getColor());
 
-        g2.drawRect(p.x, p2.y, w, h);
-      }
-    }
-  }
+				g2.drawRect(p.x, p2.y, w, h);
+			}
+		}
+	}
 }

@@ -26,104 +26,77 @@ import org.jebtk.graphplot.figure.GridLocation;
  */
 public class PlotBoxCompassGridStorage extends PlotBoxStorage {
 
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  public static final GridLocation[][] ROWS = {
-      { GridLocation.NW, GridLocation.N, GridLocation.NE },
-      { GridLocation.W, GridLocation.CENTER, GridLocation.E },
-      { GridLocation.SW, GridLocation.S, GridLocation.SE } };
+	public static final GridLocation[][] ROWS = { { GridLocation.NW, GridLocation.N, GridLocation.NE },
+			{ GridLocation.W, GridLocation.CENTER, GridLocation.E },
+			{ GridLocation.SW, GridLocation.S, GridLocation.SE } };
 
-  private Map<GridLocation, PlotBox> mMap = new TreeMap<GridLocation, PlotBox>();
+	private Map<GridLocation, PlotBox> mMap = new TreeMap<GridLocation, PlotBox>();
 
-  @Override
-  public void add(PlotBox plot, Object... params) {
-    GridLocation l = GridLocation.CENTER;
+	@Override
+	public void add(PlotBox plot, GridLocation l) {
+		mMap.put(l, plot);
 
-    if (params.length > 0) {
-      if (params[0] instanceof GridLocation) {
-        l = (GridLocation) params[0];
-      } else {
-        if (params.length > 1) {
-          if (params[0] instanceof Integer && params[1] instanceof Integer) {
-            l = ROWS[(int) params[0]][(int) params[1]];
-          }
-        }
-      }
-    }
+		super.add(plot);
+	}
 
-    add(plot, l);
-  }
+	@Override
+	public PlotBox get(GridLocation l) {
+		return mMap.get(l);
+	}
 
-  public void add(PlotBox plot, GridLocation l) {
-    mMap.put(l, plot);
+	@Override
+	public Iterator<PlotBox> iterator() {
+		return mMap.values().iterator();
+	}
 
-    super.add(plot, l);
-  }
+	@Override
+	public int getChildCount() {
+		return mMap.size();
+	}
 
-  @Override
-  public PlotBox get(Object param, Object... params) {
-    return getChild(parseLocation(param, params));
-  }
+	@Override
+	public boolean remove(PlotBox plot) {
+		GridLocation rl = GridLocation.CENTER;
 
-  public PlotBox getChild(GridLocation l) {
-    return mMap.get(l);
-  }
+		boolean found = false;
 
-  @Override
-  public Iterator<PlotBox> iterator() {
-    return mMap.values().iterator();
-  }
+		for (GridLocation l : mMap.keySet()) {
+			if (mMap.get(l).equals(plot)) {
+				rl = l;
+				found = true;
+				break;
+			}
+		}
 
-  @Override
-  public int getChildCount() {
-    return mMap.size();
-  }
+		if (found) {
+			remove(rl);
+		}
 
-  @Override
-  public boolean remove(PlotBox plot) {
-    GridLocation rl = GridLocation.CENTER;
+		return true;
+	}
 
-    boolean found = false;
+	@Override
+	public boolean remove(GridLocation l) {
+		mMap.remove(l);
+		
+		return true;
+	}
 
-    for (GridLocation l : mMap.keySet()) {
-      if (mMap.get(l).equals(plot)) {
-        rl = l;
-        found = true;
-        break;
-      }
-    }
-
-    if (found) {
-      remove(rl);
-    }
-
-    return true;
-  }
-
-  @Override
-  public boolean remove(Object param, Object... params) {
-    remove(parseLocation(param, params));
-
-    return true;
-  }
-
-  public void remove(GridLocation l) {
-    mMap.remove(l);
-  }
-
-  private static GridLocation parseLocation(Object param, Object... params) {
-    GridLocation l = GridLocation.CENTER;
-
-    if (param instanceof GridLocation) {
-      l = (GridLocation) param;
-    } else {
-      if (params.length > 0) {
-        if (param instanceof Integer && params[0] instanceof Integer) {
-          l = ROWS[(int) param][(int) params[0]];
-        }
-      }
-    }
-
-    return l;
-  }
+//	private static GridLocation parseLocation(Object param, Props params) {
+//		GridLocation l = GridLocation.CENTER;
+//
+//		if (param instanceof GridLocation) {
+//			l = (GridLocation) param;
+//		} else {
+//			if (params.length > 0) {
+//				if (param instanceof Integer && params[0] instanceof Integer) {
+//					l = ROWS[(int) param][(int) params[0]];
+//				}
+//			}
+//		}
+//
+//		return l;
+//	}
 }

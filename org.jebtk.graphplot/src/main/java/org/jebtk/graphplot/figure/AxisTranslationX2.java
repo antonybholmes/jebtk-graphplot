@@ -25,12 +25,12 @@ package org.jebtk.graphplot.figure;
  */
 public class AxisTranslationX2 extends AxisTranslationX {
 
-  /**
-   * Instantiates a new axis translation y.
-   *
-   * @param axis the axis
-   */
-  public AxisTranslationX2(Axes axes) {
-    super(axes, axes.getX2Axis());
-  }
+	/**
+	 * Instantiates a new axis translation y.
+	 *
+	 * @param axis the axis
+	 */
+	public AxisTranslationX2(Axes axes) {
+		super(axes, axes.getX2Axis());
+	}
 }

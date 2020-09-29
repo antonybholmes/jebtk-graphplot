@@ -25,38 +25,37 @@ import org.jebtk.math.matrix.DataFrame;
  */
 public abstract class RowMatrixPlotElement extends MatrixPlotElement {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
-  protected int mWidth;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+	protected int mWidth;
 
-  /**
-   * Instantiates a new row matrix plot element.
-   *
-   * @param matrix the matrix
-   * @param width the width
-   * @param aspectRatio the aspect ratio
-   */
-  public RowMatrixPlotElement(DataFrame matrix,
-      DoubleDim aspectRatio, int width) {
-    super(matrix, aspectRatio);
+	/**
+	 * Instantiates a new row matrix plot element.
+	 *
+	 * @param matrix      the matrix
+	 * @param width       the width
+	 * @param aspectRatio the aspect ratio
+	 */
+	public RowMatrixPlotElement(DataFrame matrix, DoubleDim aspectRatio, int width) {
+		super(matrix, aspectRatio);
 
-    setWidth(width);
-  }
+		setWidth(width);
+	}
 
-  /**
-   * Sets the width.
-   *
-   * @param width the new width
-   */
-  public void setWidth(int width) {
-    mWidth = width;
-  }
+	/**
+	 * Sets the width.
+	 *
+	 * @param width the new width
+	 */
+	public void setWidth(int width) {
+		mWidth = width;
+	}
 
-  @Override
-  public void plotSize(Dimension d) {
-    d.width += mWidth;
-    d.height += mDrawingDim.mRows * mBlockSize.getH();
-  }
+	@Override
+	public void plotSize(Dimension d) {
+		d.width += mWidth;
+		d.height += mDrawingDim.mRows * mBlockSize.getH();
+	}
 }

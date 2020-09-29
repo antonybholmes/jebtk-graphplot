@@ -26,205 +26,203 @@ import org.jebtk.math.matrix.DataFrame;
  * @author Antony Holmes
  *
  */
-public class XYAxesGroup extends Group<XYSeriesGroup>
-    implements ChangeListener {
+public class XYAxesGroup extends Group<XYSeriesGroup> implements ChangeListener {
 
-  /**
-   * The constant NEXT_ID.
-   */
-  private static final StringId NEXT_ID = new StringId("XY Axes Group");
+	/**
+	 * The constant NEXT_ID.
+	 */
+	private static final StringId NEXT_ID = new StringId("XY Axes Group");
 
-  /**
-   * The member name.
-   */
-  private String mName;
+	/**
+	 * The member name.
+	 */
+	private String mName;
 
-  /**
-   * Instantiates a new XY axes group.
-   */
-  public XYAxesGroup() {
-    this(NEXT_ID.getNextId());
-  }
+	/**
+	 * Instantiates a new XY axes group.
+	 */
+	public XYAxesGroup() {
+		this(NEXT_ID.getNextId());
+	}
 
-  /**
-   * Instantiates a new XY axes group.
-   *
-   * @param name the name
-   */
-  public XYAxesGroup(String name) {
-    mName = name;
-  }
+	/**
+	 * Instantiates a new XY axes group.
+	 *
+	 * @param name the name
+	 */
+	public XYAxesGroup(String name) {
+		mName = name;
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.abh.lib.NameProperty#getName()
-   */
-  @Override
-  public String getName() {
-    return mName;
-  }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.abh.lib.NameProperty#getName()
+	 */
+	@Override
+	public String getName() {
+		return mName;
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.series.Group#add(org.abh.
-   * lib.NameProperty)
-   */
-  @Override
-  public boolean add(XYSeriesGroup g) {
-    g.addChangeListener(this);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.series.Group#add(org.abh.
+	 * lib.NameProperty)
+	 */
+	@Override
+	public boolean add(XYSeriesGroup g) {
+		g.addChangeListener(this);
 
-    return super.add(g);
-  }
+		return super.add(g);
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.series.Group#autoCreate()
-   */
-  @Override
-  public XYSeriesGroup autoCreate() {
-    XYSeriesGroup group = new XYSeriesGroup();
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.series.Group#autoCreate()
+	 */
+	@Override
+	public XYSeriesGroup autoCreate() {
+		XYSeriesGroup group = new XYSeriesGroup();
 
-    add(group);
+		add(group);
 
-    return group;
-  }
+		return group;
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * org.abh.lib.event.ChangeListener#changed(org.abh.lib.event.ChangeEvent)
-   */
-  @Override
-  public void changed(ChangeEvent e) {
-    fireChanged();
-  }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.abh.lib.event.ChangeListener#changed(org.abh.lib.event.ChangeEvent)
+	 */
+	@Override
+	public void changed(ChangeEvent e) {
+		fireChanged();
+	}
 
-  /**
-   * Gets the x max.
-   *
-   * @param m the m
-   * @param group the group
-   * @return the x max
-   */
-  public static double getXMax(DataFrame m, XYAxesGroup group) {
-    double ret = Double.MIN_VALUE;
+	/**
+	 * Gets the x max.
+	 *
+	 * @param m     the m
+	 * @param group the group
+	 * @return the x max
+	 */
+	public static double getXMax(DataFrame m, XYAxesGroup group) {
+		double ret = Double.MIN_VALUE;
 
-    for (XYSeriesGroup p : group) {
-      double v = XYSeriesGroup.getXMax(m, p);
+		for (XYSeriesGroup p : group) {
+			double v = XYSeriesGroup.getXMax(m, p);
 
-      if (v > ret) {
-        ret = v;
-      }
-    }
+			if (v > ret) {
+				ret = v;
+			}
+		}
 
-    return ret;
-  }
+		return ret;
+	}
 
-  /**
-   * Gets the y max.
-   *
-   * @param m the m
-   * @param group the group
-   * @return the y max
-   */
-  public static double getYMax(DataFrame m, XYAxesGroup group) {
-    double ret = Double.MIN_VALUE;
+	/**
+	 * Gets the y max.
+	 *
+	 * @param m     the m
+	 * @param group the group
+	 * @return the y max
+	 */
+	public static double getYMax(DataFrame m, XYAxesGroup group) {
+		double ret = Double.MIN_VALUE;
 
-    for (XYSeriesGroup p : group) {
-      double v = XYSeriesGroup.getYMax(m, p);
+		for (XYSeriesGroup p : group) {
+			double v = XYSeriesGroup.getYMax(m, p);
 
-      if (v > ret) {
-        ret = v;
-      }
-    }
+			if (v > ret) {
+				ret = v;
+			}
+		}
 
-    return ret;
-  }
+		return ret;
+	}
 
-  /**
-   * Gets the x min.
-   *
-   * @param m the m
-   * @param group the group
-   * @return the x min
-   */
-  public static double getXMin(DataFrame m, XYAxesGroup group) {
-    double ret = Double.MAX_VALUE;
+	/**
+	 * Gets the x min.
+	 *
+	 * @param m     the m
+	 * @param group the group
+	 * @return the x min
+	 */
+	public static double getXMin(DataFrame m, XYAxesGroup group) {
+		double ret = Double.MAX_VALUE;
 
-    for (XYSeriesGroup p : group) {
-      double min = XYSeriesGroup.getXMin(m, p);
+		for (XYSeriesGroup p : group) {
+			double min = XYSeriesGroup.getXMin(m, p);
 
-      if (min < ret) {
-        ret = min;
-      }
-    }
+			if (min < ret) {
+				ret = min;
+			}
+		}
 
-    return ret;
-  }
+		return ret;
+	}
 
-  /**
-   * Gets the y min.
-   *
-   * @param m the m
-   * @param group the group
-   * @return the y min
-   */
-  public static double getYMin(DataFrame m, XYAxesGroup group) {
-    double ret = Double.MAX_VALUE;
+	/**
+	 * Gets the y min.
+	 *
+	 * @param m     the m
+	 * @param group the group
+	 * @return the y min
+	 */
+	public static double getYMin(DataFrame m, XYAxesGroup group) {
+		double ret = Double.MAX_VALUE;
 
-    for (XYSeriesGroup p : group) {
-      double min = XYSeriesGroup.getYMin(m, p);
+		for (XYSeriesGroup p : group) {
+			double min = XYSeriesGroup.getYMin(m, p);
 
-      if (min < ret) {
-        ret = min;
-      }
-    }
+			if (min < ret) {
+				ret = min;
+			}
+		}
 
-    return ret;
-  }
+		return ret;
+	}
 
-  /**
-   * Returns the sum of the y values in the group.
-   *
-   * @param m the m
-   * @param group the group
-   * @return the y sum
-   */
-  public static double getYSum(DataFrame m, XYAxesGroup group) {
-    double ret = 0;
+	/**
+	 * Returns the sum of the y values in the group.
+	 *
+	 * @param m     the m
+	 * @param group the group
+	 * @return the y sum
+	 */
+	public static double getYSum(DataFrame m, XYAxesGroup group) {
+		double ret = 0;
 
-    for (XYSeriesGroup s : group) {
-      ret += XYSeriesGroup.getYSum(m, s);
-    }
+		for (XYSeriesGroup s : group) {
+			ret += XYSeriesGroup.getYSum(m, s);
+		}
 
-    return ret;
-  }
+		return ret;
+	}
 
-  /**
-   * Gets the y max sum.
-   *
-   * @param m the m
-   * @param group the group
-   * @return the y max sum
-   */
-  public static double getYMaxSum(DataFrame m, XYAxesGroup group) {
-    double ret = Double.MIN_VALUE;
+	/**
+	 * Gets the y max sum.
+	 *
+	 * @param m     the m
+	 * @param group the group
+	 * @return the y max sum
+	 */
+	public static double getYMaxSum(DataFrame m, XYAxesGroup group) {
+		double ret = Double.MIN_VALUE;
 
-    for (XYSeriesGroup p : group) {
-      double v = XYSeriesGroup.getYSum(m, p);
+		for (XYSeriesGroup p : group) {
+			double v = XYSeriesGroup.getYSum(m, p);
 
-      if (v > ret) {
-        ret = v;
-      }
-    }
+			if (v > ret) {
+				ret = v;
+			}
+		}
 
-    return ret;
-  }
+		return ret;
+	}
 
 }

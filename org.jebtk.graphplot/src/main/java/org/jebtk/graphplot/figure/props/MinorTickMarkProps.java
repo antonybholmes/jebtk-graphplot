@@ -13,40 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jebtk.graphplot.figure.properties;
+package org.jebtk.graphplot.figure.props;
+
+import org.jebtk.math.Linspace;
 
 /**
- * The enum FillPattern.
+ * The class MinorTickMarkProperties.
  */
-public enum FillPattern {
+public class MinorTickMarkProps extends TickMarkProps {
 
-  /**
-   * The solid.
-   */
-  SOLID,
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-  /**
-   * The cross hatch.
-   */
-  CROSS_HATCH,
+	/**
+	 * Instantiates a new minor tick mark properties.
+	 */
+	public MinorTickMarkProps() {
+		setTicks(Linspace.evenlySpaced(0, 1, 0.1));
 
-  /**
-   * The back hatch.
-   */
-  BACK_HATCH,
+		setTickSize(2);
 
-  /**
-   * The forward hatch.
-   */
-  FORWARD_HATCH,
+		// Don't usually want to show minor labels
+		getFontStyle().setVisible(false);
+	}
 
-  /**
-   * The vert hatch.
-   */
-  VERT_HATCH,
-
-  /**
-   * The hoz hatch.
-   */
-  HOZ_HATCH
 }

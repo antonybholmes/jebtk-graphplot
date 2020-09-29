@@ -30,113 +30,111 @@ import org.jebtk.math.matrix.MatrixDim;
  */
 public abstract class MatrixPlotElement extends PlotElement {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-  /**
-   * The constant BLOCK_SIZE.
-   */
-  public static final int BLOCK_SIZE = SettingsService.getInstance()
-      .getInt("graphplot.plot.block-size");
+	/**
+	 * The constant BLOCK_SIZE.
+	 */
+	public static final int BLOCK_SIZE = SettingsService.getInstance().getInt("graphplot.plot.block-size");
 
-  public static IntDim DEFAULT_BLOCK = new IntDim(BLOCK_SIZE, BLOCK_SIZE);
+	public static IntDim DEFAULT_BLOCK = new IntDim(BLOCK_SIZE, BLOCK_SIZE);
 
-  protected IntDim mBlockSize = DEFAULT_BLOCK;
+	protected IntDim mBlockSize = DEFAULT_BLOCK;
 
-  /**
-   * The member matrix.
-   */
-  protected DataFrame mMatrix;
+	/**
+	 * The member matrix.
+	 */
+	protected DataFrame mMatrix;
 
-  protected boolean mScaleYMode = false;
+	protected boolean mScaleYMode = false;
 
-  protected MatrixDim mDrawingDim;
+	protected MatrixDim mDrawingDim;
 
-  protected IntDim mRatio;
+	protected IntDim mRatio;
 
-  protected boolean mScaleXMode = false;
+	protected boolean mScaleXMode = false;
 
-  protected DoubleDim mAspectRatio;
+	protected DoubleDim mAspectRatio;
 
-  // protected Matrix mIM;
+	// protected Matrix mIM;
 
-  /**
-   * Instantiates a new matrix plot element.
-   *
-   * @param matrix the matrix
-   * @param aspectRatio the aspect ratio
-   */
-  public MatrixPlotElement(DataFrame matrix, DoubleDim aspectRatio) {
-    super("matrix");
+	/**
+	 * Instantiates a new matrix plot element.
+	 *
+	 * @param matrix      the matrix
+	 * @param aspectRatio the aspect ratio
+	 */
+	public MatrixPlotElement(DataFrame matrix, DoubleDim aspectRatio) {
+		super("matrix");
 
-    mMatrix = matrix;
+		mMatrix = matrix;
 
-    // mIM = matrix.getInnerMatrix();
+		// mIM = matrix.getInnerMatrix();
 
-    setAspectRatio(aspectRatio);
-  }
+		setAspectRatio(aspectRatio);
+	}
 
-  /**
-   * Gets the matrix.
-   *
-   * @return the matrix
-   */
-  public DataFrame getMatrix() {
-    return mMatrix;
-  }
+	/**
+	 * Gets the matrix.
+	 *
+	 * @return the matrix
+	 */
+	public DataFrame getMatrix() {
+		return mMatrix;
+	}
 
-  public void setAspectRatio(DoubleDim dim) {
-    mAspectRatio = dim;
+	public void setAspectRatio(DoubleDim dim) {
+		mAspectRatio = dim;
 
-    setBlockSize(dim);
-  }
+		setBlockSize(dim);
+	}
 
-  public void setBlockSize(DoubleDim dim) {
-    int rows;
-    int cols;
+	public void setBlockSize(DoubleDim dim) {
+		int rows;
+		int cols;
 
-    int yRatio;
+		int yRatio;
 
-    if (dim.getH() < 1) {
-      mScaleYMode = true;
+		if (dim.getH() < 1) {
+			mScaleYMode = true;
 
-      int r = getMatrix().getRows();
+			int r = getMatrix().getRows();
 
-      rows = (int) Math.max(1, r * dim.getH());
+			rows = (int) Math.max(1, r * dim.getH());
 
-      yRatio = (int) ((r << 16) / rows) + 1;
-    } else {
-      rows = getMatrix().getRows();
-      yRatio = 1;
-    }
+			yRatio = (int) ((r << 16) / rows) + 1;
+		} else {
+			rows = getMatrix().getRows();
+			yRatio = 1;
+		}
 
-    int xRatio;
+		int xRatio;
 
-    if (dim.getW() < 1) {
-      mScaleXMode = true;
+		if (dim.getW() < 1) {
+			mScaleXMode = true;
 
-      int c = getMatrix().getCols();
-      cols = (int) Math.max(1, c * dim.getW());
+			int c = getMatrix().getCols();
+			cols = (int) Math.max(1, c * dim.getW());
 
-      xRatio = (int) ((c << 16) / cols) + 1;
-    } else {
-      cols = getMatrix().getCols();
-      xRatio = 1;
-    }
+			xRatio = (int) ((c << 16) / cols) + 1;
+		} else {
+			cols = getMatrix().getCols();
+			xRatio = 1;
+		}
 
-    mRatio = new IntDim(xRatio, yRatio);
-    mDrawingDim = new MatrixDim(rows, cols);
-    mBlockSize = new IntDim((int) Math.max(1, dim.getW()),
-        (int) Math.max(1, dim.getH()));
-  }
+		mRatio = new IntDim(xRatio, yRatio);
+		mDrawingDim = new MatrixDim(rows, cols);
+		mBlockSize = new IntDim((int) Math.max(1, dim.getW()), (int) Math.max(1, dim.getH()));
+	}
 
-  /*
-   * public void setCanvasSize(Dimension size) { blockSize.width = Math.max(1,
-   * (int)(size.width / matrix.getColumnCount())); blockSize.height =
-   * Math.max(1, (int)(size.height / matrix.getRowCount()));
-   * 
-   * super.setCanvasSize(size); }
-   */
+	/*
+	 * public void setCanvasSize(Dimension size) { blockSize.width = Math.max(1,
+	 * (int)(size.width / matrix.getColumnCount())); blockSize.height = Math.max(1,
+	 * (int)(size.height / matrix.getRowCount()));
+	 * 
+	 * super.setCanvasSize(size); }
+	 */
 }

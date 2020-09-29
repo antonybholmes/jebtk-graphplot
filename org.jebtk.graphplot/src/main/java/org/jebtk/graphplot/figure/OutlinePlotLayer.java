@@ -29,45 +29,40 @@ import org.jebtk.modern.graphics.DrawingContext;
  */
 public class OutlinePlotLayer extends PlotLayer {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-  @Override
-  public String getType() {
-    return "Outline";
-  }
+	@Override
+	public String getType() {
+		return "Outline";
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotClippedLayer#plotLayer(
-   * java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
-   * org.abh.lib.math.matrix.DataFrame)
-   */
-  @Override
-  public void plotLayer(Graphics2D g2,
-      DrawingContext context,
-      Figure figure,
-      SubFigure subFigure,
-      Axes axes,
-      Plot plot,
-      DataFrame m) {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotClippedLayer#plotLayer(
+	 * java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
+	 * org.abh.lib.math.matrix.DataFrame)
+	 */
+	@Override
+	public void plotLayer(Graphics2D g2, DrawingContext context, Figure figure, SubFigure subFigure, Axes axes,
+			Plot plot, DataFrame m) {
 
-    int x1 = 0; // axes.getMargins().getLeft();
-    int y1 = 0; // axes.getMargins().getTop();
+		int x1 = 0; // axes.getMargins().getLeft();
+		int y1 = 0; // axes.getMargins().getTop();
 
-    int w = axes.getInternalSize().getW();
-    int h = axes.getInternalSize().getH();
+		int w = axes.getInternalSize().getW();
+		int h = axes.getInternalSize().getH();
 
-    g2.setStroke(axes.getStyle().getLineStyle().getStroke());
-    g2.setColor(axes.getStyle().getLineStyle().getColor());
+		g2.setStroke(axes.getStyle().getLineStyle().getStroke());
+		g2.setColor(axes.getStyle().getLineStyle().getColor());
 
-    g2.drawRect(x1, y1, w, h);
-  }
+		g2.drawRect(x1, y1, w, h);
+	}
 }

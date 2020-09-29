@@ -18,7 +18,7 @@ package org.jebtk.graphplot.figure;
 import java.awt.Graphics2D;
 
 import org.jebtk.core.collections.UniqueArrayList;
-import org.jebtk.graphplot.figure.properties.Tick;
+import org.jebtk.graphplot.figure.props.Tick;
 import org.jebtk.modern.ModernWidget;
 
 /**
@@ -29,95 +29,90 @@ import org.jebtk.modern.ModernWidget;
  */
 public class AxisLayerX2 extends AxisLayerX {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-  @Override
-  public String getType() {
-    return "X2 Axis";
-  }
+	@Override
+	public String getType() {
+		return "X2 Axis";
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.graphplot.figure.AxisLayerX#drawAxisLine(java.awt.Graphics2D,
-   * org.graphplot.figure.Axes, org.graphplot.figure.Axis, int)
-   */
-  @Override
-  public void drawAxisLine(Graphics2D g2, Axes axes, Axis axis, int y) {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.graphplot.figure.AxisLayerX#drawAxisLine(java.awt.Graphics2D,
+	 * org.graphplot.figure.Axes, org.graphplot.figure.Axis, int)
+	 */
+	@Override
+	public void drawAxisLine(Graphics2D g2, Axes axes, Axis axis, int y) {
 
-    if (axis.getLineStyle().getVisible()) {
-      g2.setStroke(axis.getLineStyle().getStroke());
+		if (axis.getLineStyle().getVisible()) {
+			g2.setStroke(axis.getLineStyle().getStroke());
 
-      g2.setColor(axis.getLineStyle().getColor());
+			g2.setColor(axis.getLineStyle().getColor());
 
-      g2.drawLine(axes.getMargins().getLeft(),
-          y,
-          axes.getMargins().getLeft() + axes.getInternalSize().getW() - 1,
-          y);
+			g2.drawLine(axes.getMargins().getLeft(), y, axes.getMargins().getLeft() + axes.getInternalSize().getW() - 1,
+					y);
 
-      // If xmin is less than zero and xmax greater than zero,
-      // draw a line at x=0
+			// If xmin is less than zero and xmax greater than zero,
+			// draw a line at x=0
 
-      if (axis.getShowZerothLine() && axis.getLimits().getMin() < 0 && axis.getLimits().getMax() > 0) {
-        int x = axes.toPlotX2(0);
-        y = axes.getMargins().getTop();
+			if (axis.getShowZerothLine() && axis.getLimits().getMin() < 0 && axis.getLimits().getMax() > 0) {
+				int x = axes.toPlotX2(0);
+				y = axes.getMargins().getTop();
 
-        g2.drawLine(x, y, x, y + axes.getInternalSize().getH() - 1);
-      }
-    }
-  }
+				g2.drawLine(x, y, x, y + axes.getInternalSize().getH() - 1);
+			}
+		}
+	}
 
-  @Override
-  public void drawTitle(Graphics2D g2, Axes axes, Axis axis) {
-    if (axis.getTitle().getFontStyle().getVisible()) {
-      g2.setFont(axis.getTitle().getFontStyle().getFont());
-      g2.setColor(axis.getTitle().getFontStyle().getColor());
+	@Override
+	public void drawTitle(Graphics2D g2, Axes axes, Axis axis) {
+		if (axis.getTitle().getFontStyle().getVisible()) {
+			g2.setFont(axis.getTitle().getFontStyle().getFont());
+			g2.setColor(axis.getTitle().getFontStyle().getColor());
 
-      int x = (axes.getInternalSize().getW() - g2.getFontMetrics()
-          .stringWidth(axes.getX1Axis().getTitle().getText())) / 2;
+			int x = (axes.getInternalSize().getW()
+					- g2.getFontMetrics().stringWidth(axes.getX1Axis().getTitle().getText())) / 2;
 
-      int y = -axes.getMargins().getTop() + ModernWidget.getStringHeight(g2);
+			int y = -axes.getMargins().getTop() + ModernWidget.getStringHeight(g2);
 
-      g2.drawString(axis.getTitle().getText(), x, y);
-    }
-  }
+			g2.drawString(axis.getTitle().getText(), x, y);
+		}
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.graphplot.figure.AxisLayerX#cache(org.graphplot.figure.Axes,
-   * org.graphplot.figure.Axis)
-   */
-  @Override
-  public void cache(Axes axes, Axis axis) {
-    if (mHashId == null || !mHashId.equals(axes.hashId())) {
-      mMinorTicks = new UniqueArrayList<Integer>(
-          axis.getTicks().getMinorTicks().getTickCount());
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.graphplot.figure.AxisLayerX#cache(org.graphplot.figure.Axes,
+	 * org.graphplot.figure.Axis)
+	 */
+	@Override
+	public void cache(Axes axes, Axis axis) {
+		if (mHashId == null || !mHashId.equals(axes.hashId())) {
+			mMinorTicks = new UniqueArrayList<Integer>(axis.getTicks().getMinorTicks().getTickCount());
 
-      for (Tick t : axis.getTicks().getMinorTicks()) {
-        mMinorTicks.add(axes.toPlotX1(t.getValue()));
-      }
+			for (Tick t : axis.getTicks().getMinorTicks()) {
+				mMinorTicks.add(axes.toPlotX1(t.getValue()));
+			}
 
-      mMajorTicks = new UniqueArrayList<Integer>(
-          axis.getTicks().getMajorTicks().getTickCount());
+			mMajorTicks = new UniqueArrayList<Integer>(axis.getTicks().getMajorTicks().getTickCount());
 
-      mMajorTickLabels = new UniqueArrayList<String>(
-          axis.getTicks().getMajorTicks().getTickCount());
+			mMajorTickLabels = new UniqueArrayList<String>(axis.getTicks().getMajorTicks().getTickCount());
 
-      for (int i = 0; i < axis.getTicks().getMajorTicks().getTickCount(); ++i) {
-        // for (double y : axis.getTicks().getMajorTicks()) {
-        double t = axis.getTicks().getMajorTicks().getTick(i);
+			for (int i = 0; i < axis.getTicks().getMajorTicks().getTickCount(); ++i) {
+				// for (double y : axis.getTicks().getMajorTicks()) {
+				double t = axis.getTicks().getMajorTicks().getTick(i);
 
-        if (t != 0) {
-          mMajorTicks.add(axes.toPlotX1(t));
-          mMajorTickLabels.add(axis.getTicks().getMajorTicks().getLabel(i));
-        }
-      }
+				if (t != 0) {
+					mMajorTicks.add(axes.toPlotX1(t));
+					mMajorTickLabels.add(axis.getTicks().getMajorTicks().getLabel(i));
+				}
+			}
 
-      mHashId = axes.hashId();
-    }
-  }
+			mHashId = axes.hashId();
+		}
+	}
 }

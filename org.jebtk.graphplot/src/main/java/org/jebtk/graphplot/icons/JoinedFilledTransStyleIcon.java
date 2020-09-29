@@ -20,52 +20,47 @@ import java.awt.Graphics2D;
 import java.awt.geom.GeneralPath;
 
 import org.jebtk.core.ColorUtils;
+import org.jebtk.core.Props;
 
 /**
  * The class JoinedFilledTransStyleIcon.
  */
 public class JoinedFilledTransStyleIcon extends PeakStyleIcon {
 
-  /**
-   * The constant FILL_COLOR.
-   */
-  protected static final Color FILL_COLOR = ColorUtils
-      .getTransparentColor60(LINE_COLOR);
+	/**
+	 * The constant FILL_COLOR.
+	 */
+	protected static final Color FILL_COLOR = ColorUtils.getTransparentColor60(LINE_COLOR);
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see edu.columbia.rdf.lib.bioinformatics.ui.plot.icons.PeakStyleIcon#
-   * drawForeground(java.awt.Graphics2D, java.awt.Rectangle)
-   */
-  @Override
-  public void drawIcon(Graphics2D g2,
-      int x,
-      int y,
-      int w,
-      int h,
-      Object... params) {
-    super.drawIcon(g2, x, y, w, h, params);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see edu.columbia.rdf.lib.bioinformatics.ui.plot.icons.PeakStyleIcon#
+	 * drawForeground(java.awt.Graphics2D, java.awt.Rectangle)
+	 */
+	@Override
+	public void drawIcon(Graphics2D g2, int x, int y, int w, int h, Props params) {
+		super.drawIcon(g2, x, y, w, h, params);
 
-    x = 5;
-    y = 5;
-    w = w - 2 * x;
-    h = h - 2 * y;
+		x = 5;
+		y = 5;
+		w = w - 2 * x;
+		h = h - 2 * y;
 
-    GeneralPath path = new GeneralPath();
+		GeneralPath path = new GeneralPath();
 
-    path.moveTo(x, y + h);
-    path.lineTo(x + w / 2, y);
-    path.lineTo(x + w, y + h);
-    path.closePath();
+		path.moveTo(x, y + h);
+		path.lineTo(x + w / 2, y);
+		path.lineTo(x + w, y + h);
+		path.closePath();
 
-    g2.setColor(FILL_COLOR);
-    g2.fill(path);
+		g2.setColor(FILL_COLOR);
+		g2.fill(path);
 
-    g2.setColor(LINE_COLOR);
+		g2.setColor(LINE_COLOR);
 
-    g2.drawLine(x, y + h, x + w / 2, y);
-    g2.drawLine(x + w / 2, y, x + w, y + h);
-  }
+		g2.drawLine(x, y + h, x + w / 2, y);
+		g2.drawLine(x + w / 2, y, x + w, y + h);
+	}
 
 }

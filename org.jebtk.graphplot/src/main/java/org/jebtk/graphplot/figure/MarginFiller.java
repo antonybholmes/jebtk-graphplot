@@ -28,31 +28,31 @@ import org.jebtk.core.geom.IntDim;
  */
 public class MarginFiller extends Layer {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-  private IntDim mSize;
+	private IntDim mSize;
 
-  /**
-   * Instantiates a new margin filler.
-   *
-   * @param w the w
-   * @param h the h
-   */
-  public MarginFiller(int w, int h) {
-    mSize = new IntDim(w, h);
-  }
+	/**
+	 * Instantiates a new margin filler.
+	 *
+	 * @param w the w
+	 * @param h the h
+	 */
+	public MarginFiller(int w, int h) {
+		mSize = new IntDim(w, h);
+	}
 
-  @Override
-  public String getType() {
-    return "Margin Filler";
-  }
+	@Override
+	public String getType() {
+		return "Margin Filler";
+	}
 
-  @Override
-  public void plotSize(Dimension dim) {
-    dim.width = mSize.getW();
-    dim.height = mSize.getH();
-  }
+	@Override
+	public void plotSize(Dimension dim) {
+		dim.width = mSize.getW();
+		dim.height = mSize.getH();
+	}
 }

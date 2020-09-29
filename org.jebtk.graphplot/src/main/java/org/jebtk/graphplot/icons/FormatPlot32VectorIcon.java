@@ -17,6 +17,7 @@ package org.jebtk.graphplot.icons;
 
 import java.awt.Graphics2D;
 
+import org.jebtk.core.Props;
 import org.jebtk.modern.ModernWidget;
 import org.jebtk.modern.graphics.icons.RightPane32VectorIcon;
 
@@ -25,49 +26,44 @@ import org.jebtk.modern.graphics.icons.RightPane32VectorIcon;
  */
 public class FormatPlot32VectorIcon extends RightPane32VectorIcon {
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * org.abh.common.ui.ui.icons.RightPane32VectorIcon#drawForeground(java.awt.
-   * Graphics2D, java.awt.Rectangle)
-   */
-  @Override
-  public void drawIcon(Graphics2D g2,
-      int x,
-      int y,
-      int w,
-      int h,
-      Object... params) {
-    super.drawIcon(g2, x, y, w, h, params);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.abh.common.ui.ui.icons.RightPane32VectorIcon#drawForeground(java.awt.
+	 * Graphics2D, java.awt.Rectangle)
+	 */
+	@Override
+	public void drawIcon(Graphics2D g2, int x, int y, int w, int h, Props params) {
+		super.drawIcon(g2, x, y, w, h, params);
 
-    x = x + (w - WIDTH) / 2 + WIDTH - PANE_WIDTH + 2;
-    y = y + (h - HEIGHT) / 2 + BAR_HEIGHT + 2;
+		x = x + (w - WIDTH) / 2 + WIDTH - PANE_WIDTH + 2;
+		y = y + (h - HEIGHT) / 2 + BAR_HEIGHT + 2;
 
-    w = PANE_WIDTH - 5;
+		w = PANE_WIDTH - 5;
 
-    g2.setColor(ModernWidget.LINE_COLOR);
+		g2.setColor(ModernWidget.LINE_COLOR);
 
-    g2.drawLine(x, y, x + w, y);
+		g2.drawLine(x, y, x + w, y);
 
-    y += 2;
+		y += 2;
 
-    g2.drawLine(x, y, x + w, y);
+		g2.drawLine(x, y, x + w, y);
 
-    y += 2;
+		y += 2;
 
-    g2.drawLine(x, y, x + w, y);
+		g2.drawLine(x, y, x + w, y);
 
-    y += 4;
+		y += 4;
 
-    g2.drawLine(x, y, x + w, y);
+		g2.drawLine(x, y, x + w, y);
 
-    y += 2;
+		y += 2;
 
-    g2.drawLine(x, y, x + w, y);
+		g2.drawLine(x, y, x + w, y);
 
-    y += 2;
+		y += 2;
 
-    g2.drawLine(x, y, x + w, y);
-  }
+		g2.drawLine(x, y, x + w, y);
+	}
 }

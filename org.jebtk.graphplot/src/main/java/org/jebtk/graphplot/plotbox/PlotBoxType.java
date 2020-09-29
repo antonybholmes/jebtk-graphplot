@@ -20,28 +20,28 @@ package org.jebtk.graphplot.plotbox;
  */
 public enum PlotBoxType {
 
-  /**
-   * The row.
-   */
-  ROW,
+	/**
+	 * The row.
+	 */
+	ROW,
 
-  /**
-   * The column.
-   */
-  COLUMN,
+	/**
+	 * The column.
+	 */
+	COLUMN,
 
-  /**
-   * The renderer.
-   */
-  RENDERER,
+	/**
+	 * The renderer.
+	 */
+	RENDERER,
 
-  OVERLAY,
+	OVERLAY,
 
-  GRID,
+	GRID,
 
-  FLOATING,
+	FLOATING,
 
-  PADDING,
+	PADDING,
 
-  EMPTY
+	EMPTY
 }

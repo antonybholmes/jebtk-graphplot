@@ -22,10 +22,10 @@ import org.jebtk.graphplot.figure.series.MarkerSquare;
  */
 public class ShapeSquareStyleIcon extends ShapeStyleIcon {
 
-  /**
-   * Instantiates a new shape square style icon.
-   */
-  public ShapeSquareStyleIcon() {
-    super(new MarkerSquare());
-  }
+	/**
+	 * Instantiates a new shape square style icon.
+	 */
+	public ShapeSquareStyleIcon() {
+		super(new MarkerSquare());
+	}
 }

@@ -28,38 +28,37 @@ import org.jebtk.math.matrix.DataFrame;
  */
 public abstract class ColumnMatrixPlotElement extends MatrixPlotElement {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
-  private double mHeight;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+	private double mHeight;
 
-  /**
-   * Instantiates a new column matrix plot element.
-   *
-   * @param matrix the matrix
-   * @param aspectRatio the aspect ratio
-   * @param height the height
-   */
-  public ColumnMatrixPlotElement(DataFrame matrix, DoubleDim aspectRatio,
-      int height) {
-    super(matrix, aspectRatio);
+	/**
+	 * Instantiates a new column matrix plot element.
+	 *
+	 * @param matrix      the matrix
+	 * @param aspectRatio the aspect ratio
+	 * @param height      the height
+	 */
+	public ColumnMatrixPlotElement(DataFrame matrix, DoubleDim aspectRatio, int height) {
+		super(matrix, aspectRatio);
 
-    setHeight(height);
-  }
+		setHeight(height);
+	}
 
-  /**
-   * Sets the height.
-   *
-   * @param height the new height
-   */
-  public void setHeight(double height) {
-    mHeight = height;
-  }
+	/**
+	 * Sets the height.
+	 *
+	 * @param height the new height
+	 */
+	public void setHeight(double height) {
+		mHeight = height;
+	}
 
-  @Override
-  public void plotSize(Dimension d) {
-    d.width += mMatrix.getCols() * mBlockSize.getW();
-    d.height += (int) mHeight;
-  }
+	@Override
+	public void plotSize(Dimension d) {
+		d.width += mMatrix.getCols() * mBlockSize.getW();
+		d.height += (int) mHeight;
+	}
 }

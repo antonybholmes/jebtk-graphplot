@@ -24,24 +24,24 @@ import java.awt.Point;
  */
 public class QuadValue<T> {
 
-  /**
-   * The p.
-   */
-  public Point p;
+	/**
+	 * The p.
+	 */
+	public Point p;
 
-  /**
-   * The value.
-   */
-  public T value;
+	/**
+	 * The value.
+	 */
+	public T value;
 
-  /**
-   * Instantiates a new quad value.
-   *
-   * @param p the p
-   * @param value the value
-   */
-  public QuadValue(Point p, T value) {
-    this.p = p;
-    this.value = value;
-  }
+	/**
+	 * Instantiates a new quad value.
+	 *
+	 * @param p     the p
+	 * @param value the value
+	 */
+	public QuadValue(Point p, T value) {
+		this.p = p;
+		this.value = value;
+	}
 }

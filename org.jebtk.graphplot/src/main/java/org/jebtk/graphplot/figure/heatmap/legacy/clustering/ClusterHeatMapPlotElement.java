@@ -34,168 +34,167 @@ import org.jebtk.modern.graphics.colormap.ColorMap;
  */
 public class ClusterHeatMapPlotElement extends HeatMapPlotElement {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-  /**
-   * The row order.
-   */
-  private int[] rowOrder;
+	/**
+	 * The row order.
+	 */
+	private int[] rowOrder;
 
-  /**
-   * The column order.
-   */
-  private int[] columnOrder;
+	/**
+	 * The column order.
+	 */
+	private int[] columnOrder;
 
-  /**
-   * Instantiates a new cluster heat map plot element.
-   *
-   * @param matrix the matrix
-   * @param colorMap the color map
-   * @param aspectRatio the aspect ratio
-   */
-  public ClusterHeatMapPlotElement(DataFrame matrix, ColorMap colorMap,
-      DoubleDim aspectRatio) {
-    super(matrix, colorMap, aspectRatio);
+	/**
+	 * Instantiates a new cluster heat map plot element.
+	 *
+	 * @param matrix      the matrix
+	 * @param colorMap    the color map
+	 * @param aspectRatio the aspect ratio
+	 */
+	public ClusterHeatMapPlotElement(DataFrame matrix, ColorMap colorMap, DoubleDim aspectRatio) {
+		super(matrix, colorMap, aspectRatio);
 
-    setup();
-  }
+		setup();
+	}
 
-  /**
-   * Instantiates a new cluster heat map plot element.
-   *
-   * @param matrix the matrix
-   * @param colorMap the color map
-   * @param rowCluster the row cluster
-   * @param columnCluster the column cluster
-   * @param aspectRatio the aspect ratio
-   */
-  public ClusterHeatMapPlotElement(DataFrame matrix, ColorMap colorMap,
-      Cluster rowCluster, Cluster columnCluster, DoubleDim aspectRatio) {
-    super(matrix, colorMap, aspectRatio);
+	/**
+	 * Instantiates a new cluster heat map plot element.
+	 *
+	 * @param matrix        the matrix
+	 * @param colorMap      the color map
+	 * @param rowCluster    the row cluster
+	 * @param columnCluster the column cluster
+	 * @param aspectRatio   the aspect ratio
+	 */
+	public ClusterHeatMapPlotElement(DataFrame matrix, ColorMap colorMap, Cluster rowCluster, Cluster columnCluster,
+			DoubleDim aspectRatio) {
+		super(matrix, colorMap, aspectRatio);
 
-    setup();
+		setup();
 
-    setRowCluster(rowCluster);
-    setColumnCluster(columnCluster);
-  }
+		setRowCluster(rowCluster);
+		setColumnCluster(columnCluster);
+	}
 
-  /**
-   * Setup.
-   */
-  private void setup() {
-    // set the order so initially rows and columns
-    // map as they should do
+	/**
+	 * Setup.
+	 */
+	private void setup() {
+		// set the order so initially rows and columns
+		// map as they should do
 
-    rowOrder = new int[mMatrix.getRows()];
-    columnOrder = new int[mMatrix.getCols()];
+		rowOrder = new int[mMatrix.getRows()];
+		columnOrder = new int[mMatrix.getCols()];
 
-    for (int i = 0; i < rowOrder.length; ++i) {
-      rowOrder[i] = i;
-    }
+		for (int i = 0; i < rowOrder.length; ++i) {
+			rowOrder[i] = i;
+		}
 
-    for (int i = 0; i < columnOrder.length; ++i) {
-      columnOrder[i] = i;
-    }
-  }
+		for (int i = 0; i < columnOrder.length; ++i) {
+			columnOrder[i] = i;
+		}
+	}
 
-  /**
-   * Sets the row cluster.
-   *
-   * @param cluster the new row cluster
-   */
-  public void setRowCluster(Cluster cluster) {
-    newIndices(cluster, rowOrder);
-  }
+	/**
+	 * Sets the row cluster.
+	 *
+	 * @param cluster the new row cluster
+	 */
+	public void setRowCluster(Cluster cluster) {
+		newIndices(cluster, rowOrder);
+	}
 
-  /**
-   * Sets the column cluster.
-   *
-   * @param cluster the new column cluster
-   */
-  public void setColumnCluster(Cluster cluster) {
-    newIndices(cluster, columnOrder);
-  }
+	/**
+	 * Sets the column cluster.
+	 *
+	 * @param cluster the new column cluster
+	 */
+	public void setColumnCluster(Cluster cluster) {
+		newIndices(cluster, columnOrder);
+	}
 
-  /**
-   * New indices.
-   *
-   * @param rootCluster the root cluster
-   * @param order the order
-   */
-  private static void newIndices(Cluster rootCluster, int[] order) {
-    if (rootCluster == null) {
-      return;
-    }
+	/**
+	 * New indices.
+	 *
+	 * @param rootCluster the root cluster
+	 * @param order       the order
+	 */
+	private static void newIndices(Cluster rootCluster, int[] order) {
+		if (rootCluster == null) {
+			return;
+		}
 
-    Deque<Cluster> stack = new ArrayDeque<Cluster>();
+		Deque<Cluster> stack = new ArrayDeque<Cluster>();
 
-    stack.push(rootCluster);
+		stack.push(rootCluster);
 
-    int index = 0;
+		int index = 0;
 
-    while (stack.size() > 0) {
-      Cluster cluster = stack.pop();
+		while (stack.size() > 0) {
+			Cluster cluster = stack.pop();
 
-      if (cluster.isParent()) {
-        stack.push(cluster.getChild2());
-        stack.push(cluster.getChild1());
-      } else {
-        // end of the line
-        // if a cluster has no children, it
-        // is a leaf and has one child
+			if (cluster.isParent()) {
+				stack.push(cluster.getChild2());
+				stack.push(cluster.getChild1());
+			} else {
+				// end of the line
+				// if a cluster has no children, it
+				// is a leaf and has one child
 
-        order[index] = cluster.getId();
+				order[index] = cluster.getId();
 
-        // System.err.println("order " + index + " " + order[index]);
+				// System.err.println("order " + index + " " + order[index]);
 
-        ++index;
-      }
-    }
-  }
+				++index;
+			}
+		}
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see edu.columbia.rdf.lib.bioinformatics.plot.heatmap.HeatMapPlotElement#
-   * drawMatrix(java.awt.Graphics2D)
-   */
-  @Override
-  protected void drawMatrix(Graphics2D g2, DrawingContext context) {
-    int y = 0;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see edu.columbia.rdf.lib.bioinformatics.plot.heatmap.HeatMapPlotElement#
+	 * drawMatrix(java.awt.Graphics2D)
+	 */
+	@Override
+	protected void drawMatrix(Graphics2D g2, DrawingContext context) {
+		int y = 0;
 
-    if (context == DrawingContext.UI) {
-      for (int i = 0; i < mMatrix.getRows(); ++i) {
-        int x = 0;
+		if (context == DrawingContext.UI) {
+			for (int i = 0; i < mMatrix.getRows(); ++i) {
+				int x = 0;
 
-        for (int j = 0; j < mMatrix.getCols(); ++j) {
-          double v = mMatrix.getValue(rowOrder[i], columnOrder[j]);
+				for (int j = 0; j < mMatrix.getCols(); ++j) {
+					double v = mMatrix.getValue(rowOrder[i], columnOrder[j]);
 
-          g2.drawImage(cacheCell(mColorMap.getColor(v)), x, y, null);
+					g2.drawImage(cacheCell(mColorMap.getColor(v)), x, y, null);
 
-          x += mBlockSize.getW();
-        }
+					x += mBlockSize.getW();
+				}
 
-        y += mBlockSize.getH();
-      }
-    } else {
-      for (int i = 0; i < mMatrix.getRows(); ++i) {
-        int x = 0;
+				y += mBlockSize.getH();
+			}
+		} else {
+			for (int i = 0; i < mMatrix.getRows(); ++i) {
+				int x = 0;
 
-        for (int j = 0; j < mMatrix.getCols(); ++j) {
-          double v = mMatrix.getValue(rowOrder[i], columnOrder[j]);
+				for (int j = 0; j < mMatrix.getCols(); ++j) {
+					double v = mMatrix.getValue(rowOrder[i], columnOrder[j]);
 
-          g2.setColor(mColorMap.getColor(v));
-          g2.fillRect(x, y, mBlockSize.getW(), mBlockSize.getH());
+					g2.setColor(mColorMap.getColor(v));
+					g2.fillRect(x, y, mBlockSize.getW(), mBlockSize.getH());
 
-          x += mBlockSize.getW();
-        }
+					x += mBlockSize.getW();
+				}
 
-        y += mBlockSize.getH();
-      }
-    }
-  }
+				y += mBlockSize.getH();
+			}
+		}
+	}
 
 }

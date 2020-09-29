@@ -30,70 +30,70 @@ import org.jebtk.graphplot.figure.series.MarkerTriangle;
  */
 public enum ShapeStyle {
 
-  /**
-   * The bar.
-   */
-  BAR,
+	/**
+	 * The bar.
+	 */
+	BAR,
 
-  /**
-   * The circle.
-   */
-  CIRCLE,
+	/**
+	 * The circle.
+	 */
+	CIRCLE,
 
-  /**
-   * The cross.
-   */
-  CROSS,
+	/**
+	 * The cross.
+	 */
+	CROSS,
 
-  /**
-   * The diamond.
-   */
-  DIAMOND,
+	/**
+	 * The diamond.
+	 */
+	DIAMOND,
 
-  /**
-   * The minus.
-   */
-  MINUS,
+	/**
+	 * The minus.
+	 */
+	MINUS,
 
-  /**
-   * The plus.
-   */
-  PLUS,
+	/**
+	 * The plus.
+	 */
+	PLUS,
 
-  /**
-   * The square.
-   */
-  SQUARE,
+	/**
+	 * The square.
+	 */
+	SQUARE,
 
-  /**
-   * The triangle.
-   */
-  TRIANGLE;
+	/**
+	 * The triangle.
+	 */
+	TRIANGLE;
 
-  /**
-   * Gets the shape.
-   *
-   * @param type the type
-   * @return the shape
-   */
-  public static Marker getShape(ShapeStyle type) {
-    switch (type) {
-    case BAR:
-      return new MarkerBar();
-    case PLUS:
-      return new MarkerPlus();
-    case DIAMOND:
-      return new MarkerDiamond();
-    case SQUARE:
-      return new MarkerSquare();
-    case CROSS:
-      return new MarkerCross();
-    case MINUS:
-      return new MarkerMinus();
-    case TRIANGLE:
-      return new MarkerTriangle();
-    default:
-      return new MarkerCircle();
-    }
-  }
+	/**
+	 * Gets the shape.
+	 *
+	 * @param type the type
+	 * @return the shape
+	 */
+	public static Marker getShape(ShapeStyle type) {
+		switch (type) {
+		case BAR:
+			return new MarkerBar();
+		case PLUS:
+			return new MarkerPlus();
+		case DIAMOND:
+			return new MarkerDiamond();
+		case SQUARE:
+			return new MarkerSquare();
+		case CROSS:
+			return new MarkerCross();
+		case MINUS:
+			return new MarkerMinus();
+		case TRIANGLE:
+			return new MarkerTriangle();
+		default:
+			return new MarkerCircle();
+		}
+	}
 }

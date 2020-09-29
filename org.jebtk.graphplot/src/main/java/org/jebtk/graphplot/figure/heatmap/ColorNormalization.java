@@ -20,50 +20,44 @@ package org.jebtk.graphplot.figure.heatmap;
  */
 public class ColorNormalization {
 
-  public static final ColorNormalization NONE = new ColorNormalization(
-      ColorNormalizationType.NONE);
+	public static final ColorNormalization NONE = new ColorNormalization(ColorNormalizationType.NONE);
 
-  public static final ColorNormalization ZSCORE_MATRIX = new ColorNormalization(
-      ColorNormalizationType.ZSCORE_MATRIX);
+	public static final ColorNormalization ZSCORE_MATRIX = new ColorNormalization(ColorNormalizationType.ZSCORE_MATRIX);
 
-  public static final ColorNormalization ZSCORE_ROW = new ColorNormalization(
-      ColorNormalizationType.ZSCORE_ROW);
+	public static final ColorNormalization ZSCORE_ROW = new ColorNormalization(ColorNormalizationType.ZSCORE_ROW);
 
-  public static final ColorNormalization ZSCORE_COLUMN = new ColorNormalization(
-      ColorNormalizationType.ZSCORE_COLUMN);
+	public static final ColorNormalization ZSCORE_COLUMN = new ColorNormalization(ColorNormalizationType.ZSCORE_COLUMN);
 
-  public static final ColorNormalization NORMALIZE = new ColorNormalization(
-      ColorNormalizationType.NORMALIZE);
+	public static final ColorNormalization NORMALIZE = new ColorNormalization(ColorNormalizationType.NORMALIZE);
 
-  private ColorNormalizationType mType;
+	private ColorNormalizationType mType;
 
-  private double mMin = -1;
-  private double mMax = -1;
+	private double mMin = -1;
+	private double mMax = -1;
 
-  public ColorNormalization(ColorNormalizationType type) {
-    this(type, Double.NaN);
-  }
+	public ColorNormalization(ColorNormalizationType type) {
+		this(type, Double.NaN);
+	}
 
-  public ColorNormalization(ColorNormalizationType type, double min) {
-    this(type, min, min);
-  }
+	public ColorNormalization(ColorNormalizationType type, double min) {
+		this(type, min, min);
+	}
 
-  public ColorNormalization(ColorNormalizationType type, double min,
-      double max) {
-    mType = type;
-    mMin = min;
-    mMax = max;
-  }
+	public ColorNormalization(ColorNormalizationType type, double min, double max) {
+		mType = type;
+		mMin = min;
+		mMax = max;
+	}
 
-  public ColorNormalizationType getType() {
-    return mType;
-  }
+	public ColorNormalizationType getType() {
+		return mType;
+	}
 
-  public double getMin() {
-    return mMin;
-  }
+	public double getMin() {
+		return mMin;
+	}
 
-  public double getMax() {
-    return mMax;
-  }
+	public double getMax() {
+		return mMax;
+	}
 }

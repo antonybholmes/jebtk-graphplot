@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
+import org.jebtk.core.Props;
 import org.jebtk.core.geom.DoubleDim;
 import org.jebtk.math.matrix.DataFrame;
 import org.jebtk.modern.graphics.DrawingContext;
@@ -28,55 +29,51 @@ import org.jebtk.modern.graphics.DrawingContext;
  */
 public class MatrixBorderPlotElement extends MatrixPlotElement {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-  /**
-   * Instantiates a new matrix border plot element.
-   *
-   * @param matrix the matrix
-   * @param aspectRatio the aspect ratio
-   */
-  public MatrixBorderPlotElement(DataFrame matrix, DoubleDim aspectRatio) {
-    super(matrix, aspectRatio);
-  }
+	/**
+	 * Instantiates a new matrix border plot element.
+	 *
+	 * @param matrix      the matrix
+	 * @param aspectRatio the aspect ratio
+	 */
+	public MatrixBorderPlotElement(DataFrame matrix, DoubleDim aspectRatio) {
+		super(matrix, aspectRatio);
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.
-   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
-   */
-  @Override
-  public void plot(Graphics2D g2,
-      Dimension offset,
-      DrawingContext context,
-      Object... params) {
-    drawBorder(g2);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.
+	 * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
+	 */
+	@Override
+	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Props params) {
+		drawBorder(g2);
 
-    super.plot(g2, offset, context, params);
-  }
+		super.plot(g2, offset, context, params);
+	}
 
-  /**
-   * Draw border.
-   *
-   * @param g2 the g2
-   */
-  protected void drawBorder(Graphics2D g2) {
-    g2.setColor(Color.DARK_GRAY);
+	/**
+	 * Draw border.
+	 *
+	 * @param g2 the g2
+	 */
+	protected void drawBorder(Graphics2D g2) {
+		g2.setColor(Color.DARK_GRAY);
 
-    int w = getPreferredSize().width;
-    int h = getPreferredSize().height;
+		int w = getPreferredSize().width;
+		int h = getPreferredSize().height;
 
-    g2.drawRect(0, 0, w, h);
-  }
+		g2.drawRect(0, 0, w, h);
+	}
 
-  @Override
-  public void plotSize(Dimension d) {
-    d.width += mMatrix.getCols() * mBlockSize.getW();
-    d.height += mMatrix.getRows() * mBlockSize.getH();
-  }
+	@Override
+	public void plotSize(Dimension d) {
+		d.width += mMatrix.getCols() * mBlockSize.getW();
+		d.height += mMatrix.getRows() * mBlockSize.getH();
+	}
 }

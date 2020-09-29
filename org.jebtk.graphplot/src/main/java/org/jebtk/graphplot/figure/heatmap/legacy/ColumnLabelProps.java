@@ -13,30 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jebtk.graphplot.figure.properties;
-
-import org.jebtk.math.Linspace;
+package org.jebtk.graphplot.figure.heatmap.legacy;
 
 /**
- * The class MinorTickMarkProperties.
+ * The class ColumnLabelProperties.
  */
-public class MinorTickMarkProperties extends TickMarkProperties {
+public class ColumnLabelProps extends LabelProps {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
-
-  /**
-   * Instantiates a new minor tick mark properties.
-   */
-  public MinorTickMarkProperties() {
-    setTicks(Linspace.evenlySpaced(0, 1, 0.1));
-
-    setTickSize(2);
-
-    // Don't usually want to show minor labels
-    getFontStyle().setVisible(false);
-  }
-
+	/**
+	 * The position.
+	 */
+	public ColumnLabelPosition position = ColumnLabelPosition.BOTTOM;
 }

@@ -30,63 +30,63 @@ import org.jebtk.core.text.TextUtils;
  */
 public class Aliases extends ImmutableList<Alias> {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-  /**
-   * Gets the alias.
-   *
-   * @param label the label
-   * @return the alias
-   */
-  public String getAlias(String label) {
+	/**
+	 * Gets the alias.
+	 *
+	 * @param label the label
+	 * @return the alias
+	 */
+	public String getAlias(String label) {
 
-    String newLabel = new String(label);
+		String newLabel = new String(label);
 
-    for (Alias alias : this) {
-      newLabel = newLabel.replaceAll(alias.from, alias.to);
-    }
+		for (Alias alias : this) {
+			newLabel = newLabel.replaceAll(alias.from, alias.to);
+		}
 
-    return newLabel;
-  }
+		return newLabel;
+	}
 
-  /**
-   * Parses the file.
-   *
-   * @param file the file
-   * @return the aliases
-   * @throws IOException Signals that an I/O exception has occurred.
-   */
-  public static Aliases parse(Path file) throws IOException {
-    Aliases aliases = new Aliases();
+	/**
+	 * Parses the file.
+	 *
+	 * @param file the file
+	 * @return the aliases
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
+	public static Aliases parse(Path file) throws IOException {
+		Aliases aliases = new Aliases();
 
-    String line;
-    List<String> tokens;
+		String line;
+		List<String> tokens;
 
-    BufferedReader reader = FileUtils.newBufferedReader(file);
+		BufferedReader reader = FileUtils.newBufferedReader(file);
 
-    try {
-      while ((line = reader.readLine()) != null) {
-        if (Io.isEmptyLine(line)) {
-          continue;
-        }
+		try {
+			while ((line = reader.readLine()) != null) {
+				if (Io.isEmptyLine(line)) {
+					continue;
+				}
 
-        tokens = TextUtils.tabSplit(line);
+				tokens = TextUtils.tabSplit(line);
 
-        // Labels
+				// Labels
 
-        String label = tokens.get(0);
+				String label = tokens.get(0);
 
-        String alias = tokens.get(1);
+				String alias = tokens.get(1);
 
-        aliases.add(new Alias(label, alias));
-      }
-    } finally {
-      reader.close();
-    }
+				aliases.add(new Alias(label, alias));
+			}
+		} finally {
+			reader.close();
+		}
 
-    return aliases;
-  }
+		return aliases;
+	}
 }

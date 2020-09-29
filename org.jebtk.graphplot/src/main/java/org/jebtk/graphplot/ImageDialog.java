@@ -29,43 +29,41 @@ import org.jebtk.modern.io.SvgGuiFileFilter;
  * The Class ImageDialog.
  */
 public class ImageDialog {
-  /**
-   * The Class ImageSaveDialog.
-   */
-  public static class ImageSaveDialog {
+	/**
+	 * The Class ImageSaveDialog.
+	 */
+	public static class ImageSaveDialog {
 
-    /** The m save. */
-    private SaveDialog mSave;
+		/** The m save. */
+		private SaveDialog mSave;
 
-    /**
-     * Instantiates a new image save dialog.
-     *
-     * @param frame the frame
-     */
-    private ImageSaveDialog(Frame frame) {
-      mSave = FileDialog.save(frame);
-    }
+		/**
+		 * Instantiates a new image save dialog.
+		 *
+		 * @param frame the frame
+		 */
+		private ImageSaveDialog(Frame frame) {
+			mSave = FileDialog.save(frame);
+		}
 
-    /**
-     * Image.
-     *
-     * @return the save file selection
-     */
-    public SaveFileSelection getImage() {
-      return mSave.filter(new SvgGuiFileFilter(),
-          new PngGuiFileFilter(),
-          new PdfGuiFileFilter(),
-          new JpgGuiFileFilter());
-    }
-  }
+		/**
+		 * Image.
+		 *
+		 * @return the save file selection
+		 */
+		public SaveFileSelection getImage() {
+			return mSave.filter(new SvgGuiFileFilter(), new PngGuiFileFilter(), new PdfGuiFileFilter(),
+					new JpgGuiFileFilter());
+		}
+	}
 
-  /**
-   * Save.
-   *
-   * @param frame the frame
-   * @return the image save dialog
-   */
-  public static ImageSaveDialog save(Frame frame) {
-    return new ImageSaveDialog(frame);
-  }
+	/**
+	 * Save.
+	 *
+	 * @param frame the frame
+	 * @return the image save dialog
+	 */
+	public static ImageSaveDialog save(Frame frame) {
+		return new ImageSaveDialog(frame);
+	}
 }

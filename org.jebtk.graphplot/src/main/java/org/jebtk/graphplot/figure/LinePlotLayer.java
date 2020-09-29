@@ -31,110 +31,96 @@ import org.jebtk.modern.graphics.DrawingContext;
  */
 public class LinePlotLayer extends PathPlotLayer {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-  /**
-   * Instantiates a new line plot layer.
-   *
-   * @param series the series
-   */
-  public LinePlotLayer(String series) {
-    super(series);
-  }
+	/**
+	 * Instantiates a new line plot layer.
+	 *
+	 * @param series the series
+	 */
+	public LinePlotLayer(String series) {
+		super(series);
+	}
 
-  @Override
-  public String getType() {
-    return "Line Plot Layer";
-  }
+	@Override
+	public String getType() {
+		return "Line Plot Layer";
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.PathPlotLayer#plotLayer(
-   * java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
-   * org.abh.lib.math.matrix.DataFrame,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXY,
-   * java.awt.geom.GeneralPath)
-   */
-  @Override
-  public void plotLayer(Graphics2D g2,
-      DrawingContext context,
-      Figure figure,
-      SubFigure subFigure,
-      Axes axes,
-      Plot plot,
-      DataFrame m,
-      XYSeries series,
-      UniqueXY xy,
-      GeneralPath path) {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PathPlotLayer#plotLayer(
+	 * java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
+	 * org.abh.lib.math.matrix.DataFrame,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXY,
+	 * java.awt.geom.GeneralPath)
+	 */
+	@Override
+	public void plotLayer(Graphics2D g2, DrawingContext context, Figure figure, SubFigure subFigure, Axes axes,
+			Plot plot, DataFrame m, XYSeries series, UniqueXY xy, GeneralPath path) {
 
-    if (series.getStyle().getLineStyle() != null) {
-      g2.setStroke(series.getStyle().getLineStyle().getStroke());
-      g2.setColor(series.getStyle().getLineStyle().getColor());
+		if (series.getStyle().getLineStyle() != null) {
+			g2.setStroke(series.getStyle().getLineStyle().getStroke());
+			g2.setColor(series.getStyle().getLineStyle().getColor());
 
-      g2.draw(path);
-    }
+			g2.draw(path);
+		}
 
-  }
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.PathPlotLayer#getPath(java.
-   * lang.String, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
-   * org.abh.lib.math.matrix.DataFrame,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXY)
-   */
-  @Override
-  protected GeneralPath getPath(Figure figure,
-      SubFigure subFigure,
-      Axes axes,
-      Plot plot,
-      DataFrame m,
-      XYSeries series,
-      UniqueXY xy) {
-    int n = xy.getPointCount();
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.PathPlotLayer#getPath(java.
+	 * lang.String, edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
+	 * org.abh.lib.math.matrix.DataFrame,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXY)
+	 */
+	@Override
+	protected GeneralPath getPath(Figure figure, SubFigure subFigure, Axes axes, Plot plot, DataFrame m,
+			XYSeries series, UniqueXY xy) {
+		int n = xy.getPointCount();
 
-    if (n > 0) {
+		if (n > 0) {
 
-      Point p;
+			Point p;
 
-      GeneralPath path = new GeneralPath();
+			GeneralPath path = new GeneralPath();
 
-      // List<Point> allPoints = xy.getAllPoints();
+			// List<Point> allPoints = xy.getAllPoints();
 
-      p = xy.getPoint(0); // )allPoints.get(0);
-      path.moveTo(p.x, p.y);
+			p = xy.getPoint(0); // )allPoints.get(0);
+			path.moveTo(p.x, p.y);
 
-      /*
-       * for (int i = 1; i < allPoints.size(); ++i) { p = allPoints.get(i);
-       * 
-       * System.err.println("huh " + p);
-       * 
-       * path.lineTo(p.x, p.y); }
-       */
+			/*
+			 * for (int i = 1; i < allPoints.size(); ++i) { p = allPoints.get(i);
+			 * 
+			 * System.err.println("huh " + p);
+			 * 
+			 * path.lineTo(p.x, p.y); }
+			 */
 
-      for (int i = 1; i < xy.getPointCount(); ++i) {
-        p = xy.getPoint(i);
+			for (int i = 1; i < xy.getPointCount(); ++i) {
+				p = xy.getPoint(i);
 
-        path.lineTo(p.x, p.y);
-      }
+				path.lineTo(p.x, p.y);
+			}
 
-      return path;
-    } else {
-      return null;
-    }
-  }
+			return path;
+		} else {
+			return null;
+		}
+	}
 }

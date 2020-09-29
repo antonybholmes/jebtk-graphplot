@@ -20,6 +20,7 @@ import java.awt.Graphics2D;
 
 import org.jebtk.core.Function;
 import org.jebtk.core.IntId;
+import org.jebtk.core.Props;
 import org.jebtk.core.StringId;
 import org.jebtk.core.stream.Stream;
 import org.jebtk.graphplot.plotbox.PlotBox;
@@ -37,146 +38,142 @@ import org.jebtk.modern.graphics.DrawingContext;
  */
 public class Figure extends PlotBoxGraph {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-  private static final StringId NEXT_ID = new StringId("Figure");
+	private static final StringId NEXT_ID = new StringId("Figure");
 
-  /** The m next sub figure id. */
-  private IntId mNextSubFigureId = new IntId();
+	/** The m next sub figure id. */
+	private IntId mNextSubFigureId = new IntId();
 
-  private SubFigure mCurrentSubFigure;
+	private SubFigure mCurrentSubFigure;
 
-  /**
-   * Instantiates a new figure grid canvas.
-   *
-   * @param name the name
-   */
-  public Figure(String name) {
-    this(name, new PlotBoxDimStorage(), new PlotBoxRowsLayout(2));
-  }
+	/**
+	 * Instantiates a new figure grid canvas.
+	 *
+	 * @param name the name
+	 */
+	public Figure(String name) {
+		this(name, new PlotBoxDimStorage(), new PlotBoxRowsLayout(2));
+	}
 
-  public Figure(String name, PlotBoxStorage storage, PlotBoxLayout layout) {
-    super(name, storage, layout);
-  }
+	public Figure(String name, PlotBoxStorage storage, PlotBoxLayout layout) {
+		super(name, storage, layout);
+	}
 
-  public Figure(String name, PlotBoxLayout layout) {
-    super(name, layout);
-  }
+	public Figure(String name, PlotBoxLayout layout) {
+		super(name, layout);
+	}
 
-  /**
-   * Instantiates a new figure.
-   *
-   * @param figure the figure
-   */
-  public Figure(String name, SubFigure figure) {
-    this(name);
+	/**
+	 * Instantiates a new figure.
+	 *
+	 * @param figure the figure
+	 */
+	public Figure(String name, SubFigure figure) {
+		this(name);
 
-    addChild(figure);
-  }
+		addChild(figure);
+	}
 
-  public Figure addSubFigure(SubFigure subFigure) {
-    addChild(subFigure);
+	public Figure addSubFigure(SubFigure subFigure) {
+		addChild(subFigure);
 
-    return this;
-  }
+		return this;
+	}
 
-  @Override
-  protected boolean cacheCurrent(PlotBox plot) {
-    if (plot instanceof SubFigure) {
-      mCurrentSubFigure = (SubFigure) plot;
+	@Override
+	protected boolean cacheCurrent(PlotBox plot) {
+		if (plot instanceof SubFigure) {
+			mCurrentSubFigure = (SubFigure) plot;
 
-      return true;
-    } else {
-      return false;
-    }
-  }
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-  /**
-   * Creates the new axes.
-   *
-   * @return the axes
-   */
-  public SubFigure newSubFigure() {
-    mCurrentSubFigure = new SubFigure(
-        createId(LayerType.SUBFIGURE, mNextSubFigureId.getNextId()));
+	/**
+	 * Creates the new axes.
+	 *
+	 * @return the axes
+	 */
+	public SubFigure newSubFigure() {
+		mCurrentSubFigure = new SubFigure(createId(LayerType.SUBFIGURE, mNextSubFigureId.getNextId()));
 
-    addChild(mCurrentSubFigure);
+		addChild(mCurrentSubFigure);
 
-    return mCurrentSubFigure;
-  }
+		return mCurrentSubFigure;
+	}
 
-  /**
-   * Gets the sub figure by name.
-   *
-   * @param name the name
-   * @return the axes
-   */
-  public SubFigure getSubFigure(String name) {
-    return (SubFigure) getChild(name);
-  }
+	/**
+	 * Gets the sub figure by name.
+	 *
+	 * @param name the name
+	 * @return the axes
+	 */
+	public SubFigure getSubFigure(String name) {
+		return (SubFigure) getByName(name);
+	}
 
-  /**
-   * Returns the current sub figure. If there is no current sub figure, one will
-   * be created.
-   * 
-   * @return The current sub figure.
-   */
-  public SubFigure currentSubFigure() {
-    if (mCurrentSubFigure == null) {
-      newSubFigure();
-    }
+	/**
+	 * Returns the current sub figure. If there is no current sub figure, one will
+	 * be created.
+	 * 
+	 * @return The current sub figure.
+	 */
+	public SubFigure currentSubFigure() {
+		if (mCurrentSubFigure == null) {
+			newSubFigure();
+		}
 
-    return mCurrentSubFigure;
-  }
+		return mCurrentSubFigure;
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.graphplot.figure.ZLayer#getType()
-   */
-  @Override
-  public String getType() {
-    return LayerType.FIGURE;
-  }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.graphplot.figure.ZLayer#getType()
+	 */
+	@Override
+	public String getType() {
+		return LayerType.FIGURE;
+	}
 
-  public Iterable<SubFigure> getSubFigures() {
-    return getSubFigures(this);
-  }
+	public Iterable<SubFigure> getSubFigures() {
+		return getSubFigures(this);
+	}
 
-  public static Iterable<SubFigure> getSubFigures(Figure figure) {
-    return Stream.of(figure).map(new Function<PlotBox, SubFigure>() {
+	public static Iterable<SubFigure> getSubFigures(Figure figure) {
+		return Stream.of(figure).map(new Function<PlotBox, SubFigure>() {
 
-      @Override
-      public SubFigure apply(PlotBox item) {
-        return (SubFigure) item;
-      }
-    });
-  }
+			@Override
+			public SubFigure apply(PlotBox item) {
+				return (SubFigure) item;
+			}
+		});
+	}
 
-  @Override
-  public void plot(Graphics2D g2,
-      Dimension offset,
-      DrawingContext context,
-      Object... params) {
-    super.plot(g2, offset, context, this);
-  }
+	@Override
+	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Props params) {
+		super.plot(g2, offset, context, params.set("fig", this));
+	}
 
-  public static Figure createFigure() {
-    return createFigure(NEXT_ID.getNextId());
-  }
+	public static Figure createFigure() {
+		return createFigure(NEXT_ID.getNextId());
+	}
 
-  public static Figure createFigure(String name) {
-    return new Figure(name);
-  }
+	public static Figure createFigure(String name) {
+		return new Figure(name);
+	}
 
-  public static Figure createRowFigure() {
-    return createRowFigure(NEXT_ID.getNextId());
-  }
+	public static Figure createRowFigure() {
+		return createRowFigure(NEXT_ID.getNextId());
+	}
 
-  public static Figure createRowFigure(String name) {
-    return new Figure(name, new PlotBoxRowLayout());
-  }
+	public static Figure createRowFigure(String name) {
+		return new Figure(name, new PlotBoxRowLayout());
+	}
 }

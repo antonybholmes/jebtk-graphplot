@@ -13,22 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jebtk.graphplot.figure.heatmap.legacy;
+package org.jebtk.graphplot.figure.heatmap.legacy.clustering;
 
 import java.awt.Color;
 
 /**
- * The class LabelProperties.
+ * The class TreeProperties.
  */
-public class LabelProperties {
+public class TreeProps {
 
-  /**
-   * The show.
-   */
-  public boolean show = true;
+	/**
+	 * The show.
+	 */
+	public boolean show = true;
 
-  /**
-   * The color.
-   */
-  public Color color = Color.BLACK;
+	/**
+	 * The width.
+	 */
+	public int width = 200;
+
+	/**
+	 * The color.
+	 */
+	public Color color = Color.BLACK;
+
 }

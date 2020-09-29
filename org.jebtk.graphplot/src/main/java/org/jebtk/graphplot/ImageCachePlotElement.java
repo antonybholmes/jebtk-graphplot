@@ -19,6 +19,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import org.jebtk.core.Props;
 import org.jebtk.modern.graphics.DrawingContext;
 
 /**
@@ -28,64 +29,60 @@ import org.jebtk.modern.graphics.DrawingContext;
  */
 public class ImageCachePlotElement extends PlotElement {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-  /**
-   * The member element.
-   */
-  private PlotElement mElement;
+	/**
+	 * The member element.
+	 */
+	private PlotElement mElement;
 
-  /**
-   * The bi.
-   */
-  private BufferedImage bi;
+	/**
+	 * The bi.
+	 */
+	private BufferedImage mBi;
 
-  /**
-   * Instantiates a new image cache plot element.
-   *
-   * @param element the element
-   */
-  public ImageCachePlotElement(PlotElement element) {
-    super("image-cache");
+	/**
+	 * Instantiates a new image cache plot element.
+	 *
+	 * @param element the element
+	 */
+	public ImageCachePlotElement(PlotElement element) {
+		super("image-cache");
 
-    mElement = element;
+		mElement = element;
 
-    cache();
-  }
+		cache();
+	}
 
-  /**
-   * Cache.
-   */
-  private void cache() {
-    bi = new BufferedImage(mElement.getPreferredSize().width,
-        mElement.getPreferredSize().height, BufferedImage.TYPE_INT_RGB);
+	/**
+	 * Cache.
+	 */
+	private void cache() {
+		mBi = new BufferedImage(mElement.getPreferredSize().width, mElement.getPreferredSize().height,
+				BufferedImage.TYPE_INT_RGB);
 
-    Graphics2D g2 = (Graphics2D) bi.getGraphics();
+		Graphics2D g2 = (Graphics2D) mBi.getGraphics();
 
-    mElement.plot(g2, DrawingContext.UI);
-  }
+		mElement.plot(g2, DrawingContext.UI, new Props());
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.
-   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
-   */
-  @Override
-  public void plot(Graphics2D g2,
-      Dimension offset,
-      DrawingContext context,
-      Object... params) {
-    g2.drawImage(bi, 0, 0, null);
-  }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.
+	 * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
+	 */
+	@Override
+	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Props params) {
+		g2.drawImage(mBi, 0, 0, null);
+	}
 
-  @Override
-  public void plotSize(Dimension d) {
-    d.width += mElement.getPreferredSize().width;
-    d.height += mElement.getPreferredSize().height;
-  }
+	@Override
+	public void plotSize(Dimension d) {
+		d.width += mElement.getPreferredSize().width;
+		d.height += mElement.getPreferredSize().height;
+	}
 }

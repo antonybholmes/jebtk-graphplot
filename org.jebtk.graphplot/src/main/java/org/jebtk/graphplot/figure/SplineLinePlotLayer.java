@@ -29,68 +29,59 @@ import org.jebtk.modern.graphics.DrawingContext;
  */
 public class SplineLinePlotLayer extends SplinePlotLayer {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-  /**
-   * Instantiates a new spline line plot layer.
-   *
-   * @param series the series
-   */
-  public SplineLinePlotLayer(String series) {
-    this(series, false);
-  }
+	/**
+	 * Instantiates a new spline line plot layer.
+	 *
+	 * @param series the series
+	 */
+	public SplineLinePlotLayer(String series) {
+		this(series, false);
+	}
 
-  /**
-   * Instantiates a new spline line plot layer.
-   *
-   * @param series the series
-   * @param zeroEnds the zero ends
-   */
-  public SplineLinePlotLayer(String series, boolean zeroEnds) {
-    super(series, zeroEnds);
-  }
+	/**
+	 * Instantiates a new spline line plot layer.
+	 *
+	 * @param series   the series
+	 * @param zeroEnds the zero ends
+	 */
+	public SplineLinePlotLayer(String series, boolean zeroEnds) {
+		super(series, zeroEnds);
+	}
 
-  @Override
-  public String getType() {
-    return "Spline Line Layer";
-  }
+	@Override
+	public String getType() {
+		return "Spline Line Layer";
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.PathPlotLayer#plotLayer(
-   * java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
-   * org.abh.lib.math.matrix.DataFrame,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXY,
-   * java.awt.geom.GeneralPath)
-   */
-  @Override
-  public void plotLayer(Graphics2D g2,
-      DrawingContext context,
-      Figure figure,
-      SubFigure subFigure,
-      Axes axes,
-      Plot plot,
-      DataFrame m,
-      XYSeries series,
-      UniqueXY xy,
-      GeneralPath path) {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.PathPlotLayer#plotLayer(
+	 * java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
+	 * org.abh.lib.math.matrix.DataFrame,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.UniqueXY,
+	 * java.awt.geom.GeneralPath)
+	 */
+	@Override
+	public void plotLayer(Graphics2D g2, DrawingContext context, Figure figure, SubFigure subFigure, Axes axes,
+			Plot plot, DataFrame m, XYSeries series, UniqueXY xy, GeneralPath path) {
 
-    // System.err.println("spline " + axes.getName() + " " + plot.getName() + "
-    // " + series.getStyle().getLineStyle().getVisible());
+		// System.err.println("spline " + axes.getName() + " " + plot.getName() + "
+		// " + series.getStyle().getLineStyle().getVisible());
 
-    if (series.getStyle().getLineStyle().getVisible()) {
-      g2.setColor(series.getStyle().getLineStyle().getColor());
-      g2.setStroke(series.getStyle().getLineStyle().getStroke());
-      g2.draw(path);
-    }
-  }
+		if (series.getStyle().getLineStyle().getVisible()) {
+			g2.setColor(series.getStyle().getLineStyle().getColor());
+			g2.setStroke(series.getStyle().getLineStyle().getStroke());
+			g2.draw(path);
+		}
+	}
 }

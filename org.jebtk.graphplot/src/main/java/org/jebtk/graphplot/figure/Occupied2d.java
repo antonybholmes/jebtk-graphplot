@@ -27,27 +27,27 @@ import java.util.Set;
  */
 public class Occupied2d {
 
-  /**
-   * The member occupied.
-   */
-  private Set<Point> mOccupied = new HashSet<Point>();
+	/**
+	 * The member occupied.
+	 */
+	private Set<Point> mOccupied = new HashSet<Point>();
 
-  /**
-   * Adds the.
-   *
-   * @param p the p
-   */
-  public void add(Point p) {
-    mOccupied.add(p);
-  }
+	/**
+	 * Adds the.
+	 *
+	 * @param p the p
+	 */
+	public void add(Point p) {
+		mOccupied.add(p);
+	}
 
-  /**
-   * Checks if is occupied.
-   *
-   * @param p the p
-   * @return true, if is occupied
-   */
-  public boolean isOccupied(Point p) {
-    return mOccupied.contains(p);
-  }
+	/**
+	 * Checks if is occupied.
+	 *
+	 * @param p the p
+	 * @return true, if is occupied
+	 */
+	public boolean isOccupied(Point p) {
+		return mOccupied.contains(p);
+	}
 }

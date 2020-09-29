@@ -24,23 +24,23 @@ import org.jebtk.graphplot.AspectRatio;
  */
 public class HeatMapSettings {
 
-  /**
-   * The show.
-   */
-  public boolean show = true;
+	/**
+	 * The show.
+	 */
+	public boolean show = true;
 
-  /**
-   * The border color.
-   */
-  public Color borderColor = Color.BLACK;
+	/**
+	 * The border color.
+	 */
+	public Color borderColor = Color.BLACK;
 
-  /**
-   * The grid color.
-   */
-  public Color gridColor = Color.BLACK;
+	/**
+	 * The grid color.
+	 */
+	public Color gridColor = Color.BLACK;
 
-  /**
-   * The aspect ratio.
-   */
-  public AspectRatio aspectRatio = new AspectRatio(1, 1);
+	/**
+	 * The aspect ratio.
+	 */
+	public AspectRatio aspectRatio = new AspectRatio(1, 1);
 }

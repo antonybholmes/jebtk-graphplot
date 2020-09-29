@@ -17,29 +17,25 @@ package org.jebtk.graphplot.icons;
 
 import java.awt.Graphics2D;
 
+import org.jebtk.core.Props;
 import org.jebtk.graphplot.figure.BarChartLayer;
-import org.jebtk.graphplot.figure.properties.FillPattern;
+import org.jebtk.graphplot.figure.props.FillPattern;
 
 /**
  * The class FillPatternCrossIcon.
  */
 public class FillPatternCrossIcon extends FillPatternIcon {
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see edu.columbia.rdf.lib.bioinformatics.ui.plot.icons.FillPatternIcon#
-   * drawForeground(java.awt.Graphics2D, java.awt.Rectangle)
-   */
-  @Override
-  public void drawIcon(Graphics2D g2,
-      int x,
-      int y,
-      int w,
-      int h,
-      Object... params) {
-    super.drawIcon(g2, x, y, w, h, params);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see edu.columbia.rdf.lib.bioinformatics.ui.plot.icons.FillPatternIcon#
+	 * drawForeground(java.awt.Graphics2D, java.awt.Rectangle)
+	 */
+	@Override
+	public void drawIcon(Graphics2D g2, int x, int y, int w, int h, Props params) {
+		super.drawIcon(g2, x, y, w, h, params);
 
-    BarChartLayer.patternFill(g2, FillPattern.CROSS_HATCH, x, y, w, h);
-  }
+		BarChartLayer.patternFill(g2, FillPattern.CROSS_HATCH, x, y, w, h);
+	}
 }

@@ -23,13 +23,13 @@ package org.jebtk.graphplot.figure.heatmap.legacy;
  */
 public enum RowLabelPosition {
 
-  /**
-   * The left.
-   */
-  LEFT,
+	/**
+	 * The left.
+	 */
+	LEFT,
 
-  /**
-   * The right.
-   */
-  RIGHT
+	/**
+	 * The right.
+	 */
+	RIGHT
 }

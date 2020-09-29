@@ -18,6 +18,7 @@ package org.jebtk.graphplot.plotbox;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
+import org.jebtk.core.Props;
 import org.jebtk.modern.graphics.DrawingContext;
 
 /**
@@ -25,57 +26,53 @@ import org.jebtk.modern.graphics.DrawingContext;
  */
 public class PlotBoxZLayout extends PlotBoxLayout {
 
-  /**
-   * Gets the plot size recursive.
-   *
-   * @param plotBox the plot box
-   * @param dim the dim
-   * @return the plot size recursive
-   */
-  @Override
-  public void plotSize(PlotBox plot, Dimension dim) {
-    int width = 0;
-    int height = 0;
+	/**
+	 * Gets the plot size recursive.
+	 *
+	 * @param plotBox the plot box
+	 * @param dim     the dim
+	 * @return the plot size recursive
+	 */
+	@Override
+	public void plotSize(PlotBox plot, Dimension dim) {
+		int width = 0;
+		int height = 0;
 
-    for (PlotBox child : plot) {
-      Dimension dim1 = new Dimension(0, 0);
+		for (PlotBox child : plot) {
+			Dimension dim1 = new Dimension(0, 0);
 
-      child.plotSize(dim1);
+			child.plotSize(dim1);
 
-      width = Math.max(width, dim1.width);
+			width = Math.max(width, dim1.width);
 
-      height = Math.max(height, dim1.height);
-    }
+			height = Math.max(height, dim1.height);
+		}
 
-    dim.width += width;
-    dim.height += height;
-  }
+		dim.width += width;
+		dim.height += height;
+	}
 
-  /**
-   * Draw recursive.
-   *
-   * @param g2 the g2
-   * @param plotBox the plot box
-   * @param offset the offset
-   * @param context the context
-   */
-  @Override
-  public void plot(Graphics2D g2,
-      PlotBox plot,
-      Dimension offset,
-      DrawingContext context,
-      Object... params) {
-    Dimension tempOffset = new Dimension(0, 0);
+	/**
+	 * Draw recursive.
+	 *
+	 * @param g2      the g2
+	 * @param plotBox the plot box
+	 * @param offset  the offset
+	 * @param context the context
+	 */
+	@Override
+	public void plot(Graphics2D g2, PlotBox plot, Dimension offset, DrawingContext context, Props params) {
+		Dimension tempOffset = new Dimension(0, 0);
 
-    for (int z : plot.getZ()) {
-      tempOffset.width = 0;
-      tempOffset.height = 0;
+		for (int z : plot.getZ()) {
+			tempOffset.width = 0;
+			tempOffset.height = 0;
 
-      PlotBox child = plot.getChild(z);
+			PlotBox child = plot.getChild(z);
 
-      child.plot(g2, tempOffset, context, params);
-    }
+			child.plot(g2, tempOffset, context, params);
+		}
 
-    super.plot(g2, plot, offset, context, params);
-  }
+		super.plot(g2, plot, offset, context, params);
+	}
 }

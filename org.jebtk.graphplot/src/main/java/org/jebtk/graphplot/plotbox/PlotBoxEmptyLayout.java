@@ -24,34 +24,34 @@ import org.jebtk.core.geom.IntDim;
  */
 public class PlotBoxEmptyLayout extends PlotBoxLayout {
 
-  private IntDim mDim;
+	private IntDim mDim;
 
-  /**
-   * Instantiates a new empty plot box.
-   *
-   * @param dimension the dimension
-   */
-  public PlotBoxEmptyLayout(IntDim dim) {
-    mDim = dim;
-  }
+	/**
+	 * Instantiates a new empty plot box.
+	 *
+	 * @param dimension the dimension
+	 */
+	public PlotBoxEmptyLayout(IntDim dim) {
+		mDim = dim;
+	}
 
-  public PlotBoxEmptyLayout(Dimension dim) {
-    this(IntDim.create(dim));
-  }
+	public PlotBoxEmptyLayout(Dimension dim) {
+		this(IntDim.create(dim));
+	}
 
-  /**
-   * Instantiates a new empty plot box.
-   *
-   * @param width the width
-   * @param height the height
-   */
-  public PlotBoxEmptyLayout(int width, int height) {
-    this(new IntDim(width, height));
-  }
+	/**
+	 * Instantiates a new empty plot box.
+	 *
+	 * @param width  the width
+	 * @param height the height
+	 */
+	public PlotBoxEmptyLayout(int width, int height) {
+		this(new IntDim(width, height));
+	}
 
-  @Override
-  public void plotSize(PlotBox plot, Dimension dim) {
-    dim.width += mDim.getW();
-    dim.height += mDim.getH();
-  }
+	@Override
+	public void plotSize(PlotBox plot, Dimension dim) {
+		dim.width += mDim.getW();
+		dim.height += mDim.getH();
+	}
 }

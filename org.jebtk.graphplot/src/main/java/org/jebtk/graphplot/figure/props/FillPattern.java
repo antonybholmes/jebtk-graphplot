@@ -13,15 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jebtk.graphplot.figure.heatmap.legacy;
+package org.jebtk.graphplot.figure.props;
 
 /**
- * The class ColumnLabelProperties.
+ * The enum FillPattern.
  */
-public class ColumnLabelProperties extends LabelProperties {
+public enum FillPattern {
 
-  /**
-   * The position.
-   */
-  public ColumnLabelPosition position = ColumnLabelPosition.BOTTOM;
+	/**
+	 * The solid.
+	 */
+	SOLID,
+
+	/**
+	 * The cross hatch.
+	 */
+	CROSS_HATCH,
+
+	/**
+	 * The back hatch.
+	 */
+	BACK_HATCH,
+
+	/**
+	 * The forward hatch.
+	 */
+	FORWARD_HATCH,
+
+	/**
+	 * The vert hatch.
+	 */
+	VERT_HATCH,
+
+	/**
+	 * The hoz hatch.
+	 */
+	HOZ_HATCH
 }

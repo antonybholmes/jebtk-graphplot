@@ -18,7 +18,9 @@ package org.jebtk.graphplot.icons;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
-import org.jebtk.graphplot.figure.properties.StyleProperties;
+import org.jebtk.core.Props;
+import org.jebtk.graphplot.figure.props.StyleProps;
+import org.jebtk.graphplot.figure.props.StyleProps;
 import org.jebtk.graphplot.figure.series.Marker;
 import org.jebtk.modern.graphics.icons.ModernVectorIcon;
 
@@ -27,40 +29,35 @@ import org.jebtk.modern.graphics.icons.ModernVectorIcon;
  */
 public class ShapeStyleIcon extends ModernVectorIcon {
 
-  /** The Constant DEFAULT_STYLE. */
-  private static final StyleProperties DEFAULT_STYLE = new StyleProperties();
+	/** The Constant DEFAULT_STYLE. */
+	private static final StyleProps DEFAULT_STYLE = new StyleProps();
 
-  /**
-   * The member shape.
-   */
-  private Marker mShape;
+	/**
+	 * The member shape.
+	 */
+	private Marker mShape;
 
-  /**
-   * Instantiates a new shape style icon.
-   *
-   * @param shape the shape
-   */
-  public ShapeStyleIcon(Marker shape) {
-    mShape = shape;
-  }
+	/**
+	 * Instantiates a new shape style icon.
+	 *
+	 * @param shape the shape
+	 */
+	public ShapeStyleIcon(Marker shape) {
+		mShape = shape;
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * org.abh.common.ui.ui.icons.ModernIcon#drawForeground(java.awt.Graphics2D,
-   * java.awt.Rectangle)
-   */
-  @Override
-  public void drawIcon(Graphics2D g2,
-      int x,
-      int y,
-      int w,
-      int h,
-      Object... params) {
-    mShape.setSize(h);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.abh.common.ui.ui.icons.ModernIcon#drawForeground(java.awt.Graphics2D,
+	 * java.awt.Rectangle)
+	 */
+	@Override
+	public void drawIcon(Graphics2D g2, int x, int y, int w, int h, Props params) {
+		mShape.setSize(h);
 
-    mShape.plot(g2, DEFAULT_STYLE, new Point(x + w / 2, y + h / 2));
-  }
+		mShape.plot(g2, DEFAULT_STYLE, new Point(x + w / 2, y + h / 2));
+	}
 
 }

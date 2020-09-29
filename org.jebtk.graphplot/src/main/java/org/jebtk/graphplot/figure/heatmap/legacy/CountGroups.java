@@ -27,47 +27,47 @@ import org.jebtk.math.matrix.Matrix;
  */
 public class CountGroups implements Iterable<CountGroup> {
 
-  /** The m groups. */
-  private List<CountGroup> mGroups = new ArrayList<CountGroup>();
+	/** The m groups. */
+	private List<CountGroup> mGroups = new ArrayList<CountGroup>();
 
-  /**
-   * Instantiates a new count groups.
-   *
-   * @param groups the groups
-   */
-  public CountGroups(CountGroup... groups) {
-    mGroups.addAll(Arrays.asList(groups));
-  }
+	/**
+	 * Instantiates a new count groups.
+	 *
+	 * @param groups the groups
+	 */
+	public CountGroups(CountGroup... groups) {
+		mGroups.addAll(Arrays.asList(groups));
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Iterable#iterator()
-   */
-  @Override
-  public Iterator<CountGroup> iterator() {
-    return mGroups.iterator();
-  }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Iterable#iterator()
+	 */
+	@Override
+	public Iterator<CountGroup> iterator() {
+		return mGroups.iterator();
+	}
 
-  /**
-   * Adds the.
-   *
-   * @param countGroup the count group
-   * @return the count groups
-   */
-  public CountGroups add(CountGroup countGroup) {
-    mGroups.add(countGroup);
+	/**
+	 * Adds the.
+	 *
+	 * @param countGroup the count group
+	 * @return the count groups
+	 */
+	public CountGroups add(CountGroup countGroup) {
+		mGroups.add(countGroup);
 
-    return this;
-  }
+		return this;
+	}
 
-  /**
-   * Default group.
-   *
-   * @param m the m
-   * @return the count groups
-   */
-  public static CountGroups defaultGroup(Matrix m) {
-    return new CountGroups(new CountGroup(0, m.getRows() - 1));
-  }
+	/**
+	 * Default group.
+	 *
+	 * @param m the m
+	 * @return the count groups
+	 */
+	public static CountGroups defaultGroup(Matrix m) {
+		return new CountGroups(new CountGroup(0, m.getRows() - 1));
+	}
 }

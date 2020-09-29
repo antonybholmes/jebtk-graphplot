@@ -23,40 +23,38 @@ import java.util.List;
  */
 public enum GridLocation implements Comparable<GridLocation> {
 
-  /** The nw. */
-  NW,
+	/** The nw. */
+	NW,
 
-  /** The n. */
-  N,
+	/** The n. */
+	N,
 
-  /** The ne. */
-  NE,
+	/** The ne. */
+	NE,
 
-  /** The e. */
-  E,
+	/** The e. */
+	E,
 
-  /** The se. */
-  SE,
+	/** The se. */
+	SE,
 
-  /** The s. */
-  S,
+	/** The s. */
+	S,
 
-  /** The sw. */
-  SW,
+	/** The sw. */
+	SW,
 
-  /** The w. */
-  W,
+	/** The w. */
+	W,
 
-  /** The center. */
-  CENTER;
+	/** The center. */
+	CENTER;
 
-  /**
-   * The order which the locations should be iterated over when searching for
-   * layers etc.
-   */
-  public static final GridLocation[] LOCATIONS = { N, NE, E, SE, S, SW, W, NW,
-      CENTER };
+	/**
+	 * The order which the locations should be iterated over when searching for
+	 * layers etc.
+	 */
+	public static final GridLocation[] LOCATIONS = { N, NE, E, SE, S, SW, W, NW, CENTER };
 
-  public static final List<GridLocation> LOCATIONS_LIST = Arrays
-      .asList(LOCATIONS);
+	public static final List<GridLocation> LOCATIONS_LIST = Arrays.asList(LOCATIONS);
 }

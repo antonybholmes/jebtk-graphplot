@@ -29,113 +29,113 @@ import org.jebtk.core.text.TextUtils;
  */
 public abstract class AxisTranslation {
 
-  /** The m x map. */
-  protected Map<Double, Integer> mXMap = new HashMap<Double, Integer>();
+	/** The m x map. */
+	protected Map<Double, Integer> mXMap = new HashMap<Double, Integer>();
 
-  /** The m x norm map. */
-  protected Map<Double, Double> mXNormMap = new HashMap<Double, Double>();
+	/** The m x norm map. */
+	protected Map<Double, Double> mXNormMap = new HashMap<Double, Double>();
 
-  /** The m x min. */
-  protected double mXMin;
+	/** The m x min. */
+	protected double mXMin;
 
-  /** The m x diff. */
-  protected double mXDiff;
+	/** The m x diff. */
+	protected double mXDiff;
 
-  /** The m max x. */
-  protected int mMaxX;
+	/** The m max x. */
+	protected int mMaxX;
 
-  /** The m axis. */
-  protected Axis mAxis;
+	/** The m axis. */
+	protected Axis mAxis;
 
-  private Axes mAxes;
+	private Axes mAxes;
 
-  protected int mXPixels;
+	protected int mXPixels;
 
-  private String mHashId = TextUtils.EMPTY_STRING;
+	private String mHashId = TextUtils.EMPTY_STRING;
 
-  /**
-   * Instantiates a new axis translation.
-   *
-   * @param axis the axis
-   */
-  public AxisTranslation(Axes axes, Axis axis) {
-    mAxes = axes;
-    mAxis = axis;
+	/**
+	 * Instantiates a new axis translation.
+	 *
+	 * @param axis the axis
+	 */
+	public AxisTranslation(Axes axes, Axis axis) {
+		mAxes = axes;
+		mAxis = axis;
 
-    // axes.addCanvasListener(this);
-    // axis.addChangeListener(this);
+		// axes.addCanvasListener(this);
+		// axis.addChangeListener(this);
 
-    cache();
-  }
+		cache();
+	}
 
-  public Axes getAxes() {
-    return mAxes;
-  }
+	public Axes getAxes() {
+		return mAxes;
+	}
 
-  public abstract int getPixels();
+	public abstract int getPixels();
 
-  /**
-   * To plot.
-   *
-   * @param x the x
-   * @return the int
-   */
-  public int toPlot(double x) {
-    cacheCheck();
+	/**
+	 * To plot.
+	 *
+	 * @param x the x
+	 * @return the int
+	 */
+	public int toPlot(double x) {
+		cacheCheck();
 
-    if (!mXMap.containsKey(x)) {
-      mXMap.put(x, (int) Math.round(plotNormalize(x) * mXPixels));
-    }
+		if (!mXMap.containsKey(x)) {
+			mXMap.put(x, (int) Math.round(plotNormalize(x) * mXPixels));
+		}
 
-    return mXMap.get(x);
-  }
+		return mXMap.get(x);
+	}
 
-  protected void cacheCheck() {
-    // To prevent race conditions where the plot refreshes before
-    // axis translator updates, do a check before a normalization whether
-    // we need to clear the caches. We do this as an alternative to a
-    // listening model.
+	protected void cacheCheck() {
+		// To prevent race conditions where the plot refreshes before
+		// axis translator updates, do a check before a normalization whether
+		// we need to clear the caches. We do this as an alternative to a
+		// listening model.
 
-    String id = mAxes.hashId();
+		String id = mAxes.hashId();
 
-    if (!mHashId.equals(id)) {
-      cache();
+		if (!mHashId.equals(id)) {
+			cache();
 
-      mHashId = id;
-    }
-  }
+			mHashId = id;
+		}
+	}
 
-  /**
-   * Redraw.
-   */
-  private void cache() {
-    mXMin = mAxis.getLimits().getMin();
-    mXDiff = mAxis.getLimits().getMax() - mXMin;
-    mXPixels = getPixels();
+	/**
+	 * Redraw.
+	 */
+	private void cache() {
+		mXMin = mAxis.getLimits().getMin();
+		mXDiff = mAxis.getLimits().getMax() - mXMin;
+		mXPixels = getPixels();
 
-    clearCaches();
-  }
+		clearCaches();
+	}
 
-  /**
-   * Plot normalize.
-   *
-   * @param x the x
-   * @return the double
-   */
-  public double plotNormalize(double x) {
-    if (!mXNormMap.containsKey(x)) {
-      mXNormMap.put(x, Mathematics.bound((x - mXMin) / mXDiff, 0, 1));
-    }
+	/**
+	 * Plot normalize.
+	 *
+	 * @param x the x
+	 * @return the double
+	 */
+	public double plotNormalize(double x) {
+		if (!mXNormMap.containsKey(x)) {
+			mXNormMap.put(x, Mathematics.bound((x - mXMin) / mXDiff, 0, 1));
+		}
 
-    return mXNormMap.get(x);
-  }
+		return mXNormMap.get(x);
+	}
 
-  /**
-   * Clear caches.
-   */
-  public void clearCaches() {
-    mXMap.clear();
+	/**
+	 * Clear caches.
+	 */
+	public void clearCaches() {
+		mXMap.clear();
 
-    mXNormMap.clear();
-  }
+		mXNormMap.clear();
+	}
 }

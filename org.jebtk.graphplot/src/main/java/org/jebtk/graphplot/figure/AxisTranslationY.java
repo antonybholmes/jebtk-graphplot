@@ -25,29 +25,29 @@ package org.jebtk.graphplot.figure;
  */
 public abstract class AxisTranslationY extends AxisTranslation {
 
-  /**
-   * Instantiates a new axis translation y.
-   *
-   * @param axis the axis
-   */
-  public AxisTranslationY(Axes axes, Axis axis) {
-    super(axes, axis);
-  }
+	/**
+	 * Instantiates a new axis translation y.
+	 *
+	 * @param axis the axis
+	 */
+	public AxisTranslationY(Axes axes, Axis axis) {
+		super(axes, axis);
+	}
 
-  @Override
-  public int getPixels() {
-    return getAxes().getInternalSize().getH();
-  }
+	@Override
+	public int getPixels() {
+		return getAxes().getInternalSize().getH();
+	}
 
-  @Override
-  public int toPlot(double x) {
-    cacheCheck();
+	@Override
+	public int toPlot(double x) {
+		cacheCheck();
 
-    if (!mXMap.containsKey(x)) {
-      // Invert y axis coordinates
-      mXMap.put(x, mXPixels - (int) Math.round(plotNormalize(x) * mXPixels));
-    }
+		if (!mXMap.containsKey(x)) {
+			// Invert y axis coordinates
+			mXMap.put(x, mXPixels - (int) Math.round(plotNormalize(x) * mXPixels));
+		}
 
-    return mXMap.get(x);
-  }
+		return mXMap.get(x);
+	}
 }

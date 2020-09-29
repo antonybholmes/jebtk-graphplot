@@ -13,31 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jebtk.graphplot.figure.properties;
-
-import java.util.EventListener;
-
-import org.jebtk.core.event.ChangeEvent;
+package org.jebtk.graphplot.figure.heatmap.legacy;
 
 /**
- * For responding to change events.
- * 
- * @author Antony Holmes
- *
+ * The class RowLabelProperties.
  */
-public interface GraphListener extends EventListener {
+public class RowLabelProps extends LabelProps {
 
-  /**
-   * Called when the graph properties change.
-   *
-   * @param e the e
-   */
-  public void graphChanged(ChangeEvent e);
+	/**
+	 * The position.
+	 */
+	public RowLabelPosition position = RowLabelPosition.RIGHT;
 
-  /**
-   * Called when the plot dimension, margins etc change.
-   *
-   * @param e the e
-   */
-  public void layoutChanged(ChangeEvent e);
+	/**
+	 * The show annotations.
+	 */
+	public AnnotationProps showAnnotations = new AnnotationProps();
+
+	/** The show features. */
+	public boolean showFeatureCounts;
 }

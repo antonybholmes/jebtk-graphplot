@@ -28,58 +28,50 @@ import org.jebtk.modern.graphics.DrawingContext;
  */
 public class RightLabelPlotLayer extends LabelPlotLayer {
 
-  /** The Constant serialVersionUID. */
-  private static final long serialVersionUID = 1L;
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
 
-  /**
-   * Instantiates a new scatter plot layer.
-   *
-   * @param name the name
-   * @param x the x
-   * @param y the y
-   */
-  public RightLabelPlotLayer(String name, double x, double y) {
-    this(name, x, y, 0, 0);
-  }
+	/**
+	 * Instantiates a new scatter plot layer.
+	 *
+	 * @param name the name
+	 * @param x    the x
+	 * @param y    the y
+	 */
+	public RightLabelPlotLayer(String name, double x, double y) {
+		this(name, x, y, 0, 0);
+	}
 
-  /**
-   * Instantiates a new right label plot layer.
-   *
-   * @param name the name
-   * @param x the x
-   * @param y the y
-   * @param offsetXPixels the offset x pixels
-   * @param offsetYPixels the offset y pixels
-   */
-  public RightLabelPlotLayer(String name, double x, double y, int offsetXPixels,
-      int offsetYPixels) {
-    super(name, x, y, offsetXPixels, offsetYPixels);
-  }
+	/**
+	 * Instantiates a new right label plot layer.
+	 *
+	 * @param name          the name
+	 * @param x             the x
+	 * @param y             the y
+	 * @param offsetXPixels the offset x pixels
+	 * @param offsetYPixels the offset y pixels
+	 */
+	public RightLabelPlotLayer(String name, double x, double y, int offsetXPixels, int offsetYPixels) {
+		super(name, x, y, offsetXPixels, offsetYPixels);
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotSeriesLayer#plotLayer(
-   * java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
-   * org.abh.lib.math.matrix.DataFrame,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries)
-   */
-  @Override
-  public void plotLayer(Graphics2D g2,
-      DrawingContext context,
-      Figure figure,
-      SubFigure subFigure,
-      Axes axes,
-      Plot plot,
-      DataFrame m) {
-    Point p = axes.toPlotX1Y1(mX, mY);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotSeriesLayer#plotLayer(
+	 * java.awt.Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
+	 * org.abh.lib.math.matrix.DataFrame,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.series.XYSeries)
+	 */
+	@Override
+	public void plotLayer(Graphics2D g2, DrawingContext context, Figure figure, SubFigure subFigure, Axes axes,
+			Plot plot, DataFrame m) {
+		Point p = axes.toPlotX1Y1(mX, mY);
 
-    g2.drawString(mLabel,
-        p.x - g2.getFontMetrics().stringWidth(mLabel) + mOffsetXPixels,
-        p.y + mOffsetYPixels);
-  }
+		g2.drawString(mLabel, p.x - g2.getFontMetrics().stringWidth(mLabel) + mOffsetXPixels, p.y + mOffsetYPixels);
+	}
 }

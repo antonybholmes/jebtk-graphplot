@@ -26,63 +26,63 @@ import org.jebtk.graphplot.plotbox.PlotBox;
  */
 public abstract class Layer extends PlotBox {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-  /**
-   * The member visible.
-   */
-  protected boolean mVisible = true;
+	/**
+	 * The member visible.
+	 */
+	protected boolean mVisible = true;
 
-  public Layer() {
+	public Layer() {
 
-  }
+	}
 
-  public Layer(String name) {
-    super(name);
-  }
+	public Layer(String name) {
+		super(name);
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.abh.common.IdProperty#getId()
-   */
-  @Override
-  public String hashId() {
-    return getName() + getId();
-  }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.abh.common.IdProperty#getId()
+	 */
+	@Override
+	public String hashId() {
+		return getName() + getId();
+	}
 
-  /**
-   * Gets the type.
-   *
-   * @return the type
-   */
-  @Override
-  public String getType() {
-    return LayerType.LAYER;
-  }
+	/**
+	 * Gets the type.
+	 *
+	 * @return the type
+	 */
+	@Override
+	public String getType() {
+		return LayerType.LAYER;
+	}
 
-  /**
-   * Checks if is visible.
-   *
-   * @return true, if is visible
-   */
-  @Override
-  public boolean getVisible() {
-    return mVisible;
-  }
+	/**
+	 * Checks if is visible.
+	 *
+	 * @return true, if is visible
+	 */
+	@Override
+	public boolean getVisible() {
+		return mVisible;
+	}
 
-  /**
-   * Sets the visible.
-   *
-   * @param visible the new visible
-   */
-  @Override
-  public void setVisible(boolean visible) {
-    mVisible = visible;
+	/**
+	 * Sets the visible.
+	 *
+	 * @param visible the new visible
+	 */
+	@Override
+	public void setVisible(boolean visible) {
+		mVisible = visible;
 
-    fireChanged();
-  }
+		fireChanged();
+	}
 }

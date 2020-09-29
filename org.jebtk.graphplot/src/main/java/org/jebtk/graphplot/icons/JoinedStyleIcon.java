@@ -17,35 +17,32 @@ package org.jebtk.graphplot.icons;
 
 import java.awt.Graphics2D;
 
+import org.jebtk.core.Props;
+
 /**
  * The class JoinedStyleIcon.
  */
 public class JoinedStyleIcon extends PeakStyleIcon {
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see edu.columbia.rdf.lib.bioinformatics.ui.plot.icons.PeakStyleIcon#
-   * drawForeground(java.awt.Graphics2D, java.awt.Rectangle)
-   */
-  @Override
-  public void drawIcon(Graphics2D g2,
-      int x,
-      int y,
-      int w,
-      int h,
-      Object... params) {
-    super.drawIcon(g2, x, y, w, h, params);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see edu.columbia.rdf.lib.bioinformatics.ui.plot.icons.PeakStyleIcon#
+	 * drawForeground(java.awt.Graphics2D, java.awt.Rectangle)
+	 */
+	@Override
+	public void drawIcon(Graphics2D g2, int x, int y, int w, int h, Props params) {
+		super.drawIcon(g2, x, y, w, h, params);
 
-    x = 5;
-    y = 5;
-    w = w - 2 * x;
-    h = h - 2 * y;
+		x = 5;
+		y = 5;
+		w = w - 2 * x;
+		h = h - 2 * y;
 
-    g2.setColor(LINE_COLOR);
+		g2.setColor(LINE_COLOR);
 
-    g2.drawLine(x, y + h, x + w / 2, y);
-    g2.drawLine(x + w / 2, y, x + w, y + h);
-  }
+		g2.drawLine(x, y + h, x + w / 2, y);
+		g2.drawLine(x + w / 2, y, x + w, y + h);
+	}
 
 }

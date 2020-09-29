@@ -18,7 +18,7 @@ package org.jebtk.graphplot.figure.series;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
-import org.jebtk.graphplot.figure.properties.StyleProperties;
+import org.jebtk.graphplot.figure.props.StyleProps;
 import org.jebtk.graphplot.icons.ShapeStyle;
 
 /**
@@ -29,47 +29,43 @@ import org.jebtk.graphplot.icons.ShapeStyle;
  */
 public class MarkerCross extends Marker {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.series.DataPointShape#
-   * render(java.awt.Graphics2D,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.properties.StyleProperties,
-   * java.awt.Point)
-   */
-  @Override
-  public void plot(Graphics2D g2, StyleProperties style, Point p) {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.series.DataPointShape#
+	 * render(java.awt.Graphics2D,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.properties.StyleProps,
+	 * java.awt.Point)
+	 */
+	@Override
+	public void plot(Graphics2D g2, StyleProps style, Point p) {
 
-    if (style.getLineStyle().getVisible()) {
+		if (style.getLineStyle().getVisible()) {
 
-      g2.setColor(style.getLineStyle().getColor());
-      g2.setStroke(style.getLineStyle().getStroke());
+			g2.setColor(style.getLineStyle().getColor());
+			g2.setStroke(style.getLineStyle().getStroke());
 
-      g2.drawLine(p.x - mHalfSize.getW() + 1,
-          p.y - mHalfSize.getW() + 1,
-          p.x + mHalfSize.getW() - 1,
-          p.y + mHalfSize.getW() - 1);
+			g2.drawLine(p.x - mHalfSize.getW() + 1, p.y - mHalfSize.getW() + 1, p.x + mHalfSize.getW() - 1,
+					p.y + mHalfSize.getW() - 1);
 
-      g2.drawLine(p.x - mHalfSize.getW() + 1,
-          p.y + mHalfSize.getW() - 1,
-          p.x + mHalfSize.getW() - 1,
-          p.y - mHalfSize.getW() + 1);
-    }
-  }
+			g2.drawLine(p.x - mHalfSize.getW() + 1, p.y + mHalfSize.getW() - 1, p.x + mHalfSize.getW() - 1,
+					p.y - mHalfSize.getW() + 1);
+		}
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.graphplot.figure.series.Marker#getType()
-   */
-  @Override
-  public ShapeStyle getType() {
-    return ShapeStyle.CROSS;
-  }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.graphplot.figure.series.Marker#getType()
+	 */
+	@Override
+	public ShapeStyle getType() {
+		return ShapeStyle.CROSS;
+	}
 
 }

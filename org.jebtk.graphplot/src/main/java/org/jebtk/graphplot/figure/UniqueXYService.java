@@ -30,75 +30,66 @@ import org.jebtk.math.matrix.DataFrame;
  */
 public class UniqueXYService {
 
-  /**
-   * The instance.
-   */
-  private static UniqueXYService INSTANCE = new UniqueXYService();
+	/**
+	 * The instance.
+	 */
+	private static UniqueXYService INSTANCE = new UniqueXYService();
 
-  /**
-   * Gets the single instance of UniqueXYService.
-   *
-   * @return single instance of UniqueXYService
-   */
-  public static UniqueXYService getInstance() {
-    return INSTANCE;
-  }
+	/**
+	 * Gets the single instance of UniqueXYService.
+	 *
+	 * @return single instance of UniqueXYService
+	 */
+	public static UniqueXYService getInstance() {
+		return INSTANCE;
+	}
 
-  /**
-   * The member unique map.
-   */
-  private Map<String, UniqueXY> mUniqueMap = new HashMap<String, UniqueXY>();
+	/**
+	 * The member unique map.
+	 */
+	private Map<String, UniqueXY> mUniqueMap = new HashMap<String, UniqueXY>();
 
-  /**
-   * Instantiates a new unique xy service.
-   */
-  private UniqueXYService() {
-    // Do nothing
-  }
+	/**
+	 * Instantiates a new unique xy service.
+	 */
+	private UniqueXYService() {
+		// Do nothing
+	}
 
-  /**
-   * Gets the.
-   *
-   * @param figure the figure
-   * @param axes the axes
-   * @param m the m
-   * @param series the series
-   * @param zeroEnds the zero ends
-   * @return the unique xy
-   */
-  public UniqueXY get(Figure figure,
-      SubFigure subFigure,
-      Axes axes,
-      DataFrame m,
-      XYSeries series,
-      boolean zeroEnds) {
-    String id = getId(figure, subFigure, axes, m, series, zeroEnds);
+	/**
+	 * Gets the.
+	 *
+	 * @param figure   the figure
+	 * @param axes     the axes
+	 * @param m        the m
+	 * @param series   the series
+	 * @param zeroEnds the zero ends
+	 * @return the unique xy
+	 */
+	public UniqueXY get(Figure figure, SubFigure subFigure, Axes axes, DataFrame m, XYSeries series, boolean zeroEnds) {
+		String id = getId(figure, subFigure, axes, m, series, zeroEnds);
 
-    if (!mUniqueMap.containsKey(id)) {
-      mUniqueMap.put(id, new UniqueXY(m, series, axes, zeroEnds));
-    }
+		if (!mUniqueMap.containsKey(id)) {
+			mUniqueMap.put(id, new UniqueXY(m, series, axes, zeroEnds));
+		}
 
-    // System.err.println("Cached unique " + id);
+		// System.err.println("Cached unique " + id);
 
-    return mUniqueMap.get(id);
-  }
+		return mUniqueMap.get(id);
+	}
 
-  /**
-   * Gets the id.
-   *
-   * @param figure the figure
-   * @param axes the axes
-   * @param m the m
-   * @param series the series
-   * @param zeroEnds the zero ends
-   * @return the id
-   */
-  private static String getId(Figure figure,
-      SubFigure subFigure,
-      Axes axes,
-      DataFrame m,
-      XYSeries series,
-      boolean zeroEnds) {
-    return m.hashCode() + Boolean.toString(zeroEnds);
-  }
+	/**
+	 * Gets the id.
+	 *
+	 * @param figure   the figure
+	 * @param axes     the axes
+	 * @param m        the m
+	 * @param series   the series
+	 * @param zeroEnds the zero ends
+	 * @return the id
+	 */
+	private static String getId(Figure figure, SubFigure subFigure, Axes axes, DataFrame m, XYSeries series,
+			boolean zeroEnds) {
+		return m.hashCode() + Boolean.toString(zeroEnds);
+	}
 }

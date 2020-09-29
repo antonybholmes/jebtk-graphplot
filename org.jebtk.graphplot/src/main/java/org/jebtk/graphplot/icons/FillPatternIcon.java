@@ -18,6 +18,7 @@ package org.jebtk.graphplot.icons;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import org.jebtk.core.Props;
 import org.jebtk.modern.graphics.icons.ModernVectorIcon;
 
 /**
@@ -25,22 +26,17 @@ import org.jebtk.modern.graphics.icons.ModernVectorIcon;
  */
 public class FillPatternIcon extends ModernVectorIcon {
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * org.abh.common.ui.ui.icons.ModernIcon#drawForeground(java.awt.Graphics2D,
-   * java.awt.Rectangle)
-   */
-  @Override
-  public void drawIcon(Graphics2D g2,
-      int x,
-      int y,
-      int w,
-      int h,
-      Object... params) {
-    g2.setColor(Color.BLACK);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.abh.common.ui.ui.icons.ModernIcon#drawForeground(java.awt.Graphics2D,
+	 * java.awt.Rectangle)
+	 */
+	@Override
+	public void drawIcon(Graphics2D g2, int x, int y, int w, int h, Props params) {
+		g2.setColor(Color.BLACK);
 
-    g2.drawRect(x, y, w - 1, h - 1);
-  }
+		g2.drawRect(x, y, w - 1, h - 1);
+	}
 }

@@ -20,26 +20,26 @@ package org.jebtk.graphplot.figure.heatmap;
  */
 public enum ColorNormalizationType {
 
-  /**
-   * The zscore matrix.
-   */
-  ZSCORE_MATRIX,
+	/**
+	 * The zscore matrix.
+	 */
+	ZSCORE_MATRIX,
 
-  /**
-   * The zscore row.
-   */
-  ZSCORE_ROW,
+	/**
+	 * The zscore row.
+	 */
+	ZSCORE_ROW,
 
-  /**
-   * The zscore column.
-   */
-  ZSCORE_COLUMN,
+	/**
+	 * The zscore column.
+	 */
+	ZSCORE_COLUMN,
 
-  /** The normalize. */
-  NORMALIZE,
+	/** The normalize. */
+	NORMALIZE,
 
-  /**
-   * The none.
-   */
-  NONE
+	/**
+	 * The none.
+	 */
+	NONE
 }

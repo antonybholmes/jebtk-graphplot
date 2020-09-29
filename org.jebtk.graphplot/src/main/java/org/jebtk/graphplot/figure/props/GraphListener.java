@@ -13,42 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jebtk.graphplot.figure.properties;
+package org.jebtk.graphplot.figure.props;
+
+import java.util.EventListener;
 
 import org.jebtk.core.event.ChangeEvent;
 
 /**
- * For classes that generate ChangeEvents.
- *
+ * For responding to change events.
+ * 
  * @author Antony Holmes
+ *
  */
-public interface GraphEventProducer {
+public interface GraphListener extends EventListener {
 
-  /**
-   * Add a change listener.
-   *
-   * @param l the l
-   */
-  public void addGraphListener(GraphListener l);
+	/**
+	 * Called when the graph Props change.
+	 *
+	 * @param e the e
+	 */
+	public void graphChanged(ChangeEvent e);
 
-  /**
-   * Remove a change listener.
-   *
-   * @param l the l
-   */
-  public void removeGraphListener(GraphListener l);
-
-  /**
-   * Fire to all listeners that a change has occurred.
-   *
-   * @param e the e
-   */
-  public void fireGraphChanged(ChangeEvent e);
-
-  /**
-   * Fire layout changed.
-   *
-   * @param e the e
-   */
-  public void fireLayoutChanged(ChangeEvent e);
+	/**
+	 * Called when the plot dimension, margins etc change.
+	 *
+	 * @param e the e
+	 */
+	public void layoutChanged(ChangeEvent e);
 }

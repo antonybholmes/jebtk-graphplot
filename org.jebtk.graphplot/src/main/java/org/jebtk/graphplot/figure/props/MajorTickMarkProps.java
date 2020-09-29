@@ -13,23 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jebtk.graphplot.figure.heatmap.legacy;
+package org.jebtk.graphplot.figure.props;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * The class RowLabelProperties.
+ * The class MajorTickMarkProperties.
  */
-public class RowLabelProperties extends LabelProperties {
+public class MajorTickMarkProps extends TickMarkProps {
 
-  /**
-   * The position.
-   */
-  public RowLabelPosition position = RowLabelPosition.RIGHT;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-  /**
-   * The show annotations.
-   */
-  public AnnotationProperties showAnnotations = new AnnotationProperties();
+	/**
+	 * Instantiates a new major tick mark properties.
+	 */
+	public MajorTickMarkProps() {
+		List<Double> ticks = new ArrayList<Double>();
 
-  /** The show features. */
-  public boolean showFeatureCounts;
+		ticks.add(0.0);
+		ticks.add(1.0);
+
+		setTicks(ticks);
+	}
+
 }

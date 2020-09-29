@@ -19,7 +19,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.GeneralPath;
 
-import org.jebtk.graphplot.figure.properties.StyleProperties;
+import org.jebtk.graphplot.figure.props.StyleProps;
 import org.jebtk.graphplot.icons.ShapeStyle;
 
 /**
@@ -30,85 +30,85 @@ import org.jebtk.graphplot.icons.ShapeStyle;
  */
 public class MarkerTriangle extends Marker {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-  /** The m path. */
-  private GeneralPath mPath;
+	/** The m path. */
+	private GeneralPath mPath;
 
-  /**
-   * Instantiates a new marker triangle.
-   */
-  public MarkerTriangle() {
-    update();
-  }
+	/**
+	 * Instantiates a new marker triangle.
+	 */
+	public MarkerTriangle() {
+		update();
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.abh.common.event.ChangeListeners#fireChanged()
-   */
-  @Override
-  public void fireChanged() {
-    update();
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.abh.common.event.ChangeListeners#fireChanged()
+	 */
+	@Override
+	public void fireChanged() {
+		update();
 
-    super.fireChanged();
+		super.fireChanged();
 
-  }
+	}
 
-  /**
-   * Update.
-   */
-  private void update() {
-    int h = (int) (Math.sin(Math.PI / 3) * mDim.getW());
-    int h2 = h / 2;
+	/**
+	 * Update.
+	 */
+	private void update() {
+		int h = (int) (Math.sin(Math.PI / 3) * mDim.getW());
+		int h2 = h / 2;
 
-    mPath = new GeneralPath();
+		mPath = new GeneralPath();
 
-    mPath.moveTo(-mHalfSize.getW() + 1, h2);
-    mPath.lineTo(0, -h2);
-    mPath.lineTo(mHalfSize.getW() - 1, h2);
-    mPath.closePath();
-  }
+		mPath.moveTo(-mHalfSize.getW() + 1, h2);
+		mPath.lineTo(0, -h2);
+		mPath.lineTo(mHalfSize.getW() - 1, h2);
+		mPath.closePath();
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.series.DataPointShape#
-   * render(java.awt.Graphics2D,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.properties.StyleProperties,
-   * java.awt.Point)
-   */
-  @Override
-  public void plot(Graphics2D g2, StyleProperties style, Point p) {
-    Graphics2D g2Temp = (Graphics2D) g2.create();
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see edu.columbia.rdf.lib.bioinformatics.plot.figure.series.DataPointShape#
+	 * render(java.awt.Graphics2D,
+	 * edu.columbia.rdf.lib.bioinformatics.plot.figure.properties.StyleProps,
+	 * java.awt.Point)
+	 */
+	@Override
+	public void plot(Graphics2D g2, StyleProps style, Point p) {
+		Graphics2D g2Temp = (Graphics2D) g2.create();
 
-    g2Temp.translate(p.x, p.y);
+		g2Temp.translate(p.x, p.y);
 
-    if (style.getFillStyle().getVisible()) {
-      g2Temp.setColor(style.getFillStyle().getColor());
-      g2Temp.fill(mPath);
-    }
+		if (style.getFillStyle().getVisible()) {
+			g2Temp.setColor(style.getFillStyle().getColor());
+			g2Temp.fill(mPath);
+		}
 
-    if (style.getLineStyle().getVisible()) {
-      g2Temp.setStroke(style.getLineStyle().getStroke());
-      g2Temp.setColor(style.getLineStyle().getColor());
-      g2Temp.draw(mPath);
-    }
+		if (style.getLineStyle().getVisible()) {
+			g2Temp.setStroke(style.getLineStyle().getStroke());
+			g2Temp.setColor(style.getLineStyle().getColor());
+			g2Temp.draw(mPath);
+		}
 
-    g2Temp.dispose();
-  }
+		g2Temp.dispose();
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.graphplot.figure.series.Marker#getType()
-   */
-  @Override
-  public ShapeStyle getType() {
-    return ShapeStyle.TRIANGLE;
-  }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.graphplot.figure.series.Marker#getType()
+	 */
+	@Override
+	public ShapeStyle getType() {
+		return ShapeStyle.TRIANGLE;
+	}
 
 }

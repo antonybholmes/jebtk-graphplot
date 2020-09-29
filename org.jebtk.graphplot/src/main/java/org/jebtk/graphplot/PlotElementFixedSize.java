@@ -27,21 +27,21 @@ import org.jebtk.core.geom.IntDim;
  */
 public class PlotElementFixedSize extends PlotElement {
 
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
-  private IntDim mSize;
+	/**
+	 * The constant serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+	private IntDim mSize;
 
-  public PlotElementFixedSize(String name, IntDim size) {
-    super(name);
+	public PlotElementFixedSize(String name, IntDim size) {
+		super(name);
 
-    mSize = size;
-  }
+		mSize = size;
+	}
 
-  @Override
-  public void plotSize(Dimension d) {
-    d.width += mSize.getW();
-    d.height += mSize.getH();
-  }
+	@Override
+	public void plotSize(Dimension d) {
+		d.width += mSize.getW();
+		d.height += mSize.getH();
+	}
 }

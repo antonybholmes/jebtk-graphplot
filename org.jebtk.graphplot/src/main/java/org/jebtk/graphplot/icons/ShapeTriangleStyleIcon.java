@@ -22,10 +22,10 @@ import org.jebtk.graphplot.figure.series.MarkerTriangle;
  */
 public class ShapeTriangleStyleIcon extends ShapeStyleIcon {
 
-  /**
-   * Instantiates a new shape triangle style icon.
-   */
-  public ShapeTriangleStyleIcon() {
-    super(new MarkerTriangle());
-  }
+	/**
+	 * Instantiates a new shape triangle style icon.
+	 */
+	public ShapeTriangleStyleIcon() {
+		super(new MarkerTriangle());
+	}
 }

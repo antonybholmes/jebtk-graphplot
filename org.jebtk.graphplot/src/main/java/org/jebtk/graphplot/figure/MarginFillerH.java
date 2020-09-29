@@ -20,15 +20,15 @@ package org.jebtk.graphplot.figure;
  */
 public class MarginFillerH extends MarginFiller {
 
-  /** The Constant serialVersionUID. */
-  private static final long serialVersionUID = 1L;
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
 
-  /**
-   * Instantiates a new margin filler h.
-   *
-   * @param w the w
-   */
-  public MarginFillerH(int w) {
-    super(w, 0);
-  }
+	/**
+	 * Instantiates a new margin filler h.
+	 *
+	 * @param w the w
+	 */
+	public MarginFillerH(int w) {
+		super(w, 0);
+	}
 }

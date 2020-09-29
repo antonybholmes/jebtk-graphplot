@@ -18,6 +18,7 @@ package org.jebtk.graphplot.plotbox;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
+import org.jebtk.core.Props;
 import org.jebtk.modern.graphics.DrawingContext;
 import org.jebtk.modern.graphics.ImageUtils;
 
@@ -26,92 +27,88 @@ import org.jebtk.modern.graphics.ImageUtils;
  */
 public class PlotBoxGridLayout extends PlotBoxLayout {
 
-  private int[] mWidths;
+	private int[] mWidths;
 
-  private int[] mHeights;
+	private int[] mHeights;
 
-  public PlotBoxGridLayout(int rows, int columns) {
-    mWidths = new int[columns];
-    mHeights = new int[rows];
-  }
+	public PlotBoxGridLayout(int rows, int columns) {
+		mWidths = new int[columns];
+		mHeights = new int[rows];
+	}
 
-  /**
-   * Gets the plot size recursive.
-   *
-   * @param plotBox the plot box
-   * @param dim the dim
-   * @return the plot size recursive
-   */
-  @Override
-  public void plotSize(PlotBox plot, Dimension dim) {
+	/**
+	 * Gets the plot size recursive.
+	 *
+	 * @param plotBox the plot box
+	 * @param dim     the dim
+	 * @return the plot size recursive
+	 */
+	@Override
+	public void plotSize(PlotBox plot, Dimension dim) {
 
-    for (int i = 0; i < mHeights.length; ++i) {
-      mHeights[i] = 0;
+		for (int i = 0; i < mHeights.length; ++i) {
+			mHeights[i] = 0;
 
-      for (int j = 0; j < mWidths.length; ++j) {
-        PlotBox child = plot.getChild(i, j);
+			for (int j = 0; j < mWidths.length; ++j) {
+				PlotBox child = plot.getChild(i, j);
 
-        if (child != null) {
-          Dimension d = new Dimension(0, 0);
+				if (child != null) {
+					Dimension d = new Dimension(0, 0);
 
-          child.plotSize(d);
+					child.plotSize(d);
 
-          mHeights[i] = Math.max(mHeights[i], d.height);
-          mWidths[j] = Math.max(mWidths[j], d.width);
-        }
-      }
-    }
+					mHeights[i] = Math.max(mHeights[i], d.height);
+					mWidths[j] = Math.max(mWidths[j], d.width);
+				}
+			}
+		}
 
-    for (int i = 0; i < mWidths.length; ++i) {
-      dim.width += mWidths[i];
-    }
+		for (int i = 0; i < mWidths.length; ++i) {
+			dim.width += mWidths[i];
+		}
 
-    for (int i = 0; i < mHeights.length; ++i) {
-      dim.height += mHeights[i];
-    }
-  }
+		for (int i = 0; i < mHeights.length; ++i) {
+			dim.height += mHeights[i];
+		}
+	}
 
-  /**
-   * Draw recursive.
-   *
-   * @param g2 the g2
-   * @param plotBox the plot box
-   * @param offset the offset
-   * @param context the context
-   */
-  @Override
-  public void plot(Graphics2D g2,
-      PlotBox plot,
-      Dimension offset,
-      DrawingContext context,
-      Object... params) {
+	/**
+	 * Draw recursive.
+	 *
+	 * @param g2      the g2
+	 * @param plotBox the plot box
+	 * @param offset  the offset
+	 * @param context the context
+	 */
+	@Override
+	public void plot(Graphics2D g2, PlotBox plot, Dimension offset, DrawingContext context, Props params) {
 
-    super.plot(g2, plot, offset, context, params);
+		super.plot(g2, plot, offset, context, params);
 
-    Graphics2D g2Temp = ImageUtils.clone(g2);
+		Graphics2D g2Temp = ImageUtils.clone(g2);
 
-    try {
-      for (int i = 0; i < mHeights.length; ++i) {
-        Graphics2D g2Temp2 = ImageUtils.clone(g2Temp);
+		try {
+			for (int i = 0; i < mHeights.length; ++i) {
+				Graphics2D g2Temp2 = ImageUtils.clone(g2Temp);
 
-        try {
-          for (int j = 0; j < mWidths.length; ++j) {
-            PlotBox child = plot.getChild(i, j);
+				try {
+					for (int j = 0; j < mWidths.length; ++j) {
+						PlotBox child = plot.getChild(i, j);
 
-            if (child != null) {
-              child.plot(g2Temp2, new Dimension(0, 0), context, params);
-            }
+						if (child != null) {
+							child.plot(g2Temp2, new Dimension(0, 0), context, params);
+						}
 
-            g2Temp2.translate(mWidths[j], 0);
-          }
-        } finally {
-          g2Temp2.dispose();
-        }
+						g2Temp2.translate(mWidths[j], 0);
+					}
+				} finally {
+					g2Temp2.dispose();
+				}
 
-        g2Temp.translate(0, mHeights[i]);
-      }
-    } finally {
-      g2Temp.dispose();
-    }
-  }
+				g2Temp.translate(0, mHeights[i]);
+			}
+		} finally {
+			g2Temp.dispose();
+		}
+	}
 }

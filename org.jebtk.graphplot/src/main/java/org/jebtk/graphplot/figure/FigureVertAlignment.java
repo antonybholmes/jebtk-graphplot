@@ -20,9 +20,9 @@ package org.jebtk.graphplot.figure;
  */
 public enum FigureVertAlignment {
 
-  /** The top. */
-  TOP,
+	/** The top. */
+	TOP,
 
-  /** The bottom. */
-  BOTTOM
+	/** The bottom. */
+	BOTTOM
 }

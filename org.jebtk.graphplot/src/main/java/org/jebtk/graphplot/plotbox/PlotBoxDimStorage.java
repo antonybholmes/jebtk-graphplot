@@ -26,92 +26,77 @@ import org.jebtk.core.collections.CollectionUtils;
  * The class PlotBox.
  */
 public class PlotBoxDimStorage extends PlotBoxStorage {
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  /**
-   * The member children.
-   */
-  private List<PlotBox> mChildren = new ArrayList<PlotBox>(100);
+	/**
+	 * The member children.
+	 */
+	private List<PlotBox> mChildren = new ArrayList<PlotBox>(100);
 
+	public void addChildren(Collection<PlotBox> plotBoxes) {
+		for (PlotBox b : plotBoxes) {
+			add(b);
+		}
+	}
 
-  public void addChildren(Collection<PlotBox> plotBoxes) {
-    for (PlotBox b : plotBoxes) {
-      add(b);
-    }
-  }
+	/**
+	 * Adds the child.
+	 *
+	 * @param plotBox the plot box
+	 */
+	@Override
+	public void add(PlotBox plot) {
+		mChildren.add(plot);
 
-  /**
-   * Adds the child.
-   *
-   * @param plotBox the plot box
-   */
-  @Override
-  public void add(PlotBox plot, Object... params) {
-    mChildren.add(plot);
+		super.add(plot);
+	}
 
-    super.add(plot, params);
-  }
+	/**
+	 * Gets the child.
+	 *
+	 * @param index the index
+	 * @return the child
+	 */
+	@Override
+	public PlotBox get(int index) {
+		if (CollectionUtils.inBounds(index, mChildren)) {
+			return mChildren.get(index);
+		} else {
+			return null;
+		}
+	}
 
-  /**
-   * Gets the child.
-   *
-   * @param index the index
-   * @return the child
-   */
-  @Override
-  public PlotBox get(Object param, Object... params) {
-    int i = 0;
+	@Override
+	public boolean remove(PlotBox plot) {
+		mChildren.remove(plot);
 
-    if (param instanceof Integer) {
-      i = (int) param;
-    } else {
-      i = 0;
-    }
+		return true;
+	}
 
-    return getChild(i);
-  }
+	@Override
+	public boolean remove(int index) {
+		mChildren.remove(index);
+		
+		return true;
+	}
 
-  public PlotBox getChild(int index) {
-    if (CollectionUtils.inBounds(index, mChildren)) {
-      return mChildren.get(index);
-    } else {
-      return null;
-    }
-  }
+	/**
+	 * Remove all plot children.
+	 */
+	@Override
+	public void clear() {
+		mChildren.clear();
 
-  @Override
-  public boolean remove(PlotBox plot) {
-    mChildren.remove(plot);
+		super.clear();
+	}
 
-    return true;
-  }
+	@Override
+	public Iterator<PlotBox> iterator() {
+		return mChildren.iterator();
+	}
 
-  @Override
-  public boolean remove(Object param, Object... params) {
-    if (param instanceof Integer) {
-      mChildren.remove((int) param);
-    }
-
-    return true;
-  }
-
-  /**
-   * Remove all plot children.
-   */
-  @Override
-  public void clear() {
-    mChildren.clear();
-
-    super.clear();
-  }
-
-  @Override
-  public Iterator<PlotBox> iterator() {
-    return mChildren.iterator();
-  }
-
-  @Override
-  public int getChildCount() {
-    return mChildren.size();
-  }
+	@Override
+	public int getChildCount() {
+		return mChildren.size();
+	}
 }
