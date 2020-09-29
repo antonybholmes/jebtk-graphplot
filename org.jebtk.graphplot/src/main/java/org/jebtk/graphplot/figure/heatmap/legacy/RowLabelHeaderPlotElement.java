@@ -59,7 +59,6 @@ public class RowLabelHeaderPlotElement extends MatrixPlotElement {
 		mHeight = (int) mBlockSize.getH();
 	}
 
-<<<<<<< HEAD
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -69,33 +68,13 @@ public class RowLabelHeaderPlotElement extends MatrixPlotElement {
 	@Override
 	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Props params) {
 		g2.setColor(Color.BLACK);
-=======
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.
-   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
-   */
-  @Override
-  public void plot(Graphics2D g2,
-      Dimension offset,
-      DrawingContext context,
-      Props props) {
-    g2.setColor(Color.BLACK);
->>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 
 		int y = (mHeight + g2.getFontMetrics().getAscent() - g2.getFontMetrics().getDescent()) / 2;
 
 		g2.drawString(getName(), 0, y);
 
-<<<<<<< HEAD
 		super.plot(g2, offset, context, params);
 	}
-=======
-    super.plot(g2, offset, context, props);
-  }
->>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 
 	@Override
 	public void plotSize(Dimension d) {

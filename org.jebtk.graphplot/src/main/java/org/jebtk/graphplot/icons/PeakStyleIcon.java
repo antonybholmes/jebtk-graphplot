@@ -33,7 +33,6 @@ public class PeakStyleIcon extends ModernVectorIcon {
 	 */
 	protected static final Color LINE_COLOR = ThemeService.getInstance().getColors().getTheme(4);
 
-<<<<<<< HEAD
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -45,24 +44,6 @@ public class PeakStyleIcon extends ModernVectorIcon {
 	public void drawIcon(Graphics2D g2, int x, int y, int w, int h, Props params) {
 		g2.setColor(Color.WHITE);
 		g2.fillRect(x, y, w, h);
-=======
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * org.abh.common.ui.ui.icons.ModernIcon#drawForeground(java.awt.Graphics2D,
-   * java.awt.Rectangle)
-   */
-  @Override
-  public void drawIcon(Graphics2D g2,
-      int x,
-      int y,
-      int w,
-      int h,
-      Props props) {
-    g2.setColor(Color.WHITE);
-    g2.fillRect(x, y, w, h);
->>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 
 		g2.setColor(ModernWidget.LINE_COLOR);
 		g2.drawRect(x, y, w - 1, h - 1);

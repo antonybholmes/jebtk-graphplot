@@ -31,7 +31,6 @@ import org.jebtk.modern.graphics.DrawingContext;
  */
 public class BottomColumnLabelPlotElement extends ColumnMatrixPlotElement {
 
-<<<<<<< HEAD
 	/**
 	 * The constant serialVersionUID.
 	 */
@@ -110,89 +109,4 @@ public class BottomColumnLabelPlotElement extends ColumnMatrixPlotElement {
 			x += mBlockSize.getW();
 		}
 	}
-=======
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
-
-  /**
-   * The member color.
-   */
-  private Color mColor;
-
-  /**
-   * Instantiates a new bottom column label plot element.
-   *
-   * @param matrix the matrix
-   * @param aspectRatio the aspect ratio
-   */
-  public BottomColumnLabelPlotElement(DataFrame matrix, DoubleDim aspectRatio) {
-    this(matrix, aspectRatio, Color.BLACK, 10, 50);
-  }
-
-  /**
-   * Instantiates a new bottom column label plot element.
-   *
-   * @param matrix the matrix
-   * @param aspectRatio the aspect ratio
-   * @param color the color
-   * @param charWidth the char width
-   * @param maxChars the max chars
-   */
-  public BottomColumnLabelPlotElement(DataFrame matrix, DoubleDim aspectRatio,
-      Color color, int charWidth, int maxChars) {
-    super(matrix, aspectRatio,
-        charWidth * TextUtils.maxLength(matrix.getColumnNames()));
-
-    mColor = color;
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.
-   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
-   */
-  @Override
-  public void plot(Graphics2D g2,
-      Dimension offset,
-      DrawingContext context,
-      Props props) {
-    drawLabels(g2);
-
-    super.plot(g2, offset, context, props);
-  }
-
-  /**
-   * Draw labels.
-   *
-   * @param g2 the g2
-   */
-  private void drawLabels(Graphics2D g2) {
-    g2.setColor(mColor);
-
-    int xd = (int) ((mBlockSize.getW() - ModernWidget.getStringHeight(g2)) / 2);
-
-    int x = xd;
-
-    for (int i = 0; i < mMatrix.getCols(); ++i) {
-
-      Graphics2D g2Temp = (Graphics2D) g2.create();
-
-      try {
-        g2Temp.translate(x, 0);
-        g2Temp.rotate(Math.PI / 2.0);
-        // g2Temp.translate(0, xd);
-
-        g2Temp.drawString(mMatrix.getColumnName(i), 0, 0);
-      } finally {
-        g2Temp.dispose();
-      }
-
-      x += mBlockSize.getW();
-    }
-  }
->>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 }

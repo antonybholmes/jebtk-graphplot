@@ -27,7 +27,6 @@ import org.jebtk.modern.graphics.ImageUtils;
  */
 public class PlotBoxRowLayout extends PlotBoxLayout {
 
-<<<<<<< HEAD
 	@Override
 	public void plotSize(PlotBox plotBox, Dimension dim) {
 		int width = 0;
@@ -79,62 +78,4 @@ public class PlotBoxRowLayout extends PlotBoxLayout {
 
 		super.plot(g2, plot, offset, context, params);
 	}
-=======
-  @Override
-  public void plotSize(PlotBox plotBox, Dimension dim) {
-    int width = 0;
-    int height = 0;
-
-    Dimension tmpDim = new Dimension(0, 0);
-
-    for (PlotBox child : plotBox) {
-      tmpDim.width = 0;
-      tmpDim.height = 0;
-
-      child.plotSize(tmpDim);
-
-      width = Math.max(width, tmpDim.width);
-
-      height += tmpDim.height;
-    }
-
-    dim.width += width;
-    dim.height += height;
-  }
-
-  /**
-   * Draw recursive.
-   *
-   * @param g2 the g2
-   * @param plot the plot box
-   * @param offset the offset
-   * @param context the context
-   */
-  @Override
-  public void plot(Graphics2D g2,
-      PlotBox plot,
-      Dimension offset,
-      DrawingContext context,
-      Props props) {
-    Graphics2D g2Temp = ImageUtils.clone(g2);
-
-    Dimension tempOffset = new Dimension(0, 0);
-
-
-    try {
-      for (PlotBox child : plot) {
-        tempOffset.width = 0;
-        tempOffset.height = 0;
-
-        child.plot(g2Temp, tempOffset, context, props);
-
-        g2Temp.translate(0, tempOffset.height);
-      }
-    } finally {
-      g2Temp.dispose();
-    }
-
-    super.plot(g2, plot, offset, context, props);
-  }
->>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 }

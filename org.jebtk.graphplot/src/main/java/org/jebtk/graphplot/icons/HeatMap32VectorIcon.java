@@ -46,7 +46,6 @@ public class HeatMap32VectorIcon extends ModernVectorIcon {
 	 */
 	public static final Color COLOR_2 = ColorUtils.decodeHtmlColor("#87de87");// ColorUtils.decodeHtmlColor("#ffd5d5");
 
-<<<<<<< HEAD
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -58,24 +57,6 @@ public class HeatMap32VectorIcon extends ModernVectorIcon {
 	public void drawIcon(Graphics2D g2, int x, int y, int w, int h, Props params) {
 		int x1 = x + 4;
 		int y1 = y + 4;
-=======
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * org.abh.common.ui.ui.icons.ModernIcon#drawForeground(java.awt.Graphics2D,
-   * java.awt.Rectangle)
-   */
-  @Override
-  public void drawIcon(Graphics2D g2,
-      int x,
-      int y,
-      int w,
-      int h,
-      Props props) {
-    int x1 = x + 4;
-    int y1 = y + 4;
->>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 
 		g2.setColor(ModernWidget.BACKGROUND_COLOR);
 

@@ -25,7 +25,6 @@ import org.jebtk.modern.graphics.DrawingContext;
  * The class PlotBox.
  */
 public abstract class PlotBoxLayout {
-<<<<<<< HEAD
 	public Dimension getPreferredSize(PlotBox plotBox) {
 		Dimension dim = new Dimension(0, 0);
 
@@ -58,46 +57,5 @@ public abstract class PlotBoxLayout {
 	public void plot(Graphics2D g2, PlotBox plotBox, Dimension offset, DrawingContext context, Props params) {
 		plotSize(plotBox, offset);
 	}
-=======
-  public Dimension getPreferredSize(PlotBox plotBox) {
-    Dimension dim = new Dimension(0, 0);
-
-    plotSize(plotBox, dim);
-
-    return dim;
-  }
-
-  /**
-   * Calculates the size of the plot based on the layout of its children.
-   *
-   * @param plotBox   the plot box
-   * @param dim       the dim
-   * @return the plot size recursive
-   */
-  public abstract void plotSize(PlotBox plotBox, Dimension dim);
-
-  public final void plot(Graphics2D g2,
-      PlotBox plot,
-      DrawingContext context,
-      Props props) {
-    plot(g2, plot, new Dimension(0, 0), context, props);
-  }
-
-  /**
-   * Draw recursive.
-   *
-   * @param g2 the g2
-   * @param plotBox the plot box
-   * @param offset the offset
-   * @param context the context
-   */
-  public void plot(Graphics2D g2,
-      PlotBox plotBox,
-      Dimension offset,
-      DrawingContext context,
-      Props props) {
-    plotSize(plotBox, offset);
-  }
->>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 
 }

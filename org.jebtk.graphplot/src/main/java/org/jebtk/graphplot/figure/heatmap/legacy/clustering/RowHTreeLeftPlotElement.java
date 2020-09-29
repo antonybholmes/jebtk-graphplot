@@ -38,7 +38,6 @@ import org.jebtk.modern.graphics.DrawingContext;
  */
 public class RowHTreeLeftPlotElement extends RowMatrixPlotElement {
 
-<<<<<<< HEAD
 	/**
 	 * The constant serialVersionUID.
 	 */
@@ -70,56 +69,6 @@ public class RowHTreeLeftPlotElement extends RowMatrixPlotElement {
 		mColor = color;
 		mRootCluster = rootCluster;
 	}
-=======
-  /**
-   * The constant serialVersionUID.
-   */
-  private static final long serialVersionUID = 1L;
-
-  /**
-   * The member root cluster.
-   */
-  protected Cluster mRootCluster;
-
-  /**
-   * The member color.
-   */
-  protected Color mColor;
-
-  /**
-   * Instantiates a new row hierarchical tree plot element.
-   *
-   * @param matrix the matrix
-   * @param width the width
-   * @param aspectRatio the aspect ratio
-   * @param rootCluster the root cluster
-   * @param color the color
-   */
-  public RowHTreeLeftPlotElement(DataFrame matrix, int width,
-      DoubleDim aspectRatio, Cluster rootCluster, Color color) {
-    super(matrix, aspectRatio, width);
-
-    mColor = color;
-    mRootCluster = rootCluster;
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.
-   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
-   */
-  @Override
-  public void plot(Graphics2D g2,
-      Dimension offset,
-      DrawingContext context,
-      Props props) {
-    drawTree(g2);
-
-    super.plot(g2, offset, context, props);
-  }
->>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 
 	/*
 	 * (non-Javadoc)

@@ -55,7 +55,6 @@ public class PlotBoxColumnLayout extends PlotBoxLayout {
 		dim.height += height;
 	}
 
-<<<<<<< HEAD
 	/**
 	 * Draw recursive.
 	 *
@@ -67,23 +66,6 @@ public class PlotBoxColumnLayout extends PlotBoxLayout {
 	@Override
 	public void plot(Graphics2D g2, PlotBox plot, Dimension offset, DrawingContext context, Props params) {
 		Graphics2D g2Temp = ImageUtils.clone(g2);
-=======
-  /**
-   * Draw recursive.
-   *
-   * @param g2 the g2
-   * @param plot the plot box
-   * @param offset the offset
-   * @param context the context
-   */
-  @Override
-  public void plot(Graphics2D g2,
-      PlotBox plot,
-      Dimension offset,
-      DrawingContext context,
-      Props props) {
-    Graphics2D g2Temp = ImageUtils.clone(g2);
->>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 
 		Dimension tempOffset = new Dimension(0, 0);
 
@@ -92,11 +74,7 @@ public class PlotBoxColumnLayout extends PlotBoxLayout {
 				tempOffset.width = 0;
 				tempOffset.height = 0;
 
-<<<<<<< HEAD
 				child.plot(g2Temp, tempOffset, context, params);
-=======
-        child.plot(g2Temp, tempOffset, context, props);
->>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 
 				g2Temp.translate(tempOffset.width, 0);
 			}
@@ -104,11 +82,6 @@ public class PlotBoxColumnLayout extends PlotBoxLayout {
 			g2Temp.dispose();
 		}
 
-<<<<<<< HEAD
 		super.plot(g2, plot, offset, context, params);
 	}
-=======
-    super.plot(g2, plot, offset, context, props);
-  }
->>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 }

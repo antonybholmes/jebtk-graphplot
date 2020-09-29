@@ -28,21 +28,9 @@ public class PlotBoxZStorage extends PlotBoxStorage {
 
 	private static final long serialVersionUID = 1L;
 
-<<<<<<< HEAD
 	private Map<Integer, PlotBox> mMap = new TreeMap<Integer, PlotBox>();
 
 	private int mUnused = 0;
-=======
-  @Override
-  public void add(PlotBox plot, Object p) {
-    int z = 0;
-
-    if (p != null) {
-      z = (int) p;
-    } else {
-      z = getUnusedZ();
-    }
->>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 
 	@Override
 	public void add(PlotBox plot) {
@@ -61,15 +49,8 @@ public class PlotBoxZStorage extends PlotBoxStorage {
 		// unused z
 		mUnused = z + 1;
 
-<<<<<<< HEAD
 		super.add(plot);
 	}
-=======
-  @Override
-  public PlotBox get(Object p) {
-    return mMap.get((int)p);
-  }
->>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 
 	@Override
 	public PlotBox get(int z) {
@@ -122,20 +103,13 @@ public class PlotBoxZStorage extends PlotBoxStorage {
 			remove(z);
 		}
 
-<<<<<<< HEAD
 		return true;
 	}
-=======
-  @Override
-  public boolean remove(Object p) {
-    remove((int)p);
->>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 
 	@Override
 	public boolean remove(int z) {
 		mMap.remove(z);
 
-<<<<<<< HEAD
 		return true;
 	}
 
@@ -148,9 +122,4 @@ public class PlotBoxZStorage extends PlotBoxStorage {
 
 		return z;
 	}
-=======
-  public void remove(int i) {
-    mMap.remove(i);
-  }
->>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 }

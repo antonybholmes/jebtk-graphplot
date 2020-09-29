@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.jebtk.core.Props;
 import org.jebtk.core.geom.GeomUtils;
 import org.jebtk.core.geom.IntPos2D;
 
@@ -28,7 +27,6 @@ import org.jebtk.core.geom.IntPos2D;
  */
 public class PlotBoxFloatingStorage extends PlotBoxStorage {
 
-<<<<<<< HEAD
 	private static final long serialVersionUID = 1L;
 
 	private Map<IntPos2D, PlotBox> mMap = new HashMap<IntPos2D, PlotBox>();
@@ -115,93 +113,4 @@ public class PlotBoxFloatingStorage extends PlotBoxStorage {
 //
 //		return l;
 //	}
-=======
-  private static final long serialVersionUID = 1L;
-
-  private Map<IntPos2D, PlotBox> mMap = new HashMap<IntPos2D, PlotBox>();
-
-  @Override
-  public void add(PlotBox plot, Object p) {
-    add(plot, parseLocation(p));
-  }
-
-  public void add(PlotBox plot, IntPos2D p) {
-    mMap.put(p, plot);
-
-    super.add(plot);
-  }
-
-  @Override
-  public PlotBox get(Object p) {
-    return getChild(parseLocation(p));
-  }
-
-  public PlotBox getChild(IntPos2D p) {
-    return mMap.get(p);
-  }
-
-  @Override
-  public Iterator<PlotBox> iterator() {
-    return mMap.values().iterator();
-  }
-
-  @Override
-  public Iterable<IntPos2D> getPositions() {
-    return mMap.keySet();
-  }
-
-  @Override
-  public int getChildCount() {
-    return mMap.size();
-  }
-
-  @Override
-  public void clear() {
-    mMap.clear();
-
-    super.clear();
-  }
-
-  @Override
-  public boolean remove(PlotBox plot) {
-    IntPos2D rl = GeomUtils.INT_POINT_ZERO;
-
-    boolean found = false;
-
-    for (IntPos2D l : mMap.keySet()) {
-      if (mMap.get(l).equals(plot)) {
-        rl = l;
-        found = true;
-        break;
-      }
-    }
-
-    if (found) {
-      remove(rl);
-    }
-
-    return true;
-  }
-
-  @Override
-  public boolean remove(Object p) {
-    remove(parseLocation(p));
-
-    return true;
-  }
-
-  public void remove(IntPos2D l) {
-    mMap.remove(l);
-  }
-
-  private static IntPos2D parseLocation(Object p) {
-    IntPos2D l = GeomUtils.INT_POINT_ZERO;
-
-    if (p != null) {
-      l = (IntPos2D) p;
-    }
-
-    return l;
-  }
->>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 }

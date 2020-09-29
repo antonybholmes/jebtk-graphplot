@@ -58,7 +58,6 @@ public class RowHierarchicalTreeLayer extends HierarchicalTreeLayer {
 		d.width = mWidth;
 	}
 
-<<<<<<< HEAD
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -72,26 +71,6 @@ public class RowHierarchicalTreeLayer extends HierarchicalTreeLayer {
 	@Override
 	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Props params) {
 		Axes axes = (Axes) params.get("axes");
-=======
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.PlotLayer#plot(java.awt.
-   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Figure,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Axes,
-   * edu.columbia.rdf.lib.bioinformatics.plot.figure.Plot,
-   * org.abh.lib.math.matrix.DataFrame)
-   */
-  @Override
-  public void plot(Graphics2D g2,
-      Dimension offset,
-      DrawingContext context,
-      Props props) {
-    SubFigure subFigure = (SubFigure) props.get("subfigure");
-    Axes axes = (Axes) props.get("axes");
->>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 
 		g2.setColor(mColor);
 

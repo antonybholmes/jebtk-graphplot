@@ -90,7 +90,6 @@ public abstract class ModernPlotCanvas extends ZoomCanvas {
 		try {
 			g2Temp.setFont(getFont());
 
-<<<<<<< HEAD
 			plot(g2Temp, context, null);
 		} finally {
 			g2Temp.dispose();
@@ -104,21 +103,4 @@ public abstract class ModernPlotCanvas extends ZoomCanvas {
 	 * @param context the context
 	 */
 	public abstract void plot(Graphics2D g2, DrawingContext context, Props params);
-=======
-      plot(g2Temp, context, new Props());
-    } finally {
-      g2Temp.dispose();
-    }
-  }
-
-  /**
-   * Plot.
-   *
-   * @param g2 the g2
-   * @param context the context
-   */
-  public abstract void plot(Graphics2D g2,
-      DrawingContext context,
-      Props props);
->>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 }
