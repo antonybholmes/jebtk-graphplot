@@ -30,6 +30,7 @@ import org.jebtk.modern.graphics.DrawingContext;
  *
  * @author Antony Holmes
  */
+<<<<<<< HEAD
 public class UpDownDiffExpBracketsRightPlotElement extends RowMatrixPlotElement {
 
 	/**
@@ -88,4 +89,70 @@ public class UpDownDiffExpBracketsRightPlotElement extends RowMatrixPlotElement 
 
 		super.plot(g2, offset, context, params);
 	}
+=======
+public class UpDownDiffExpBracketsRightPlotElement
+    extends RowMatrixPlotElement {
+
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
+
+  /**
+   * The up.
+   */
+  private int up = 0;
+
+  /**
+   * Instantiates a new up down diff exp brackets right plot element.
+   *
+   * @param matrix the matrix
+   * @param width the width
+   * @param aspectRatio the aspect ratio
+   */
+  public UpDownDiffExpBracketsRightPlotElement(DataFrame matrix, int width,
+      DoubleDim aspectRatio) {
+    super(matrix, aspectRatio, width);
+
+    double[] zscores = matrix.getIndex().getValues("Z-score");
+
+    for (double zscore : zscores) {
+      if (zscore >= 0) {
+        ++up;
+      }
+    }
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.
+   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
+   */
+  @Override
+  public void plot(Graphics2D g2,
+      Dimension offset,
+      DrawingContext context,
+      Props props) {
+    g2.setColor(Color.BLACK);
+
+    int y = 0;
+    int w = getPreferredSize().width;
+
+    g2.drawLine(0, y, w, y);
+
+    y = (int) (up * mBlockSize.getH());
+
+    g2.drawLine(0, y, w, y);
+
+    y = (int) (mMatrix.getRows() * mBlockSize.getH());
+
+    g2.drawLine(0, y, w, y);
+
+    g2.drawLine(w, 0, w, y);
+
+    super.plot(g2, offset, context, props);
+  }
+>>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 }

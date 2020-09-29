@@ -40,6 +40,7 @@ public class Legend32VectorIcon extends ModernVectorIcon {
 	 */
 	private static final int SIZE = 7;
 
+<<<<<<< HEAD
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -51,6 +52,24 @@ public class Legend32VectorIcon extends ModernVectorIcon {
 	public void drawIcon(Graphics2D g2, int x, int y, int w, int h, Props params) {
 		x = x + (w - WIDTH) / 2;
 		y = y + (h - WIDTH) / 2;
+=======
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * org.abh.common.ui.ui.icons.ModernIcon#drawForeground(java.awt.Graphics2D,
+   * java.awt.Rectangle)
+   */
+  @Override
+  public void drawIcon(Graphics2D g2,
+      int x,
+      int y,
+      int w,
+      int h,
+      Props props) {
+    x = x + (w - WIDTH) / 2;
+    y = y + (h - WIDTH) / 2;
+>>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 
 		g2.setColor(ColorUtils.decodeHtmlColor("#ff5555"));
 		g2.fillRect(x, y, SIZE, SIZE);

@@ -33,6 +33,7 @@ import org.jebtk.modern.graphics.DrawingContext;
  */
 public class GroupColorBarPlotElement extends ColumnMatrixPlotElement {
 
+<<<<<<< HEAD
 	/**
 	 * The constant serialVersionUID.
 	 */
@@ -137,4 +138,115 @@ public class GroupColorBarPlotElement extends ColumnMatrixPlotElement {
 			x += w;
 		}
 	}
+=======
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
+
+  /** The Constant HEIGHT. */
+  private static final int HEIGHT = SettingsService.getInstance()
+      .getInt("graphplot.plot.group.block-size");
+
+  /**
+   * The max rows.
+   */
+  private int mMaxRows;
+
+  /**
+   * The group map.
+   */
+  private Map<Integer, XYSeriesGroup> mGroupMap;
+
+  /**
+   * The member properties.
+   */
+  private GroupProperties mProperties;
+
+  /** The m gap. */
+  private int mGap;
+
+  /**
+   * Instantiates a new group color bar plot element.
+   *
+   * @param matrix the matrix
+   * @param aspectRatio the aspect ratio
+   * @param groups the groups
+   * @param properties the properties
+   */
+  public GroupColorBarPlotElement(DataFrame matrix, DoubleDim aspectRatio,
+      XYSeriesGroup groups, GroupProperties properties) {
+    super(matrix, aspectRatio, -1);
+
+    mProperties = properties;
+
+    mMaxRows = 0;
+
+    mGroupMap = XYSeriesGroup.arrangeGroupsByIndex(matrix, groups);
+
+    for (int key : mGroupMap.keySet()) {
+      mMaxRows = Math.max(mGroupMap.get(key).getCount(), mMaxRows);
+    }
+
+    mGap = 0; // mBlockSize.getH() / 2;
+
+    setHeight(HEIGHT * mMaxRows + mGap * (mMaxRows - 1));
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.
+   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
+   */
+  @Override
+  public void plot(Graphics2D g2,
+      Dimension offset,
+      DrawingContext context,
+      Props props) {
+    drawGroups(g2);
+
+    super.plot(g2, offset, context, props);
+  }
+
+  /**
+   * Draw groups.
+   *
+   * @param g2 the g2
+   */
+  private void drawGroups(Graphics2D g2) {
+    int x = 0;
+    int y = 0;
+    int w = mBlockSize.w;
+    int h = HEIGHT + mGap;
+
+    for (int column = 0; column < mMatrix.getCols(); ++column) {
+      y = 0;
+
+      for (int r = 0; r < mMaxRows; ++r) {
+        if (!mGroupMap.containsKey(column)) {
+          break;
+        }
+
+        if (r == mGroupMap.get(column).getCount()) {
+          break;
+        }
+
+        g2.setColor(mGroupMap.get(column).get(r).getColor());
+
+        g2.fillRect(x, y, w, HEIGHT);
+
+        if (mProperties.showGrid) {
+          g2.setColor(mProperties.gridColor);
+          g2.drawRect(x, y, w, HEIGHT);
+        }
+
+        y += h;
+      }
+
+      x += w;
+    }
+  }
+>>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 }

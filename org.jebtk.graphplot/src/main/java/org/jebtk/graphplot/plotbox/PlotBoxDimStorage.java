@@ -20,12 +20,14 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import org.jebtk.core.Props;
 import org.jebtk.core.collections.CollectionUtils;
 
 /**
  * The class PlotBox.
  */
 public class PlotBoxDimStorage extends PlotBoxStorage {
+<<<<<<< HEAD
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -99,4 +101,84 @@ public class PlotBoxDimStorage extends PlotBoxStorage {
 	public int getChildCount() {
 		return mChildren.size();
 	}
+=======
+  private static final long serialVersionUID = 1L;
+
+  /**
+   * The member children.
+   */
+  private List<PlotBox> mChildren = new ArrayList<PlotBox>(100);
+
+
+  public void addChildren(Collection<PlotBox> plotBoxes) {
+    for (PlotBox b : plotBoxes) {
+      add(b);
+    }
+  }
+
+  /**
+   * Adds the child.
+   *
+   * @param plotBox the plot box
+   */
+  @Override
+  public void add(PlotBox plot, Object p) {
+    mChildren.add(plot);
+
+    super.add(plot, p);
+  }
+
+  /**
+   * Gets the child.
+   *
+   * @param index the index
+   * @return the child
+   */
+  @Override
+  public PlotBox get(Object p) {
+    return getChild((int)p);
+  }
+
+  public PlotBox getChild(int index) {
+    if (CollectionUtils.inBounds(index, mChildren)) {
+      return mChildren.get(index);
+    } else {
+      return null;
+    }
+  }
+
+  @Override
+  public boolean remove(PlotBox plot) {
+    mChildren.remove(plot);
+
+    return true;
+  }
+
+  @Override
+  public boolean remove(Object p) {
+    mChildren.remove((int)p);
+
+    return true;
+  }
+
+  /**
+   * Remove all plot children.
+   */
+  @Override
+  public void clear() {
+    mChildren.clear();
+
+    super.clear();
+  }
+
+  @Override
+  public Iterator<PlotBox> iterator() {
+    return mChildren.iterator();
+  }
+
+  @Override
+  public int getChildCount() {
+    return mChildren.size();
+  }
+>>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 }

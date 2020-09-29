@@ -24,6 +24,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.jebtk.core.Props;
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
 import org.jebtk.core.event.ChangeListeners;
@@ -228,8 +229,160 @@ public abstract class PlotBoxStorage extends ChangeListeners implements Iterable
 		}
 	}
 
+<<<<<<< HEAD
 	@Override
 	public void changed(ChangeEvent e) {
 		fireChanged();
 	}
+=======
+  public void add(PlotBox plot) {
+    add(plot, null);
+  }
+  
+  public void add(PlotBox plot, Object p) {
+    plot.addChangeListener(this);
+
+    mIdMap.put(plot.getId(), plot);
+    mNameMap.put(plot.getName(), plot);
+
+    fireChanged();
+  }
+
+  public abstract PlotBox get(Object p);
+
+  public boolean remove(PlotBox plot) {
+    return false;
+  }
+
+  public boolean remove(Object p) {
+    return false;
+  }
+
+  public PlotBox getByName(String name) {
+    return mNameMap.get(name);
+  }
+
+  /**
+   * Return a plot with a given id.
+   * 
+   * @param id
+   * @return
+   */
+  public PlotBox getById(int id) {
+    return mIdMap.get(id);
+  }
+
+  public int getChildCount() {
+    return 0;
+  }
+
+  public Iterable<String> getNames() {
+    return mNameMap.keySet();
+  }
+
+  /**
+   * Returns the next available z layer.
+   * 
+   * @return
+   */
+  public int getUnusedZ() {
+    return Integer.MIN_VALUE;
+  }
+
+  public Iterable<Integer> getZ() {
+    return SINGLE_Z_LAYER;
+  }
+
+  public Iterable<IntPos2D> getPositions() {
+    return EMPTY_POSITIONS;
+  }
+
+  @Override
+  public Iterator<PlotBox> iterator() {
+    return PlotBox.NO_CHILDREN.iterator();
+  }
+
+  /**
+   * Find a plotBox in the graph by name.
+   * 
+   * @param name
+   * @return
+   */
+  public PlotBox findByName(String name) {
+    String ls = name.toLowerCase();
+
+    PlotBox ret = null;
+
+    Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
+
+    for (PlotBox c : this) {
+      stack.push(c);
+    }
+
+    while (!stack.isEmpty()) {
+      PlotBox p = stack.pop();
+
+      if (p.getName().toLowerCase().contains(ls)) {
+        ret = p;
+        break;
+      }
+
+      for (PlotBox c : p) {
+        stack.push(c);
+      }
+    }
+
+    return ret;
+  }
+
+  public PlotBox findByType(String type) {
+    String ls = type.toLowerCase();
+
+    PlotBox ret = null;
+
+    Deque<PlotBox> stack = new ArrayDeque<PlotBox>(100);
+
+    for (PlotBox c : this) {
+      stack.push(c);
+    }
+
+    while (!stack.isEmpty()) {
+      PlotBox p = stack.pop();
+
+      if (p.getType().toLowerCase().contains(ls)) {
+        ret = p;
+        break;
+      }
+
+      for (PlotBox c : p) {
+        stack.push(c);
+      }
+    }
+
+    return ret;
+  }
+
+  public void clear() {
+    mNameMap.clear();
+
+    fireChanged();
+  }
+
+  public void removeByName(String name) {
+    remove(mNameMap.get(name));
+  }
+
+  public <T extends PlotBox> void setChildren(Collection<T> plots) {
+    clear();
+
+    for (PlotBox c : plots) {
+      add(c);
+    }
+  }
+
+  @Override
+  public void changed(ChangeEvent e) {
+    fireChanged();
+  }
+>>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 }

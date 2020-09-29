@@ -32,6 +32,7 @@ import org.jebtk.modern.graphics.DrawingContext;
  */
 public class UpDownDiffExpPlotElement extends RowMatrixPlotElement {
 
+<<<<<<< HEAD
 	/**
 	 * The constant serialVersionUID.
 	 */
@@ -109,4 +110,88 @@ public class UpDownDiffExpPlotElement extends RowMatrixPlotElement {
 
 		super.plot(g2, offset, context, params);
 	}
+=======
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
+
+  /**
+   * The color.
+   */
+  private Color mColor;
+
+  /**
+   * The up.
+   */
+  private int up = 0;
+
+  /**
+   * The down.
+   */
+  private int down = 0;
+
+  /**
+   * Instantiates a new up down diff exp plot element.
+   *
+   * @param matrix the matrix
+   * @param width the width
+   * @param aspectRatio the aspect ratio
+   * @param color the color
+   */
+  public UpDownDiffExpPlotElement(DataFrame matrix, int width,
+      DoubleDim aspectRatio, Color color) {
+    super(matrix, aspectRatio, width);
+
+    mColor = color;
+
+    double[] zscores = matrix.getIndex().getValues("Z-score");
+
+    for (double zscore : zscores) {
+      if (zscore >= 0) {
+        ++up;
+      } else {
+        ++down;
+      }
+    }
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.
+   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
+   */
+  @Override
+  public void plot(Graphics2D g2,
+      Dimension offset,
+      DrawingContext context,
+      Props props) {
+    g2.setColor(mColor);
+
+    int y;
+
+    if (up > 0) {
+      y = (int) ((up * mBlockSize.getH() + g2.getFontMetrics().getAscent()
+          - g2.getFontMetrics().getDescent()) / 2);
+
+      String t = Integer.toString(up) + " up";
+
+      g2.drawString(t, 0, y);
+    }
+
+    if (down > 0) {
+      y = (int) (up * mBlockSize.getH()
+          + (down * mBlockSize.getH() + g2.getFontMetrics().getAscent()
+              - g2.getFontMetrics().getDescent()) / 2);
+
+      String t = Integer.toString(down) + " down";
+
+      g2.drawString(t, 0, y);
+    }
+
+    super.plot(g2, offset, context, props);
+  }
+>>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 }

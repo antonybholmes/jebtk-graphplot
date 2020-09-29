@@ -24,6 +24,7 @@ import org.jebtk.core.Props;
  */
 public class BarsStyleIcon extends PeakStyleIcon {
 
+<<<<<<< HEAD
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -49,5 +50,37 @@ public class BarsStyleIcon extends PeakStyleIcon {
 		g2.fillRect(x + 2 * bw, y2 - h / 2, bw, h / 2);
 		g2.fillRect(x + 3 * bw, y2 - h * 3 / 4, bw, h * 3 / 4);
 	}
+=======
+  /*
+   * (non-Javadoc)
+   * 
+   * @see edu.columbia.rdf.lib.bioinformatics.ui.plot.icons.PeakStyleIcon#
+   * drawForeground(java.awt.Graphics2D, java.awt.Rectangle)
+   */
+  @Override
+  public void drawIcon(Graphics2D g2,
+      int x,
+      int y,
+      int w,
+      int h,
+      Props props) {
+    super.drawIcon(g2, x, y, w, h, props);
+
+    x = 5;
+    y = 5;
+    w = w - 2 * x;
+    h = h - 2 * y;
+    int y2 = y + h;
+
+    int bw = w / 4;
+
+    g2.setColor(LINE_COLOR);
+
+    g2.fillRect(x, y2 - 5, bw, 5);
+    g2.fillRect(x + bw, y2 - h, bw, h);
+    g2.fillRect(x + 2 * bw, y2 - h / 2, bw, h / 2);
+    g2.fillRect(x + 3 * bw, y2 - h * 3 / 4, bw, h * 3 / 4);
+  }
+>>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 
 }

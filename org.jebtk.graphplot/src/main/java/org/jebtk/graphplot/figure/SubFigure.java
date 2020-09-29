@@ -37,6 +37,7 @@ import org.jebtk.modern.graphics.DrawingContext;
  */
 public class SubFigure extends PlotBoxGraph { // LayoutLayer
 
+<<<<<<< HEAD
 	/**
 	 * The constant serialVersionUID.
 	 */
@@ -303,4 +304,288 @@ public class SubFigure extends PlotBoxGraph { // LayoutLayer
 	public static SubFigure createSubFigure(String name) {
 		return new SubFigure(name);
 	}
+=======
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
+
+  private IntId mNextSubFigureId = new IntId();
+
+  /** The m next axes id. */
+  private IntId mNextAxesId = new IntId();
+
+  private IntId mNextPlotId = new IntId();
+
+  /** The m vert alignment. */
+  private FigureVertAlignment mVertAlignment = FigureVertAlignment.TOP;
+
+  private Axes mCurrentAxes;
+
+  private SubFigure mCurrentSubFigure;
+
+  private static final StringId NEXT_ID = new StringId("Sub Figure");
+
+  public SubFigure() {
+    this(NEXT_ID.getNextId());
+  }
+
+  /**
+   * Instantiates a new sub figure.
+   *
+   * @param id the id
+   */
+  public SubFigure(String id) {
+    super(id, new PlotBoxCompassGridStorage(), new PlotBoxCompassGridLayout());
+  }
+
+  @Override
+  protected boolean cacheCurrent(PlotBox plot) {
+    if (plot instanceof SubFigure) {
+      mCurrentSubFigure = (SubFigure) plot;
+      return true;
+    } else if (plot instanceof Axes) {
+      mCurrentAxes = (Axes) plot;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public Axes newAxes() {
+    return newAxes(GridLocation.CENTER);
+  }
+  
+  /**
+   * Return a new axes object with the compass grid layout enabled.
+   * 
+   * @return
+   */
+  public Axes newGridAxes() {
+    Axes ret = newAxes();
+    ret.setLayout(new PlotBoxCompassGridLayout());
+    ret.setStorage(new PlotBoxCompassGridStorage());
+    
+    return ret;
+  }
+
+  /**
+   * New axes.
+   *
+   * @param l the l
+   * @return the axes
+   */
+  public Axes newAxes(GridLocation l) {
+    return newAxes(createId(LayerType.AXES, mNextAxesId.getNextId()), l);
+  }
+
+  public Axes newAxes(String name, GridLocation l) {
+    mCurrentAxes = new Axes(name);
+
+    addChild(mCurrentAxes, l);
+
+    return mCurrentAxes;
+  }
+
+  public Axes getAxes(String name) {
+    return getAxes(name, GridLocation.CENTER);
+  }
+
+  public Axes getAxes(String name, GridLocation l) {
+    PlotBox c = getChild(l);
+
+    if (c == null || !(c instanceof Axes) || !checkName(name, c)) {
+      c = newAxes(l);
+    }
+
+    return (Axes) c;
+  }
+
+  public Axes getAxes(int id) {
+    return getAxes(id, GridLocation.CENTER);
+  }
+
+  public Axes getAxes(int id, GridLocation l) {
+    PlotBox c = getChild(l);
+
+    if (c == null || !(c instanceof Axes) || c.getId() != id) {
+      c = newAxes(l);
+    }
+
+    return (Axes) c;
+  }
+
+  public Axes currentAxes() {
+    return currentAxes(GridLocation.CENTER);
+  }
+
+  public Axes currentAxes(GridLocation l) {
+    if (mCurrentAxes == null) {
+      newAxes(l);
+    }
+
+    return mCurrentAxes;
+  }
+
+  /**
+   * New sub figure.
+   *
+   * @return the sub figure
+   */
+  public SubFigure newSubFigure() {
+    return newSubFigure(GridLocation.CENTER);
+  }
+
+  /**
+   * New sub figure.
+   *
+   * @param l the l
+   * @return the sub figure
+   */
+  public SubFigure newSubFigure(GridLocation l) {
+    mCurrentSubFigure = new SubFigure(
+        createId(LayerType.SUBFIGURE, mNextSubFigureId.getNextId()));
+
+    addChild(mCurrentSubFigure, l);
+
+    return mCurrentSubFigure;
+  }
+
+  private void addChild(PlotBox f, GridLocation l) {
+    addChild(f, new Props().set("location", l));
+  }
+
+  public SubFigure currentSubFigure() {
+    return currentSubFigure(GridLocation.CENTER);
+  }
+
+  public SubFigure currentSubFigure(GridLocation l) {
+    if (mCurrentSubFigure == null) {
+      newSubFigure(l);
+    }
+
+    return mCurrentSubFigure;
+  }
+
+  public Plot newPlot() {
+    return newPlot(GridLocation.CENTER);
+  }
+
+  public Plot newPlot(GridLocation l) {
+    Plot plot = new Plot(createId(LayerType.PLOT, mNextPlotId.getNextId()));
+
+    addChild(plot);
+
+    return plot;
+  }
+
+  public void addPlot(Plot plot) {
+    addPlot(plot, GridLocation.CENTER);
+  }
+
+  public void addPlot(Plot plot, GridLocation l) {
+    addChild(plot, l);
+  }
+
+  // public void addChild(Axes axes, GridLocation l) {
+  // addChild(axes, l);
+  // }
+
+  private void addChild(Plot plot, GridLocation l) {
+    addChild(plot, new Props().set("location", l));
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.graphplot.figure.MovableLayer#getType()
+   */
+  @Override
+  public String getType() {
+    return LayerType.SUBFIGURE;
+  }
+
+  /**
+   * Gets the sub figure.
+   *
+   * @param id the id
+   * @return the sub figure
+   */
+  public SubFigure getSubFigure(int id) {
+    return getSubFigure(id, GridLocation.CENTER);
+  }
+
+  /**
+   * Gets the sub figure.
+   *
+   * @param id the id
+   * @param l the l
+   * @return the sub figure
+   */
+  public SubFigure getSubFigure(int id, GridLocation l) {
+    PlotBox c = getChild(l);
+
+    if (c == null || !(c instanceof SubFigure) || c.getId() != id) {
+      c = newSubFigure(l);
+    }
+
+    return (SubFigure) c;
+  }
+
+  /**
+   * Sets the vert alignment.
+   *
+   * @param alignment the new vert alignment
+   */
+  public void setVertAlignment(FigureVertAlignment alignment) {
+    mVertAlignment = alignment;
+
+    fireChanged();
+  }
+
+  /**
+   * Gets the vert alignment.
+   *
+   * @return the vert alignment
+   */
+  public FigureVertAlignment getVertAlignment() {
+    return mVertAlignment;
+  }
+
+  public Iterable<Axes> getAllAxes() {
+    return Stream.of(this).reduce(new ListReduceFunction<PlotBox, Axes>() {
+
+      @Override
+      public void apply(PlotBox plot, List<Axes> values) {
+        if (plot instanceof Axes) {
+          values.add((Axes) plot);
+        }
+      }
+    });
+  }
+
+  @Override
+  public void plot(Graphics2D g2,
+      Dimension offset,
+      DrawingContext context,
+      Props props) {
+    //Figure figure = (Figure) props[0];
+    
+    props.set("subfigure", this);
+
+    super.plot(g2, offset, context, props); //figure, this);
+  }
+
+  public static String createSubFigureId(int id) {
+    return createId(LayerType.SUBFIGURE, id);
+  }
+
+  public static SubFigure createSubFigure() {
+    return createSubFigure(NEXT_ID.getNextId());
+  }
+
+  public static SubFigure createSubFigure(String name) {
+    return new SubFigure(name);
+  }
+>>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 }

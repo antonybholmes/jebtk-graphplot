@@ -35,6 +35,7 @@ import org.jebtk.modern.graphics.DrawingContext;
  */
 public class ColumnHierarchicalTreeLayer extends HierarchicalTreeLayer {
 
+<<<<<<< HEAD
 	/**
 	 * The constant serialVersionUID.
 	 */
@@ -224,4 +225,208 @@ public class ColumnHierarchicalTreeLayer extends HierarchicalTreeLayer {
 	 * 
 	 * x += w; } }
 	 */
+=======
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
+
+  /**
+   * The max rows.
+   */
+  protected int mMaxRows = -1;
+
+  /**
+   * The member group map.
+   */
+  protected Map<Integer, XYSeriesGroup> mGroupMap = null;
+
+  private int mWidth;
+
+  /**
+   * Instantiates a new column hierarchical tree layer.
+   *
+   * @param rootCluster the root cluster
+   * @param color the color
+   */
+  public ColumnHierarchicalTreeLayer(Cluster rootCluster, Color color,
+      int width) {
+    super(rootCluster, color);
+
+    mWidth = width;
+  }
+
+  @Override
+  public String getType() {
+    return "Column Tree Layer";
+  }
+
+  @Override
+  public void plotSize(Dimension d) {
+    d.height += mWidth;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.subFigure.PlotLayer#plot(java.awt.
+   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext,
+   * edu.columbia.rdf.lib.bioinformatics.plot.subFigure.Figure,
+   * edu.columbia.rdf.lib.bioinformatics.plot.subFigure.Axes,
+   * edu.columbia.rdf.lib.bioinformatics.plot.subFigure.Plot,
+   * org.abh.lib.math.matrix.DataFrame)
+   */
+  @Override
+  public void plot(Graphics2D g2,
+      Dimension offset,
+      DrawingContext context,
+      Props props) {
+    Figure figure = (Figure) props.get("figure");
+    SubFigure subFigure = (SubFigure) props.get("subfigure");
+    Axes axes = (Axes) props.get("axes");
+    Plot plot = (Plot) props.get("plot");
+
+    DataFrame m = null;
+
+    if (props.contains("dataframe")) {
+      m = (DataFrame) props.get("dataframe");
+    } else {
+      m = plot.getMatrix();
+    }
+
+    if (m == null) {
+      return;
+    }
+
+    maxRows(plot, m);
+
+    /*
+     * plotColorBars(g2, context, axes, plot, m);
+     */
+
+    plotTree(g2, context, figure, subFigure, axes, plot, m);
+
+    offset.height += mWidth;
+  }
+
+  /**
+   * Plot tree.
+   *
+   * @param g2 the g 2
+   * @param context the context
+   * @param subFigure the subFigure
+   * @param axes the axes
+   * @param plot the plot
+   * @param m the m
+   */
+  public void plotTree(Graphics2D g2,
+      DrawingContext context,
+      Figure figure,
+      SubFigure subFigure,
+      Axes axes,
+      Plot plot,
+      DataFrame m) {
+
+    g2.setColor(mColor);
+
+    int w = axes.toPlotX1(1) - axes.toPlotX1(0);
+
+    int h = plot.getPreferredSize().height - GAP
+        - mMaxRows * GroupColorBarLayer.HEIGHT - GROUP_GAP;
+
+    int x1;
+    int x2;
+    int y1;
+    int y2;
+    double s1;
+    double s2;
+
+    int offset = w / 2; // axes.getMargins().getLeft();
+
+    // process all the parents
+    for (Cluster cluster : mParents) {
+      // a pair
+      // Cluster cluster = parentStack.pop();
+      Cluster c1 = cluster.getChild1();
+      Cluster c2 = cluster.getChild2();
+
+      x1 = (int) (mClusterOffsetMap.get(c1) * w + offset);
+      x2 = (int) (mClusterOffsetMap.get(c2) * w + offset);
+
+      // now do some drawing
+
+      s1 = mClusterDistMap.get(cluster);
+
+      y1 = h - (int) (s1 * h);
+
+      // horizontal line
+      g2.drawLine(x1, y1, x2, y1);
+
+      // vertical lines
+
+      s2 = mClusterDistMap.get(c1);
+
+      y2 = h - (int) (s2 * h) - 1;
+
+      g2.drawLine(x1, y1, x1, y2);
+
+      s2 = mClusterDistMap.get(c2);
+
+      y2 = h - (int) (s2 * h) - 1;
+
+      g2.drawLine(x2, y1, x2, y2);
+    }
+  }
+
+  /**
+   * Max rows.
+   *
+   * @param plot the plot
+   * @param m the m
+   */
+  public void maxRows(Plot plot, DataFrame m) {
+    if (mGroupMap == null) {
+      mGroupMap = XYSeriesGroup
+          .arrangeGroupsByCluster(m, plot.getAllSeries(), mRootCluster);
+
+      for (int key : mGroupMap.keySet()) {
+        mMaxRows = Math.max(mGroupMap.get(key).getCount(), mMaxRows);
+      }
+    }
+  }
+
+  /*
+   * public void plotColorBars(Graphics2D g2, DrawingContext context, Axes axes,
+   * Plot plot, DataFrame m) {
+   * 
+   * int w = axes.toPlotX1(1) - axes.toPlotX1(0);
+   * 
+   * int x = w / 2;//axes.getMargins().getLeft(); int y = 0;
+   * 
+   * 
+   * 
+   * int yoffset = plot.getInternalPlotSize().getH() - GroupColorBarLayer.HEIGHT
+   * * mMaxRows - GAP;
+   * 
+   * for (int column = 0; column < m.getColumnCount(); ++column) { y = yoffset;
+   * 
+   * for (int r = 0; r < mMaxRows; ++r) { if (!mGroupMap.containsKey(column)) {
+   * break; }
+   * 
+   * if (r == mGroupMap.get(column).getCount()) { // If there are not enough
+   * groups in this // index, go onto the next index. break; }
+   * 
+   * g2.setColor(mGroupMap.get(column).get(r).getColor());
+   * 
+   * g2.fillRect(x, y, w, GroupColorBarLayer.HEIGHT);
+   * 
+   * //if (mProperties.showGrid) { // g2.setColor(mProperties.gridColor); //
+   * g2.drawRect(x, y, w, h2); //}
+   * 
+   * y += GroupColorBarLayer.HEIGHT; }
+   * 
+   * x += w; } }
+   */
+>>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 }

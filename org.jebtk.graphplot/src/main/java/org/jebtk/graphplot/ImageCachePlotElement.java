@@ -66,6 +66,7 @@ public class ImageCachePlotElement extends PlotElement {
 
 		Graphics2D g2 = (Graphics2D) mBi.getGraphics();
 
+<<<<<<< HEAD
 		mElement.plot(g2, DrawingContext.UI, new Props());
 	}
 
@@ -79,6 +80,25 @@ public class ImageCachePlotElement extends PlotElement {
 	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Props params) {
 		g2.drawImage(mBi, 0, 0, null);
 	}
+=======
+    mElement.plot(g2, DrawingContext.UI, null);
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.
+   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
+   */
+  @Override
+  public void plot(Graphics2D g2,
+      Dimension offset,
+      DrawingContext context,
+      Props props) {
+    g2.drawImage(bi, 0, 0, null);
+  }
+>>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 
 	@Override
 	public void plotSize(Dimension d) {

@@ -26,6 +26,7 @@ import org.jebtk.core.Props;
  */
 public class JoinedSmoothStyleIcon extends PeakStyleIcon {
 
+<<<<<<< HEAD
 	/**
 	 * The constant FILL_COLOR.
 	 */
@@ -49,5 +50,36 @@ public class JoinedSmoothStyleIcon extends PeakStyleIcon {
 		g2.setColor(LINE_COLOR);
 		g2.drawArc(x, y, w, h, 0, 180);
 	}
+=======
+  /**
+   * The constant FILL_COLOR.
+   */
+  protected static final Color FILL_COLOR = ColorUtils
+      .getTransparentColor60(LINE_COLOR);
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see edu.columbia.rdf.lib.bioinformatics.ui.plot.icons.PeakStyleIcon#
+   * drawForeground(java.awt.Graphics2D, java.awt.Rectangle)
+   */
+  @Override
+  public void drawIcon(Graphics2D g2,
+      int x,
+      int y,
+      int w,
+      int h,
+      Props props) {
+    super.drawIcon(g2, x, y, w, h, props);
+
+    x = 5;
+    y = 5;
+    w = w - 2 * x;
+    h = 2 * (h - 2 * y);
+
+    g2.setColor(LINE_COLOR);
+    g2.drawArc(x, y, w, h, 0, 180);
+  }
+>>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 
 }

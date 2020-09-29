@@ -59,6 +59,7 @@ public class CountBracketRightPlotElement extends RowMatrixPlotElement {
 		mCountGroups = countGroups;
 	}
 
+<<<<<<< HEAD
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -68,6 +69,21 @@ public class CountBracketRightPlotElement extends RowMatrixPlotElement {
 	@Override
 	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Props params) {
 		g2.setColor(mColor);
+=======
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.
+   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
+   */
+  @Override
+  public void plot(Graphics2D g2,
+      Dimension offset,
+      DrawingContext context,
+      Props props) {
+    g2.setColor(mColor);
+>>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 
 		int y1 = 0;
 		int y2;
@@ -85,6 +101,11 @@ public class CountBracketRightPlotElement extends RowMatrixPlotElement {
 			g2.drawLine(0, y2, w, y2);
 		}
 
+<<<<<<< HEAD
 		super.plot(g2, offset, context, params);
 	}
+=======
+    super.plot(g2, offset, context, props);
+  }
+>>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 }

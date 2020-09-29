@@ -33,6 +33,7 @@ import org.jebtk.modern.graphics.DrawingContext;
  */
 public class RowGroupColorBarPlotElement extends RowMatrixPlotElement {
 
+<<<<<<< HEAD
 	/**
 	 * The constant serialVersionUID.
 	 */
@@ -87,4 +88,65 @@ public class RowGroupColorBarPlotElement extends RowMatrixPlotElement {
 
 		super.plot(g2, offset, context, params);
 	}
+=======
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
+  
+  private static final int WIDTH = SettingsService.getInstance()
+      .getInt("graphplot.plot.group.block-size");
+
+  /**
+   * The member map.
+   */
+  private Map<Integer, XYSeriesGroup> mMap;
+
+  /**
+   * Instantiates a new row group color bar plot element.
+   *
+   * @param m the m
+   * @param groups the groups
+   * @param width the width
+   * @param aspectRatio the aspect ratio
+   */
+  public RowGroupColorBarPlotElement(DataFrame matrix, DoubleDim aspectRatio,
+      XYSeriesGroup groups, GroupProperties properties) {
+    super(matrix, aspectRatio, WIDTH);
+
+    mMap = XYSeriesGroup.arrangeGroupsByIndex(matrix, groups);
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.
+   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
+   */
+  @Override
+  public void plot(Graphics2D g2,
+      Dimension offset,
+      DrawingContext context,
+      Props props) {
+    int x = 0;
+    int y = 0;
+
+    for (int i : mMap.keySet()) {
+      System.err.println("row g " + i + " " + mMap.get(i));
+      
+      XYSeriesGroup groups = mMap.get(i);
+
+      y = i * mBlockSize.getH();
+
+      g2.setColor(groups.get(0).getColor());
+
+      g2.fillRect(x, y, getPreferredSize().width, mBlockSize.getH());
+
+      // y += blockSize.height;
+    }
+
+    super.plot(g2, offset, context, props);
+  }
+>>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 }

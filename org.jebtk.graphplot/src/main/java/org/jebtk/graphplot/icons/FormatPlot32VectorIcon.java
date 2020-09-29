@@ -26,6 +26,7 @@ import org.jebtk.modern.graphics.icons.RightPane32VectorIcon;
  */
 public class FormatPlot32VectorIcon extends RightPane32VectorIcon {
 
+<<<<<<< HEAD
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -36,6 +37,23 @@ public class FormatPlot32VectorIcon extends RightPane32VectorIcon {
 	@Override
 	public void drawIcon(Graphics2D g2, int x, int y, int w, int h, Props params) {
 		super.drawIcon(g2, x, y, w, h, params);
+=======
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * org.abh.common.ui.ui.icons.RightPane32VectorIcon#drawForeground(java.awt.
+   * Graphics2D, java.awt.Rectangle)
+   */
+  @Override
+  public void drawIcon(Graphics2D g2,
+      int x,
+      int y,
+      int w,
+      int h,
+      Props props) {
+    super.drawIcon(g2, x, y, w, h, props);
+>>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 
 		x = x + (w - WIDTH) / 2 + WIDTH - PANE_WIDTH + 2;
 		y = y + (h - HEIGHT) / 2 + BAR_HEIGHT + 2;

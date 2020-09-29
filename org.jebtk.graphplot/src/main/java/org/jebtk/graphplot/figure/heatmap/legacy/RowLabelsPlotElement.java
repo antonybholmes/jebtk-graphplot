@@ -65,6 +65,7 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
 	/** The m labels. */
 	private String[][] mLabels;
 
+<<<<<<< HEAD
 	/** The m widths. */
 	private int[] mWidths;
 
@@ -274,6 +275,230 @@ public class RowLabelsPlotElement extends RowMatrixPlotElement {
 	@Override
 	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Props params) {
 		drawLabels(g2);
+=======
+  /** The m widths. */
+  private int[] mWidths;
+
+  /** The m char width. */
+  private int mCharWidth;
+
+  /** The m titles. */
+  private String[] mTitles;
+
+  /** The Constant FIELD_GAP. */
+  // Pixel gap between fields
+  private static final int FIELD_GAP = SettingsService.getInstance()
+      .getInt("graphplot.plot.field-gap");
+
+  /**
+   * Instantiates a new row labels plot element.
+   *
+   * @param matrix the matrix
+   * @param properties the properties
+   * @param aspectRatio the aspect ratio
+   * @param charWidth the char width
+   */
+  public RowLabelsPlotElement(DataFrame matrix, RowLabelProperties properties,
+      DoubleDim aspectRatio, int charWidth) {
+    super(matrix, aspectRatio, -1);
+
+    // mTitle = title;
+    mProperties = properties;
+    mCharWidth = charWidth;
+
+    // List<String> labels = new ArrayList<String>(matrix.getRowCount());
+
+    String[][] labels = new String[matrix.getRows()][properties.showAnnotations
+                                                     .getVisibleCount()];
+
+    List<String> types = CollectionUtils.replicate("string",
+        properties.showAnnotations.getVisibleCount());
+
+    List<String> names = matrix.getIndex().getNames();
+    // List<String> lnames = TextUtils.toLowerCase(names);
+
+    Map<String, String> lnames = TextUtils.toLowerCaseMap(names);
+
+    for (int r = 0; r < matrix.getRows(); ++r) {
+      int c = 0;
+
+      for (int i = 0; i < names.size(); ++i) {
+        String name = names.get(i);
+
+        if (properties.showAnnotations.isVisible(name)) {
+          Matrix annMatrix = matrix.getIndex().getAnnotation(name);
+
+          //double v = annMatrix.getValue(r, 0); matrix.getIndex().getAnnotationValue(name, r);
+
+          //System.err.println("i " + i + " " + name + " " + r + " " + 
+          //    matrix.getIndex().getText(name, r) + " " + annMatrix.getCellType(0, r));
+
+          //System.err.println("sdfsdfsdf " + annMatrix.getClass() + " " + annMatrix.getType());
+          
+          if (annMatrix.getCellType(0, r) == CellType.NUMBER) { //Matrix.isValidMatrixNum(v)) {
+
+
+            double v = annMatrix.getValue(0, r);
+
+            types.set(c, "number");
+
+            if (Mathematics.isInt(v)) {
+              String ln = lnames.get(name);
+
+              int vi = (int) v;
+
+              if (ln.contains("entrez") || ln.contains("id")) {
+                // items that appear to be ids, should not
+                // be formatted with commas or periods.
+                labels[r][c] = Integer.toString(vi);
+              } else {
+                labels[r][c] = Formatter.number().format(vi);
+              }
+            } else {
+              labels[r][c] = Formatter.number().format(v);
+            }
+          } else {
+            labels[r][c] = matrix.getIndex().getText(name, r);
+          }
+
+          ++c;
+        }
+      }
+
+      /*
+       * List<String> annotations = new ArrayList<String>();
+       * 
+       * if
+       * (properties.showAnnotations.get(matrix.getIndex().getNames().get(0)))
+       * { text.append(matrix.getRowName(r)); }
+       * 
+       * 
+       * 
+       * for (int i = 1; i < matrix.getIndex().getNames().size(); ++i) {
+       * String name = matrix.getIndex().getNames().get(i);
+       * 
+       * if (properties.showAnnotations.get(name)) {
+       * extra.add(matrix.getIndex().getText(name, i)); } }
+       * 
+       * if (extra.size() > 0) {
+       * text.append(" (").append(TextUtils.commaJoin(extra)).append(")"); }
+       */
+
+      /*
+       * for (int i = 0; i < matrix.getIndex().getNames().size(); ++i) {
+       * String name = matrix.getIndex().getNames().get(i);
+       * 
+       * if (properties.showAnnotations != null &&
+       * properties.showAnnotations.containsKey(name) &&
+       * properties.showAnnotations.get(name)) {
+       * 
+       * double v = matrix.getIndex().getAnnotationValue(name, r);
+       * 
+       * if (Matrix.isValidMatrixNum(v)) {
+       * annotations.add(Formatter.number().format(v)); } else {
+       * annotations.add(matrix.getIndex().getText(name, r)); } } }
+       * 
+       * labels.add(Join.on(", ").values(annotations).toString());
+       */
+
+      // labels.add(getLabel(matrix, r, properties));
+    }
+
+    setLabels(labels);
+  }
+
+  /**
+   * Sets the labels.
+   *
+   * @param labels the new labels
+   */
+  public void setLabels(String[][] labels) {
+    mLabels = labels;
+
+    mTitles = new String[mProperties.showAnnotations.getVisibleCount()];
+
+    int c = 0;
+
+    for (int i = 0; i < mMatrix.getIndex().getNames().size(); ++i) {
+      String name = mMatrix.getIndex().getNames().get(i);
+
+      if (mProperties.showAnnotations.isVisible(name)) {
+        mTitles[c] = name;
+
+        ++c;
+      }
+    }
+
+    // Find the max width of each column
+    mWidths = Mathematics.zerosIntArray(mLabels[0].length);
+
+    for (int i = 0; i < mWidths.length; ++i) {
+      mWidths[i] = mTitles[i].length();
+
+      for (int j = 0; j < mLabels.length; ++j) {
+        mWidths[i] = Math.max(mWidths[i], mLabels[j][i].length());
+      }
+    }
+
+    int width = 0;
+
+    for (int w : mWidths) {
+      width += w;
+    }
+
+    width += FIELD_GAP * (mWidths.length - 1);
+
+    setWidth(mCharWidth * width);
+  }
+
+  /**
+   * Gets the label.
+   *
+   * @param matrix the matrix
+   * @param row the row
+   * @param properties the properties
+   * @return the label
+   */
+  public static String getLabel(DataFrame matrix,
+      int row,
+      RowLabelProperties properties) {
+    List<String> annotations = new ArrayList<String>();
+
+    for (int i = 0; i < matrix.getIndex().getNames().size(); ++i) {
+      String name = matrix.getIndex().getNames().get(i);
+
+      if (properties.showAnnotations.isVisible(name)) {
+
+        double v = matrix.getIndex().getValue(name, row);
+
+        if (Matrix.isValidMatrixNum(v)) {
+          annotations.add(Formatter.number().format(v));
+        } else {
+          annotations.add(matrix.getIndex().getText(name, row));
+        }
+      }
+    }
+
+    return Join.on(", ").values(annotations).toString();
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * edu.columbia.rdf.lib.bioinformatics.plot.ModernPlotCanvas#plot(java.awt.
+   * Graphics2D, org.abh.common.ui.ui.graphics.DrawingContext)
+   */
+  @Override
+  public void plot(Graphics2D g2,
+      Dimension offset,
+      DrawingContext context,
+      Props props) {
+    drawLabels(g2);
+
+    super.plot(g2, offset, context, props);
+  }
+>>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 
 		super.plot(g2, offset, context, params);
 	}

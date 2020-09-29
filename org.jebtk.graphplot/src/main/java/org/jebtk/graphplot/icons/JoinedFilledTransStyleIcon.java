@@ -32,6 +32,7 @@ public class JoinedFilledTransStyleIcon extends PeakStyleIcon {
 	 */
 	protected static final Color FILL_COLOR = ColorUtils.getTransparentColor60(LINE_COLOR);
 
+<<<<<<< HEAD
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -41,6 +42,22 @@ public class JoinedFilledTransStyleIcon extends PeakStyleIcon {
 	@Override
 	public void drawIcon(Graphics2D g2, int x, int y, int w, int h, Props params) {
 		super.drawIcon(g2, x, y, w, h, params);
+=======
+  /*
+   * (non-Javadoc)
+   * 
+   * @see edu.columbia.rdf.lib.bioinformatics.ui.plot.icons.PeakStyleIcon#
+   * drawForeground(java.awt.Graphics2D, java.awt.Rectangle)
+   */
+  @Override
+  public void drawIcon(Graphics2D g2,
+      int x,
+      int y,
+      int w,
+      int h,
+      Props props) {
+    super.drawIcon(g2, x, y, w, h, props);
+>>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 
 		x = 5;
 		y = 5;

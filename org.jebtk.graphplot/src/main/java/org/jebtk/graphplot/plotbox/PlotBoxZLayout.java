@@ -52,6 +52,7 @@ public class PlotBoxZLayout extends PlotBoxLayout {
 		dim.height += height;
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Draw recursive.
 	 *
@@ -63,6 +64,23 @@ public class PlotBoxZLayout extends PlotBoxLayout {
 	@Override
 	public void plot(Graphics2D g2, PlotBox plot, Dimension offset, DrawingContext context, Props params) {
 		Dimension tempOffset = new Dimension(0, 0);
+=======
+  /**
+   * Draw recursive.
+   *
+   * @param g2 the g2
+   * @param plotBox the plot box
+   * @param offset the offset
+   * @param context the context
+   */
+  @Override
+  public void plot(Graphics2D g2,
+      PlotBox plot,
+      Dimension offset,
+      DrawingContext context,
+      Props props) {
+    Dimension tempOffset = new Dimension(0, 0);
+>>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 
 		for (int z : plot.getZ()) {
 			tempOffset.width = 0;
@@ -70,9 +88,17 @@ public class PlotBoxZLayout extends PlotBoxLayout {
 
 			PlotBox child = plot.getChild(z);
 
+<<<<<<< HEAD
 			child.plot(g2, tempOffset, context, params);
 		}
 
 		super.plot(g2, plot, offset, context, params);
 	}
+=======
+      child.plot(g2, tempOffset, context, props);
+    }
+
+    super.plot(g2, plot, offset, context, props);
+  }
+>>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 }

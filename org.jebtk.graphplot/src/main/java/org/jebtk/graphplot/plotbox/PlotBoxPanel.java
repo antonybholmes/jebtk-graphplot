@@ -50,10 +50,17 @@ public class PlotBoxPanel extends ModernPlotCanvas implements ChangeListener {
 		refresh();
 	}
 
+<<<<<<< HEAD
 	@Override
 	public void plot(Graphics2D g2, DrawingContext context, Props params) {
 		mPlot.plot(g2, context, params);
 	}
+=======
+  @Override
+  public void plot(Graphics2D g2, DrawingContext context, Props props) {
+    mPlot.plot(g2, context, props);
+  }
+>>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 
 	// @Override
 	// public Dimension getPreferredSize() {

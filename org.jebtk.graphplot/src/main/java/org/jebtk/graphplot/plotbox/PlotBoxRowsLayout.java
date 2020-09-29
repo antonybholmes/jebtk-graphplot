@@ -57,6 +57,7 @@ public class PlotBoxRowsLayout extends PlotBoxLayout {
 		}
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Draw recursive.
 	 *
@@ -68,6 +69,23 @@ public class PlotBoxRowsLayout extends PlotBoxLayout {
 	@Override
 	public void plot(Graphics2D g2, PlotBox plotBox, Dimension offset, DrawingContext context, Props params) {
 		Graphics2D subg2 = ImageUtils.clone(g2);
+=======
+  /**
+   * Draw recursive.
+   *
+   * @param g2 the g2
+   * @param plotBox the plot box
+   * @param offset the offset
+   * @param context the context
+   */
+  @Override
+  public void plot(Graphics2D g2,
+      PlotBox plotBox,
+      Dimension offset,
+      DrawingContext context,
+      Props props) {
+    Graphics2D subg2 = ImageUtils.clone(g2);
+>>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 
 		int rows = plotBox.getChildCount() / mCols + (plotBox.getChildCount() % mCols > 0 ? 1 : 0);
 		int[] heights = new int[rows];
@@ -91,7 +109,11 @@ public class PlotBoxRowsLayout extends PlotBoxLayout {
 				tempOffset.width = 0;
 				tempOffset.height = 0;
 
+<<<<<<< HEAD
 				child.plot(subg2, tempOffset, context, params);
+=======
+        child.plot(subg2, tempOffset, context, props);
+>>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 
 				subg2.translate(tempOffset.width, 0);
 
@@ -107,8 +129,13 @@ public class PlotBoxRowsLayout extends PlotBoxLayout {
 			subg2.dispose();
 		}
 
+<<<<<<< HEAD
 		super.plot(g2, plotBox, offset, context, params);
 	}
+=======
+    super.plot(g2, plotBox, offset, context, props);
+  }
+>>>>>>> edc2de9085a0b61281652320f8186d7d1777b2d6
 
 	private void sizes(PlotBox plotBox, int rows, int[] widths, int[] heights) {
 
