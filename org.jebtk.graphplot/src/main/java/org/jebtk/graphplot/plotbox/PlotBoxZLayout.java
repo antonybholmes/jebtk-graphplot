@@ -67,6 +67,8 @@ public class PlotBoxZLayout extends PlotBoxLayout {
 		for (int z : plot.getZ()) {
 			tempOffset.width = 0;
 			tempOffset.height = 0;
+			
+			System.err.println(plot + " " + z + " " + plot.getChild(z));
 
 			PlotBox child = plot.getChild(z);
 

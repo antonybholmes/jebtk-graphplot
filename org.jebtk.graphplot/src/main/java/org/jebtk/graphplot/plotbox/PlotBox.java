@@ -284,13 +284,16 @@ public abstract class PlotBox extends ChangeListeners
 	}
 
 	public final void plot(Graphics2D g2, DrawingContext context, Props params) {
+	  
+	  
 		if (getVisible()) {
+		  System.err.println("plbo");
 			plot(g2, new Dimension(0, 0), context, params);
 		}
 	}
 
 	public void plot(Graphics2D g2, Dimension offset, DrawingContext context, Props params) {
-
+	  System.err.println("plbo2");
 		plotContext(g2, offset, context, params);
 	}
 
@@ -313,7 +316,8 @@ public abstract class PlotBox extends ChangeListeners
 	 * @param m         the m
 	 */
 	public void plotScreen(Graphics2D g2, Dimension offset, DrawingContext context, Props params) {
-
+	  System.err.println("plot sc " + mRasterMode);
+	  
 		if (mRasterMode) {
 			plotRaster(g2, offset, context, params);
 		} else {

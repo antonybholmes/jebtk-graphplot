@@ -90,7 +90,7 @@ public abstract class ModernPlotCanvas extends ZoomCanvas {
 		try {
 			g2Temp.setFont(getFont());
 
-			plot(g2Temp, context, null);
+			plot(g2Temp, context, new Props());
 		} finally {
 			g2Temp.dispose();
 		}

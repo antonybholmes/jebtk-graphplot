@@ -80,6 +80,7 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
 	}
 	
 	public PlotBox add(PlotBox plot, GridLocation l) {
+	  System.err.println("add cont " + plot + " " + l + " " + mStorage);
 		mStorage.add(plot, l);
 		
 		return plot;
@@ -227,7 +228,9 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
 	 */
 	@Override
 	public void plotLayer(Graphics2D g2, Dimension offset, DrawingContext context, Props params) {
-
+	  
+	  System.err.println("sdfsdf layer");
+	  
 		Graphics2D g2Temp = ImageUtils.clone(g2);
 
 		try {
@@ -268,6 +271,21 @@ public class PlotBoxContainer extends PlotBox implements ChangeListener {
 		
 		return this;
 	}
+	
+	@Override
+  public PlotBox getChild(int i) {
+    return mStorage.get(i);
+  }
+	
+	@Override
+  public PlotBox getChild(int i, int j) {
+    return mStorage.get(i, j);
+  }
+	
+	@Override
+  public PlotBox getChild(GridLocation l) {
+    return mStorage.get(l);
+  }
 	
 	@Override
 	public PlotBox getByName(String name) {

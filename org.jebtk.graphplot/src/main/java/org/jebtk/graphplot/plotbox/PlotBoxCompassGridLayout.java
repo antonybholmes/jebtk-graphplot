@@ -95,6 +95,8 @@ public class PlotBoxCompassGridLayout extends PlotBoxLayout {
 		//
 		// Plot
 		//
+	  
+	  System.err.println("blob");
 
 		Graphics2D g2Temp = ImageUtils.clone(g2);
 

@@ -52,6 +52,7 @@ public class PlotBoxPanel extends ModernPlotCanvas implements ChangeListener {
 
 	@Override
 	public void plot(Graphics2D g2, DrawingContext context, Props params) {
+	  System.err.println("plotbox draw");
 		mPlot.plot(g2, context, params);
 	}
 

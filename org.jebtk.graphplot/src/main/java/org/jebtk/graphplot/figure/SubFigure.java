@@ -112,6 +112,8 @@ public class SubFigure extends PlotBoxGraph { // LayoutLayer
 	}
 
 	public Axes newAxes(String name, GridLocation l) {
+	  System.err.println("sub new axes");
+	  
 		mCurrentAxes = new Axes(name);
 
 		add(mCurrentAxes, l);
@@ -148,6 +150,7 @@ public class SubFigure extends PlotBoxGraph { // LayoutLayer
 	}
 
 	public Axes currentAxes() {
+	  System.err.println("current axes");
 		return currentAxes(GridLocation.CENTER);
 	}
 

@@ -31,11 +31,17 @@ public class PlotBoxCompassGridStorage extends PlotBoxStorage {
 	public static final GridLocation[][] ROWS = { { GridLocation.NW, GridLocation.N, GridLocation.NE },
 			{ GridLocation.W, GridLocation.CENTER, GridLocation.E },
 			{ GridLocation.SW, GridLocation.S, GridLocation.SE } };
+	
+	public static final GridLocation[] ALL_LOCS = {GridLocation.NW, GridLocation.N, GridLocation.NE,
+      GridLocation.W, GridLocation.CENTER, GridLocation.E,
+      GridLocation.SW, GridLocation.S, GridLocation.SE};
 
 	private Map<GridLocation, PlotBox> mMap = new TreeMap<GridLocation, PlotBox>();
 
 	@Override
 	public void add(PlotBox plot, GridLocation l) {
+	  System.err.println("where " + l + " " + plot);
+	  
 		mMap.put(l, plot);
 
 		super.add(plot);
@@ -45,7 +51,17 @@ public class PlotBoxCompassGridStorage extends PlotBoxStorage {
 	public PlotBox get(GridLocation l) {
 		return mMap.get(l);
 	}
-
+	
+	@Override
+  public PlotBox get(int i) {
+    return get(ALL_LOCS[i]);
+  }
+	
+	@Override
+  public PlotBox get(int i, int j) {
+    return get(ROWS[i][j]);
+  }
+	
 	@Override
 	public Iterator<PlotBox> iterator() {
 		return mMap.values().iterator();
